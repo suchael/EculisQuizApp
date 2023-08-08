@@ -6,6 +6,8 @@ import {
 
 // Navigation 
 import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+
 
 //ReactNative components 
 import { StyleSheet, Text, View } from 'react-native';
@@ -21,11 +23,14 @@ export default function App() {
   	<> 
   	<SafeAreaProvider>
   		  <Status_bar/>
-			<Header/>
-      	  <Main/>
+  		  <NavigationContainer>
+  			  <Header/>
+  		  	<Main/>
+  		  </NavigationContainer>
+			
+      
   	</SafeAreaProvider>
   	</>
-
   );
 }
 

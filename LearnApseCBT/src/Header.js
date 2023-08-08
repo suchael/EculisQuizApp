@@ -39,8 +39,6 @@ function Header(){
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "#E4F1FE",
-		borderBottomWidth: 2,       
-    	borderBottomColor: "black", 
 		paddingRight: 16,
 		paddingLeft:  16,
 		paddingTop: 12,
@@ -68,8 +66,9 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 	},
 	inputContainerText:{
-		fontSize: 17,
+		fontSize: 14,
 		color: "#333333",
+		fontWeight: "bold",
 		
 	},
 	
