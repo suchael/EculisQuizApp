@@ -3,18 +3,26 @@ import {View,
 				 Text, 
 				 StyleSheet, 
 				 useWindowDimensions,
+				 KeyboardAvoidingView,
 				TextInput} from "react-native";
 
 //icons
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
+function SearchInputShowKeyBoard(){
+	return(
+		
+			<Text></Text>
+		
+	);
+}
 
 function InputFieldView(){
 	return(
 		<>
 			<Text><Ionicons name="search" size={20} color="#333333" /></Text>
-			<Text style={styles.inputContainerText}> Search past questions</Text>
+			<Text style={styles.inputContainerText} > Search past questions</Text>
 		</>
 	);
 }
