@@ -4,6 +4,7 @@ import {View,
 				 StyleSheet, 
 				 useWindowDimensions,
 				 KeyboardAvoidingView,
+				TouchableHighlight,
 				TextInput} from "react-native";
 
 //icons
@@ -20,10 +21,18 @@ function SearchInputShowKeyBoard(){
 
 function InputFieldView(){
 	return(
-		<>
-			<Text><Ionicons name="search" size={20} color="#333333" /></Text>
-			<Text style={styles.inputContainerText} > Search past questions</Text>
-		</>
+		<TouchableHighlight
+			onPress={() => console.log("Search Past Questions")}
+            activeOpacity={0.9}
+            underlayColor="lightgray"
+            style= {styles.inputContainer}         
+		>
+			<View style={styles.inputContainerTouchable}>
+				<Text><Ionicons name="search" size={20} color="#333333" /></Text>
+				<Text style={styles.inputContainerText} > Search past questions</Text>
+			</View>
+		</TouchableHighlight>
+			
 	);
 }
 
@@ -34,11 +43,15 @@ function Header(){
 		<View style= {styles.container}>
 			<View style= {styles.top}>
 				<Text style= {styles.text}>LearnApse</Text>
-				<Text style={styles.text}> <MaterialIcons name="menu" size={35} color="black" /></Text>
+				<TouchableHighlight
+					onPress={() => console.log("Right Top Navigation icon")}
+            		activeOpacity={0.9}
+            		underlayColor="lightgray" 
+				>
+					<Text style={styles.text}> <MaterialIcons name="menu" size={35} color="black" /></Text>
+				</TouchableHighlight>
 			</View>
-			<View style= {styles.inputContainer}>
-				<InputFieldView/>
-			</View>
+			<InputFieldView/>
 		</View>
 	);
 }
@@ -51,7 +64,6 @@ const styles = StyleSheet.create({
 		paddingLeft:  16,
 		paddingTop: 12,
 		paddingBottom: 8,
-		
 		},
 	text: {
 		fontSize: 24,
@@ -77,9 +89,10 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		color: "#333333",
 		fontWeight: "bold",
-		
 	},
-	
+	inputContainerTouchable:{
+		flexDirection: "row",
+	},
 });
 
 

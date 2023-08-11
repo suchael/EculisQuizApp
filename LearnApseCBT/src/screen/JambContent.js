@@ -18,6 +18,8 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 
 
@@ -165,8 +167,8 @@ function Jamb() {
               style={styles.bottomContent}
             >
               <>
-                <View></View>
-                <Text>National score ranking</Text>
+                <View><MaterialCommunityIcons name="nature" size={35} color="white" /></View>
+                <Text style={styles.bottomContentText} >National score ranking</Text>
               </>
             </TouchableHighlight>
             <TouchableHighlight
@@ -176,8 +178,8 @@ function Jamb() {
               style={styles.bottomContent}
             >
               <>
-                <View></View>
-                <Text>Novels and Art </Text>
+                <View><FontAwesome5 name="diagnoses" size={30} color="white" /></View>
+                <Text style={styles.bottomContentText} >Novels and Art </Text>
               </>
             </TouchableHighlight>
             <TouchableHighlight
@@ -187,8 +189,8 @@ function Jamb() {
               style={styles.bottomContent}
             >
               <>
-                <View></View>
-                <Text>Bookmarks</Text>
+                <View><AntDesign name="book" size={35} color="white" /></View>
+                <Text style={styles.bottomContentText} >Bookmarks</Text>
               </>
             </TouchableHighlight>
             <TouchableHighlight
@@ -198,8 +200,8 @@ function Jamb() {
               style={styles.bottomContent}
             >
               <>
-                <View></View>
-                <Text>Jamb syllabus </Text>
+                <View><Entypo name="dropbox" size={35} color="white" /></View>
+                <Text style={styles.bottomContentText} >Jamb syllabus </Text>
               </>
             </TouchableHighlight>
             <TouchableHighlight
@@ -209,8 +211,8 @@ function Jamb() {
               style={styles.bottomContent}
             >
               <>
-                <View></View>
-                <Text>Jamb subject combination </Text>
+                <View><AntDesign name="CodeSandbox" size={35} color="white" /></View>
+                <Text style={styles.bottomContentText} >Jamb subject combination </Text>
               </>
             </TouchableHighlight>
             <TouchableHighlight
@@ -220,11 +222,21 @@ function Jamb() {
               style={styles.bottomContent}
             >
               <>
-                <View></View>
-                <Text>Exam history</Text>
+                <View><FontAwesome5 name="parachute-box" size={34} color="white" /></View>
+                <Text style={styles.bottomContentText} >Exam history</Text>
               </>
             </TouchableHighlight>
           </View>
+          <>
+          	<TouchableHighlight
+              onPress={() => console.log("Group Exam")}
+              activeOpacity={0.9}
+              underlayColor="lightgray"
+              style={styles.bottomContentGroupExam}
+            >
+                <Text style={styles.bottomContentGroupExamText} >Group{"\n"}Exam</Text>
+            </TouchableHighlight>
+          </>
         </View>
       </ScrollView>
     </SafeAreaProvider>
@@ -343,8 +355,16 @@ const styles = StyleSheet.create({
     height: 65,
     borderWidth: 2,
     marginBottom: 8,
+    paddingLeft: 12,
     borderRadius: 5,
     backgroundColor: "orange",
+    flexDirection: "row",
+    gap: 15,
+    alignItems: "center",
+  },
+  bottomContentText:{
+  	fontSize: 16,
+  	fontWeight: "bold",
   },
   clickableText: {
     textDecorationLine: "underline",
@@ -354,6 +374,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  bottomContentGroupExam:{
+  	borderWidth:2,
+  	backgroundColor: "yellow",
+  	width: 100,
+  	height:100,
+  	justifyContent: "center ",
+  	alignItems: "center",
+  	borderRadius: 2,
+  },
+  bottomContentGroupExamText:{
+  	
+  },
+  
 });
 
 export default Jamb;
