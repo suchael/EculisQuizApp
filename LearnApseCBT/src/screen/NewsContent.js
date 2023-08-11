@@ -1,65 +1,78 @@
-import React from 'react';
-import { View,Text, StyleSheet, TouchableHighlight } from 'react-native';
+import React, { useState } from 'react';
+import { View, ScrollView, TouchableWithoutFeedback, Text, StyleSheet, Dimensions } from 'react-native';
 
-function NewsContent () {
+const App = () => {
+  const windowHeight = Dimensions.get('window').height;
+  const buttonBottom = windowHeight * 0.05;
+
+  const [pressedItem, setPressedItem] = useState(null);
+
+  const mockContent = Array.from({ length: 20 }, (_, index) => (
+    <TouchableWithoutFeedback
+      key={index}
+      onPress={() => handleItemPress(index)}
+    >
+      <View style={[styles.item, index === pressedItem && styles.pressedItem]}>
+        <Text>{`Item ${index + 1}`}</Text>
+      </View>
+    </TouchableWithoutFeedback>
+  ));
+
+  const handleItemPress = (index) => {
+    console.log(`Tapped on Item ${index + 1}`);
+    setPressedItem(index);
+    setTimeout(() => {
+      setPressedItem(null);
+    }, 300); // Reset the pressed item after a delay (300ms in this case)
+  };
+
   return (
     <View style={styles.container}>
-    
+      <ScrollView style={styles.scrollContainer}>
+        {mockContent}
+      </ScrollView>
 
-      <View style={[styles.box, styles.topLeft]}></View>
-      <View style={[styles.box, styles.topRight]}></View>
-      <View style={[styles.box, styles.middle]}></View>
-      <View style={[styles.box, styles.bottomLeft]}></View>
-      <View style={[styles.box, styles.bottomRight]}></View>
-          
-	<TouchableHighlight
-		onPress={()=>console.log("hello")}
-		activeOpacity = {0.6}
-		underlayColor = "gray"
-		style={{height:50, width:60, borderWidth:2, margin: 50}}
-	>
-		<Text> Click Me </Text>
-	</TouchableHighlight>
+      <View style={[styles.floatingButtonContainer, { bottom: buttonBottom }]}>
+        <TouchableWithoutFeedback style={styles.floatingButton}>
+          <View style={styles.floatingButton}>
+            <Text style={styles.buttonText}>Button</Text>
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    width: 200,
-    height: 200,
-    backgroundColor: 'lightgray',
+    flex: 1,
   },
-  box: {
-    width: '50%',
-    height: '50%',
+  scrollContainer: {
+    flex: 1,
+    marginBottom: 60,
   },
-  topLeft: {
-    backgroundColor: 'red',
-    borderTopLeftRadius: 20,
+  item: {
+    padding: 20,
+    borderBottomWidth: 1,
+    borderColor: '#ccc',
   },
-  topRight: {
+  pressedItem: {
+    backgroundColor: '#FEE',
+  },
+  floatingButtonContainer: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+  },
+  floatingButton: {
     backgroundColor: 'blue',
-    borderTopRightRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
   },
-  middle: {
-    backgroundColor: 'orange',
-    alignSelf: 'center',
+  buttonText: {
+    color: 'white',
   },
-  bottomLeft: {
-    backgroundColor: 'green',
-    borderBottomLeftRadius: 20,
-  },
-  bottomRight: {
-    backgroundColor: 'purple',
-    borderBottomRightRadius: 20,
-  },
-  button:{
-  	backgroundColor: "yellow",
-  	height:30,
-},
 });
 
-export default NewsContent;
+export default App;

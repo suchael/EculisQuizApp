@@ -6,9 +6,8 @@ function Status_bar(){
 	<>
 		<StatusBar 
 			animated = {true}
-			backgroundColor="black"
-			barStyle = "light-content"
-			
+			backgroundColor="#E4F1FE"
+			barStyle = "dark-content"
 		/>
 	</>
 	);

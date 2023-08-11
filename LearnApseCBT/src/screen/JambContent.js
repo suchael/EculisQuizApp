@@ -14,13 +14,14 @@ import {
 } from "react-native-safe-area-context";
 
 //icons
-import { FontAwesome5 } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
-
+import {
+  FontAwesome5,
+  MaterialIcons,
+  Ionicons,
+  MaterialCommunityIcons,
+  AntDesign,
+  Entypo,
+} from '@expo/vector-icons';
 
 
 function AlertBox() {
@@ -129,7 +130,7 @@ function Jamb() {
                 >
                   <>
                     <View><Ionicons name="ios-finger-print-sharp" size={50} color="gray" /></View>
-                    <Text style={styles.boxesInnerText}>Exam</Text>
+                    <Text style={styles.boxesInnerText}>Exam{"\n"}Mode</Text>
                   </>
                 </TouchableHighlight>
               </View>
@@ -228,7 +229,11 @@ function Jamb() {
             </TouchableHighlight>
           </View>
           <>
-          	<TouchableHighlight
+          	
+          </>
+        </View>
+      </ScrollView>
+      <TouchableHighlight
               onPress={() => console.log("Group Exam")}
               activeOpacity={0.9}
               underlayColor="lightgray"
@@ -236,9 +241,6 @@ function Jamb() {
             >
                 <Text style={styles.bottomContentGroupExamText} >Group{"\n"}Exam</Text>
             </TouchableHighlight>
-          </>
-        </View>
-      </ScrollView>
     </SafeAreaProvider>
   );
 }
@@ -349,12 +351,13 @@ const styles = StyleSheet.create({
   bottom: {
     borderWidth: 2,
     marginTop: 10,
+    marginBottom: 20,
     borderColor: "red",
   },
   bottomContent: {
     height: 65,
     borderWidth: 2,
-    marginBottom: 8,
+    marginBottom:  8,
     paddingLeft: 12,
     borderRadius: 5,
     backgroundColor: "orange",
@@ -375,16 +378,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   bottomContentGroupExam:{
-  	borderWidth:2,
-  	backgroundColor: "yellow",
-  	width: 100,
-  	height:100,
-  	justifyContent: "center ",
-  	alignItems: "center",
-  	borderRadius: 2,
-  },
+	backgroundColor: "yellow",
+	width: 62,
+	height: 62,
+	borderRadius: 18,
+	justifyContent: "center",
+	alignItems: "center",
+	position: "absolute",
+	bottom: 20,
+	right: 20,
+	
+},
   bottomContentGroupExamText:{
-  	
+  	fontWeight: "bold",
   },
   
 });

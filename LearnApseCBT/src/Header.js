@@ -38,11 +38,11 @@ function InputFieldView(){
 
 
 function Header(){
-	const dimHeight = useWindowDimensions().height * 0.15;	//height of header
+	const dimHeight = useWindowDimensions().height * 0.5;	//height of header
 	return(
 		<View style= {styles.container}>
 			<View style= {styles.top}>
-				<Text style= {styles.text}>LearnApse</Text>
+				<Text style= {styles.learnApseText}>LearnApse</Text>
 				<TouchableHighlight
 					onPress={() => console.log("Right Top Navigation icon")}
             		activeOpacity={0.9}
@@ -62,16 +62,16 @@ const styles = StyleSheet.create({
 		backgroundColor: "#E4F1FE",
 		paddingRight: 16,
 		paddingLeft:  16,
-		paddingTop: 12,
+		paddingTop: 10,
 		paddingBottom: 8,
 		},
-	text: {
-		fontSize: 24,
+	learnApseText: {
+		fontSize: 26,
 		fontWeight: "bold",
 	},
 	top:{
 		flexDirection: "row",
-		marginBottom: 2,
+		marginBottom: 5,
 		justifyContent: "space-between",
 	},
 	inputContainer:{
