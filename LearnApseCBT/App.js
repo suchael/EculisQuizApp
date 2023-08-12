@@ -16,6 +16,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import Status_bar from "./src/Status_bar.js";
 import HomeScreen from './src/HomeScreen.js';
+import SearchInputScreen from './src/SearchInputScreen.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -29,7 +30,17 @@ export default function App() {
 						<Stack.Screen 
 							name="HomeScreen" 
 							options={{headerShown: false}}
-							component={HomeScreen}/>
+							component={HomeScreen}
+							/>
+							<Stack.Screen 
+								name='SearchInputScreen' 
+								component={SearchInputScreen}
+								options={{
+									title: "Search past questions",
+									animation: "none",
+								}}
+								
+							/>
 					</Stack.Navigator>
   		  </NavigationContainer>
   	</SafeAreaProvider>

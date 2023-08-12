@@ -10,31 +10,9 @@ import {View,
 //icons
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
 
-function SearchInputShowKeyBoard(){
-	return(
-		
-			<Text></Text>
-		
-	);
-}
 
-function InputFieldView(){
-	return(
-		<TouchableHighlight
-			onPress={() => console.log("Search Past Questions")}
-            activeOpacity={0.9}
-            underlayColor="lightgray"
-            style= {styles.inputContainer}         
-		>
-			<View style={styles.inputContainerTouchable}>
-				<Text><Ionicons name="search" size={20} color="#333333" /></Text>
-				<Text style={styles.inputContainerText} > Search past questions</Text>
-			</View>
-		</TouchableHighlight>
-			
-	);
-}
 
 
 function Header(){
@@ -45,15 +23,48 @@ function Header(){
 				<Text style= {styles.learnApseText}>LearnApse</Text>
 				<TouchableHighlight
 					onPress={() => console.log("Right Top Navigation icon")}
-            		activeOpacity={0.9}
-            		underlayColor="lightgray" 
+					activeOpacity={0.9}
+					underlayColor="lightgray" 
 				>
 					<Text style={styles.text}> <MaterialIcons name="menu" size={35} color="black" /></Text>
 				</TouchableHighlight>
 			</View>
-			<InputFieldView/>
+			<InputFieldViewBox/>
 		</View>
 	);
+}
+
+function InputFieldViewBox(){
+	const navigation = useNavigation();
+	return(
+		<TouchableHighlight
+			onPress={() => (
+				navigation.navigate("SearchInputScreen")
+			)}
+			activeOpacity={0.9}
+			underlayColor="lightgray"
+			style= {styles.inputContainer}         
+		>
+			<View style={styles.inputContainerTouchable}>
+				<Text><Ionicons name="search" size={20} color="#333333" /></Text>
+				<Text style={styles.inputContainerText} > Search past questions</Text>
+			</View>
+		</TouchableHighlight>
+			
+	);
+}
+
+function SearchInputShowKeyBoard(){
+	return (
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <TextInput
+        style={styles.input}
+        placeholder="Search past questions"
+        autoFocus={true}
+      />
+      {/* You can add other UI elements below the input field */}
+    </KeyboardAvoidingView>
+  );
 }
 
 //height:  useWindowDimensions().height * 0.1873,
