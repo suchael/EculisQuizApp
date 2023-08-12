@@ -70,6 +70,9 @@ function Main() {
       <TopTab.Screen 
         name="News" 
         component={NewsContent} 
+        options={{
+          
+        }}
       />
     </TopTab.Navigator>
   );

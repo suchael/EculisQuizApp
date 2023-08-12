@@ -27,7 +27,7 @@ function SearchInputScreen() {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Search past questions"
+          placeholder="Ask me!"
           autoFocus={true}
           value={textInputValue}
           onChangeText={setTextInputValue}
