@@ -97,9 +97,10 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 	},
 	inputContainerText:{
-		fontSize: 14,
-		color: "#333333",
-		fontWeight: "bold",
+		fontSize: 15,
+		color: "#555",
+		fontWeight: "200",
+		letterSpacing: 0.18
 	},
 	inputContainerTouchable:{
 		flexDirection: "row",

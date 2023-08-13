@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   Text,
   Platform,
+  Dimensions 
 } from "react-native";
 
 //icon
@@ -27,7 +28,7 @@ function SearchInputScreen() {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Ask me!"
+          placeholder="Enter a keyword or sentence"
           autoFocus={true}
           multiline
           scrollEnabled
@@ -48,6 +49,12 @@ function SearchInputScreen() {
   );
 }
 
+
+const screenWidth = Dimensions.get('window').width;
+const GAP = 0.7905// This is the best gap between the input box anf the send button
+const inputGap = screenWidth * GAP;
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -60,7 +67,8 @@ const styles = StyleSheet.create({
     marginBottom: -4, // Add margin at the bottom to separate from other content
   },
   input: {
-    flex: 1,
+    maxHeight: 175,
+    width: inputGap,
     borderWidth: 2,
     borderRadius: 25,
     padding: 8,
@@ -74,7 +82,11 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+    right: 5,
+    marginLeft: 4,
   },
   sendButtonText: {
     color: "white",

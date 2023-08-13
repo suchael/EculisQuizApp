@@ -4,9 +4,9 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 
-import JambContent from "./screen/JambContent.js";
-import NewsContent from "./screen/NewsContent.js";
-import SsceContent from "./screen/SsceContent.js";
+import Jamb from "./screen/JambScreen/Jamb.js";
+import News from "./screen/NewsScreen/News.js";
+import Ssce from "./screen/SsceScreen/Ssce.js";
 import Header from "./Header.js";
 
 const TopTab = createMaterialTopTabNavigator();
@@ -41,10 +41,11 @@ function Main() {
       initialRouteName="Jamb"
       screenOptions={{
         tabBarActiveTintColor: "#000000",
-        tabBarInactiveTintColor: "#555",
+        tabBarInactiveTintColor: "#777",
         tabBarLabelStyle: {
           fontSize: 16,
           textTransform: "none",
+          fontWeight: "bold",
         },
         tabBarStyle: {
           height: 40, // Adjust the height of the tab bar
@@ -60,16 +61,16 @@ function Main() {
     >
       <TopTab.Screen 
         name="Ssce" 
-        component={SsceContent} 
+        component={Ssce} 
       />
       <TopTab.Screen
         name="Jamb"
-        component={JambContent}
+        component={Jamb}
         options={{ tabBarLabel: 'JAMB' }}
       />
       <TopTab.Screen 
         name="News" 
-        component={NewsContent} 
+        component={News} 
         options={{
           
         }}
