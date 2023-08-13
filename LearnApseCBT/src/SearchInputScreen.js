@@ -29,6 +29,8 @@ function SearchInputScreen() {
           style={styles.input}
           placeholder="Ask me!"
           autoFocus={true}
+          multiline
+          scrollEnabled
           value={textInputValue}
           onChangeText={setTextInputValue}
         />

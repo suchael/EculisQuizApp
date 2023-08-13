@@ -170,6 +170,7 @@ function Jamb() {
               <>
                 <View><MaterialCommunityIcons name="nature" size={35} color="white" /></View>
                 <Text style={styles.bottomContentText} >National score ranking</Text>
+                <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
               </>
             </TouchableHighlight>
             <TouchableHighlight
@@ -181,6 +182,8 @@ function Jamb() {
               <>
                 <View><FontAwesome5 name="diagnoses" size={30} color="white" /></View>
                 <Text style={styles.bottomContentText} >Novels and Art </Text>
+                <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
+  
               </>
             </TouchableHighlight>
             <TouchableHighlight
@@ -278,7 +281,7 @@ const styles = StyleSheet.create({
   midTopContent: {
     borderWidth: 2,
     flex: 1,
-    marginBottom: 10,
+    marginBottom: 14,
   },
   midTopContentRow1: {
     justifyContent: "space-between",
@@ -345,24 +348,24 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     alignItems: "center",
     justifyContent: "center",
-  },
-
+  },  
   //Bottom
   bottom: {
     borderWidth: 2,
-    marginTop: 10,
+    marginTop:20,
     marginBottom: 20,
     borderColor: "red",
   },
   bottomContent: {
-    height: 65,
+    height: 54,
     borderWidth: 2,
-    marginBottom:  8,
-    paddingLeft: 12,
+    marginBottom: 6,
+    paddingLeft: 26,
     borderRadius: 5,
+    borderBottomLeftRadius: 20,
     backgroundColor: "orange",
     flexDirection: "row",
-    gap: 15,
+    gap: 14,
     alignItems: "center",
   },
   bottomContentText:{
