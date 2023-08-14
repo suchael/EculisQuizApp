@@ -100,18 +100,6 @@ function JambScreen(){
       screenOptions={{animation: "none",}}
     >
       <JambScreenStack.Screen name="JambHome" component={JambHome} options={{headerShown: false}}/>
-      <JambScreenStack.Screen name="Past questions" component={PastQuest}/>
-      <JambScreenStack.Screen name="Custom exam" component={CustExam}/>
-      <JambScreenStack.Screen name="Exam mode" component={ExamMode}/>
-      <JambScreenStack.Screen name="Online battle" component={OnlineBat}/>
-      <JambScreenStack.Screen name="Quiz mode" component={Quiz}/>
-      <JambScreenStack.Screen name="National score ranking" component={NationalRank}/>
-      <JambScreenStack.Screen name="Novels and Art" component={NovelsArt}/>
-      <JambScreenStack.Screen name="Bookmarks" component={Bookmarks}/>
-      <JambScreenStack.Screen name="Jamb syllabus" component={JambSyllabus}/>
-      <JambScreenStack.Screen name="Jamb subject combination" component={JambSubComb}/>
-      <JambScreenStack.Screen name="Exam history" component={ExamHist}/>
-      <JambScreenStack.Screen name="Group exam" component={GroupExam}/>
     </JambScreenStack.Navigator>
   );
 }

@@ -7,6 +7,11 @@ import {View,
 				TouchableHighlight,
 				TextInput} from "react-native";
 
+import {
+	SafeAreaProvider,
+	useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+				
 
 import SearchInputScreen from "./SearchInputScreen";
 
@@ -20,8 +25,9 @@ import { useNavigation } from "@react-navigation/native";
 
 function Header(){
 	const dimHeight = useWindowDimensions().height * 0.5;	//height of header
+	const insets = useSafeAreaInsets();
 	return(
-		<View style= {styles.container}>
+		<View style= {[styles.container,{paddingTop: insets.top+10}]}>
 			<View style= {styles.top}>
 				<Text style= {styles.learnApseText}>LearnApse</Text>
 				<TouchableHighlight
@@ -75,7 +81,6 @@ const styles = StyleSheet.create({
 		backgroundColor: "#E4F1FE",
 		paddingRight: 16,
 		paddingLeft:  16,
-		paddingTop: 10,
 		paddingBottom: 8,
 		},
 	learnApseText: {
