@@ -12,6 +12,9 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
+import { createNativeStackNavigator ,} from "@react-navigation/native-stack";
+import { TransitionSpecs } from '@react-navigation/stack';
+
 
 //icons
 import {
@@ -23,6 +26,22 @@ import {
   Entypo,
 } from '@expo/vector-icons';
 
+//my Import
+import PastQuest from "./PQuestion/PastQuest";
+import CustExam from "./CustExam/CustExam";
+import ExamMode from "./ExamMode/ExamMode";
+import GroupExam from "./GroupExam/GroupExam";
+import JambSubComb from "./JambSubComb/JambSubComb";
+import JambSyllabus from "./JambSyllabus/JambSyllabus";
+import NationalRank from "./NationalRank/NationalRank";
+import NovelsArt from "./NovelsArt/NovelsArt";
+import OnlineBat from "./OnlineBat/OnlineBat";
+import Quiz from "./Quiz/Quiz";
+import Bookmarks from "./Bookmarks/Bookmarks";
+import ExamHist from "./ExamHist/ExamHist";
+
+
+const JambScreenStack = createNativeStackNavigator();
 
 function AlertBox() {
   const userStatus = {
@@ -65,20 +84,44 @@ function AlertBox() {
         </TouchableHighlight>
       </Text>
     );
-  } else {
+  } 
+  else {
     content = <Text style={styles.alertText}>Welcome Success!</Text>;
   }
-
   if (userStatus.loggedIn && userStatus.appActivated) {
     content = <Text style={styles.alertText}>Two weeks to JAMB</Text>;
   }
-
   return <View style={styles.alert}>{content}</View>;
 }
 
+function JambScreen(){
+  return(
+    <JambScreenStack.Navigator initialRouteName="JambHome" 
+      screenOptions={{animation: "none",}}
+    >
+      <JambScreenStack.Screen name="JambHome" component={JambHome} options={{headerShown: false}}/>
+      <JambScreenStack.Screen name="Past questions" component={PastQuest}/>
+      <JambScreenStack.Screen name="Custom exam" component={CustExam}/>
+      <JambScreenStack.Screen name="Exam mode" component={ExamMode}/>
+      <JambScreenStack.Screen name="Online battle" component={OnlineBat}/>
+      <JambScreenStack.Screen name="Quiz mode" component={Quiz}/>
+      <JambScreenStack.Screen name="National score ranking" component={NationalRank}/>
+      <JambScreenStack.Screen name="Novels and Art" component={NovelsArt}/>
+      <JambScreenStack.Screen name="Bookmarks" component={Bookmarks}/>
+      <JambScreenStack.Screen name="Jamb syllabus" component={JambSyllabus}/>
+      <JambScreenStack.Screen name="Jamb subject combination" component={JambSubComb}/>
+      <JambScreenStack.Screen name="Exam history" component={ExamHist}/>
+      <JambScreenStack.Screen name="Group exam" component={GroupExam}/>
+    </JambScreenStack.Navigator>
+  );
+}
+
+// function JambHom(){
+//   return(<></>);
+// }
 
 
-function Jamb() {
+function JambHome({navigation}) {
   const insets = useSafeAreaInsets();
   return (
     <SafeAreaProvider>
@@ -99,7 +142,7 @@ function Jamb() {
             <View style={styles.midTopContent}>
               <View style={styles.midTopContentRow1}>
                 <TouchableHighlight
-                  onPress={() => console.log("Past Question")}
+                  onPress={() => navigation.navigate("Past questions")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
                   style={styles.midTopContentRow1PQuestion}
@@ -110,7 +153,7 @@ function Jamb() {
                   </>
                 </TouchableHighlight>
                 <TouchableHighlight
-                  onPress={() => console.log("Custom Exam")}
+                  onPress={() => navigation.navigate("Custom exam")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
                   style={styles.midTopContentRow1CustomExam}
@@ -123,7 +166,7 @@ function Jamb() {
               </View>
               <View style={styles.midTopContentRow2}>
                 <TouchableHighlight
-                  onPress={() => console.log("Exam")}
+                  onPress={() => navigation.navigate("Exam mode")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
                   style={styles.midTopContentRow2Exam}
@@ -136,7 +179,7 @@ function Jamb() {
               </View>
               <View style={styles.midTopContentRow3}>
                 <TouchableHighlight
-                  onPress={() => console.log("Online Battle")}
+                  onPress={() => navigation.navigate("Online battle")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
                   style={styles.midTopContentRow3OnlineBattle}
@@ -147,7 +190,7 @@ function Jamb() {
                   </>
                 </TouchableHighlight>
                 <TouchableHighlight
-                  onPress={() => console.log("Quiz Mode")}
+                  onPress={() => navigation.navigate("Quiz mode")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
                   style={styles.midTopContentRow3Quiz}
@@ -162,7 +205,7 @@ function Jamb() {
           </View>
           <View style={styles.bottom}>
             <TouchableHighlight
-              onPress={() => console.log("National score ranking")}
+              onPress={() => navigation.navigate("National score ranking")}
               activeOpacity={0.9}
               underlayColor="lightgray"
               style={styles.bottomContent}
@@ -174,7 +217,7 @@ function Jamb() {
               </>
             </TouchableHighlight>
             <TouchableHighlight
-              onPress={() => console.log("Novels and Art")}
+              onPress={() => navigation.navigate("Novels and Art")}
               activeOpacity={0.9}
               underlayColor="lightgray"
               style={styles.bottomContent}
@@ -187,7 +230,7 @@ function Jamb() {
               </>
             </TouchableHighlight>
             <TouchableHighlight
-              onPress={() => console.log("Bookmarks")}
+              onPress={() => navigation.navigate("Bookmarks")}
               activeOpacity={0.9}
               underlayColor="lightgray"
               style={styles.bottomContent}
@@ -198,7 +241,7 @@ function Jamb() {
               </>
             </TouchableHighlight>
             <TouchableHighlight
-              onPress={() => console.log("Jamb syllabus ")}
+              onPress={() => navigation.navigate("Jamb syllabus")}
               activeOpacity={0.9}
               underlayColor="lightgray"
               style={styles.bottomContent}
@@ -209,7 +252,7 @@ function Jamb() {
               </>
             </TouchableHighlight>
             <TouchableHighlight
-              onPress={() => console.log("Jamb subject combination ")}
+              onPress={() => navigation.navigate("Jamb subject combination")}
               activeOpacity={0.9}
               underlayColor="lightgray"
               style={styles.bottomContent}
@@ -220,7 +263,7 @@ function Jamb() {
               </>
             </TouchableHighlight>
             <TouchableHighlight
-              onPress={() => console.log("Exam history ")}
+              onPress={() => navigation.navigate("Exam history")}
               activeOpacity={0.9}
               underlayColor="lightgray"
               style={styles.bottomContent}
@@ -231,19 +274,16 @@ function Jamb() {
               </>
             </TouchableHighlight>
           </View>
-          <>
-          	
-          </>
         </View>
       </ScrollView>
       <TouchableHighlight
-              onPress={() => console.log("Group Exam")}
-              activeOpacity={0.9}
-              underlayColor="lightgray"
-              style={styles.bottomContentGroupExam}
-            >
-                <Text style={styles.bottomContentGroupExamText} >Group{"\n"}Exam</Text>
-            </TouchableHighlight>
+        onPress={() => navigation.navigate("Group exam")}
+        activeOpacity={0.9}
+        underlayColor="lightgray"
+        style={styles.bottomContentGroupExam}
+      >
+        <Text style={styles.bottomContentGroupExamText} >Group{"\n"}Exam</Text>
+      </TouchableHighlight>
     </SafeAreaProvider>
   );
 }
@@ -398,4 +438,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default Jamb;
+export default JambScreen;

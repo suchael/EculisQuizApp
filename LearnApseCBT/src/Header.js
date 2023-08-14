@@ -1,9 +1,9 @@
 import React from "react";
 import {View,
-				 Text, 
-				 StyleSheet, 
-				 useWindowDimensions,
-				 KeyboardAvoidingView,
+				Text, 
+				StyleSheet, 
+				useWindowDimensions,
+				KeyboardAvoidingView,
 				TouchableHighlight,
 				TextInput} from "react-native";
 
@@ -49,8 +49,7 @@ function InputFieldViewBox(){
 				<Text><Ionicons name="search" size={20} color="#333333" /></Text>
 				<Text style={styles.inputContainerText} > Search past questions</Text>
 			</View>
-		</TouchableHighlight>
-			
+		</TouchableHighlight>		
 	);
 }
 
