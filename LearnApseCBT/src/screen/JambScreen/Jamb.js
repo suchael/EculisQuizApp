@@ -26,20 +26,6 @@ import {
   Entypo,
 } from '@expo/vector-icons';
 
-//my Import
-import PastQuest from "./PQuestion/PastQuest";
-import CustExam from "./CustExam/CustExam";
-import ExamMode from "./ExamMode/ExamMode";
-import GroupExam from "./GroupExam/GroupExam";
-import JambSubComb from "./JambSubComb/JambSubComb";
-import JambSyllabus from "./JambSyllabus/JambSyllabus";
-import NationalRank from "./NationalRank/NationalRank";
-import NovelsArt from "./NovelsArt/NovelsArt";
-import OnlineBat from "./OnlineBat/OnlineBat";
-import Quiz from "./Quiz/Quiz";
-import Bookmarks from "./Bookmarks/Bookmarks";
-import ExamHist from "./ExamHist/ExamHist";
-
 
 const JambScreenStack = createNativeStackNavigator();
 
@@ -55,7 +41,6 @@ function AlertBox() {
   };
 
   setUserStatus(true, false); // Example user status
-
   let content;
 
   if (!userStatus.loggedIn) {
@@ -71,7 +56,8 @@ function AlertBox() {
         </TouchableHighlight>
       </Text>
     );
-  } else if (!userStatus.appActivated) {
+  } 
+  else if (!userStatus.appActivated) {
     content = (
       <Text style={styles.alertText}>
         Your App has not been activated.{" "}
@@ -104,10 +90,6 @@ function JambScreen(){
   );
 }
 
-// function JambHom(){
-//   return(<></>);
-// }
-
 
 function JambHome({navigation}) {
   const insets = useSafeAreaInsets();
@@ -118,10 +100,10 @@ function JambHome({navigation}) {
           style={[
             styles.container,
             {
-              paddingLeft: insets.left + 16,
-              paddingRight: insets.right + 16,
-              paddingTop: insets.top + 15,
-              paddingBottom: insets.bottom + 15,
+              paddingLeft: insets.left + 10,
+              paddingRight: insets.right + 10,
+              paddingTop: insets.top + 12,
+              paddingBottom: insets.bottom + 60,
             },
           ]}
         >
@@ -214,7 +196,6 @@ function JambHome({navigation}) {
                 <View><FontAwesome5 name="diagnoses" size={30} color="white" /></View>
                 <Text style={styles.bottomContentText} >Novels and Art </Text>
                 <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
-  
               </>
             </TouchableHighlight>
             <TouchableHighlight
@@ -277,7 +258,6 @@ function JambHome({navigation}) {
 }
 
 const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
 console.log(windowWidth);
 
 const styles = StyleSheet.create({
@@ -302,7 +282,6 @@ const styles = StyleSheet.create({
   alertText: {
     fontSize: 13,
     paddingBottom: 2,
-    //fontWeight:  "100",
   },
 
   //MidTopContent
@@ -417,13 +396,11 @@ const styles = StyleSheet.create({
 	alignItems: "center",
 	position: "absolute",
 	bottom: 20,
-	right: 20,
-	
+	right: 20,	
 },
   bottomContentGroupExamText:{
   	fontWeight: "bold",
-  },
-  
+  }, 
 });
 
 export default JambScreen;

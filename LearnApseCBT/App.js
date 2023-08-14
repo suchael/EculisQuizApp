@@ -9,11 +9,8 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-//ReactNative components 
-import { StyleSheet, Text, View } from 'react-native';
 
 //my Components
-
 import Status_bar from "./src/Status_bar.js";
 import HomeScreen from './src/HomeScreen.js';
 import SearchInputScreen from './src/SearchInputScreen.js';
@@ -29,8 +26,6 @@ import JambSyllabus from './src/screen/JambScreen/JambSyllabus/JambSyllabus.js';
 import JambSubComb from './src/screen/JambScreen/JambSubComb/JambSubComb.js';
 import ExamHist from './src/screen/JambScreen/ExamHist/ExamHist.js';
 import GroupExam from './src/screen/JambScreen/GroupExam/GroupExam.js';
-
-
 
 
 const Stack = createNativeStackNavigator();
@@ -53,6 +48,7 @@ export default function App() {
 							<Stack.Screen 
 								name='Past questions' 
 								component={PastQuest}
+								options={{title: "Past Questions"}}
 							/>
 							<Stack.Screen 
 								name='Custom exam' 

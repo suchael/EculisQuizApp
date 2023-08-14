@@ -21,13 +21,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 
 
-
-
 function Header(){
 	const dimHeight = useWindowDimensions().height * 0.5;	//height of header
 	const insets = useSafeAreaInsets();
 	return(
-		<View style= {[styles.container,{paddingTop: insets.top+10}]}>
+		<View style= {[styles.container,
+									{paddingTop: insets.top + 10,
+									paddingRight: insets.right + 10,
+									paddingLeft: insets.left + 10}]}>
 			<View style= {styles.top}>
 				<Text style= {styles.learnApseText}>LearnApse</Text>
 				<TouchableHighlight
@@ -35,7 +36,7 @@ function Header(){
 					activeOpacity={0.9}
 					underlayColor="lightgray" 
 				>
-					<Text style={styles.text}> <MaterialIcons name="menu" size={35} color="black" /></Text>
+					<Text style={styles.iconWrapper}> <MaterialIcons name="menu" size={35} color="black" /></Text>
 				</TouchableHighlight>
 			</View>
 			<InputFieldViewBox/>
@@ -48,7 +49,7 @@ function InputFieldViewBox(){
 	return(
 		<TouchableHighlight
 			onPress={() => (
-				navigation.navigate("SearchInputScreen") // Searcinput Screen component is in SearchInputScreen.js
+				navigation.navigate("SearchInputScreen") // Search input Screen component is in SearchInputScreen.js
 			)}
 			activeOpacity={0.9}
 			underlayColor="lightgray"
@@ -79,8 +80,6 @@ function SearchInputShowKeyBoard(){
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "#E4F1FE",
-		paddingRight: 16,
-		paddingLeft:  16,
 		paddingBottom: 8,
 		},
 	learnApseText: {
@@ -113,6 +112,8 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		gap: 6,
 	},
+	iconWrapper: {},
+	
 });
 
 

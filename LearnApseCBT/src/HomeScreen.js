@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { BackHandler, Text } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 
 import Jamb from "./screen/JambScreen/Jamb.js";
@@ -10,13 +9,10 @@ import Ssce from "./screen/SsceScreen/Ssce.js";
 import Header from "./Header.js";
 
 const TopTab = createMaterialTopTabNavigator();
-const Stack = createNativeStackNavigator();
 
 function HomeScreen(){
   return(
-    <>
       <Main/>
-    </>
   );
 }
 
@@ -72,9 +68,6 @@ function Main() {
         <TopTab.Screen 
           name="News" 
           component={News} 
-          options={{
-            
-          }}
         />
       </TopTab.Navigator>
     </>
