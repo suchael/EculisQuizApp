@@ -7,6 +7,9 @@ import {View,
 				TouchableHighlight,
 				TextInput} from "react-native";
 
+
+import SearchInputScreen from "./SearchInputScreen";
+
 //icons
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
@@ -39,7 +42,7 @@ function InputFieldViewBox(){
 	return(
 		<TouchableHighlight
 			onPress={() => (
-				navigation.navigate("SearchInputScreen")
+				navigation.navigate("SearchInputScreen") // Searcinput Screen component is in SearchInputScreen.js
 			)}
 			activeOpacity={0.9}
 			underlayColor="lightgray"
@@ -47,7 +50,7 @@ function InputFieldViewBox(){
 		>
 			<View style={styles.inputContainerTouchable}>
 				<Text><Ionicons name="search" size={20} color="#333333" /></Text>
-				<Text style={styles.inputContainerText} > Search past questions</Text>
+				<Text style={styles.inputContainerText} >Search past questions</Text>
 			</View>
 		</TouchableHighlight>		
 	);
@@ -103,6 +106,7 @@ const styles = StyleSheet.create({
 	},
 	inputContainerTouchable:{
 		flexDirection: "row",
+		gap: 6,
 	},
 });
 
