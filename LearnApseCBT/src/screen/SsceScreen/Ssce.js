@@ -1,58 +1,68 @@
 import React from 'react';
-import {
-  View,
-  KeyboardAvoidingView,
-  TextInput,
-  StyleSheet,
-  Text,
-  Platform,
-  TouchableWithoutFeedback,
-  Button,
-  Keyboard,
-} from 'react-native';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 
+const Stack = createNativeStackNavigator();
+const Tab = createMaterialTopTabNavigator();
 
-function SsceContent(){
+function ProfileScreen({ navigation }) {
   return (
-    <KeyboardAvoidingView
-      style={styles.container}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.inner}>
-          <Text style={styles.header}>Header</Text>
-          <TextInput placeholder="Username" style={styles.textInput} />
-          <View style={styles.btnContainer}>
-            <Button title="Submit" onPress={() => null} />
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+    <View>
+      <Text>Profile Screen</Text>
+    </View>
   );
-};
+}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "orange"
-  },
-  inner: {
-    padding: 24,
-    flex: 1,
-    justifyContent: 'space-around',
-  },
-  header: {
-    fontSize: 36,
-    marginBottom: 48,
-  },
-  textInput: {
-    height: 40,
-    borderColor: '#000000',
-    borderBottomWidth: 1,
-    marginBottom: 36,
-  },
-  btnContainer: {
-    backgroundColor: 'white',
-    marginTop: 12,
-  },
-});
+function LeftTabContent({ navigation }) {
+  return (
+    <View>
+      <Text>Left Tab Content</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <Text>Go to Profile</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
 
-export default SsceContent;
+function RightTabContent() {
+  return (
+    <View>
+      <Text>Right Tab Content</Text>
+    </View>
+  );
+}
+
+function HomeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, padding: 20 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <Text>=</Text>
+        </TouchableOpacity>
+        <Text>LearnApse</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+          <Text>Settings</Text>
+        </TouchableOpacity>
+      </View>
+      <TextInput style={{ height: 20, width: '100%', borderWidth: 1, marginTop: 10 }} />
+      <Tab.Navigator>
+        <Tab.Screen name="Left" component={LeftTabContent} />
+        <Tab.Screen name="Right" component={RightTabContent} />
+      </Tab.Navigator>
+    </View>
+  );
+}
+
+export default function SsceContent() {
+  return (
+   
+      <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false, }}>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="Settings" component={ProfileScreen} />
+      </Stack.Navigator>
+    
+  );
+}
