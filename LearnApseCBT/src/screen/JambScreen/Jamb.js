@@ -103,7 +103,7 @@ function JambHome({navigation}) {
               paddingLeft: insets.left + 10,
               paddingRight: insets.right + 10,
               paddingTop: insets.top + 12,
-              paddingBottom: insets.bottom + 60,
+              paddingBottom: insets.bottom + 75,
             },
           ]}
         >
@@ -264,8 +264,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "lightgray",
     flex: 1,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 31,
+    borderTopRightRadius: 31,
   },
   midTop: {
     borderWidth: 2,
@@ -278,6 +278,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 20,
     alignItems: "center",
+    justifyContent: "center",
   },
   alertText: {
     fontSize: 13,

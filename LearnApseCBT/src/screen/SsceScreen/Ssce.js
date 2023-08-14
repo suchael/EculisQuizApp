@@ -1,68 +1,87 @@
+// App.js
+
 import React from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { View, Text, Button } from 'react-native';
 
-
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
-function ProfileScreen({ navigation }) {
+const TabNavigator = () => (
+  <Tab.Navigator>
+    {/* Add your tab screens here */}
+    <Tab.Screen name="Tab1" component={Tab1Screen} />
+    <Tab.Screen name="Tab2" component={Tab2Screen} />
+  </Tab.Navigator>
+);
+
+const AppNavigator = () => (
+    <Stack.Navigator
+      initialRouteName="Screen1"
+      screenOptions={{
+        headerStyle: {
+          shadowColor: 'transparent', // Remove header shadow
+        },
+      }}
+    >
+      <Stack.Screen name="Screen1" component={Screen1} />
+      <Stack.Screen name="Screen2" component={Screen2} />
+    </Stack.Navigator>
+  
+);
+
+const Screen1 = ({ navigation }) => {
   return (
     <View>
-      <Text>Profile Screen</Text>
+      <Text>Screen 1 Content</Text>
+      <Button
+        title="Go to Screen 2"
+        onPress={() => navigation.navigate('Screen2')}
+      />
     </View>
   );
-}
+};
 
-function LeftTabContent({ navigation }) {
+const Screen2 = () => {
+  return (
+    <View style={{ flex: 1 }}>
+      {/* Custom header */}
+      <Header />
+      {/* Top tab navigator */}
+      <TabNavigator />
+    </View>
+  );
+};
+
+const Header = ({ navigation }) => {
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
+      <Button
+        title="<"
+        onPress={() => navigation.goBack()}
+        style={{ marginRight: 10 }}
+      />
+      <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Screen 2</Text>
+    </View>
+  );
+};
+
+const Tab1Screen = () => {
   return (
     <View>
-      <Text>Left Tab Content</Text>
-      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-        <Text>Go to Profile</Text>
-      </TouchableOpacity>
+      <Text>Tab 1 Content</Text>
     </View>
   );
-}
+};
 
-function RightTabContent() {
+const Tab2Screen = () => {
   return (
     <View>
-      <Text>Right Tab Content</Text>
+      <Text>Tab 2 Content</Text>
     </View>
   );
-}
+};
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, padding: 20 }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Text>=</Text>
-        </TouchableOpacity>
-        <Text>LearnApse</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-          <Text>Settings</Text>
-        </TouchableOpacity>
-      </View>
-      <TextInput style={{ height: 20, width: '100%', borderWidth: 1, marginTop: 10 }} />
-      <Tab.Navigator>
-        <Tab.Screen name="Left" component={LeftTabContent} />
-        <Tab.Screen name="Right" component={RightTabContent} />
-      </Tab.Navigator>
-    </View>
-  );
-}
-
-export default function SsceContent() {
-  return (
-   
-      <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false, }}>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="Settings" component={ProfileScreen} />
-      </Stack.Navigator>
-    
-  );
-}
+export default AppNavigator;
