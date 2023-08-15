@@ -35,7 +35,7 @@ export default function App() {
   	<SafeAreaProvider>
   		  <Status_bar/>
   		  <NavigationContainer>
-					<Stack.Navigator initialRouteName='HomeScreen' screenOptions={{animation:"none"}}>
+					<Stack.Navigator initialRouteName='HomeScreen' screenOptions={{animation:"none",headerShown: false}}>
 						<Stack.Screen 
 							name="HomeScreen" 
 							options={{headerShown: false}}
