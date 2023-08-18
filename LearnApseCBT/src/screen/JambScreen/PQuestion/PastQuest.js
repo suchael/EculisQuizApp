@@ -1,12 +1,19 @@
 import {View, 
         Text, 
         StyleSheet,
+        ScrollView,
+        Dimensions,
         TouchableHighlight } from 'react-native';
 
 import React , {useState}from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
+
+// my import
+import Subject from "./SubjectListDb.js";
+import QuestButton from "./QuestButton.js";
+import ShowQuestionList from "./ShowQuestionList.js";
 
 
 import {
@@ -23,8 +30,9 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function PastQuest() {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}}>
       <Stack.Screen name='Home' component={Home}/>
+      <Stack.Screen name='Show question list' component={ShowQuestionList}/>
     </Stack.Navigator>
   )
 }
@@ -47,17 +55,18 @@ function HomeHeader(){
                     {
                       paddingLeft: insets.left + 10,
                       paddingRight: insets.right + 10,
-                      paddingTop: insets.top + 15,
-                      paddingBottom: insets.bottom + 12,
+                      paddingTop: insets.top + 12,
+                      paddingBottom: insets.bottom + 4,
                   }]}>
       <TouchableHighlight
         onPress={() => navigation.goBack() }
         activeOpacity={0.9}
         underlayColor="lightgray"
+        style = {{borderWidth:2, width: 60, height: 40, justifyContent: "center"}}
       >
-        <AntDesign name="arrowleft" size={27} color="#333" />
+        <AntDesign name="arrowleft" size={27} color="#333"  style={{marginLeft: -4}}/>
       </TouchableHighlight>
-      <Text style = {styles.homeHeaderText}>Past  Questions</Text>
+      <Text style = {styles.homeHeaderText}>JAMB  Past  Questions</Text>
     </View>
   );
 }
@@ -84,6 +93,7 @@ function TabBar(){
           backgroundColor: "black",
           height: 3,
         },
+        animation: "none",
     }}>
       <Tab.Screen name ="General" component={SelectByGeneral}/>
       <Tab.Screen name ="Topic Based" component={SelectByTopic}/>
@@ -91,21 +101,45 @@ function TabBar(){
   );
 }
 
+
 function SelectByGeneral(){
+  const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
-  const instruction = "Note: Questions from 2015 and above have been compiled from students who sat for the exam, as JAMB halted the issuance of compiled questions.";
+  const instruction = "Note: Past Questions from 2015 and above were compiled by teachers as mock questions, and  from students who took  the CBT exam in previous years. This is due to JAMB discontinuing the issuance of compiled questions starting from the CBT era. As a result, the length of questions in some years maybe longer than others. ";
   return(
     <View style = {{
-      paddingLeft: insets.left + 10,
-      paddingRight: insets.right + 10,
-      paddingTop: insets.top + 15,
-      paddingBottom: insets.bottom + 12,
-  }}>
-      <View><ReadMoreText text={instruction} maxLength={50} /></View>
+      	paddingLeft: insets.left + 10,
+      	paddingRight: insets.right + 10,
+      	paddingBottom: insets.bottom + 20,
+      	flex:1,
+      }}>
+      <ScrollView style = {{marginBottom: 0, marginTop: 0}}> 
+		<ReadMoreText text={instruction} maxLength={35} />
+			<View style = {{paddingBottom: 80, paddingTop:10}}>
+				{Subject.map((eachSubject, index)=>(
+					<QuestButton key={index} subject= {eachSubject}/>
+				))}
+			</View>
+	 </ScrollView>  
+	
+      <TouchableHighlight 
+		 onPress={()=> navigation.navigate("Show question list")}
+	     style={{ width: 80 }} // Apply style to the outer container
+	     underlayColor="lightgray"
+		 style={ styles.studyButton }
+	  >
+         <Text style={ styles.studyButtonText }>
+              Study Now
+         </Text>
+      </TouchableHighlight>
     </View>
   );
 }
+
+
+
 function SelectByTopic(){
+  const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
   return(
     <View style = {{
@@ -114,7 +148,7 @@ function SelectByTopic(){
       paddingTop: insets.top + 15,
       paddingBottom: insets.bottom + 12,
     }}>
-      <Text>Study Past Questions by topic</Text>
+      <Text>Study Past Questions by topic</Text>  
     </View>
   );
 }
@@ -135,18 +169,36 @@ const ReadMoreText = ({ text, maxLength }) => {
   };
 
   return (
-    <View>
-      <Text>{renderText()}</Text>
-      {text.length > maxLength && (
-        <TouchableHighlight onPress={toggleExpansion}>
-          <Text style={{ color: 'blue' }}>
-            {expanded ? 'Read Less' : 'Read More'}
+    <View style={{ flexDirection: 'column' , marginTop: 14}}>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text>{renderText()}</Text>
+        {!expanded && text.length > maxLength && (
+          <TouchableHighlight 
+				onPress={toggleExpansion}
+			    style={{ width: 80 }} // Apply style to the outer container
+			    underlayColor="lightgray"
+		  >
+            <Text style={{ color: 'green' , width:80}}>
+              {' Read More'}
+            </Text>
+          </TouchableHighlight>
+        )}
+      </View>
+      {expanded && (
+        <TouchableHighlight onPress={toggleExpansion} 
+			  style={{ width: 80 }} // Apply style to the outer container
+			  underlayColor="lightgray"
+		>
+          <Text style={{ color: 'blue', width: 80 }}>
+            {'Read Less\n'}
           </Text>
         </TouchableHighlight>
       )}
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   homeContainer:{
@@ -155,7 +207,7 @@ const styles = StyleSheet.create({
   },
   homeHeader: {
     flexDirection: "row",
-    gap: 30,
+    gap: 20,
     alignItems: "center",
   },
   homeHeaderIcon: {
@@ -164,4 +216,27 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "500",
   },
+  
+  // Study Button
+ studyButton:{
+ 	height: 35,
+ 	backgroundColor: "orange",
+ 	borderRadius: 18,
+ 	justifyContent: "center",
+     alignItems: "center",
+     position: "absolute",
+    bottom:  5, // Adjust this value to control the distance from the bottom
+    alignSelf: "center",
+    width:  "100%",
+     
+  },
+  studyButtonText: {
+  	fontSize: 17,
+  	fontWeight: "300",
+   },
 });
+
+
+
+
+

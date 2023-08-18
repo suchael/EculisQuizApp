@@ -35,8 +35,8 @@ function Home(){
                 {
                   paddingLeft: insets.left + 10,
                   paddingRight: insets.right + 10,
-                  paddingTop: insets.top + 15,
-                  paddingBottom: insets.bottom + 12,
+                  paddingTop: insets.top + 12,
+                  paddingBottom: insets.bottom + 4,
                 }
     ]}>
       <HomeHeader/>
@@ -53,8 +53,9 @@ function HomeHeader(){
         onPress={() => navigation.goBack() }
         activeOpacity={0.9}
         underlayColor="lightgray"
+        style = {{borderWidth:2, width: 60, height: 40, justifyContent: "center"}}
       >
-        <AntDesign name="arrowleft" size={27} color="#333" />
+        <AntDesign name="arrowleft" size={27} color="#333" style={{marginLeft: -4}}/>
       </TouchableHighlight>
       <Text style = {styles.homeHeaderText}>Past Questions</Text>
     </View>
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
   },
   homeHeader: {
     flexDirection: "row",
-    gap: 30,
+    gap: 10,
     alignItems: "center",
   },
   homeHeaderIcon: {

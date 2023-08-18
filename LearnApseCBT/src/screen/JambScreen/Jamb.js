@@ -118,19 +118,21 @@ function JambHome({navigation}) {
                   style={styles.midTopContentRow1PQuestion}
                 >
                   <>
-                    <View><MaterialCommunityIcons name="notebook-multiple" size={40} color="white" /></View>
-                    <Text style={styles.boxesInnerText}>Past{"\n"}Questions</Text>
+                    <MaterialCommunityIcons name="notebook-multiple" size={40} color="white" />
+                    <Text style={styles.boxesInnerText}>Past</Text>
+                    <Text style={styles.boxesInnerText}>Questions</Text>
                   </>
                 </TouchableHighlight>
                 <TouchableHighlight
-                  onPress={() => navigation.navigate("Custom exam")}
+                  onPress={() => navigation.navigate("Custom test")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
-                  style={styles.midTopContentRow1CustomExam}
+                  style={styles.midTopContentRow1CustomisedTest}
                 >
                   <>
-                    <View><MaterialIcons name="my-library-books" size={45} color="white" /></View>
-                    <Text style={styles.boxesInnerText}>Custom{"\n"}Exam </Text>
+                    <MaterialIcons name="my-library-books" size={45} color="white" />
+                    <Text style={styles.boxesInnerText}>Customised</Text>
+                    <Text style={styles.boxesInnerText}>Test</Text>
                   </>
                 </TouchableHighlight>
               </View>
@@ -142,7 +144,7 @@ function JambHome({navigation}) {
                   style={styles.midTopContentRow2Exam}
                 >
                   <>
-                    <View><Ionicons name="ios-finger-print-sharp" size={50} color="gray" /></View>
+                    <Ionicons name="ios-finger-print-sharp" size={50} color="gray" />
                     <Text style={styles.boxesInnerText}>Exam{"\n"}Mode</Text>
                   </>
                 </TouchableHighlight>
@@ -155,7 +157,7 @@ function JambHome({navigation}) {
                   style={styles.midTopContentRow3OnlineBattle}
                 >
                   <>
-                    <View><MaterialIcons name="online-prediction" size={47} color="white" /></View>
+                    <MaterialIcons name="online-prediction" size={47} color="white" />
                     <Text style={styles.boxesInnerText}>Online{"\n"}Battle</Text>
                   </>
                 </TouchableHighlight>
@@ -166,7 +168,7 @@ function JambHome({navigation}) {
                   style={styles.midTopContentRow3Quiz}
                 >
                   <>
-                    <View><MaterialCommunityIcons name="head-question-outline" size={45} color="white" /></View>
+                    <MaterialCommunityIcons name="head-question-outline" size={45} color="white" />
                     <Text style={styles.boxesInnerText}>Quiz{"\n"}Mode</Text>
                   </>
                 </TouchableHighlight>
@@ -181,7 +183,7 @@ function JambHome({navigation}) {
               style={styles.bottomContent}
             >
               <>
-                <View><MaterialCommunityIcons name="nature" size={35} color="white" /></View>
+                <MaterialCommunityIcons name="nature" size={35} color="white" />
                 <Text style={styles.bottomContentText} >National score ranking</Text>
                 <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
               </>
@@ -193,7 +195,7 @@ function JambHome({navigation}) {
               style={styles.bottomContent}
             >
               <>
-                <View><FontAwesome5 name="diagnoses" size={30} color="white" /></View>
+                <FontAwesome5 name="diagnoses" size={30} color="white" />
                 <Text style={styles.bottomContentText} >Novels and Art </Text>
                 <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
               </>
@@ -205,7 +207,7 @@ function JambHome({navigation}) {
               style={styles.bottomContent}
             >
               <>
-                <View><AntDesign name="book" size={35} color="white" /></View>
+                <AntDesign name="book" size={35} color="white" />
                 <Text style={styles.bottomContentText} >Bookmarks</Text>
               </>
             </TouchableHighlight>
@@ -216,7 +218,7 @@ function JambHome({navigation}) {
               style={styles.bottomContent}
             >
               <>
-                <View><Entypo name="dropbox" size={35} color="white" /></View>
+                <Entypo name="dropbox" size={35} color="white" />
                 <Text style={styles.bottomContentText} >Jamb syllabus </Text>
               </>
             </TouchableHighlight>
@@ -227,7 +229,7 @@ function JambHome({navigation}) {
               style={styles.bottomContent}
             >
               <>
-                <View><AntDesign name="CodeSandbox" size={35} color="white" /></View>
+                <AntDesign name="CodeSandbox" size={35} color="white" />
                 <Text style={styles.bottomContentText} >Jamb subject combination </Text>
               </>
             </TouchableHighlight>
@@ -238,7 +240,7 @@ function JambHome({navigation}) {
               style={styles.bottomContent}
             >
               <>
-                <View><FontAwesome5 name="parachute-box" size={34} color="white" /></View>
+                <FontAwesome5 name="parachute-box" size={34} color="white" />
                 <Text style={styles.bottomContentText} >Exam history</Text>
               </>
             </TouchableHighlight>
@@ -258,7 +260,6 @@ function JambHome({navigation}) {
 }
 
 const windowWidth = Dimensions.get("window").width;
-console.log(windowWidth);
 
 const styles = StyleSheet.create({
   container: {
@@ -318,7 +319,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  midTopContentRow1CustomExam: {
+  midTopContentRow1CustomisedTest: {
     borderWidth: 2,
     backgroundColor: "orange",
     width: 110,
@@ -387,6 +388,7 @@ const styles = StyleSheet.create({
   boxesInnerText: {
     fontSize: 16,
     fontWeight: "bold",
+    alignItems: "center",
   },
   bottomContentGroupExam:{
 	backgroundColor: "yellow",

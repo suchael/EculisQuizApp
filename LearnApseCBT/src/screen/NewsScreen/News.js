@@ -1,44 +1,41 @@
 import React, { useState } from 'react';
-import { View, ScrollView, TouchableWithoutFeedback, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Animated, TouchableOpacity } from 'react-native';
 
-const App = () => {
-  const windowHeight = Dimensions.get('window').height;
-  const buttonBottom = windowHeight * 0.05;
+const SwitchButton= () => {
+  const [isToggled, setIsToggled] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(true);
+  const switchPosition = new Animated.Value(isToggled ? 1 : 0);
 
-  const [pressedItem, setPressedItem] = useState(null);
-
-  const mockContent = Array.from({ length: 20 }, (_, index) => (
-    <TouchableWithoutFeedback
-      key={index}
-      onPress={() => handleItemPress(index)}
-    >
-      <View style={[styles.item, index === pressedItem && styles.pressedItem]}>
-        <Text>{`Item ${index + 1}`}</Text>
-      </View>
-    </TouchableWithoutFeedback>
-  ));
-
-  const handleItemPress = (index) => {
-    console.log(`Tapped on Item ${index + 1}`);
-    setPressedItem(index);
-    setTimeout(() => {
-      setPressedItem(null);
-    }, 300); // Reset the pressed item after a delay (300ms in this case)
+  const handleViewPress = () => {
+    if (isEnabled) {
+      Animated.spring(switchPosition, {
+        toValue: isToggled ? 0 : 1,
+        useNativeDriver: false,
+      }).start();
+      setIsToggled(!isToggled);
+    }
   };
+
+  const interpolatedValue = switchPosition.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 30],
+  });
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollContainer}>
-        {mockContent}
-      </ScrollView>
-
-      <View style={[styles.floatingButtonContainer, { bottom: buttonBottom }]}>
-        <TouchableWithoutFeedback style={styles.floatingButton}>
-          <View style={styles.floatingButton}>
-            <Text style={styles.buttonText}>Button</Text>
-          </View>
-        </TouchableWithoutFeedback>
-      </View>
+      <TouchableOpacity onPress={handleViewPress} disabled={!isEnabled}>
+        <View style={[styles.switchContainer, !isEnabled && styles.disabledSwitchContainer]}>
+          <Animated.View
+            style={[
+              styles.switch,
+              {
+                backgroundColor: isToggled ? 'orange' : 'gray',
+                transform: [{ translateX: interpolatedValue }],
+              },
+            ]}
+          />
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -46,33 +43,29 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  scrollContainer: {
-    flex: 1,
-    marginBottom: 60,
+  switchContainer: {
+    width: 60,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: 'white',
+    borderWidth: 2,
+    borderColor: 'gray',
+    justifyContent: 'center',
+    paddingHorizontal: 5, // Increase touchable area horizontally
   },
-  item: {
-    padding: 20,
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
+  disabledSwitchContainer: {
+    backgroundColor: 'red',
   },
-  pressedItem: {
-    backgroundColor: '#FEE',
-  },
-  floatingButtonContainer: {
+  switch: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
     position: 'absolute',
-    bottom: 20,
-    right: 20,
-  },
-  floatingButton: {
-    backgroundColor: 'blue',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: 'white',
+    backgroundColor: 'green',
   },
 });
 
-export default App;
+export default SwitchButton;

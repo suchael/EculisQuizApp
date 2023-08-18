@@ -15,7 +15,7 @@ import Status_bar from "./src/Status_bar.js";
 import HomeScreen from './src/HomeScreen.js';
 import SearchInputScreen from './src/SearchInputScreen.js';
 import PastQuest from './src/screen/JambScreen/PQuestion/PastQuest.js';
-import CustExam from './src/screen/JambScreen/CustExam/CustExam.js';
+import CustTest from './src/screen/JambScreen/CustTest/CustTest.js';
 import ExamMode from './src/screen/JambScreen/ExamMode/ExamMode.js';
 import OnlineBat from './src/screen/JambScreen/OnlineBat/OnlineBat.js';
 import Quiz from './src/screen/JambScreen/Quiz/Quiz.js';
@@ -51,8 +51,8 @@ export default function App() {
 								options={{title: "Past Questions"}}
 							/>
 							<Stack.Screen 
-								name='Custom exam' 
-								component={CustExam}
+								name='Custom test' 
+								component={CustTest}
 							/>
 							<Stack.Screen 
 								name='Exam mode' 
