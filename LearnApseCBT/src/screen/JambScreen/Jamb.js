@@ -71,8 +71,8 @@ function JambHome({navigation}) {
                 >
                   <>
                     <MaterialCommunityIcons name="notebook-multiple" size={40} color="white" />
-                    <Text style={styles.boxesInnerText}>Past</Text>
-                    <Text style={styles.boxesInnerText}>Questions</Text>
+                    <Text style={styles.midTopContentRowText}>Past</Text>
+                    <Text style={styles.midTopContentRowText}>Questions</Text>
                   </>
                 </TouchableHighlight>
                 <TouchableHighlight
@@ -86,8 +86,8 @@ function JambHome({navigation}) {
                 >
                   <>
                     <MaterialIcons name="my-library-books" size={45} color="white" />
-                    <Text style={styles.boxesInnerText}>Customised</Text>
-                    <Text style={styles.boxesInnerText}>Test</Text>
+                    <Text style={styles.midTopContentRowText}>Customised</Text>
+                    <Text style={styles.midTopContentRowText}>Test</Text>
                   </>
                 </TouchableHighlight>
               </View>
@@ -100,7 +100,7 @@ function JambHome({navigation}) {
                 >
                   <>
                     <Ionicons name="ios-finger-print-sharp" size={50} color="gray" />
-                    <Text style={styles.boxesInnerText}>Exam{"\n"}Mode</Text>
+                    <Text style={styles.midTopContentRowText}>Exam{"\n"}Mode</Text>
                   </>
                 </TouchableHighlight>
               </View>
@@ -116,7 +116,7 @@ function JambHome({navigation}) {
                 >
                   <>
                     <MaterialIcons name="online-prediction" size={47} color="white" />
-                    <Text style={styles.boxesInnerText}>Online{"\n"}Battle</Text>
+                    <Text style={styles.midTopContentRowText}>Online{"\n"}Battle</Text>
                   </>
                 </TouchableHighlight>
                 <TouchableHighlight
@@ -130,12 +130,14 @@ function JambHome({navigation}) {
                 >
                   <>
                     <MaterialCommunityIcons name="head-question-outline" size={45} color="white" />
-                    <Text style={styles.boxesInnerText}>Quiz{"\n"}Mode</Text>
+                    <Text style={styles.midTopContentRowText}>Quiz{"\n"}Mode</Text>
                   </>
                 </TouchableHighlight>
               </View>
             </View>
           </View>
+          
+          
           <View style={styles.bottom}>
             <TouchableHighlight
               onPress={() => navigation.navigate("National score ranking")}
@@ -145,7 +147,7 @@ function JambHome({navigation}) {
             >
               <>
                 <MaterialCommunityIcons name="nature" size={35} color="white" />
-                <Text style={styles.bottomContentText} >National score ranking</Text>
+                <Text style={styles.midTopContentRowText} >National score ranking</Text>
                 <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
               </>
             </TouchableHighlight>
@@ -212,9 +214,17 @@ function JambHome({navigation}) {
         onPress={() => navigation.navigate("Group exam")}
         activeOpacity={0.9}
         underlayColor="lightgray"
-        style={styles.bottomContentGroupExam}
+        style={styles.groupExam}
       >
-        <Text style={styles.bottomContentGroupExamText} >Group{"\n"}Exam</Text>
+        <Text style={styles.groupExamText} >Group{"\n"}Exam</Text>
+      </TouchableHighlight>
+      <TouchableHighlight
+        onPress={() => navigation.navigate("Group exam")}
+        activeOpacity={0.9}
+        underlayColor="lightgray"
+        style={styles.teacherNetwork}
+      >
+        <Text style={styles.teacherNetworkText} >Teacher{"\n"}Network</Text>
       </TouchableHighlight>
     </SafeAreaProvider>
   );
@@ -233,7 +243,7 @@ function AlertBox() {
   };
   
    // Toggle the user Alert message using "true/false"
-  setUserStatus(false, false); 
+  setUserStatus(true, true); 
   let content;
 
   if (!userStatus.loggedIn) {
@@ -274,7 +284,7 @@ function AlertBox() {
   if (userStatus.loggedIn && userStatus.appActivated) {
     content = (
 			<Text style={styles.alertText}>
-				Hi, it is Two weeks to JAMB... Are you prepared? 
+				Hi, it is few weeks to JAMB... Are you prepared? Join students in the ongoing Online Battle 
 			</Text>
 	)
   }
@@ -288,19 +298,22 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "lightgray",
     flex: 1,
-    borderTopLeftRadius: 31,
-    borderTopRightRadius: 31,
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
   },
   midTop: {
     //borderWidth: 2,
   },
   alert: {
-    //borderWidth: 2,
-    padding: 4,
+    paddingTop: 4,
+    paddingBottom:4,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginTop: 2,
     marginBottom: 10,
     backgroundColor: "yellow",
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
+    borderTopRightRadius: 38,
+    borderTopLeftRadius: 38,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -364,13 +377,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  
+  midTopContentRowText:{
+  	color: "black",
+      fontSize: 16,
+      fontWeight: "bold",
+      alignItems: "center",
+  },
   
   //Bottom
   bottom: {
     //borderWidth: 2,
     marginTop:20,
-    marginBottom: 20,
+    marginBottom: 80,
   },
   bottomContent: {
     height: 54,
@@ -388,25 +406,37 @@ const styles = StyleSheet.create({
   	fontSize: 16,
   	fontWeight: "bold",
   },
-  boxesInnerText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    alignItems: "center",
-  },
-  bottomContentGroupExam:{
-	backgroundColor: "yellow",
-	width: 62,
-	height: 62,
-	borderRadius: 18,
+  
+  groupExam: {
+    backgroundColor: "yellow",
+	width: 60,
+	height: 60,
+	borderRadius: 20,
 	justifyContent: "center",
 	alignItems: "center",
 	position: "absolute",
-	bottom: 20,
+	bottom:  86,
+	right: 10.6,	
+   },
+   groupExamText: {
+      fontWeight: "bold",
+  	fontSize: 13
+	},
+  
+  teacherNetwork:{
+	backgroundColor: "yellow",
+	paddingHorizontal: 8,
+	paddingVertical: 14,
+	borderRadius: 20,
+	justifyContent: "center",
+	alignItems: "center",
+	position: "absolute",
+	bottom: 12,
 	right: 10.6,	
 },
-  bottomContentGroupExamText:{
+  teacherNetworkText:{
   	fontWeight: "bold",
-  	fontSize: 15
+  	fontSize: 13
   }, 
 });
 
