@@ -31,15 +31,18 @@ function Header(){
 									paddingLeft: insets.left + 10}]}>
 			<View style= {styles.top}>
 				<Text style= {styles.learnApseText}>LearnApse</Text>
-				<TouchableHighlight
-					onPress={() => console.log("Right Top Navigation icon")}
-					activeOpacity={0.9}
-					underlayColor="lightgray" 
-				>
-					<Text style={styles.iconWrapper}> <MaterialIcons name="menu" size={35} color="black" /></Text>
-				</TouchableHighlight>
+				<View style={{alignItems: "center", justifyContent: "space-between", flexDirection: "row", gap:8}}>
+					<InputFieldViewBox/>
+					<TouchableHighlight
+						onPress={() => console.log("Right Top Navigation icon")}
+						activeOpacity={0.9}
+						underlayColor="lightgray" 
+						style = {styles.topIcons}
+					>
+						<Text style={styles.iconWrapper}> <MaterialIcons name="menu" size={35} color="black" /></Text>
+					</TouchableHighlight>
+				</View>
 			</View>
-			<InputFieldViewBox/>
 		</View>
 	);
 }
@@ -53,11 +56,10 @@ function InputFieldViewBox(){
 			)}
 			activeOpacity={0.9}
 			underlayColor="lightgray"
-			style= {styles.inputContainer}         
+			style= {styles.topIcons}         
 		>
 			<View style={styles.inputContainerTouchable}>
-				<Text><Ionicons name="search" size={20} color="#333333" /></Text>
-				<Text style={styles.inputContainerText} >Search past questions</Text>
+				<Text><Ionicons name="search" size={23} color="black" /></Text>
 			</View>
 		</TouchableHighlight>		
 	);
@@ -91,16 +93,13 @@ const styles = StyleSheet.create({
 		marginBottom: 5,
 		justifyContent: "space-between",
 	},
-	inputContainer:{
-		backgroundColor: "white",
-		flexDirection: "row",
-		borderColor: "black",
-		borderWidth: 2,
-		height: 36,
+	topIcons:{
+		width: 50,
+		height: 40,
 		alignItems: "center",
-		paddingLeft: 12,
-		gap: 3,
-		borderRadius: 15,
+		justifyContent: "center",
+		padding: 4,
+		borderRadius: 20,
 	},
 	inputContainerText:{
 		fontSize: 15,
@@ -109,8 +108,7 @@ const styles = StyleSheet.create({
 		letterSpacing: 0.18
 	},
 	inputContainerTouchable:{
-		flexDirection: "row",
-		gap: 6,
+		paddingTop: 3,
 	},
 	iconWrapper: {},
 	

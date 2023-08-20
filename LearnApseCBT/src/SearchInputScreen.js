@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   input: {
     maxHeight: 175,
-    width: inputGap,
+    width: "85%",
     borderWidth: 2,
     borderRadius: 25,
     padding: 8,
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "absolute",
     bottom: 0,
-    right: 5,
+    right: 0,
     marginLeft: 4,
   },
   sendButtonText: {

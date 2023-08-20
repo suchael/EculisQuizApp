@@ -29,58 +29,7 @@ import {
 
 const JambScreenStack = createNativeStackNavigator();
 
-function AlertBox() {
-  const userStatus = {
-    loggedIn: false,
-    appActivated: false,
-  };
-
-  const setUserStatus = (loggedIn, appActivated) => {
-    userStatus.loggedIn = loggedIn;
-    userStatus.appActivated = appActivated;
-  };
-
-  setUserStatus(true, false); // Example user status
-  let content;
-
-  if (!userStatus.loggedIn) {
-    content = (
-      <Text style={styles.alertText}>
-        You are not logged in. Please{" "}
-        <TouchableHighlight
-          onPress={() => console.log("Login")}
-          activeOpacity={0.9}
-          underlayColor="lightgray"
-        >
-          <Text style={styles.clickableText}>Login</Text>
-        </TouchableHighlight>
-      </Text>
-    );
-  } 
-  else if (!userStatus.appActivated) {
-    content = (
-      <Text style={styles.alertText}>
-        Your App has not been activated.{" "}
-        <TouchableHighlight
-          onPress={() => console.log("Activate Now")}
-          activeOpacity={0.9}
-          underlayColor="lightgray"
-        >
-          <Text style={styles.clickableText}>Activate now</Text>
-        </TouchableHighlight>
-      </Text>
-    );
-  } 
-  else {
-    content = <Text style={styles.alertText}>Welcome Success!</Text>;
-  }
-  if (userStatus.loggedIn && userStatus.appActivated) {
-    content = <Text style={styles.alertText}>Two weeks to JAMB</Text>;
-  }
-  return <View style={styles.alert}>{content}</View>;
-}
-
-function JambScreen(){
+export default function JambScreen(){
   return(
     <JambScreenStack.Navigator initialRouteName="JambHome" 
       screenOptions={{animation: "none",}}
@@ -115,7 +64,10 @@ function JambHome({navigation}) {
                   onPress={() => navigation.navigate("Past questions")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
-                  style={styles.midTopContentRow1PQuestion}
+                  style={[styles.midTopContentRow1Btn, {
+                  				  borderTopLeftRadius: 34,
+    								borderBottomRightRadius: 34,
+							  }]}
                 >
                   <>
                     <MaterialCommunityIcons name="notebook-multiple" size={40} color="white" />
@@ -127,7 +79,10 @@ function JambHome({navigation}) {
                   onPress={() => navigation.navigate("Custom test")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
-                  style={styles.midTopContentRow1CustomisedTest}
+                  style={[styles.midTopContentRow1Btn, {
+                  				  borderTopRightRadius: 34,
+    								borderBottomLeftRadius: 34,
+							  }]}
                 >
                   <>
                     <MaterialIcons name="my-library-books" size={45} color="white" />
@@ -154,7 +109,10 @@ function JambHome({navigation}) {
                   onPress={() => navigation.navigate("Online battle")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
-                  style={styles.midTopContentRow3OnlineBattle}
+                  style={[styles.midTopContentRow3Btn, {
+                  					borderTopRightRadius: 34,
+    								  borderBottomLeftRadius: 34,
+							  }]}
                 >
                   <>
                     <MaterialIcons name="online-prediction" size={47} color="white" />
@@ -165,7 +123,10 @@ function JambHome({navigation}) {
                   onPress={() => navigation.navigate("Quiz mode")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
-                  style={styles.midTopContentRow3Quiz}
+                  style={[styles.midTopContentRow3Btn, {
+                  					borderTopLeftRadius: 34,
+    								  borderBottomRightRadius: 34,
+							  }]}
                 >
                   <>
                     <MaterialCommunityIcons name="head-question-outline" size={45} color="white" />
@@ -259,7 +220,69 @@ function JambHome({navigation}) {
   );
 }
 
-const windowWidth = Dimensions.get("window").width;
+
+function AlertBox() {
+  const userStatus = {
+    loggedIn: false,
+    appActivated: false,
+  };
+
+  const setUserStatus = (loggedIn, appActivated) => {
+    userStatus.loggedIn = loggedIn;
+    userStatus.appActivated = appActivated;
+  };
+  
+   // Toggle the user Alert message using "true/false"
+  setUserStatus(false, false); 
+  let content;
+
+  if (!userStatus.loggedIn) {
+    content = (
+    	<View style ={{ flexDirection: "column",justifyContent: "center", alignItems: "center"}}>
+    			   <Text style={styles.alertText}>
+        				You are not logged in, please{" "}
+        		   </Text>
+        			<TouchableHighlight
+          				onPress={() => console.log("Login Now")}
+          				activeOpacity={0.9}
+          				underlayColor="lightgray"
+        			>
+          				<Text style={styles.clickableText}>Login</Text>
+        			</TouchableHighlight>
+    	</View>
+    );
+  } 
+  else if (!userStatus.appActivated) {
+    content = (
+    	<View style ={{ flexDirection: "column",justifyContent: "center", alignItems: "center"}}>
+    			   <Text style={styles.alertText}>
+        				You have not activated your App.{" "}
+        		   </Text>
+        			<TouchableHighlight
+          				onPress={() => console.log("Activate Now")}
+          				activeOpacity={0.9}
+          				underlayColor="lightgray"
+        			>
+          				<Text style={styles.clickableText}>Activate now</Text>
+        			</TouchableHighlight>
+    	</View>
+    );
+  } 
+  else {
+    content = <Text style={styles.alertText}>Welcome Ahmed Success!</Text>;
+  }
+  if (userStatus.loggedIn && userStatus.appActivated) {
+    content = (
+			<Text style={styles.alertText}>
+				Hi, it is Two weeks to JAMB... Are you prepared? 
+			</Text>
+	)
+  }
+  return <View style={styles.alert}>{content}</View>;
+}
+
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -269,10 +292,10 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 31,
   },
   midTop: {
-    borderWidth: 2,
+    //borderWidth: 2,
   },
   alert: {
-    borderWidth: 2,
+    //borderWidth: 2,
     padding: 4,
     marginBottom: 10,
     backgroundColor: "yellow",
@@ -283,12 +306,19 @@ const styles = StyleSheet.create({
   },
   alertText: {
     fontSize: 13,
+    fontWeight: "600",
+    color: "#444",
     paddingBottom: 2,
+  },
+  clickableText: {
+    textDecorationLine: "underline",
+    fontWeight:  "900",
+    fontSize: 15,
   },
 
   //MidTopContent
   midTopContent: {
-    borderWidth: 2,
+    //borderWidth: 2,
     flex: 1,
     marginBottom: 14,
   },
@@ -300,79 +330,56 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 2,
+    //borderWidth: 2,
     marginTop: 20,
     marginBottom: 20,
   },
   midTopContentRow3: {
     justifyContent: "space-between",
     flexDirection: "row",
-    borderWidth: 2,
+    //borderWidth: 2,
   },
-  midTopContentRow1PQuestion: {
-    borderWidth: 2,
-    backgroundColor: "orange",
-    width: 110,
-    height: 110,
-    borderTopLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  midTopContentRow1CustomisedTest: {
-    borderWidth: 2,
-    backgroundColor: "orange",
+  midTopContentRow1Btn: {
+    //borderWidth: 2,
+    backgroundColor: "gray",
     width: 110,
     height: 110,
     alignItems: "center",
     justifyContent: "center",
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
   },
   midTopContentRow2Exam: {
-    borderWidth: 2,
+    //borderWidth: 2,
     backgroundColor: "yellow",
     width: 115,
     height: 115,
-    borderRadius: 20,
+    borderRadius: 34,
     alignItems: "center",
     justifyContent: "center",
   },
-  midTopContentRow3OnlineBattle: {
-    borderWidth: 2,
-    backgroundColor: "orange",
+  midTopContentRow3Btn: {
+    //borderWidth: 2,
+    backgroundColor: "gray",
     width: 110,
     height: 110,
-    borderTopRightRadius: 20,
-    borderBottomLeftRadius: 20,
     alignItems: "center",
     justifyContent: "center",
   },
-  midTopContentRow3Quiz: {
-    borderWidth: 2,
-    backgroundColor: "orange",
-    width: 110,
-    height: 110,
-    borderTopLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },  
+  
+  
   //Bottom
   bottom: {
-    borderWidth: 2,
+    //borderWidth: 2,
     marginTop:20,
     marginBottom: 20,
-    borderColor: "red",
   },
   bottomContent: {
     height: 54,
-    borderWidth: 2,
+    //borderWidth: 2,
     marginBottom: 6,
     paddingLeft: 26,
     borderRadius: 5,
     borderBottomLeftRadius: 20,
-    backgroundColor: "orange",
+    backgroundColor: "gray",
     flexDirection: "row",
     gap: 14,
     alignItems: "center",
@@ -380,10 +387,6 @@ const styles = StyleSheet.create({
   bottomContentText:{
   	fontSize: 16,
   	fontWeight: "bold",
-  },
-  clickableText: {
-    textDecorationLine: "underline",
-    fontSize: 13,
   },
   boxesInnerText: {
     fontSize: 16,
@@ -399,11 +402,12 @@ const styles = StyleSheet.create({
 	alignItems: "center",
 	position: "absolute",
 	bottom: 20,
-	right: 20,	
+	right: 10.6,	
 },
   bottomContentGroupExamText:{
   	fontWeight: "bold",
+  	fontSize: 15
   }, 
 });
 
-export default JambScreen;
+

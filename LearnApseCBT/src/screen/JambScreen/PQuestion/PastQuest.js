@@ -10,12 +10,6 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 
-// my import
-import Subject from "./SubjectListDb.js";
-import QuestButton from "./QuestButton.js";
-import ShowQuestionList from "./ShowQuestionList.js";
-
-
 import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
@@ -24,9 +18,16 @@ import {
 import { AntDesign } from '@expo/vector-icons';
 
 
+// my import
+import Subject from "./SubjectListDb.js";
+import QuestButton from "./QuestButton.js";
+import ShowQuestionList from "./ShowQuestionList.js";
+
+
+
+
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
-
 
 export default function PastQuest() {
   return (
@@ -105,7 +106,8 @@ function TabBar(){
 function SelectByGeneral(){
   const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
-  const instruction = "Note: Past Questions from 2015 and above were compiled by teachers as mock questions, and  from students who took  the CBT exam in previous years. This is due to JAMB discontinuing the issuance of compiled questions starting from the CBT era. As a result, the length of questions in some years maybe longer than others. ";
+  const instruction = "JAMB CBT era started in 2015, and as a result, JAMB halted the issuance of past questions from that year onwards. Much effort has been put together by teachers all over Nigeria, as well as students who sat for the exam in previous years, to compile questions from 2015 and above.\n"
+  const greetings  = "\nKudos to all the Nigerian teachers out there who work tirelessly to educate our children, even in the face of difficult circumstances. You are second to none. \n\nUna do well!"
   return(
     <View style = {{
       	paddingLeft: insets.left + 10,
@@ -114,7 +116,7 @@ function SelectByGeneral(){
       	flex:1,
       }}>
       <ScrollView style = {{marginBottom: 0, marginTop: 0}}> 
-		<ReadMoreText text={instruction} maxLength={35} />
+		<ReadMoreText text={instruction} msg = {greetings} maxLength={25} />
 			<View style = {{paddingBottom: 80, paddingTop:10}}>
 				{Subject.map((eachSubject, index)=>(
 					<QuestButton key={index} subject= {eachSubject}/>
@@ -124,7 +126,6 @@ function SelectByGeneral(){
 	
       <TouchableHighlight 
 		 onPress={()=> navigation.navigate("Show question list")}
-	     style={{ width: 80 }} // Apply style to the outer container
 	     underlayColor="lightgray"
 		 style={ styles.studyButton }
 	  >
@@ -154,7 +155,7 @@ function SelectByTopic(){
 }
 
 // ReadMore Text logic
-const ReadMoreText = ({ text, maxLength }) => {
+const ReadMoreText = ({ text, msg ,maxLength }) => {
   const [expanded, setExpanded] = useState(false);
 
   const toggleExpansion = () => {
@@ -163,15 +164,24 @@ const ReadMoreText = ({ text, maxLength }) => {
 
   const renderText = () => {
     if (text.length <= maxLength || expanded) {
-      return text;
+      return (
+      	<>
+			{text}
+			<Text style={{fontSize:15, color: "#444", fontWeight: "600"}}> {msg}</Text>
+		  </>
+	)
     }
     return text.substring(0, maxLength) + '...';
   };
 
   return (
-    <View style={{ flexDirection: 'column' , marginTop: 14}}>
+    <View style={{ flexDirection: 'column' , marginBottom: 20,marginTop: 18}}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text>{renderText()}</Text>
+        <Text style= {{fontSize: 16, fontWeight: "400"}}>
+			<Text style= {{fontWeight: "600", fontSize: 16}}>Note: </Text> 
+			{renderText()} 
+			
+		</Text>
         {!expanded && text.length > maxLength && (
           <TouchableHighlight 
 				onPress={toggleExpansion}
@@ -190,7 +200,7 @@ const ReadMoreText = ({ text, maxLength }) => {
 			  underlayColor="lightgray"
 		>
           <Text style={{ color: 'blue', width: 80 }}>
-            {'Read Less\n'}
+            {'...Read Less\n'}
           </Text>
         </TouchableHighlight>
       )}
@@ -219,8 +229,8 @@ const styles = StyleSheet.create({
   
   // Study Button
  studyButton:{
- 	height: 35,
- 	backgroundColor: "orange",
+ 	height: 42,
+ 	backgroundColor: "gray",
  	borderRadius: 18,
  	justifyContent: "center",
      alignItems: "center",
@@ -233,6 +243,7 @@ const styles = StyleSheet.create({
   studyButtonText: {
   	fontSize: 17,
   	fontWeight: "300",
+  	color: "white",
    },
 });
 
