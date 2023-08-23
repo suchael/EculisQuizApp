@@ -219,7 +219,7 @@ function JambHome({navigation}) {
         <Text style={styles.groupExamText} >Group{"\n"}Exam</Text>
       </TouchableHighlight>
       <TouchableHighlight
-        onPress={() => navigation.navigate("Group exam")}
+        onPress={() => navigation.navigate("Teacher network")}
         activeOpacity={0.9}
         underlayColor="lightgray"
         style={styles.teacherNetwork}
@@ -243,7 +243,7 @@ function AlertBox() {
   };
   
    // Toggle the user Alert message using "true/false"
-  setUserStatus(true, true); 
+  setUserStatus(true, false); 
   let content;
 
   if (!userStatus.loggedIn) {
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     marginTop: 2,
     marginBottom: 10,
-    backgroundColor: "yellow",
+    backgroundColor: "lightblue",
     borderTopRightRadius: 38,
     borderTopLeftRadius: 38,
     alignItems: "center",
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
   },
   midTopContentRow2Exam: {
     //borderWidth: 2,
-    backgroundColor: "yellow",
+    backgroundColor: "lightblue",
     width: 115,
     height: 115,
     borderRadius: 34,
@@ -408,7 +408,7 @@ const styles = StyleSheet.create({
   },
   
   groupExam: {
-    backgroundColor: "yellow",
+    backgroundColor: "lightblue",
 	width: 60,
 	height: 60,
 	borderRadius: 20,
@@ -424,7 +424,7 @@ const styles = StyleSheet.create({
 	},
   
   teacherNetwork:{
-	backgroundColor: "yellow",
+	backgroundColor: "lightblue",
 	paddingHorizontal: 8,
 	paddingVertical: 14,
 	borderRadius: 20,

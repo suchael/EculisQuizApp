@@ -13,8 +13,7 @@ import {
 } from "react-native-safe-area-context";
 
 // my import 
-import TruncatedText from "./TruncatedText.js";
-import YearPickerModal from "./YearPickerModal.js";
+import TruncatedText from "../PQuestion/TruncatedText.js";
 
 export default function QuestButton({subject}){
 	const insets = useSafeAreaInsets();
@@ -22,48 +21,30 @@ export default function QuestButton({subject}){
 	const [isToggleOn, setIsToggleOn] = useState(false);
 	const handleToggle = ()=> setIsToggleOn(!isToggleOn);
 	
-	// PickerModal Visibility 
-	const [modalVisible, setModalVisible] = useState(false);
-	const handlePickerToggle = () => setModalVisible(!modalVisible);
-	
 	return(
 		<View style = {{
 									paddingLeft: insets.left + 10,
       							  paddingRight: insets.right + 10,
       							  flex:1,
 		}}>
-			<View style = {[styles.container, {backgroundColor: isToggleOn? "white": "#999"}]}>
-		  	<View style = {styles.containerCircle}>
-             	<Text style = {styles.containerCircleText}>{subject.name[0]}</Text>
-          	</View>
+			<View style = {styles.container}>
 		  	<TouchableHighlight 
 		 		onPress={handleToggle} 		
 	     		underlayColor="lightgray"
 			 	activeOpacity={0.9}
-			 	style = {styles.buttonContainer}
+			 	style = {[styles.buttonContainer, {backgroundColor: isToggleOn ? "white" :  "gray"}]}
 	      	>
               	<View style = {styles.buttonContainerRect}>
               		<Text style = {[styles.buttonRectText, {color: isToggleOn? "black": "white"}]}>
 						<TruncatedText text = {subject.name} maxLength = {24}/>
 					 </Text>
               		<View style = {styles.switchContainer}>
-              			<View style = {{width: 16, height: 16, borderRadius: 8, backgroundColor: isToggleOn ?  "green": "white"}}>
+              			<View style = {{width: 16, height: 16, borderRadius: 8, backgroundColor: isToggleOn ?  "blue": "#666"}}>
               			</View>
               		</View>
               	</View>
           	</TouchableHighlight>                     
 			</View>
-			{isToggleOn && (
-				<View style = {styles.attachedToButton}>
-					<View style = {styles.attachedToButtonLeft}>
-						<YearPickerModal/>
-					</View>
-					<View style = {styles.attachedToButtonRight}>
-						<Text style = {{fontWeight: "700", fontSize: 18}}>Total</Text>
-						<Text style = {{fontWeight: "500", fontSize: 15}}>80</Text>
-					</View>
-				</View>
-			)}
 		</View>
 	);
 }
@@ -78,7 +59,6 @@ const styles= StyleSheet.create({
 		alignItems: "center",
 		marginTop: 5,
 		borderWidth: 2,
-		backgroundColor: "lightgray",
 		borderTopRightRadius: 40,
 		borderBottomRightRadius: 40,
 		borderTopLeftRadius: 32,
@@ -95,17 +75,6 @@ const styles= StyleSheet.create({
 		borderBottomRightRadius: 40,
 		borderTopLeftRadius: 32,
 		borderBottomLeftRadius: 32,
-	},
-	containerCircle:{
-		borderRightWidth: 3,
-		height: 50,
-		width:  38,
-		borderRadius: 25,
-		justifyContent: "center",
-		alignItems: "center",
-	},
-	containerCircleText:{
-		fontSize: 19,
 	},
 	buttonContainerRect:{
 		flexDirection: "row",
@@ -129,41 +98,7 @@ const styles= StyleSheet.create({
 	},
 	
 	
-	// Attached View to Button on clicked
-	attachedToButton:{
-		borderWidth: 2,
-		borderBottomLeftRadius: 10,
-		borderBottomRightRadius: 10,
-		height: 90,
-		marginLeft: windowWidth * 0.0639,
-		marginRight: windowWidth * 0.0722,
-		flexDirection: "row",
-		paddingBottom: 4,
-		paddingLeft: 4,
-		paddingRight: 4,
-		marginBottom: 4,
-	},
-	attachedToButtonLeft: {
-		flex:1,
-		borderRightWidth:2,
-		borderLeftWidth: 2,
-		borderBottomWidth: 2,
-		padding: 6,
-		gap: 4,
-		justifyContent: "center",
-		alignItems: "center",
-		borderBottomLeftRadius: 8,
-	},
-	attachedToButtonRight: {
-		flex: 1,
-		borderRightWidth:2,
-		borderBottomWidth: 2,
-		padding: 6,
-		gap: 4,
-		justifyContent: "center",
-		alignItems: "center",
-		borderBottomRightRadius: 8,
-	},
+	
 });
 
 

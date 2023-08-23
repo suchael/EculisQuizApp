@@ -4,6 +4,7 @@ import {View,
         StyleSheet,
         Switch,
         ScrollView,
+        Dimensions,
         TouchableHighlight } from 'react-native';
         
 import React , {useState} from 'react';
@@ -16,44 +17,14 @@ import { AntDesign , FontAwesome} from '@expo/vector-icons';
 
 // My import
 import subjects from  "../../../SubjectDb.js";
+import ReadMore from "./ReadMore.js";
 
 
-function ShowQuestionList() {
+export default function Explanation() {
    const [isHeaderShown, setIsHeaderShown] = useState(true);
   return (
     <View style={styles.container}>
-    		<HomeHeader/>
 			<MainContainer/>
-    </View>
-  );
-}
-
-
-function HomeHeader(){
-  const navigation = useNavigation();
-  const insets = useSafeAreaInsets();
-
-  return(
-    <View style = {[styles.homeHeader, 
-			{
-                  paddingLeft: insets.left + 10,
-                  paddingRight: insets.right + 10,
-                  paddingTop: insets.top + 12,
-                  paddingBottom: insets.bottom + 10,
-             }]}
-	>
-      <TouchableHighlight
-        onPress={() => navigation.goBack() }
-        activeOpacity={0.9}
-        underlayColor="lightgray"
-        style = {{width: 60, height: 40, justifyContent: "flex-start", padding:0}}
-      >
-        <AntDesign name="arrowleft" size={27} color="#333" style={{marginLeft: -4}} />
-      </TouchableHighlight>
-      <View style = {{flexDirection: "column"}}>
-      	<Text style = {styles.homeHeaderText}>English Language</Text>
-      	<Text style = {{fontSize: 13, fontWeight: "700"}}>JAMB: 2004 </Text>
-      </View>
     </View>
   );
 }
@@ -67,15 +38,16 @@ function MainContainer(){
 				<View style = {{
                   	paddingLeft: insets.left + 10,
                   	paddingRight: insets.right + 10,
-                  	paddingTop: insets.top + 60,
+                  	paddingTop: insets.top + 14,
                   	paddingBottom: insets.bottom + 100,             	
                 }}
 				>
 					<QuestionInterface/>
 				</View>
 			</ScrollView>
-			<TopButtons/>
+			<Header/>
 			<PrevBtn/>
+			<OkButton/>
 			<NextBtn/>
 		</View>
 	);
@@ -85,19 +57,18 @@ function MainContainer(){
 function QuestionInterface() {
   return (
     <View style={styles.questionInterfaceMain}>
-      {subjects.map((sub, index) => (
-        <QuestionInterfaceContainer key={index}  ind = {index+1}/>
-      ))}
+        <QuestionInterfaceContainer/>
     </View>
   );
 }
 
 
 function QuestionInterfaceContainer({ind}){
-	const navigation = useNavigation()
+	const navigation = useNavigation();
+	const explanation = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of";
 	return(
 		<View style = {styles.questionInterfaceContainer}>
-			<View style = {styles.questionScreen}>
+			<View style = {styles.questionAndExplanationScreen}>
 				<View style = {styles.questionScreenNumberView}>
 					<Text style = {styles.questionScreenNumber}>
 						Question {ind}
@@ -107,7 +78,25 @@ function QuestionInterfaceContainer({ind}){
 					Which of the following statements does not show Rutherford's account of Nuclear Theory? An atom contains a region
 				</Text>
 			</View>
-			<View style = {styles.optionMain}>
+			
+			
+			
+			<View style = {[styles.questionAndExplanationScreen, {marginTop: 30, marginBottom: 30}]}>
+				<View style = {styles.questionScreenNumberView}>
+					<Text style = {[styles.questionScreenNumber, {
+													position: "absolute",
+													backgroundColor: "white",
+													bottom: 0,
+													fontSize: 20
+											}]}
+					>
+						Analysis 
+					</Text>
+				</View>
+				<Text style = {styles.optionContainerOptions}>
+					<ReadMore  text = {explanation} maxLength={5} />
+				</Text>
+				<View style = {styles.optionMain}>
 				<View style= {styles.optionContainer}>
 					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
 						A{". "}
@@ -141,80 +130,26 @@ function QuestionInterfaceContainer({ind}){
 					</Text>			
          	   </View>
 			</View>
-			<View style = {styles.screenContBottomBtn}>
-				  	<TouchableHighlight 
-		 					onPress={()=>{navigation.navigate("Analysis")}} 		
-	     					underlayColor="lightgray"
-			 				activeOpacity={0.9}
-	      			>
-              			<Text style= {styles.screenBottomBtnText}>   
-								Analysis      
-              			</Text>
-          			</TouchableHighlight>              
-            		  <TouchableHighlight 
-		 				onPress={()=>{navigation.navigate("Explanation")}} 		
-	     				underlayColor="lightgray"
-			 			activeOpacity={0.9}
-	      			>
-              			<Text style= {styles.screenBottomBtnText}>
-              					Explanation 
-              			</Text>
-          			</TouchableHighlight>              
 			</View>
 		</View>
 	);
 }
 
-function TopButtons(){
+
+function Header(){
 	const insets = useSafeAreaInsets();
-	
-	//Toggle for Switch
-	const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => {
-    	setIsEnabled(previousState => !previousState);
-    };
-   
 	return(
 			<View style={{flexDirection: "row", 
 				  justifyContent: "space-between",
                   paddingLeft: insets.left + 10,
                   paddingRight: insets.right + 10,
                   paddingBottom: insets.bottom,
+                  height:  12,
                   width: "100%",
                   position: "absolute",
                   top:0,
                   backgroundColor: "lightgray"
 			}}>
-				<TouchableHighlight
-        			onPress={() => console.log("Page Selector")}
-        			activeOpacity={0.9}
-        			underlayColor="white"
-        			style = {styles.topBtnTouchables}
-      		  >
-      			  <View style = {styles.topBtnTouchablesView}>
-      					<Text style ={styles.topBtnText}>Page 1</Text>
-      					<FontAwesome name="angle-down" size={28} color="black" />			 
-					</View>
-      		</TouchableHighlight>
-			  <TouchableHighlight
-        			onPress={toggleSwitch}
-        			activeOpacity={0.5}
-        			underlayColor="white"
-        			style = {[styles.topBtnTouchables, {paddingTop: 5}]}
-      		  >
-      			  <View style = {styles.topBtnTouchablesView}>
-      					<Text style ={styles.topBtnText}>Show answers</Text>
-      					<View style = {{borderWidth:2, height: 20, width: 40, justifyContent: "center", alignItems: "center"}}>
-      						<Switch  style={{borderWidth: 2, borderColor: "red"}}
-        							trackColor={{ false: "#767577", true: "white" }}
-        							thumbColor={isEnabled ? "gray" : "red"}
-        							ios_backgroundColor="#3e3e3e"
-        							onValueChange={toggleSwitch}
-        							value={isEnabled}
-      						/>
-						</View>		 
-					</View>
-      		</TouchableHighlight>
 			</View>
 	);
 }
@@ -223,7 +158,7 @@ function TopButtons(){
 function PrevBtn(){
 	return (
 		<TouchableHighlight
-        			onPress={() => console.log("Prev Btn") }
+        			onPress={() => console.log("left") }
         			activeOpacity={0.9}
         			underlayColor="white"
         			style= {[styles.nextAndPrevBtn, {left: 10}]}
@@ -233,11 +168,25 @@ function PrevBtn(){
 	);
 }
 
+function OkButton(){
+	const windowWidth = Dimensions.get('window').width;
+	const navigation = useNavigation();
+	return(
+		<TouchableHighlight
+        			onPress={() => navigation.goBack()}
+        			activeOpacity={0.9}
+        			underlayColor="white"
+        			style= {[styles.nextAndPrevBtn, {right: windowWidth * 0.375}]}
+      	>
+        	<Text style = {{fontSize: 16, fontWeight: "bold"}}>Ok</Text>
+      	</TouchableHighlight>  
+	);
+}
 
 function NextBtn (){
 	return(
 		<TouchableHighlight
-        			onPress={() => console.log("Next Btn")}
+        			onPress={() => console.log("right")}
         			activeOpacity={0.9}
         			underlayColor="white"
         			style= {[styles.nextAndPrevBtn, {right: 10}]}
@@ -270,37 +219,7 @@ const styles = StyleSheet.create({
   	flex:1,
   	backgroundColor: "lightblue",
   },
-  
-  
-  // Top Button... This is for Top "Page Selector" and "Show Questions" btn
-  topBtn: {
-  	borderWidth:2, 
-	  padding: 3, 
-	  alignItems: "center", 
-	  borderBottomLeftRadius: 5, 
-      borderBottomRightRadius: 5,
-      marginLeft: 10,
-      backgroundColor: "gray",
-  },
-  topBtnTouchables: {
-  	borderWidth:2, 
-	  padding: 3, 
-	  alignItems: "center", 
-	  borderBottomLeftRadius: 5, 
-	  borderBottomRightRadius: 5
-  },
-  topBtnTouchablesView: {
-  	flexDirection: "row", 
-	  justifyContent: "space-between", 
-	  alignItems: "center", 
-	  gap: 14
-  },
-  topBtnText: {
-  	fontSize: 17, 
-	  fontWeight: "600", 
-	  color:"#222"
-  },
-  
+ 
   // Question Interface
   questionInterfaceMain: {
   	//borderWidth : 2, 
@@ -314,13 +233,12 @@ const styles = StyleSheet.create({
 	   borderRadius: 15, 
 	   marginBottom: 35
 	},
-	questionScreen: {
+	questionAndExplanationScreen: {
 		borderWidth:2, 
 	    padding: 8, 
 		//borderColor: "red", 
 		flexDirection: "column", 
 		borderRadius: 15,  
-		backgroundColor: "white", 
 		marginBottom: 6
 	},
 	questionScreenNumberView: {
@@ -329,7 +247,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	questionScreenNumber: {
-		fontSize: 15, 
+		fontSize: 13, 
 		fontWeight: "bold", 
 		borderWidth: 2, 
 		paddingLeft: 6, 
@@ -347,32 +265,15 @@ const styles = StyleSheet.create({
 	},
 	optionContainer: {
 		paddingHorizontal: 8 ,
-		paddingVertical: 4,
+		paddingVertical: 2,
 		borderWidth: 2, 
-		borderRadius: 7, 
+		borderRadius: 8, 
 		marginTop: 3, 
 		backgroundColor: "white" 
 	},
 	optionContainerOptions: {
-		fontSize: 16.7, 
-		fontWeight: "500",
-		paddingVertical: 20,
-		borderWidth: 2,
-	},
-  screenContBottomBtn: {
-  	  borderWidth:2, 
-		marginTop:14, 
-		marginBottom:5,
-		paddingHorizontal:10, 
-		flexDirection: "row", 
-		justifyContent: "space-between", 
-		borderRadius: 4
-	},
-	screenBottomBtnText: {
-		textDecorationLine: "underline", 
-		fontSize: 17, 
-		fontWeight: "bold", 
-		paddingVertical: 2
+		fontSize: 14, 
+		fontWeight: "600",
 	},
   
   // Bottom Buttons
@@ -388,5 +289,3 @@ const styles = StyleSheet.create({
 		bottom: 0,
    },
 });
-
-export default ShowQuestionList;

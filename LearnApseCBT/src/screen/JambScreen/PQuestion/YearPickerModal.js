@@ -11,7 +11,7 @@ const YEAR = [
   2020, 2021, 2022, 2023
 ];
 
-const PickerModal = () => {
+export default function YearPickerModal(){
   const [selectedYear, setSelectedYear] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -70,6 +70,7 @@ const PickerModal = () => {
           <View style={styles.modalBackdrop}>
             <View style={styles.modal}>
               <ScrollView>
+              	<Text style= {{marginTop: 10, padding: 4}}> Year </Text>
                 {YEAR.map(renderYear)}
               </ScrollView>
             </View>
@@ -120,4 +121,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PickerModal;

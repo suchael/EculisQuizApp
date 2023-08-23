@@ -26,6 +26,8 @@ import JambSyllabus from './src/screen/JambScreen/JambSyllabus/JambSyllabus.js';
 import JambSubComb from './src/screen/JambScreen/JambSubComb/JambSubComb.js';
 import ExamHist from './src/screen/JambScreen/ExamHist/ExamHist.js';
 import GroupExam from './src/screen/JambScreen/GroupExam/GroupExam.js';
+import TeacherNetwork from './src/screen/JambScreen/TeacherNetwork/TeacherNetwork.js';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -93,6 +95,10 @@ export default function App() {
 							<Stack.Screen 
 								name='Group exam' 
 								component={GroupExam}
+							/>
+							<Stack.Screen 
+								name='Teacher network' 
+								component={TeacherNetwork}
 							/>
 					</Stack.Navigator>
   		  </NavigationContainer>

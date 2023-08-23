@@ -47,7 +47,7 @@ function Main() {
           tabBarStyle: {
             height: 40, // Adjust the height of the tab bar
             borderBottomWidth: 0, // Remove top border
-            backgroundColor: "#E4F1FE",
+            backgroundColor: "lightblue",
           },
           tabBarIndicatorStyle: {
             bottom: 0, // Adjust the position of the indicator

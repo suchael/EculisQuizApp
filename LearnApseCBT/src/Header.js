@@ -81,7 +81,7 @@ function SearchInputShowKeyBoard(){
 //height:  useWindowDimensions().height * 0.1873,
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: "#E4F1FE",
+		backgroundColor: "lightblue",
 		paddingBottom: 8,
 		},
 	learnApseText: {
