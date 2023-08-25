@@ -136,8 +136,6 @@ function JambHome({navigation}) {
               </View>
             </View>
           </View>
-          
-          
           <View style={styles.bottom}>
             <TouchableHighlight
               onPress={() => navigation.navigate("National score ranking")}

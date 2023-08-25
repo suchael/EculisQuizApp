@@ -114,11 +114,12 @@ function SelectByGeneral(){
   const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
   const instruction = "JAMB CBT era started in 2015, and as a result, JAMB halted the issuance of past questions from that year onwards. Much effort has been put together by teachers all over Nigeria, as well as students who sat for the exam in previous years, to compile questions from 2015 and above.\n"
-  const greetings  = "\nKudos to all the Nigerian teachers out there who work tirelessly to educate our children, even in the face of difficult circumstances. You are second to none."
+  const greetings  = "\nGreetings to all the Nigerian teachers out there. You all are second to none."
   return(
     <View>
       <ScrollView> 
 		<ReadMore  text = {instruction} msg = {greetings} maxLength={25} />
+		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select one subject: </Text>
 			<View style = {{paddingBottom: 110}}>
 				{Subject.map((eachSubject, index)=>(
 					<QuestButton key={index} subject= {eachSubject}/>
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
   },
   homeHeaderText: {
     fontSize: 20,
-    fontWeight: "500",
+    fontWeight: "600",
   },
   
   // Study Button

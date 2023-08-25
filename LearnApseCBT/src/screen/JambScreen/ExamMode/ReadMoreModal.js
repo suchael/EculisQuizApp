@@ -10,34 +10,17 @@ import {
 } from 'react-native';
 
 // My Import
-import UnderLineTextBtn from "../ExamMode/UnderLineTextBtn.js";
+import UnderLineTextBtn from "./UnderLineTextBtn.js";
 
 
-
-const App = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  
-  const openModal = () => {
-    setModalVisible(true);
-    BackHandler.addEventListener('hardwareBackPress', closeModal);
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
-    BackHandler.removeEventListener('hardwareBackPress', closeModal);
-    return true;
-  };
-
+function ReadMoreModal({ visible, onClose}){
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <TouchableOpacity onPress={openModal}>
-        <Text>Open Modal</Text>
-      </TouchableOpacity>
       <Modal
         transparent={true}
         animationType="slide"
-        visible={modalVisible}
-        onRequestClose={closeModal}
+        visible={visible}
+        onRequestClose={onClose}
       >
         <View
           style={{
@@ -49,7 +32,7 @@ const App = () => {
         >
           <TouchableOpacity
             style={{ flex: 1, width: '100%' }}
-            onPress={closeModal}
+            onPress={onClose}
           ></TouchableOpacity>
           <View
             style={{
@@ -74,14 +57,14 @@ const App = () => {
                 borderRadius: 15,
                 alignItems: 'center',
               }}
-              onPress={closeModal}
+              onPress={onClose}
             >
               <Text style={{ color: 'white' , fontSize:16, fontWeight: "bold"}}>OK</Text>
             </TouchableOpacity>
           </View>
           <TouchableOpacity
             style={{ flex: 1, width: '100%' }}
-            onPress={closeModal}
+            onPress={onClose}
           ></TouchableOpacity>
         </View>
       </Modal>
@@ -95,10 +78,10 @@ function MessageBox(){
       <View style={styles.messageBox}>
         <View style={styles.messageHeader}>
           <Text style={styles.messageHeaderText}>
-            Note:{' '}
+            Attention:{' '}
             <Text style={styles.messageNormalText}>
               This is a strict Exam Mode. To simulate the real world, Your score will be visible online to everyone checking the{' '}
-              <UnderLineTextBtn text="National Score Ranking." />
+              <UnderLineTextBtn text="National Score Ranking."  goTo = "National score ranking"/>
             </Text>
           </Text>
         </View>
@@ -110,7 +93,7 @@ function MessageBox(){
           </Text>
         </View>
         <Text style={styles.messageNormalText}>
-          If you wish to override this setting, consider choosing the <UnderLineTextBtn text="Custom Exam" /> option.
+          If you wish to override this setting, consider choosing the <UnderLineTextBtn text="Customised Test" goTo = "Custom test" /> option.
         </Text>
       </View>
     );
@@ -136,13 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 16.5,
     fontWeight: '400',
     marginTop: 12
-    
-  },
-  messageContent: {
-    
   },
 });
 
-
-
-export default App;
+export default ReadMoreModal;

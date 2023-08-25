@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Text,
 				View,
-				TouchableHighlight,
+				TouchableOpacity,
 				StyleSheet,
 				Switch,
 				Dimensions,
@@ -36,7 +36,7 @@ export default function QuestButton({subject}){
 		  	<View style = {styles.containerCircle}>
              	<Text style = {styles.containerCircleText}>{subject.name[0]}</Text>
           	</View>
-		  	<TouchableHighlight 
+		  	<TouchableOpacity 
 		 		onPress={handleToggle} 		
 	     		underlayColor="lightgray"
 			 	activeOpacity={0.9}
@@ -51,7 +51,7 @@ export default function QuestButton({subject}){
               			</View>
               		</View>
               	</View>
-          	</TouchableHighlight>                     
+          	</TouchableOpacity>                     
 			</View>
 			{isToggleOn && (
 				<View style = {styles.attachedToButton}>

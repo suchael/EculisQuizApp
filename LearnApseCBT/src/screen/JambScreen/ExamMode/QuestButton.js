@@ -2,11 +2,11 @@ import React, {useState} from "react";
 import {Text,
 				View,
 				TouchableHighlight,
+				TouchableOpacity,
 				StyleSheet,
 				Switch,
 				Dimensions,
 				} from "react-native";
-				
 
 import {
   useSafeAreaInsets,
@@ -20,7 +20,6 @@ export default function QuestButton({subject}){
 	// Switch and TouchableHighlight state
 	const [isToggleOn, setIsToggleOn] = useState(false);
 	const handleToggle = ()=> setIsToggleOn(!isToggleOn);
-	
 	return(
 		<View style = {{
 									paddingLeft: insets.left + 10,
@@ -28,7 +27,7 @@ export default function QuestButton({subject}){
       							  flex:1,
 		}}>
 			<View style = {styles.container}>
-		  	<TouchableHighlight 
+		  	<TouchableOpacity 
 		 		onPress={handleToggle} 		
 	     		underlayColor="lightgray"
 			 	activeOpacity={0.9}
@@ -43,7 +42,7 @@ export default function QuestButton({subject}){
               			</View>
               		</View>
               	</View>
-          	</TouchableHighlight>                     
+          	</TouchableOpacity>                     
 			</View>
 		</View>
 	);

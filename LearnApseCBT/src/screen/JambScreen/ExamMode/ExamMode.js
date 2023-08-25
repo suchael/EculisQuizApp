@@ -3,6 +3,8 @@ import {View,
         StyleSheet,
         ScrollView,
         Dimensions,
+        TouchableOpacity,
+        BackHandler,
         TouchableHighlight } from 'react-native';
 
 import React , {useState}from 'react';
@@ -19,10 +21,11 @@ import { AntDesign } from '@expo/vector-icons';
 
 
 // my import
-
-import ReadMore from "../PQuestion/ReadMore.js";
 import QuestButton from "./QuestButton.js";
+import ExamInstructionModal from "./ExamInstructionModal.js";
+import ExamShowQuestion from "./ExamShowQuestion";
 import Subject from "../PQuestion/SubjectListDb.js";
+import ReadMoreModal from "./ReadMoreModal.js";
 import subjects from  "../../../SubjectDb.js";
 
 
@@ -32,7 +35,8 @@ const Stack = createNativeStackNavigator();
 export default function ExamMode() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}}>
-      <Stack.Screen name='Home' component = {Home}/>
+      <Stack.Screen name ='Home' component = {Home}/>
+      <Stack.Screen name ='ExamShowQuestion' component = {ExamShowQuestion}/>
     </Stack.Navigator>
   )
 }
@@ -44,7 +48,7 @@ function Home(){
     <View style={styles.homeContainer}>
       <HomeHeader/>
       <SelectByGeneral/>
-       <ContinueButton/>
+      <ContinueButton/>
     </View>
   );
 }
@@ -61,12 +65,13 @@ function HomeHeader(){
                       paddingBottom: insets.bottom + 4,
                       borderBottomWidth: 2,
                       borderBottomColor: "gray",
+                  
                   }]}>
       <TouchableHighlight
         onPress={() => navigation.goBack() }
         activeOpacity={0.9}
         underlayColor="lightgray"
-        style = {{borderWidth:2, width: 60, height: 40, justifyContent: "center"}}
+        style = {{width: 60, height: 40, justifyContent: "center"}}
       >
         <AntDesign name="arrowleft" size={27} color="#333"  style={{marginLeft: -4}}/>
       </TouchableHighlight>
@@ -78,26 +83,62 @@ function HomeHeader(){
 function SelectByGeneral(){
   const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
-  const instruction = "JAMB CBT era started in 2015, and as a result, JAMB halted the issuance of past questions from that year onwards. Much effort has been put together by teachers all over Nigeria, as well as students who sat for the exam in previous years, to compile questions from 2015 and above.\n"
   return(
     <View>
       <ScrollView> 
-		<ReadMore  text = {instruction} maxLength={25} />
+			<ReadMoreBtn/>
+			<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select any three subjects: </Text>
 			<View style = {{paddingBottom: 110}}>
 				{Subject.map((eachSubject, index)=>(
 					<QuestButton key={index} subject= {eachSubject}/>
 				))}
 			</View>
-			
 	   </ScrollView>
     </View>
   );
 }
 
+function ReadMoreBtn(){
+  const [modalVisible, setModalVisible] = useState(false);
+  const openModal = () => {
+    setModalVisible(true);
+    BackHandler.addEventListener('hardwareBackPress', closeModal);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+    BackHandler.removeEventListener('hardwareBackPress', closeModal);
+    return true;
+  };
+  
+	return (
+		<View style = {{flexDirection: "row", justifyContent: "center", alignItems: "center", justifyContent: "center",marginVertical: 14,paddingLeft: 10,}}>
+				<Text style = {{fontSize:16, fontWeight: "bold"}}>Attention: </Text>
+				<Text style = {{fontSize: 16}}>
+					This is a strict Exam
+				</Text>
+				 <TouchableOpacity onPress = {openModal}>
+					 <Text style ={{color: "blue"}}>{" "}...Read More</Text>
+				</TouchableOpacity>
+				<ReadMoreModal visible={modalVisible} onClose={closeModal}/>
+			</View>
+	);
+}
+
 function ContinueButton(){
+	const navigation = useNavigation();
+    const [modalVisible, setModalVisible] = useState(false);
+    const showModal = () => {
+    	setModalVisible(true);
+    };
+
+    const closeModal = () => {
+    	setModalVisible(false);
+    };
 	return(
+	 <>
 		<TouchableHighlight 
-		 		onPress={()=>{}} 		
+		 		onPress={showModal} 		
 	     		underlayColor="white"
 			 	activeOpacity={0.9}
 				 style ={styles.continueButton}
@@ -105,7 +146,9 @@ function ContinueButton(){
               <Text style= {styles.continueButtonText}>
 					Continue 
 			  </Text>      		
-     	</TouchableHighlight>                     
+     	</TouchableHighlight>     
+     <ExamInstructionModal visible={modalVisible} onClose={closeModal}/>
+   </>                
 	);
 }
 
@@ -124,7 +167,7 @@ const styles = StyleSheet.create({
   },
   homeHeaderText: {
     fontSize: 20,
-    fontWeight: "500",
+    fontWeight: "600",
   },
   
   // Study Button
