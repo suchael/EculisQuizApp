@@ -3,111 +3,85 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 
+import React, { useEffect } from "react";
+import { BackHandler} from 'react-native';
 
-// Navigation 
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 
 //my Components
 import Status_bar from "./src/Status_bar.js";
-import HomeScreen from './src/HomeScreen.js';
-import SearchInputScreen from './src/SearchInputScreen.js';
-import PastQuest from './src/screen/JambScreen/PQuestion/PastQuest.js';
-import CustTest from './src/screen/JambScreen/CustTest/CustTest.js';
-import ExamMode from './src/screen/JambScreen/ExamMode/ExamMode.js';
-import OnlineBat from './src/screen/JambScreen/OnlineBat/OnlineBat.js';
-import Quiz from './src/screen/JambScreen/Quiz/Quiz.js';
-import NationalRank from './src/screen/JambScreen/NationalRank/NationalRank.js';
-import NovelsArt from './src/screen/JambScreen/NovelsArt/NovelsArt.js';
-import Bookmarks from './src/screen/JambScreen/Bookmarks/Bookmarks.js';
-import JambSyllabus from './src/screen/JambScreen/JambSyllabus/JambSyllabus.js';
-import JambSubComb from './src/screen/JambScreen/JambSubComb/JambSubComb.js';
-import ExamHist from './src/screen/JambScreen/ExamHist/ExamHist.js';
-import GroupExam from './src/screen/JambScreen/GroupExam/GroupExam.js';
-import TeacherNetwork from './src/screen/JambScreen/TeacherNetwork/TeacherNetwork.js';
-
+import Header from "./src/Header.js";
+import Jamb from "./src/screen/JambScreen/Jamb.js";
+import News from "./src/screen/NewsScreen/News.js";
+import Ssce from "./src/screen/SsceScreen/Ssce.js";
 
 
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-  	<> 
-  	<SafeAreaProvider>
-  		  <Status_bar/>
+  	<SafeAreaProvider>	  
   		  <NavigationContainer>
-					<Stack.Navigator initialRouteName='HomeScreen' screenOptions={{animation:"none",headerShown: false}}>
-						<Stack.Screen 
-							name="HomeScreen" 
-							options={{headerShown: false}}
-							component={HomeScreen}
-							/>
-							<Stack.Screen 
-								name='SearchInputScreen' 
-								component={SearchInputScreen}
-							/>
-							<Stack.Screen 
-								name='Past questions' 
-								component={PastQuest}
-								options={{title: "Past Questions"}}
-							/>
-							<Stack.Screen 
-								name='Custom test' 
-								component={CustTest}
-							/>
-							<Stack.Screen 
-								name='Exam mode' 
-								component={ExamMode}
-							/>
-							<Stack.Screen 
-								name='Online battle' 
-								component={OnlineBat}
-							/>
-							<Stack.Screen 
-								name='Quiz mode' 
-								component={Quiz}
-							/>
-							<Stack.Screen 
-								name='National score ranking' 
-								component={NationalRank}
-							/>
-							<Stack.Screen 
-								name='Novels and Art' 
-								component={NovelsArt}
-							/>
-							<Stack.Screen 
-								name='Bookmarks' 
-								component={Bookmarks}
-							/>
-							<Stack.Screen 
-								name='Jamb syllabus' 
-								component={JambSyllabus}
-							/>
-							<Stack.Screen 
-								name='Jamb subject combination' 
-								component={JambSubComb}
-							/>
-							<Stack.Screen 
-								name='Exam history' 
-								component={ExamHist}
-							/>
-							<Stack.Screen 
-								name='Group exam' 
-								component={GroupExam}
-							/>
-							<Stack.Screen 
-								name='Teacher network' 
-								component={TeacherNetwork}
-							/>
+					<Stack.Navigator initialRouteName='AppHomeScreen' screenOptions={{animation:"none",headerShown: false}}>
+						<Stack.Screen name="AppHomeScreen" options={{headerShown: false}} component={AppHomeScreen}/>
 					</Stack.Navigator>
   		  </NavigationContainer>
   	</SafeAreaProvider>
-  	</>
   );
 }
 
 
+const TopTab = createMaterialTopTabNavigator();
+
+
+function AppHomeScreen({navigation}){
+  	useEffect(() => {
+    	//  when user clicks on the back botton of their phone 
+    	//  in the homeScreen
+    	//  always return them to JAMB
+    	const backAction = () => {
+      		navigation.navigate('Jamb');
+      		return true; // Return true to prevent default behavior
+    	};
+    	const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+    	return () => backHandler.remove(); // Clean up the event listener
+  	}, [navigation]);
+	return(
+		<>
+			<Status_bar/>
+			<Header/>
+			<TopTab.Navigator
+        			initialRouteName="Jamb"
+        			screenOptions={{
+          		  	tabBarActiveTintColor: "white",
+          		  	tabBarInactiveTintColor: "blue",
+          		  	tabBarLabelStyle: {
+            				fontSize: 16,
+            				textTransform: "none",
+            				fontWeight: "bold",
+          		 	},
+          			tabBarStyle: {
+            				height: 40, // Adjust the height of the tab bar
+            				borderBottomWidth: 0, // Remove top border
+            				backgroundColor: "#6EAAF5", //Tab bar background color
+          			},
+          			tabBarIndicatorStyle: {
+            				bottom: 0, // Adjust the position of the indicator
+            				backgroundColor: "white",
+            				height: 3,
+          			},
+        		}}
+      	  >
+        			<TopTab.Screen name="Ssce" component={Ssce}/>
+        			<TopTab.Screen name="Jamb" component={Jamb} options={{ tabBarLabel: 'JAMB' }}/>
+        			<TopTab.Screen name="News" component={News}/>
+        	</TopTab.Navigator>
+   	</>
+	);
+}
 
 
 

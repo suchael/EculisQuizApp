@@ -1,148 +1,107 @@
-import React, { useState } from 'react';
-import {
-  Modal,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  BackHandler,
-  StyleSheet,
-} from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 
-// My Import
-import UnderLineTextBtn from "../ExamMode/UnderLineTextBtn.js";
+const CalculatorApp = () => {
+  const [input, setInput] = useState('');
+  const [prevInput, setPrevInput] = useState('');
+  const [result, setResult] = useState('');
 
+  const handleButtonPress = useCallback((value) => {
+    if (value === '=') {
+      try {
+        const newResult = eval(prevInput + input);
+        setResult(newResult.toString());
+      } catch (error) {
+        setResult('Error');
+      }
+      setInput('');
+      setPrevInput('');
+    } else if (value === 'C') {
+      setInput('');
+    } else if (value === 'sqrt') {
+      setInput(Math.sqrt(parseFloat(input)).toString());
+    } else if (value === 'del') {
+      setInput(input.slice(0, -1));
+    } else {
+      setInput(input + value);
+    }
+  }, [input, prevInput]);
 
-
-const App = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  
-  const openModal = () => {
-    setModalVisible(true);
-    BackHandler.addEventListener('hardwareBackPress', closeModal);
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
-    BackHandler.removeEventListener('hardwareBackPress', closeModal);
-    return true;
-  };
+  const buttons = [
+    ['7', '8', '9', '/'],
+    ['4', '5', '6', '*'],
+    ['1', '2', '3', '-'],
+    ['0', '.', 'C', '+'],
+    ['sqrt', '=', 'del'],
+  ];
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <TouchableOpacity onPress={openModal}>
-        <Text>Open Modal</Text>
-      </TouchableOpacity>
-      <Modal
-        transparent={true}
-        animationType="slide"
-        visible={modalVisible}
-        onRequestClose={closeModal}
-      >
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'rgba(0,0,0,0.5)',
-          }}
-        >
-          <TouchableOpacity
-            style={{ flex: 1, width: '100%' }}
-            onPress={closeModal}
-          ></TouchableOpacity>
-          <View
-            style={{
-              backgroundColor: 'white',
-              borderRadius: 10,
-              padding: 10,
-              width: '80%',
-              maxHeight: '80%',
-              borderColor: 'gray',
-              borderWidth: 1,
-            }}
-          >
-            <ScrollView>
-       			<MessageBox/>
-            </ScrollView>
-            <TouchableOpacity
-              style={{
-                marginTop: 20,
-                width: '100%',
-                padding: 10,
-                backgroundColor: 'blue',
-                borderRadius: 15,
-                alignItems: 'center',
-              }}
-              onPress={closeModal}
-            >
-              <Text style={{ color: 'white' , fontSize:16, fontWeight: "bold"}}>OK</Text>
-            </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.displayContainer}>
+        <Text style={styles.resultText}>{result}</Text>
+        <Text style={styles.inputText}>{input}</Text>
+      </View>
+      <View style={styles.buttonsContainer}>
+        {buttons.map((row, rowIndex) => (
+          <View key={rowIndex} style={styles.buttonsRow}>
+            {row.map((button, buttonIndex) => (
+              <TouchableOpacity
+                key={buttonIndex}
+                style={styles.button}
+                onPress={() => handleButtonPress(button)}
+              >
+                <Text style={styles.buttonText}>{button}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
-          <TouchableOpacity
-            style={{ flex: 1, width: '100%' }}
-            onPress={closeModal}
-          ></TouchableOpacity>
-        </View>
-      </Modal>
-    </View>
+        ))}
+      </View>
+    </SafeAreaView>
   );
 };
 
-
-function MessageBox(){
-    return (
-      <View style={styles.messageBox}>
-        <View style={styles.messageHeader}>
-          <Text style={styles.messageHeaderText}>
-            Note:{' '}
-            <Text style={styles.messageNormalText}>
-              This is a strict Exam Mode. To simulate the real world, Your score will be visible online to everyone checking the{' '}
-              <UnderLineTextBtn text="National Score Ranking." />
-            </Text>
-          </Text>
-        </View>
-        <View style={styles.messageContent}>
-          <Text style={styles.messageNormalText}>
-            Just like in the actual exam, in this Exam Mode, the English Language section consists of a total of 60 questions and is
-            compulsory by default. Other subjects contain 40 questions each. You are expected to select three additional subjects of
-            your choice to make a total of four subjects.
-          </Text>
-        </View>
-        <Text style={styles.messageNormalText}>
-          If you wish to override this setting, consider choosing the <UnderLineTextBtn text="Custom Exam" /> option.
-        </Text>
-      </View>
-    );
-  };
-
-
 const styles = StyleSheet.create({
-	messageBox: {
-    	borderWidth:2, 
-		borderRadius: 10, 
-		padding:6, 
-		paddingBottom: 10,
-    	backgroundColor: 'white',
+  container: {
+    flex: 1,
   },
-  messageHeader: {
-    marginBottom: 8,
+  displayContainer: {
+    flex: 2,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    backgroundColor: '#EFEFF4',
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
-  messageHeaderText: {
-    fontSize: 16,
-    fontWeight: 'bold',
+  inputText: {
+    fontSize: 48,
+    color: 'black',
   },
-  messageNormalText: {
-    fontSize: 16.5,
-    fontWeight: '400',
-    marginTop: 12
-    
+  resultText: {
+    fontSize: 32,
+    color: 'gray',
   },
-  messageContent: {
-    
+  buttonsContainer: {
+    flex: 3,
+    backgroundColor: '#EFEFF4',
+  },
+  buttonsRow: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  button: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F0F0F6',
+  },
+  buttonText: {
+    fontSize: 28,
+    color: 'black',
   },
 });
 
-
-
-export default App;
+export default CalculatorApp;

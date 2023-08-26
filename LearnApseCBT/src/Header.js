@@ -39,7 +39,7 @@ function Header(){
 						underlayColor="lightgray" 
 						style = {styles.topIcons}
 					>
-						<Text style={styles.iconWrapper}> <MaterialIcons name="menu" size={35} color="black" /></Text>
+						<Text style={styles.iconWrapper}> <MaterialIcons name="menu" size={35} color="white" /></Text>
 					</TouchableHighlight>
 				</View>
 			</View>
@@ -59,7 +59,7 @@ function InputFieldViewBox(){
 			style= {styles.topIcons}         
 		>
 			<View style={styles.inputContainerTouchable}>
-				<Text><Ionicons name="search" size={23} color="black" /></Text>
+				<Text><Ionicons name="search" size={23} color="white" /></Text>
 			</View>
 		</TouchableHighlight>		
 	);
@@ -81,12 +81,13 @@ function SearchInputShowKeyBoard(){
 //height:  useWindowDimensions().height * 0.1873,
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: "lightblue",
+		backgroundColor: "#6EAAF5",
 		paddingBottom: 8,
 		},
 	learnApseText: {
 		fontSize: 26,
 		fontWeight: "bold",
+		color: "white",
 	},
 	top:{
 		flexDirection: "row",

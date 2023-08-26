@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, TextInput, TouchableOpacity, StyleSheet, BackHandler } from 'react-native';
 
-const App = ({ navigation, visible }) => {
+const QuitExamNotif = ({ navigation, visible }) => {
   const [modalVisible, setModalVisible] = useState(visible);
+  
   const [inputValue, setInputValue] = useState('');
 
   const handleBackPress = () => {
@@ -35,10 +36,6 @@ const App = ({ navigation, visible }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Text style={styles.buttonText}>End Exam Btn</Text>
-      </TouchableOpacity>
-
       <Modal
         animationType="slide"
         transparent={true}
@@ -154,4 +151,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default QuitExamNotif;

@@ -26,16 +26,49 @@ import {
   Entypo,
 } from '@expo/vector-icons';
 
+// My imports
+import Header from "../../Header.js";
+import PastQuest from './PQuestion/PastQuest.js';
+import CustTest from './CustTest/CustTest.js';
+import ExamMode from './ExamMode/ExamMode.js';
+import OnlineBat from './OnlineBat/OnlineBat.js';
+import Quiz from './Quiz/Quiz.js';
+import NationalRank from './NationalRank/NationalRank.js';
+import NovelsArt from './NovelsArt/NovelsArt.js';
+import Bookmarks from './Bookmarks/Bookmarks.js';
+import JambSyllabus from './JambSyllabus/JambSyllabus.js';
+import JambSubComb from './JambSubComb/JambSubComb.js';
+import ExamHist from './ExamHist/ExamHist.js';
+import GroupExam from './GroupExam/GroupExam.js';
+import TeacherNetwork from './TeacherNetwork/TeacherNetwork.js';
+
+
 
 const JambScreenStack = createNativeStackNavigator();
 
 export default function JambScreen(){
   return(
-    <JambScreenStack.Navigator initialRouteName="JambHome" 
-      screenOptions={{animation: "none",}}
+ <>
+    <JambScreenStack.Navigator 
+			initialRouteName="JambHome" 
+      	  screenOptions={{animation: "none", headerShown: false}}
     >
-      <JambScreenStack.Screen name="JambHome" component={JambHome} options={{headerShown: false}}/>
+			<JambScreenStack.Screen name="JambHome" component={JambHome}/>
+			<JambScreenStack.Screen name="PastQuest" component={PastQuest}/>
+			<JambScreenStack.Screen name="CustTest" component={CustTest}/>
+			<JambScreenStack.Screen name="ExamMode" component={ExamMode}/>
+			<JambScreenStack.Screen name="OnlineBat" component={OnlineBat}/>
+			<JambScreenStack.Screen name="Quiz" component={Quiz}/>
+			<JambScreenStack.Screen name="NationalRank" component={NationalRank}/>
+			<JambScreenStack.Screen name="NovelsArt" component={NovelsArt}/>
+			<JambScreenStack.Screen name="Bookmarks" component={Bookmarks}/>
+			<JambScreenStack.Screen name="JambSyllabus" component={JambSyllabus}/>
+			<JambScreenStack.Screen name="JambSubComb" component={JambSubComb}/>
+			<JambScreenStack.Screen name="ExamHist" component={ExamHist}/>
+			<JambScreenStack.Screen name="GroupExam" component={GroupExam}/>
+			<JambScreenStack.Screen name="TeacherNetwork" component={TeacherNetwork}/>
     </JambScreenStack.Navigator>
+ </>
   );
 }
 
@@ -44,6 +77,8 @@ function JambHome({navigation}) {
   const insets = useSafeAreaInsets();
   return (
     <SafeAreaProvider>
+    
+    <View style = {{backgroundColor: "#6EAAF5"}}>
       <ScrollView>
         <View
           style={[
@@ -61,7 +96,7 @@ function JambHome({navigation}) {
             <View style={styles.midTopContent}>
               <View style={styles.midTopContentRow1}>
                 <TouchableHighlight
-                  onPress={() => navigation.navigate("Past questions")}
+                  onPress={() => navigation.navigate("PastQuest")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
                   style={[styles.midTopContentRow1Btn, {
@@ -70,13 +105,13 @@ function JambHome({navigation}) {
 							  }]}
                 >
                   <>
-                    <MaterialCommunityIcons name="notebook-multiple" size={40} color="white" />
+                    <MaterialCommunityIcons name="notebook-multiple" size={40} color="black"/>
                     <Text style={styles.midTopContentRowText}>Past</Text>
                     <Text style={styles.midTopContentRowText}>Questions</Text>
                   </>
                 </TouchableHighlight>
                 <TouchableHighlight
-                  onPress={() => navigation.navigate("Custom test")}
+                  onPress={() => navigation.navigate("CustTest")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
                   style={[styles.midTopContentRow1Btn, {
@@ -85,7 +120,7 @@ function JambHome({navigation}) {
 							  }]}
                 >
                   <>
-                    <MaterialIcons name="my-library-books" size={45} color="white" />
+                    <MaterialIcons name="my-library-books" size={45} color="black" />
                     <Text style={styles.midTopContentRowText}>Customised</Text>
                     <Text style={styles.midTopContentRowText}>Test</Text>
                   </>
@@ -93,20 +128,20 @@ function JambHome({navigation}) {
               </View>
               <View style={styles.midTopContentRow2}>
                 <TouchableHighlight
-                  onPress={() => navigation.navigate("Exam mode")}
+                  onPress={() => navigation.navigate("ExamMode")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
                   style={styles.midTopContentRow2Exam}
                 >
                   <>
-                    <Ionicons name="ios-finger-print-sharp" size={50} color="gray" />
-                    <Text style={styles.midTopContentRowText}>Exam{"\n"}Mode</Text>
+                    <Ionicons name="ios-finger-print-sharp" size={50} color="white" />
+                    <Text style={[styles.midTopContentRowText, {color: "white"}]}>Exam{"\n"}Mode</Text>
                   </>
                 </TouchableHighlight>
               </View>
               <View style={styles.midTopContentRow3}>
                 <TouchableHighlight
-                  onPress={() => navigation.navigate("Online battle")}
+                  onPress={() => navigation.navigate("OnlineBat")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
                   style={[styles.midTopContentRow3Btn, {
@@ -115,12 +150,12 @@ function JambHome({navigation}) {
 							  }]}
                 >
                   <>
-                    <MaterialIcons name="online-prediction" size={47} color="white" />
+                    <MaterialIcons name="online-prediction" size={47} color="black" />
                     <Text style={styles.midTopContentRowText}>Online{"\n"}Battle</Text>
                   </>
                 </TouchableHighlight>
                 <TouchableHighlight
-                  onPress={() => navigation.navigate("Quiz mode")}
+                  onPress={() => navigation.navigate("Quiz")}
                   activeOpacity={0.9}
                   underlayColor="lightgray"
                   style={[styles.midTopContentRow3Btn, {
@@ -129,7 +164,7 @@ function JambHome({navigation}) {
 							  }]}
                 >
                   <>
-                    <MaterialCommunityIcons name="head-question-outline" size={45} color="white" />
+                    <MaterialCommunityIcons name="head-question-outline" size={45} color="black" />
                     <Text style={styles.midTopContentRowText}>Quiz{"\n"}Mode</Text>
                   </>
                 </TouchableHighlight>
@@ -138,25 +173,25 @@ function JambHome({navigation}) {
           </View>
           <View style={styles.bottom}>
             <TouchableHighlight
-              onPress={() => navigation.navigate("National score ranking")}
+              onPress={() => navigation.navigate("NationalRank")}
               activeOpacity={0.9}
               underlayColor="lightgray"
               style={styles.bottomContent}
             >
               <>
-                <MaterialCommunityIcons name="nature" size={35} color="white" />
+                <MaterialCommunityIcons name="nature" size={35} color="black" />
                 <Text style={styles.midTopContentRowText} >National score ranking</Text>
                 <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
               </>
             </TouchableHighlight>
             <TouchableHighlight
-              onPress={() => navigation.navigate("Novels and Art")}
+              onPress={() => navigation.navigate("NovelsArt")}
               activeOpacity={0.9}
               underlayColor="lightgray"
               style={styles.bottomContent}
             >
               <>
-                <FontAwesome5 name="diagnoses" size={30} color="white" />
+                <FontAwesome5 name="diagnoses" size={30} color="black" />
                 <Text style={styles.bottomContentText} >Novels and Art </Text>
                 <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
               </>
@@ -168,48 +203,48 @@ function JambHome({navigation}) {
               style={styles.bottomContent}
             >
               <>
-                <AntDesign name="book" size={35} color="white" />
+                <AntDesign name="book" size={35} color="black" />
                 <Text style={styles.bottomContentText} >Bookmarks</Text>
               </>
             </TouchableHighlight>
             <TouchableHighlight
-              onPress={() => navigation.navigate("Jamb syllabus")}
+              onPress={() => navigation.navigate("JambSyllabus")}
               activeOpacity={0.9}
               underlayColor="lightgray"
               style={styles.bottomContent}
             >
               <>
-                <Entypo name="dropbox" size={35} color="white" />
+                <Entypo name="dropbox" size={35} color="black" />
                 <Text style={styles.bottomContentText} >Jamb syllabus </Text>
               </>
             </TouchableHighlight>
             <TouchableHighlight
-              onPress={() => navigation.navigate("Jamb subject combination")}
+              onPress={() => navigation.navigate("JambSubComb")}
               activeOpacity={0.9}
               underlayColor="lightgray"
               style={styles.bottomContent}
             >
               <>
-                <AntDesign name="CodeSandbox" size={35} color="white" />
+                <AntDesign name="CodeSandbox" size={35} color="black" />
                 <Text style={styles.bottomContentText} >Jamb subject combination </Text>
               </>
             </TouchableHighlight>
             <TouchableHighlight
-              onPress={() => navigation.navigate("Exam history")}
+              onPress={() => navigation.navigate("ExamHist")}
               activeOpacity={0.9}
               underlayColor="lightgray"
               style={styles.bottomContent}
             >
               <>
-                <FontAwesome5 name="parachute-box" size={34} color="white" />
-                <Text style={styles.bottomContentText} >Exam history</Text>
+                <FontAwesome5 name="parachute-box" size={34} color="black" />
+                <Text style={styles.bottomContentText} >Result and Exam History</Text>
               </>
             </TouchableHighlight>
           </View>
         </View>
       </ScrollView>
       <TouchableHighlight
-        onPress={() => navigation.navigate("Group exam")}
+        onPress={() => navigation.navigate("GroupExam")}
         activeOpacity={0.9}
         underlayColor="lightgray"
         style={styles.groupExam}
@@ -217,13 +252,14 @@ function JambHome({navigation}) {
         <Text style={styles.groupExamText} >Group{"\n"}Exam</Text>
       </TouchableHighlight>
       <TouchableHighlight
-        onPress={() => navigation.navigate("Teacher network")}
+        onPress={() => navigation.navigate("TeacherNetwork")}
         activeOpacity={0.9}
         underlayColor="lightgray"
         style={styles.teacherNetwork}
       >
-        <Text style={styles.teacherNetworkText} >Teacher{"\n"}Network</Text>
+        <Text style={styles.groupExamText} >Teacher{"\n"}Network</Text>
       </TouchableHighlight>
+        </View>
     </SafeAreaProvider>
   );
 }
@@ -291,7 +327,7 @@ function AlertBox() {
 
 
 
-
+const  ICON_COLOR ={color: "black"}
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "lightgray",
@@ -309,7 +345,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     marginTop: 2,
     marginBottom: 10,
-    backgroundColor: "lightblue",
+    backgroundColor: "#FAFAFA",
     borderTopRightRadius: 38,
     borderTopLeftRadius: 38,
     alignItems: "center",
@@ -318,7 +354,6 @@ const styles = StyleSheet.create({
   alertText: {
     fontSize: 13,
     fontWeight: "600",
-    color: "#444",
     paddingBottom: 2,
   },
   clickableText: {
@@ -352,7 +387,7 @@ const styles = StyleSheet.create({
   },
   midTopContentRow1Btn: {
     //borderWidth: 2,
-    backgroundColor: "gray",
+    backgroundColor: "#FAFAFA",
     width: 110,
     height: 110,
     alignItems: "center",
@@ -360,7 +395,7 @@ const styles = StyleSheet.create({
   },
   midTopContentRow2Exam: {
     //borderWidth: 2,
-    backgroundColor: "lightblue",
+    backgroundColor: "#6EAAF5",
     width: 115,
     height: 115,
     borderRadius: 34,
@@ -369,7 +404,7 @@ const styles = StyleSheet.create({
   },
   midTopContentRow3Btn: {
     //borderWidth: 2,
-    backgroundColor: "gray",
+    backgroundColor: "#FAFAFA",
     width: 110,
     height: 110,
     alignItems: "center",
@@ -395,7 +430,7 @@ const styles = StyleSheet.create({
     paddingLeft: 26,
     borderRadius: 5,
     borderBottomLeftRadius: 20,
-    backgroundColor: "gray",
+    backgroundColor: "#FAFAFA",
     flexDirection: "row",
     gap: 14,
     alignItems: "center",
@@ -406,7 +441,7 @@ const styles = StyleSheet.create({
   },
   
   groupExam: {
-    backgroundColor: "lightblue",
+    backgroundColor: "#6EAAF5",
 	width: 60,
 	height: 60,
 	borderRadius: 20,
@@ -418,11 +453,12 @@ const styles = StyleSheet.create({
    },
    groupExamText: {
       fontWeight: "bold",
-  	fontSize: 13
+  	fontSize: 13,
+  	color: "white",
 	},
   
   teacherNetwork:{
-	backgroundColor: "lightblue",
+	backgroundColor: "#6EAAF5",
 	paddingHorizontal: 8,
 	paddingVertical: 14,
 	borderRadius: 20,
@@ -432,10 +468,6 @@ const styles = StyleSheet.create({
 	bottom: 12,
 	right: 10.6,	
 },
-  teacherNetworkText:{
-  	fontWeight: "bold",
-  	fontSize: 13
-  }, 
 });
 
 
