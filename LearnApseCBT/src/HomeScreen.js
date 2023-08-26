@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+
+ React, { useEffect } from "react";
 import { BackHandler, Text } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useNavigation } from '@react-navigation/native';
@@ -8,6 +9,7 @@ import News from "./screen/NewsScreen/News.js";
 import Ssce from "./screen/SsceScreen/Ssce.js";
 import Header from "./Header.js";
 
+// Suchael
 const TopTab = createMaterialTopTabNavigator();
 
 function HomeScreen(){
