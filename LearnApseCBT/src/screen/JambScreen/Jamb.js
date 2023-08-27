@@ -202,7 +202,7 @@ function JambHome({navigation}) {
             >
               <>
                 <FontAwesome5 name="parachute-box" size={34} color="white" />
-                <Text style={styles.bottomContentText} >Exam history</Text>
+                <Text style={styles.bottomContentText} >Result and Exam history</Text>
               </>
             </TouchableHighlight>
           </View>
