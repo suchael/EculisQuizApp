@@ -20,11 +20,8 @@ export default function Result(){
 		<View style={styles.homeContainer}>
 			<HomeHeader/>
 			<Main/>
-<<<<<<< HEAD
-=======
 			<HomeBtn/>
 			<ViewExplanationBtn/>
->>>>>>> FirstBranch
 		</View>
 	);
 }
@@ -64,18 +61,6 @@ function Main(){
 										paddingTop: insets.top ,
 										paddingLeft: insets.left + 10, 
 										paddingRight: insets.right + 10, 
-<<<<<<< HEAD
-										paddingBottom: insets.bottom+ 20}}
-			>
-				<ScrollView>
-					<View style = {{borderWidth:2, minHeight: 200, borderRadius: 20, paddingBottom:  120, paddingHorizontal: 10, paddingTop: 20}}>
-						<View style = {{borderWidth:2,}}>
-								
-						</View>
-					</View>
-				</ScrollView>
-				
-=======
 										paddingBottom: insets.bottom+ 80}}
 			>
 				<ScrollView>
@@ -218,14 +203,12 @@ function Main(){
 						</View>
 					</View>
 				</ScrollView>
->>>>>>> FirstBranch
 			</View>
 	);
 }
 
 
-<<<<<<< HEAD
-=======
+
 function HomeBtn(){
 	return (
 		<TouchableOpacity 
@@ -252,7 +235,7 @@ function ViewExplanationBtn(){
 
 
 
->>>>>>> FirstBranch
+
 
 const styles = StyleSheet.create({
 	homeContainer:{
@@ -270,14 +253,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "600",
   },
-<<<<<<< HEAD
-});
 
-
-
-
-=======
-  
   homeAndExplBtn: {
 		borderWidth: 2,
 		width: 90,
@@ -294,4 +270,4 @@ const styles = StyleSheet.create({
 		fontWeight: "bold"
 	},
 });
->>>>>>> FirstBranch
+

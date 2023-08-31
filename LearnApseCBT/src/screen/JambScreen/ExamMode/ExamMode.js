@@ -36,12 +36,8 @@ const Stack = createNativeStackNavigator();
 
 export default function ExamMode() {
   return (
-<<<<<<< HEAD
-    <Stack.Navigator screenOptions={{headerShown: false, animation: "none", }}>
-=======
-    <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}} initialRouteName = "Home">
->>>>>>> FirstBranch
-      <Stack.Screen name ='Home' component = {Home}/>
+    <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}} initialRouteName = "ExamHome">
+      <Stack.Screen name ='ExamHome' component = {ExamHome}/>
       <Stack.Screen name ='ExamShowQuestion' component = {ExamShowQuestion}/>
       <Stack.Screen name ='Result' component = {Result}/>
     </Stack.Navigator>
@@ -49,7 +45,7 @@ export default function ExamMode() {
 }
 
 
-function Home(){
+function ExamHome(){
   return(
     <View style={styles.homeContainer}>
       <HomeHeader/>
