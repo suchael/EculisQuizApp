@@ -8,7 +8,6 @@ import {View,
         TouchableHighlight } from 'react-native';
         
 import React, {useState} from 'react';
-
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   useSafeAreaInsets,
@@ -20,9 +19,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 // My imports
 import ExamHistResult from "./ExamHistResult.js";
-
 import ViewAnswers from "./ViewAnswers.js";
-
 
 const Stack = createNativeStackNavigator();
 

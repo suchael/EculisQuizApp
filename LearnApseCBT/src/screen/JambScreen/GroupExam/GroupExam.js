@@ -1,4 +1,3 @@
-
 import {View, 
         Text, 
         StyleSheet,
@@ -36,7 +35,7 @@ export default function GroupExam(){
 	);
 }
 
-  
+
 
 function GroupExamHome(){
 	return(
@@ -194,6 +193,10 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 });
+
+
+
+
 
 
 

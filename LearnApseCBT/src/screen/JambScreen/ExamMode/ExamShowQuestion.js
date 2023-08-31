@@ -109,7 +109,13 @@ function TabBar(){
 }
 
 
-function MainContainer(){
+function MainContainer({navigation}){
+	const [modalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
 	const insets = useSafeAreaInsets();
 	return(
 		<View style = {styles.mainContainer}>
@@ -125,7 +131,8 @@ function MainContainer(){
 				</View>
 			</ScrollView>
 			<PrevBtn/>
-			<EndExamBtn />
+			<EndExamBtn toggleModal={toggleModal} />
+			<QuitExamNotif navigation={navigation} visible={modalVisible}/>
 			<NextBtn/>
 		</View>
 	);
@@ -261,28 +268,30 @@ function PrevBtn(){
 }
 
 
-function EndExamBtn(){
+function EndExamBtn({toggleModal}){
 	const windowWidth = Dimensions.get('window').width;
-	const navigation = useNavigation ();
-	
-	const [modalVisible, setModalVisible] = useState(false);
-  
-	const handleBackPress = ()=>{
-		setModalVisible((currentState)=> !currentState);
-	}
-  
+	const handleBackPress = () => {
+    toggleModal(); // Toggle the modal visibility
+    return true; // Prevent default back behavior
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
+  }, []);
 	return(
 	  <>
 		<TouchableHighlight
-        			onPress={()=>{handleBackPress() 
-console.log(modalVisible)}}
+        			onPress={handleBackPress}
         			activeOpacity={0.9}
         			underlayColor="white"
         			style= {[styles.nextAndPrevBtn, {right: windowWidth * 0.375}]}
       	>
         	<Text style = {{fontSize: 16, fontWeight: "bold"}}>End Exam</Text>
       	</TouchableHighlight>  
-      	<QuitExamNotif navigation={navigation} visible={true}/>
+      	
       </>
 	);
 }

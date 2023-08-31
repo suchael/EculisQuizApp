@@ -208,7 +208,6 @@ function Main(){
 }
 
 
-
 function HomeBtn(){
 	return (
 		<TouchableOpacity 
@@ -236,7 +235,6 @@ function ViewExplanationBtn(){
 
 
 
-
 const styles = StyleSheet.create({
 	homeContainer:{
     flex:1,
@@ -253,7 +251,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "600",
   },
-
+  
   homeAndExplBtn: {
 		borderWidth: 2,
 		width: 90,
@@ -270,4 +268,3 @@ const styles = StyleSheet.create({
 		fontWeight: "bold"
 	},
 });
-

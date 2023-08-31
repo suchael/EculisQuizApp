@@ -27,52 +27,18 @@ import {
   Entypo,
 } from '@expo/vector-icons';
 
-// My imports
-import Header from "../../Header.js";
-import PastQuest from './PQuestion/PastQuest.js';
-import CustTest from './CustTest/CustTest.js';
-import ExamMode from './ExamMode/ExamMode.js';
-import OnlineBat from './OnlineBat/OnlineBat.js';
-import Quiz from './Quiz/Quiz.js';
-import NationalRank from './NationalRank/NationalRank.js';
-import NovelsArt from './NovelsArt/NovelsArt.js';
-import Bookmarks from './Bookmarks/Bookmarks.js';
-import JambSyllabus from './JambSyllabus/JambSyllabus.js';
-import JambSubComb from './JambSubComb/JambSubComb.js';
-import ExamHist from './ExamHist/ExamHist.js';
-import GroupExam from './GroupExam/GroupExam.js';
-import TeacherNetwork from './TeacherNetwork/TeacherNetwork.js';
-
-
 
 const JambScreenStack = createNativeStackNavigator();
 
 export default function JambScreen(){
   return(
- <>
-    <JambScreenStack.Navigator 
-			initialRouteName="JambHome" 
-      	  screenOptions={{animation: "none", headerShown: false}}
+    <JambScreenStack.Navigator initialRouteName="JambHome" 
+      screenOptions={{animation: "none",}}
     >
-			<JambScreenStack.Screen name="JambHome" component={JambHome}/>
-			<JambScreenStack.Screen name="PastQuest" component={PastQuest}/>
-			<JambScreenStack.Screen name="CustTest" component={CustTest}/>
-			<JambScreenStack.Screen name="ExamMode" component={ExamMode}/>
-			<JambScreenStack.Screen name="OnlineBat" component={OnlineBat}/>
-			<JambScreenStack.Screen name="Quiz" component={Quiz}/>
-			<JambScreenStack.Screen name="NationalRank" component={NationalRank}/>
-			<JambScreenStack.Screen name="NovelsArt" component={NovelsArt}/>
-			<JambScreenStack.Screen name="Bookmarks" component={Bookmarks}/>
-			<JambScreenStack.Screen name="JambSyllabus" component={JambSyllabus}/>
-			<JambScreenStack.Screen name="JambSubComb" component={JambSubComb}/>
-			<JambScreenStack.Screen name="ExamHist" component={ExamHist}/>
-			<JambScreenStack.Screen name="GroupExam" component={GroupExam}/>
-			<JambScreenStack.Screen name="TeacherNetwork" component={TeacherNetwork}/>
+      <JambScreenStack.Screen name="JambHome" component={JambHome} options={{headerShown: false}}/>
     </JambScreenStack.Navigator>
- </>
   );
 }
-
 
 
 function JambHome({navigation}) {
@@ -245,7 +211,7 @@ function JambHome({navigation}) {
         </View>
       </ScrollView>
       <TouchableHighlight
-        onPress={() => navigation.navigate("GroupExam")}
+        onPress={() => navigation.navigate("Group exam")}
         activeOpacity={0.9}
         underlayColor="lightgray"
         style={styles.groupExam}
@@ -253,12 +219,12 @@ function JambHome({navigation}) {
         <Text style={styles.groupExamText} >Group{"\n"}Exam</Text>
       </TouchableHighlight>
       <TouchableHighlight
-        onPress={() => navigation.navigate("TeacherNetwork")}
+        onPress={() => navigation.navigate("Teacher network")}
         activeOpacity={0.9}
         underlayColor="lightgray"
         style={styles.teacherNetwork}
       >
-        <Text style={styles.groupExamText} >Teacher{"\n"}Network</Text>
+        <Text style={styles.teacherNetworkText} >Teacher{"\n"}Network</Text>
       </TouchableHighlight>
     </View>
     </SafeAreaProvider>
@@ -355,6 +321,7 @@ const styles = StyleSheet.create({
   alertText: {
     fontSize: 13,
     fontWeight: "600",
+    color: "#444",
     paddingBottom: 2,
   },
   clickableText: {

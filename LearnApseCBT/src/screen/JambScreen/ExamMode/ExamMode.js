@@ -10,7 +10,6 @@ import {View,
 import React , {useState}from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { useNavigation } from '@react-navigation/native';
 
 import {
@@ -25,7 +24,6 @@ import { AntDesign } from '@expo/vector-icons';
 import QuestButton from "./QuestButton.js";
 import ExamInstructionModal from "./ExamInstructionModal.js";
 import ExamShowQuestion from "./ExamShowQuestion";
-import Result from "./Result.js";
 import Subject from "../PQuestion/SubjectListDb.js";
 import ReadMoreModal from "./ReadMoreModal.js";
 import subjects from  "../../../SubjectDb.js";
@@ -36,16 +34,16 @@ const Stack = createNativeStackNavigator();
 
 export default function ExamMode() {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}} initialRouteName = "ExamHome">
-      <Stack.Screen name ='ExamHome' component = {ExamHome}/>
+    <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}} initialRouteName = "Home">
+      <Stack.Screen name ='Home' component = {Home}/>
       <Stack.Screen name ='ExamShowQuestion' component = {ExamShowQuestion}/>
-      <Stack.Screen name ='Result' component = {Result}/>
     </Stack.Navigator>
   )
 }
 
 
-function ExamHome(){
+function Home(){
+  const insets = useSafeAreaInsets();
   return(
     <View style={styles.homeContainer}>
       <HomeHeader/>
