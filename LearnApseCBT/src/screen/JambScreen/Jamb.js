@@ -6,6 +6,7 @@ import {
   ScrollView,
   Dimensions,
   TouchableHighlight,
+  TouchableOpacity,
 } from "react-native";
 
 import {
@@ -44,6 +45,7 @@ function JambHome({navigation}) {
   const insets = useSafeAreaInsets();
   return (
     <SafeAreaProvider>
+    <View style = {{backgroundColor: "#6EAAF5"}}>
       <ScrollView>
         <View
           style={[
@@ -60,9 +62,9 @@ function JambHome({navigation}) {
             <AlertBox />
             <View style={styles.midTopContent}>
               <View style={styles.midTopContentRow1}>
-                <TouchableHighlight
+                <TouchableOpacity
                   onPress={() => navigation.navigate("Past questions")}
-                  activeOpacity={0.9}
+                  activeOpacity={0.3}
                   underlayColor="lightgray"
                   style={[styles.midTopContentRow1Btn, {
                   				  borderTopLeftRadius: 34,
@@ -70,14 +72,14 @@ function JambHome({navigation}) {
 							  }]}
                 >
                   <>
-                    <MaterialCommunityIcons name="notebook-multiple" size={40} color="white" />
+                    <MaterialCommunityIcons name="notebook-multiple" size={40} color="black" />
                     <Text style={styles.midTopContentRowText}>Past</Text>
                     <Text style={styles.midTopContentRowText}>Questions</Text>
                   </>
-                </TouchableHighlight>
-                <TouchableHighlight
+                </TouchableOpacity>
+                <TouchableOpacity
                   onPress={() => navigation.navigate("Custom test")}
-                  activeOpacity={0.9}
+                  activeOpacity={0.3}
                   underlayColor="lightgray"
                   style={[styles.midTopContentRow1Btn, {
                   				  borderTopRightRadius: 34,
@@ -85,29 +87,29 @@ function JambHome({navigation}) {
 							  }]}
                 >
                   <>
-                    <MaterialIcons name="my-library-books" size={45} color="white" />
+                    <MaterialIcons name="my-library-books" size={45} color="black" />
                     <Text style={styles.midTopContentRowText}>Customised</Text>
                     <Text style={styles.midTopContentRowText}>Test</Text>
                   </>
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
               <View style={styles.midTopContentRow2}>
-                <TouchableHighlight
+                <TouchableOpacity
                   onPress={() => navigation.navigate("Exam mode")}
-                  activeOpacity={0.9}
+                  activeOpacity={0.3}
                   underlayColor="lightgray"
                   style={styles.midTopContentRow2Exam}
                 >
                   <>
-                    <Ionicons name="ios-finger-print-sharp" size={50} color="gray" />
-                    <Text style={styles.midTopContentRowText}>Exam{"\n"}Mode</Text>
+                    <Ionicons name="ios-finger-print-sharp" size={50} color="white" />
+                    <Text style={[styles.midTopContentRowText, {color: "white"}]}>Exam{"\n"}Mode</Text>
                   </>
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
               <View style={styles.midTopContentRow3}>
-                <TouchableHighlight
+                <TouchableOpacity
                   onPress={() => navigation.navigate("Online battle")}
-                  activeOpacity={0.9}
+                  activeOpacity={0.3}
                   underlayColor="lightgray"
                   style={[styles.midTopContentRow3Btn, {
                   					borderTopRightRadius: 34,
@@ -115,13 +117,13 @@ function JambHome({navigation}) {
 							  }]}
                 >
                   <>
-                    <MaterialIcons name="online-prediction" size={47} color="white" />
+                    <MaterialIcons name="online-prediction" size={47} color="black" />
                     <Text style={styles.midTopContentRowText}>Online{"\n"}Battle</Text>
                   </>
-                </TouchableHighlight>
-                <TouchableHighlight
+                </TouchableOpacity>
+                <TouchableOpacity
                   onPress={() => navigation.navigate("Quiz mode")}
-                  activeOpacity={0.9}
+                  activeOpacity={0.3}
                   underlayColor="lightgray"
                   style={[styles.midTopContentRow3Btn, {
                   					borderTopLeftRadius: 34,
@@ -129,82 +131,82 @@ function JambHome({navigation}) {
 							  }]}
                 >
                   <>
-                    <MaterialCommunityIcons name="head-question-outline" size={45} color="white" />
+                    <MaterialCommunityIcons name="head-question-outline" size={45} color="black" />
                     <Text style={styles.midTopContentRowText}>Quiz{"\n"}Mode</Text>
                   </>
-                </TouchableHighlight>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
           <View style={styles.bottom}>
-            <TouchableHighlight
+            <TouchableOpacity 
               onPress={() => navigation.navigate("National score ranking")}
-              activeOpacity={0.9}
+              activeOpacity={0.3}
               underlayColor="lightgray"
               style={styles.bottomContent}
             >
               <>
-                <MaterialCommunityIcons name="nature" size={35} color="white" />
+                <MaterialCommunityIcons name="nature" size={35} color="black" />
                 <Text style={styles.midTopContentRowText} >National score ranking</Text>
                 <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
               </>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={() => navigation.navigate("Novels and Art")}
-              activeOpacity={0.9}
+              activeOpacity={0.3}
               underlayColor="lightgray"
               style={styles.bottomContent}
             >
               <>
-                <FontAwesome5 name="diagnoses" size={30} color="white" />
+                <FontAwesome5 name="diagnoses" size={30} color="black" />
                 <Text style={styles.bottomContentText} >Novels and Art </Text>
                 <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
               </>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={() => navigation.navigate("Bookmarks")}
-              activeOpacity={0.9}
+              activeOpacity={0.3}
               underlayColor="lightgray"
               style={styles.bottomContent}
             >
               <>
-                <AntDesign name="book" size={35} color="white" />
+                <AntDesign name="book" size={35} color="black" />
                 <Text style={styles.bottomContentText} >Bookmarks</Text>
               </>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={() => navigation.navigate("Jamb syllabus")}
-              activeOpacity={0.9}
+              activeOpacity={0.3}
               underlayColor="lightgray"
               style={styles.bottomContent}
             >
               <>
-                <Entypo name="dropbox" size={35} color="white" />
+                <Entypo name="dropbox" size={35} color="black" />
                 <Text style={styles.bottomContentText} >Jamb syllabus </Text>
               </>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={() => navigation.navigate("Jamb subject combination")}
-              activeOpacity={0.9}
+              activeOpacity={0.3}
               underlayColor="lightgray"
               style={styles.bottomContent}
             >
               <>
-                <AntDesign name="CodeSandbox" size={35} color="white" />
+                <AntDesign name="CodeSandbox" size={35} color="black" />
                 <Text style={styles.bottomContentText} >Jamb subject combination </Text>
               </>
-            </TouchableHighlight>
-            <TouchableHighlight
+            </TouchableOpacity>
+            <TouchableOpacity
               onPress={() => navigation.navigate("Exam history")}
-              activeOpacity={0.9}
+              activeOpacity={0.3}
               underlayColor="lightgray"
               style={styles.bottomContent}
             >
               <>
-                <FontAwesome5 name="parachute-box" size={34} color="white" />
+                <FontAwesome5 name="parachute-box" size={34} color="black" />
                 <Text style={styles.bottomContentText} >Result and Exam history</Text>
               </>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -224,6 +226,7 @@ function JambHome({navigation}) {
       >
         <Text style={styles.teacherNetworkText} >Teacher{"\n"}Network</Text>
       </TouchableHighlight>
+    </View>
     </SafeAreaProvider>
   );
 }
@@ -296,8 +299,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "lightgray",
     flex: 1,
-    borderTopLeftRadius: 50,
-    borderTopRightRadius: 50,
+    borderTopLeftRadius: 60,
+    borderTopRightRadius: 60,
   },
   midTop: {
     //borderWidth: 2,
@@ -308,10 +311,10 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     marginTop: 2,
-    marginBottom: 10,
-    backgroundColor: "lightblue",
-    borderTopRightRadius: 38,
-    borderTopLeftRadius: 38,
+    marginBottom: 15,
+    backgroundColor: "#FAFAFA",
+    borderTopRightRadius: 44,
+    borderTopLeftRadius: 44,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -352,7 +355,7 @@ const styles = StyleSheet.create({
   },
   midTopContentRow1Btn: {
     //borderWidth: 2,
-    backgroundColor: "gray",
+    backgroundColor: "#FAFAFA",
     width: 110,
     height: 110,
     alignItems: "center",
@@ -360,7 +363,7 @@ const styles = StyleSheet.create({
   },
   midTopContentRow2Exam: {
     //borderWidth: 2,
-    backgroundColor: "lightblue",
+    backgroundColor: "#6EAAF5",
     width: 115,
     height: 115,
     borderRadius: 34,
@@ -369,7 +372,7 @@ const styles = StyleSheet.create({
   },
   midTopContentRow3Btn: {
     //borderWidth: 2,
-    backgroundColor: "gray",
+    backgroundColor: "#FAFAFA",
     width: 110,
     height: 110,
     alignItems: "center",
@@ -395,7 +398,7 @@ const styles = StyleSheet.create({
     paddingLeft: 26,
     borderRadius: 5,
     borderBottomLeftRadius: 20,
-    backgroundColor: "gray",
+    backgroundColor: "#FAFAFA",
     flexDirection: "row",
     gap: 14,
     alignItems: "center",
@@ -406,7 +409,7 @@ const styles = StyleSheet.create({
   },
   
   groupExam: {
-    backgroundColor: "lightblue",
+    backgroundColor: "#6EAAF5",
 	width: 60,
 	height: 60,
 	borderRadius: 20,
@@ -418,11 +421,12 @@ const styles = StyleSheet.create({
    },
    groupExamText: {
       fontWeight: "bold",
-  	fontSize: 13
+  	fontSize: 13,
+  	color: "white",
 	},
   
   teacherNetwork:{
-	backgroundColor: "lightblue",
+	backgroundColor: "#6EAAF5",
 	paddingHorizontal: 8,
 	paddingVertical: 14,
 	borderRadius: 20,
@@ -434,7 +438,8 @@ const styles = StyleSheet.create({
 },
   teacherNetworkText:{
   	fontWeight: "bold",
-  	fontSize: 13
+  	fontSize: 13,
+  	color: "white",
   }, 
 });
 

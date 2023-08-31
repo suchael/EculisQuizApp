@@ -38,7 +38,7 @@ function MainContainer(){
                   	paddingLeft: insets.left + 10,
                   	paddingRight: insets.right + 10,
                   	paddingTop: insets.top + 14,
-                  	paddingBottom: insets.bottom + 100,             	
+                  	paddingBottom: insets.bottom + 130,             	
                 }}
 				>
 					<QuestionInterface/>
@@ -110,18 +110,19 @@ function QuestionInterfaceContainer({ind}){
 					</Text>			
          	   </View>
 			</View>
-			<View style = {[styles.questionAndExplanationScreen, {marginTop:18}]}>
+			<View style = {[styles.questionAndExplanationScreen, {marginTop:18, backgroundColor: "#F0EDE1"}]}>
 				<View style = {styles.questionScreenNumberView}>
 					<Text style = {[styles.questionScreenNumber, {fontSize:20}]}>
 						Explanation 
 					</Text>
 				</View>
+				<Text style = {{fontSize: 17, fontWeight: "600", marginVertical:10}}>Correct Answer: A</Text>
 				<Text style = {styles.optionContainerOptions}>
-					Tell me if I should use redux or not and tell me the benefit of either of them
-
-I'm creating an app just like the Myschool cbt app
-Okay, this app has news features (students can read an comment on news), this app has teacher section (teachers can search for school jobs and apply), this app has quiz mode, this app has online battle (students can compete in quiz with other people just like multiplayer online game) students can take online exam (a group exam link is created and shared to students, they can sit for the exam from the comfort of their home, the creator o the group link can see all scores, students can see their individual scores) there's exam mode(students take exam and scores re posted online to make them serious), there is past question mode
-Note: in any exam mode or past question mode, the questions generated can be done by topic (students can answer questions by topic)
+					Savannas are quite low in tree species diversity because of stringent ecological requirements but fairly high in diversity of herbaceous plants. Tree growth is controlled not only by rainfall but also by soil type; large areas of hardpan soils, allow no tree roots to penetrate except through cracks, and the cracks determine tree distribution.
+Large mammals are at their most diverse in this open environment, in which they can move about freely and yet find shelter among woody vegetation. Large herbivores are successful because of the tremendous biomass of herbaceous vegetation produced annually, and there are many carnivores to crop them in turn.
+Tropical rain forests occur in areas of tropical rainforest climate in which there is no dry season, distinct buttress roots of trees.
+Montane forest refers to any ecosystem found in mountains. These ecosystems are strongly affected by climate, which gets colder as elevation increases.
+A desert is a barren area of landscape where little precipitation occurs and consequently living conditions are hostile for plant and animal life.
 				</Text>
 				
 				<TouchableHighlight 
@@ -144,7 +145,7 @@ Note: in any exam mode or past question mode, the questions generated can be don
 			 				activeOpacity={0.9}
 	      			>
               			<Text style= {styles.screenBottomBtnText}>   
-								Error?      
+								Error{" "}?      
               			</Text>
           			</TouchableHighlight>              
             		  <TouchableHighlight 
@@ -300,6 +301,7 @@ const styles = StyleSheet.create({
 	optionContainerOptions: {
 		fontSize: 16.7, 
 		fontWeight: "500",
+		
 	},
   screenContBottomBtn: {
   	  borderWidth: 2, 
