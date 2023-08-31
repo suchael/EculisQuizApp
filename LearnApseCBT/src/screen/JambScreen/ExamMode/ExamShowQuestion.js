@@ -149,7 +149,7 @@ function QuestionInterfaceContainer({ind}){
 			<View style = {styles.questionScreen}>
 				<View style = {styles.questionScreenNumberView}>
 					<Text style = {styles.questionScreenNumber}>
-						Question {ind}
+						Question {ind}/40
 					</Text>
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
@@ -157,38 +157,38 @@ function QuestionInterfaceContainer({ind}){
 				</Text>
 			</View>
 			<View style = {styles.optionMain}>
-				<View style= {styles.optionContainer}>
+				<TouchableOpacity style= {styles.optionContainer}>
 					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
 						A{". "}
 						<Text style = {styles.optionContainerOptions}>
               				which contains protons and neutrons 				
 						</Text>
 					</Text>			
-         	   </View>
-         	<View style= {styles.optionContainer}>
+         	   </TouchableOpacity>
+         	<TouchableOpacity style= {styles.optionContainer}>
 					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
 						B{". "}
 						<Text style = {styles.optionContainerOptions}>
               				which is positively charged
          				</Text>
 					</Text>			
-         	   </View>
-				<View style= {styles.optionContainer}>
+         	   </TouchableOpacity>
+				<TouchableOpacity style= {styles.optionContainer}>
 					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
 						C{". "}
 						<Text style = {styles.optionContainerOptions}>
               				which is massive and can cause deflection of a few projectiles
          				</Text>
 					</Text>			
-         	   </View>
-         	<View style= {styles.optionContainer}>
+         	   </TouchableOpacity>
+         	<TouchableOpacity style= {styles.optionContainer}>
 					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
 						D{". "}
 						<Text style = {styles.optionContainerOptions}>
               				which is very large and in which close to 98% of projectiles pass undeflected
          				</Text>
 					</Text>			
-         	   </View>
+         	   </TouchableOpacity>
 			</View>
 		</View>
 	);
@@ -196,10 +196,56 @@ function QuestionInterfaceContainer({ind}){
 
 function GoToNumbers(){
 	return(
-		<View style={{height:100, borderRadius: 14,borderWidth:2, backgroundColor: "white"}}>
+		<View style={{borderRadius: 14,borderWidth:2, backgroundColor: "white", paddingVertical: 12, paddingHorizontal: 10, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, flexWrap:"wrap"}}>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			<GoToBtnList/>
+			
 		</View>
 	);
 }
+
+function GoToBtnList(){
+	return(
+		<TouchableOpacity style = {{borderWidth:2, width: 48, height: 48, borderRadius: 8, justifyContent: "center", alignItems: "center", backgroundColor: "white"}}>
+				<Text style = {{fontSize: 16, fontWeight: "500"}}>1</Text>
+		</TouchableOpacity>
+	);
+}
+
 
 function PrevBtn(){
 	return (
@@ -287,11 +333,11 @@ const styles = StyleSheet.create({
   // Question Interface
   questionInterfaceMain: {
   	//borderWidth : 2, 
-	  marginBottom: 20,
-	marginTop:20
+	marginBottom: 60,
+	marginTop: 10
    },
    questionInterfaceContainer: {
-   	backgroundColor: "white",
+   	backgroundColor: "transparent",
    	borderWidth: 2, 
 	   padding:4, 
 	   //borderColor: "blue", 
@@ -306,7 +352,7 @@ const styles = StyleSheet.create({
 		flexDirection: "column", 
 		borderRadius: 15,  
 		backgroundColor: "white", 
-		marginBottom: 6
+		marginBottom: 12,
 	},
 	questionScreenNumberView: {
 		marginTop: -2, 
@@ -336,9 +382,10 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 8 ,
 		paddingVertical: 4,
 		borderWidth: 2, 
-		borderRadius: 7, 
-		marginTop: 3, 
-		backgroundColor: "white" 
+		borderRadius: 10, 
+		marginBottom: 6, 
+		backgroundColor: "white" ,
+		minHeight: 50
 	},
 	optionContainerOptions: {
 		fontSize: 16.7, 

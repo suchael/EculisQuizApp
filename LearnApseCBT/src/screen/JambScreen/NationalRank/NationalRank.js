@@ -1,139 +1,155 @@
-import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
-  Modal,
-  Button,
   StyleSheet,
+  ScrollView,
   Dimensions,
-  TouchableWithoutFeedback,
   TouchableOpacity,
   BackHandler,
+  TouchableHighlight,
 } from 'react-native';
 
-const App = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+import React, { useState } from 'react';
 
-  const showModal = () => {
-    setModalVisible(true);
-  };
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 
-  const closeModal = () => {
-    setModalVisible(false);
-  };
+// Icons
+import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 
-  const handleBackButton = () => {
-    if (modalVisible) {
-      closeModal();
-      return true;
-    }
-    return false;
-  };
+// My import
+import TruncatedText from "../PQuestion/TruncatedText.js";
 
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
-
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
-    };
-  }, [modalVisible]);
-
+export default function NationalRank() {
   return (
-    <View style={styles.container}>
-      <Button title="Show Modal" onPress={showModal} />
-      <MyModal visible={modalVisible} onClose={closeModal} />
+    <View>
+      <HomeHeader />
+      <Main />
     </View>
   );
-};
+}
 
-const MyModal = ({ visible, onClose }) => {
-  const windowHeight = Dimensions.get('window').height;
-  const modalHeight = windowHeight * 0.3;
-
-  const handleRadioPress = () => {
-    // Handle radio button selection
-  };
-
-  const handleSubmit = () => {
-    // Handle submit button press
-    onClose();
-  };
-
+function HomeHeader() {
+  const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
   return (
-    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
-      <TouchableWithoutFeedback onPress={onClose}>
-        <View style={styles.overlay} />
-      </TouchableWithoutFeedback>
-      <View style={[styles.modal, { height: modalHeight }]}>
-        <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-          <Text style={styles.closeButtonText}>X</Text>
-        </TouchableOpacity>
-        <View style={styles.modalContent}>
-          <Text style={styles.headerText}>Error?</Text>
-          <Text>Select all that apply:</Text>
-          <TouchableOpacity onPress={handleRadioPress}>
-            {/* Radio button component */}
-          </TouchableOpacity>
-          {/* Repeat the above for other options */}
-          <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Submit</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
+    <View
+      style={[
+        styles.homeHeader,
+        {
+          paddingLeft: insets.left + 10,
+          paddingRight: insets.right + 10,
+          paddingTop: insets.top + 12,
+          paddingBottom: insets.bottom + 4,
+          borderBottomWidth: 2,
+          borderBottomColor: 'gray',
+        },
+      ]}
+    >
+      <TouchableHighlight
+        onPress={() => navigation.goBack()}
+        activeOpacity={0.9}
+        underlayColor="lightgray"
+        style={{
+          width: 60,
+          height: 40,
+          justifyContent: 'center',
+        }}
+      >
+        <AntDesign name="arrowleft" size={27} color="#333" style={{ marginLeft: -4 }} />
+      </TouchableHighlight>
+      <Text style={styles.homeHeaderText}>National{"  "}Score{"  "}Ranking </Text>
+    </View>
   );
-};
+}
+
+
+
+function Main() {
+  const insets = useSafeAreaInsets();
+  const screenHeight = Dimensions.get('window').height;
+  console.log(screenHeight);
+  return (
+    <ScrollView>
+      <View
+        style={{
+          paddingLeft: insets.left + 10,
+          paddingRight: insets.right + 10,
+          paddingTop: insets.top + 12,
+          paddingBottom: insets.bottom + 170,
+          flex: 1,
+        }}
+      >
+        <Text style = {{fontSize: 17, fontWeight: "500", color: "#444"}}>Today's highest score</Text>
+        
+        {/*First, Second - Third position board*/}
+        <View style = {{borderWidth: 2, height: screenHeight*0.577, marginBottom: 15}}>
+        	<Text>First, Second, third</Text>
+        </View>
+        
+        {/*Other Score Container*/}
+        <About name = "You"/>
+        <About name = "Peter Ashiwobe Michael Peter John Thomas"/>
+        <About name = "Michael Ifunanya"/>
+        <About name = "Peter Ashiwobe"/>
+      </View>
+    </ScrollView>
+  );
+}
+
+
+function About({name}){
+	return(
+		<View style = {{borderBottomWidth: 0.5, borderTopWidth: 0.5, borderColor: "#999", flexDirection: "row",  justifyContent: "space-between", paddingVertical: 5, marginHorizontal: -10, paddingHorizontal: 10, marginBottom: 10}}>
+        		{/*Left - Pic and score*/}
+        		<View style ={{flexDirection: "row", justifyContent: "space-between", gap: 10}}>
+        			<View style ={{borderWidth: 2,  width: 40, height: 40, borderRadius: 20}}>
+        			</View>
+        			<View style ={{justifyContent: "center", }}>
+        				<Text style = {{fontSize: 18, fontWeight: "600"}}><TruncatedText text = {name} maxLength = {25}/></Text>
+        				<Text style = {{fontSize: 17, fontWeight: "500"}}>Score: 270/400</Text>
+        				<Text style = {{fontSize: 15, fontWeight: "600"}}>Location: Lagos</Text>
+        			</View>
+        		</View>
+        		
+        		{/*Right - student position*/}
+        		<View style ={{borderWidth: 2, borderRadius: 5,width: 50, height: 35, alignItems: "center", justifyContent: "center", backgroundColor: "white"}}>
+        				<Text style = {{fontSize: 16, fontWeight: "600"}}>25th</Text>
+        		</View>
+        </View>
+	);
+}
+
+
+
+
 
 const styles = StyleSheet.create({
-  container: {
+  homeContainer: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: 'lightgray',
+  },
+  homeHeader: {
+    flexDirection: 'row',
+    gap: 20,
     alignItems: 'center',
   },
-  overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modal: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: [{ translateX: -Dimensions.get('window').width * 0.5 }, { translateY: -Dimensions.get('window').height * 0.15 }],
-    width: '80%',
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 20,
-  },
-  closeButton: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-  },
-  closeButtonText: {
+  homeHeaderIcon: {},
+  homeHeaderText: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: '600',
   },
-  modalContent: {
-    flex: 1,
+  bookButton: {
+    backgroundColor: 'gray',
+    marginBottom: 6,
+    paddingHorizontal: 15,
+    paddingVertical: 14,
+    borderRadius: 10,
     justifyContent: 'center',
-  },
-  headerText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  submitButton: {
-    backgroundColor: 'blue',
-    paddingVertical: 10,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 20,
   },
   buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 17,
+    fontWeight: '600',
   },
 });
-
-export default App;

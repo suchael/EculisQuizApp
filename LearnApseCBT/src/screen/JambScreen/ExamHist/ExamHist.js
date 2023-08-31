@@ -7,7 +7,11 @@ import {View,
         BackHandler,
         TouchableHighlight } from 'react-native';
         
+<<<<<<< HEAD
 import React from 'react';
+=======
+import React, {useState} from 'react';
+>>>>>>> FirstBranch
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   useSafeAreaInsets,
@@ -19,6 +23,10 @@ import { AntDesign } from '@expo/vector-icons';
 
 // My imports
 import ExamHistResult from "./ExamHistResult.js";
+<<<<<<< HEAD
+=======
+import ViewAnswers from "./ViewAnswers.js";
+>>>>>>> FirstBranch
 
 const Stack = createNativeStackNavigator();
 
@@ -26,9 +34,16 @@ const Stack = createNativeStackNavigator();
 
 export default function ExamHist() {
   return (
+<<<<<<< HEAD
     <Stack.Navigator screenOptions={{headerShown: false, animation: "none", }}>
       <Stack.Screen name ='ExamHistHome' component = {ExamHistHome}/>
       <Stack.Screen name ='ExamHistResult' component = {ExamHistResult}/>
+=======
+    <Stack.Navigator screenOptions={{headerShown: false, animation: "none", }} initialRouteName = "ExamHistHome">
+      <Stack.Screen name ='ExamHistHome' component = {ExamHistHome}/>
+      <Stack.Screen name ='ExamHistResult' component = {ExamHistResult}/>
+      <Stack.Screen name ='ViewAnswers' component = {ViewAnswers}/>
+>>>>>>> FirstBranch
     </Stack.Navigator>
   )
 }
@@ -92,7 +107,10 @@ function Main(){
 				<History/>
 				<History/>
 				<History/>
+<<<<<<< HEAD
 				
+=======
+>>>>>>> FirstBranch
 			</View>
 		</ScrollView>
 	);

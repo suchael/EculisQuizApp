@@ -39,8 +39,8 @@ function Main() {
       <TopTab.Navigator
         initialRouteName="Jamb"
         screenOptions={{
-          tabBarActiveTintColor: "#000000",
-          tabBarInactiveTintColor: "#777",
+          tabBarActiveTintColor: "white",
+          tabBarInactiveTintColor: "blue",
           tabBarLabelStyle: {
             fontSize: 16,
             textTransform: "none",
@@ -49,11 +49,11 @@ function Main() {
           tabBarStyle: {
             height: 40, // Adjust the height of the tab bar
             borderBottomWidth: 0, // Remove top border
-            backgroundColor: "lightblue",
+            backgroundColor: "#6EAAF5",
           },
           tabBarIndicatorStyle: {
             bottom: 0, // Adjust the position of the indicator
-            backgroundColor: "black",
+            backgroundColor: "white",
             height: 3,
           },
         }}

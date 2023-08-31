@@ -36,7 +36,11 @@ const Stack = createNativeStackNavigator();
 
 export default function ExamMode() {
   return (
+<<<<<<< HEAD
     <Stack.Navigator screenOptions={{headerShown: false, animation: "none", }}>
+=======
+    <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}} initialRouteName = "Home">
+>>>>>>> FirstBranch
       <Stack.Screen name ='Home' component = {Home}/>
       <Stack.Screen name ='ExamShowQuestion' component = {ExamShowQuestion}/>
       <Stack.Screen name ='Result' component = {Result}/>
@@ -112,7 +116,7 @@ function ReadMoreBtn(){
     BackHandler.removeEventListener('hardwareBackPress', closeModal);
     return true;
   };
-  
+ 
 	return (
 		<View style = {{flexDirection: "row", justifyContent: "center", alignItems: "center", justifyContent: "center",marginVertical: 14,paddingLeft: 10,}}>
 				<Text style = {{fontSize:16, fontWeight: "bold"}}>Attention: </Text>
