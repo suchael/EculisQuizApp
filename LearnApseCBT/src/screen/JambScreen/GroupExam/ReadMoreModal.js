@@ -76,11 +76,24 @@ function MessageBox(){
     return (
       <View style={styles.messageBox}>
           <Text style={styles.messageNormalText}>
-            	The premium version comes with an advanced AI proctor that is capable of detecting examination malpractice . It can detect attempts such as students trying to open web browsers, using a second mobile phone , eye signals as well as spy glasses , looking away from the screen, or talking to someone else. The premium version also include photos of before and after exam.
+            	The premium version of our software offers comprehensive and cutting-edge exam security to ensure the highest level of integrity. 
+				{"\n"}Some of these features include:{"\n\n"}
+				<BoldText> •Advanced AI Proctor: </BoldText>Detects various forms of cheating, including web browsing, mobile phone use, eye signals, and spy glasses.{"\n\n"}
+				<BoldText>•Monitoring: </BoldText>Keeps an eye on examinees looking away from the screen or engaging in unauthorized conversations.{"\n\n"}
+				<BoldText>•Visual Evidence: </BoldText>Captures photos before and after the exam for thorough monitoring and verification.{"\n\n"}
           </Text>
       </View>
     );
   };
+
+
+const BoldText = ({ children }) => {
+  return (
+    <Text style={{fontSize: 16, fontWeight: "600"}}>
+      {children}
+    </Text>
+  );
+};
 
 
 const styles = StyleSheet.create({

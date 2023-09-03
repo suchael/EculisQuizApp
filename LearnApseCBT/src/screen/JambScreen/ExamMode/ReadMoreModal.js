@@ -32,8 +32,8 @@ function ReadMoreModal({ visible, onClose}){
         >
           <TouchableOpacity
             style={{ flex: 1, width: '100%' }}
-            onPress={onClose}
-          ></TouchableOpacity>
+            onPress={onClose}>
+          </TouchableOpacity>
           <View
             style={{
               backgroundColor: 'white',

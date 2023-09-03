@@ -69,7 +69,7 @@ export default function App() {
 								component={Quiz}
 							/>
 							<Stack.Screen 
-								name='National score ranking' 
+								name='NationalWatchers' 
 								component={NationalRank}
 							/>
 							<Stack.Screen 

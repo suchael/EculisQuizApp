@@ -51,7 +51,7 @@ function HomeHeader(){
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   return(
-  <View style = {{backgroundColor:"lightblue"}}>
+  <View style = {{backgroundColor:"#6EAAF5", paddingHorizontal: 20}}>
     <View style = {[styles.homeHeader, 
                     {
                       paddingLeft: insets.left + 10,
@@ -101,10 +101,10 @@ function InstructionBtn(){
 	return (
 		<View style = {{flexDirection: "column", justifyContent: "center", alignItems: "center", justifyContent: "center",marginVertical: 14,paddingLeft: 10,}}>
 				<Text style = {{fontSize:16, fontWeight: "bold"}}>Attention: </Text>
-				<Text style = {{fontSize: 16}}>
+				<Text style = {{fontSize: 16, flexDirection: "row"}}>
 					This feature allows you to create a unique link to an online exam. The link can be shared with other group of people who can then access the exam and participate. You also have the ability to release scores on request.{"\n"}
               	   <TouchableOpacity onPress = {openModal}>
-					 		<Text style ={{color: "blue"}}>{""}...Read More</Text>
+					 		<Text style ={{color: "blue", fontSize: 16}}>{""}...Read More</Text>
 					</TouchableOpacity>
 				</Text> 
 				<ReadMoreModal visible={modalVisible} onClose={closeModal}/>

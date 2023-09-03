@@ -21,9 +21,9 @@ import { AntDesign,
 				} from '@expo/vector-icons';
 
 //My import
-import ScoreModal from "./ScoreModal.js";
+import QuizScoreModal from "./QuizScoreModal.js";
 
-export default function OnlineBatGameScreen(){
+export default function QuizQuestionScreen(){
 	return(
 		<View style ={styles.homeContainer}>
 			<Main/>
@@ -31,6 +31,7 @@ export default function OnlineBatGameScreen(){
 		</View>
 	);
 }
+
 
 function Main(){
 	const insets = useSafeAreaInsets();
@@ -44,19 +45,18 @@ function Main(){
                   }}
 		>
 			<ScoreBoard/>
-			<OnlineBatQuestion/>
+			<QuizQuestion/>
 		</ScrollView>
 	);
 }
 
 function ScoreBoard(){
   const navigation = useNavigation();
-  
   return(
     <View style ={{borderWidth: 2, marginTop: 4, padding: 4, borderRadius: 10}}>
       <View style = {{flexDirection: "row", alignItems: "center", justifyContent: "space-between",}}>
       	{/*Left Score board*/}
-      	<View style ={{borderWidth: 2, borderRadius: 10, paddingVertical: 4, paddingHorizontal: 6,justifyContent: "center", flexDirection: "column", backgroundColor: "white"}}>
+      	<View style ={{borderWidth: 2, width: "100%", borderRadius: 10, paddingVertical: 4, paddingHorizontal: 6,justifyContent: "center", alignItems: "center", flexDirection: "column", backgroundColor: "white"}}>
       		<Text style ={{fontSize:18, fontWeight: "bold"}}>You</Text>
       
       		{/*Progress Bar*/}
@@ -69,23 +69,6 @@ function ScoreBoard(){
 					5/100
 			</Text>
       	</View>
-      
-      	{/*Right Score board*/}
-      	<View style ={{borderWidth: 2, borderRadius: 10, paddingVertical: 4, paddingHorizontal: 6,justifyContent: "center", flexDirection: "column", backgroundColor: "white"}}>
-      		<Text style ={{fontSize:18, fontWeight: "bold"}}>Michael419</Text>
-      
-      		{/*Progress Bar*/}
-      		<View style ={{marginVertical: 5}}>
-      			<ProgressBarIndicator/>
-      		</View>
-     
-      		<Text style ={{fontSize: 17, fontWeight: "500"}}>
-					<Text style ={{fontWeight: "600"}}>Score: </Text> 
-					15/100
-			</Text>
-      	</View>
-      
-      
       </View>
     </View>
   );
@@ -93,7 +76,7 @@ function ScoreBoard(){
 
 function ProgressBarIndicator(){
 	return(
-		<View style ={{borderWidth: 2, height: 12, width: 120}}>
+		<View style ={{borderWidth: 2, borderRadius: 3, height: 15, width:  180}}>
 			{/*Designing the Progress bar in Progress*/}
 		</View>
 	);
@@ -101,11 +84,11 @@ function ProgressBarIndicator(){
 
 
 
-function OnlineBatQuestion(){
+function QuizQuestion(){
 	return(
 		<View style ={{padding: 4,  marginTop: 20 }}>
 			<Timer/>
-			<QuestionInterfaceContainer ind= "1"/>
+			<QuizQuestionInterface ind= "1"/>
 		</View>
 	);
 }
@@ -127,7 +110,7 @@ function Timer(){
 
 
 
-function QuestionInterfaceContainer({ind}){
+function QuizQuestionInterface({ind}){
 	const navigation = useNavigation()
 	return(
 		<View style = {styles.questionInterfaceContainer}>
@@ -210,7 +193,7 @@ function ContinueButton() {
     >
       <Text style={{ fontSize: 17, fontWeight: "bold" }}>Continue</Text>
     </TouchableOpacity>
-    <ScoreModal visible = {modalVisible} onClose ={closeModal}/>
+    <QuizScoreModal visible = {modalVisible} onClose ={closeModal}/>
   </>
   );
 }

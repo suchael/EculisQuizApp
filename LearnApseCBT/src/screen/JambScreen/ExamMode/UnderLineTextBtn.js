@@ -8,7 +8,7 @@ export default function UnderLineTextBtn({ text , goTo}) {
         <Text
           style={{
             textDecorationLine: 'underline',
-            fontSize: 15,
+            fontSize: 16,
             fontWeight: '600',
             margin: -4,
             paddingVertical: -4,

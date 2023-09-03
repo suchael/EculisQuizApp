@@ -43,7 +43,7 @@ const ExamInstructionModal = ({ visible, onClose}) => {
           <Text style={styles.headerText}>Instruction:</Text>
           <Text style={styles.modalText}>
             This is a strict Exam mode. Attempting to minimise your phone a maximum of 3 times will quit the exam and your score would
-            be submitted online once there is an internet connection. {"\n\n"}Be informed that Every score in this section is also available online to everyone via <UnderLineTextBtn text = "National Score Ranking" goTo="National score ranking"/>.
+            be submitted online once there is an internet connection. {"\n\n"}Be informed that Every score in this section is also available online to everyone via <UnderLineTextBtn text = "National Watchers" goTo="NationalWatchers"/>.
           </Text>
           <Text style={styles.headerText}>Your Subjects:</Text>
           <Text style={[styles.modalText, {marginLeft: 12, marginBottom:-8}]}>

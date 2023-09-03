@@ -7,7 +7,7 @@ import {View,
         BackHandler,
         TouchableHighlight } from 'react-native';
         
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   useSafeAreaInsets,
@@ -25,6 +25,10 @@ import { AntDesign,
 import Subject from "../PQuestion/SubjectListDb.js";
 import QuestButton from "../ExamMode/QuestButton.js";
 import OnlineBatGameScreen from "./OnlineBatGameScreen.js";
+import UnderLineTextBtn from "../ExamMode/UnderLineTextBtn.js";
+import FriendlyMatch from "./FriendlyMatch/FriendlyMatch.js";
+import FindFrndByUsernameModal from "./FindFrndByUsernameModal.js";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +38,7 @@ export default function OnlineBat() {
     <Stack.Navigator screenOptions={{headerShown: false, animation: "none", }} initialRouteName = "OnlineBatMain">
     	<Stack.Screen name ='OnlineBatMain' component = {OnlineBatMain}/>
         <Stack.Screen name ='OnlineBatGameScreen' component = {OnlineBatGameScreen}/>
+        <Stack.Screen name ='FriendlyMatch' component = {FriendlyMatch}/>
     </Stack.Navigator>
   )
 }
@@ -41,7 +46,7 @@ export default function OnlineBat() {
 
 function OnlineBatMain() {
   return (
-    <View style ={{paddingHorizontal: 16,backgroundColor: "gray", flex: 1}}>
+    <View style ={{paddingHorizontal: 16,backgroundColor: "rgba(0,0,0,0.6)", flex: 1}}>
      	<HomeHeader/>
      	<Main/>
      	<BottomBtn/>
@@ -88,7 +93,7 @@ function Main(){
 										}}
 			>
 				<Text style = {{fontSize: 15, fontWeight: "500", color: "black"}}>
-					It is time to show your skills. Compete with people in an Online Battle within your country. 
+					Compete randomly with people in an Online Battle within your country. 
 				</Text>
 				<Text style = {{fontSize: 17, fontWeight: "600", color: "black", marginTop: 15, }}>
 					Choose a subject:
@@ -112,12 +117,26 @@ function Main(){
 
 function BottomBtn() {
   const navigation = useNavigation ();
+  const [modalVisible, setModalVisible] = useState(false);
+  const openModal = ()=>{
+  	setModalVisible(true);
+  }
+  
+  const closeModal = ()=>{
+  	setModalVisible(false);
+  }
+  
   return (
-    <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 0, paddingHorizontal: 16, width: "100%" , backgroundColor: "white"}}>
-      <View style={{ borderWidth: 2, justifyContent: "flex-end" }}>
-        	<Text style={{ fontSize: 17, fontWeight: "bold", textDecorationLine: "underline" }}>Friendly match ? </Text>
-      </View>
-      <TouchableOpacity onPress={()=>navigation.navigate("OnlineBatGameScreen")} style={{ borderWidth: 2, backgroundColor: "white", justifyContent: "center", alignItems: "center", paddingHorizontal: 20, paddingVertical: 6, borderRadius: 5 }}>
+    <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 0, paddingHorizontal: 8, width: "100%" , backgroundColor: "lightgray", paddingTop: 8}}>
+    	{/*Underline Text button*/}
+      <TouchableOpacity onPress={openModal} style={{ backgroundColor: "white", justifyContent: "center", alignItems: "center", paddingHorizontal: 26, paddingVertical: 10, borderRadius: 15, backgroundColor: "black" }}>
+        	<Text style={{ fontSize: 17, fontWeight: "bold", color: "white" }}>Friendly Match ?</Text>
+      </TouchableOpacity>
+      {/*Request usernameModa*/}
+      <FindFrndByUsernameModal visible ={modalVisible} onClose={closeModal}/>
+      
+      {/*Play Button*/}
+      <TouchableOpacity onPress={()=>navigation.navigate("OnlineBatGameScreen")} style={{ borderWidth: 2, backgroundColor: "gray", justifyContent: "center", alignItems: "center", paddingHorizontal: 26, paddingVertical: 10, borderRadius: 15 }}>
         	<Text style={{ fontSize: 17, fontWeight: "bold" }}>Play</Text>
       </TouchableOpacity>
     </View>
@@ -129,7 +148,7 @@ function BottomBtn() {
 const styles = StyleSheet.create({
 	homeContainer:{
     flex:1,
-    backgroundColor: "lightgray",
+    backgroundColor: "white",
   },
   homeHeader: {
     flexDirection: "row",

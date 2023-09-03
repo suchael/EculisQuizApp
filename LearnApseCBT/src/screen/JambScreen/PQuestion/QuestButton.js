@@ -15,8 +15,9 @@ import {
 // my import 
 import TruncatedText from "./TruncatedText.js";
 import YearPickerModal from "./YearPickerModal.js";
+import SubjectPickerModal from "./SubjectPickerModal.js";
 
-export default function QuestButton({subject}){
+export default function QuestButton({subject, pickerType}){
 	const insets = useSafeAreaInsets();
 	// Switch and TouchableHighlight state
 	const [isToggleOn, setIsToggleOn] = useState(false);
@@ -25,6 +26,7 @@ export default function QuestButton({subject}){
 	// PickerModal Visibility 
 	const [modalVisible, setModalVisible] = useState(false);
 	const handlePickerToggle = () => setModalVisible(!modalVisible);
+	
 	
 	return(
 		<View style = {{
@@ -56,7 +58,7 @@ export default function QuestButton({subject}){
 			{isToggleOn && (
 				<View style = {styles.attachedToButton}>
 					<View style = {styles.attachedToButtonLeft}>
-						<YearPickerModal/>
+						{ pickerType.toLowerCase() === "year" ? <YearPickerModal/> : <SubjectPickerModal/> }
 					</View>
 					<View style = {styles.attachedToButtonRight}>
 						<Text style = {{fontWeight: "700", fontSize: 18}}>Total</Text>
@@ -134,35 +136,34 @@ const styles= StyleSheet.create({
 		borderWidth: 2,
 		borderBottomLeftRadius: 10,
 		borderBottomRightRadius: 10,
-		height: 90,
+		minHeight:  150,
 		marginLeft: windowWidth * 0.0639,
 		marginRight: windowWidth * 0.0722,
 		flexDirection: "row",
-		paddingBottom: 4,
-		paddingLeft: 4,
-		paddingRight: 4,
+		padding: 8,
 		marginBottom: 4,
 	},
 	attachedToButtonLeft: {
 		flex:1,
-		borderRightWidth:2,
-		borderLeftWidth: 2,
-		borderBottomWidth: 2,
+		borderWidth: 2,
 		padding: 6,
 		gap: 4,
 		justifyContent: "center",
 		alignItems: "center",
 		borderBottomLeftRadius: 8,
+		borderTopLeftRadius: 8,
 	},
 	attachedToButtonRight: {
 		flex: 1,
 		borderRightWidth:2,
 		borderBottomWidth: 2,
+		borderTopWidth: 2,
 		padding: 6,
 		gap: 4,
 		justifyContent: "center",
 		alignItems: "center",
 		borderBottomRightRadius: 8,
+		borderTopRightRadius: 8,
 	},
 });
 

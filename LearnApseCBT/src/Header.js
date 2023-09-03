@@ -26,7 +26,7 @@ function Header(){
 	const insets = useSafeAreaInsets();
 	return(
 		<View style= {[styles.container,
-									{paddingTop: insets.top + 10,
+									{paddingTop: insets.top + 20,
 									paddingRight: insets.right + 10,
 									paddingLeft: insets.left + 10}]}>
 			<View style= {styles.top}>

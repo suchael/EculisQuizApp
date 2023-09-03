@@ -59,7 +59,7 @@ function HomeHeader() {
       >
         <AntDesign name="arrowleft" size={27} color="#333" style={{ marginLeft: -4 }} />
       </TouchableHighlight>
-      <Text style={styles.homeHeaderText}>National{"  "}Score{"  "}Ranking </Text>
+      <Text style={styles.homeHeaderText}>National{"  "}Watchers</Text>
     </View>
   );
 }
@@ -81,7 +81,7 @@ function Main() {
           flex: 1,
         }}
       >
-        <Text style = {{fontSize: 17, fontWeight: "500", color: "#444"}}>Today's highest score</Text>
+        <Text style = {{fontSize: 17, fontWeight: "500", color: "#444"}}>Today's exam highest score</Text>
         
         {/*First, Second - Third position board*/}
         <View style = {{borderWidth: 2, height: screenHeight*0.577, marginBottom: 15}}>

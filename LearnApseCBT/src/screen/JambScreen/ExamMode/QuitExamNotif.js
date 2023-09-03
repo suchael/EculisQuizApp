@@ -35,10 +35,6 @@ const App = ({ navigation, visible }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Text style={styles.buttonText}>End Exam Btn</Text>
-      </TouchableOpacity>
-
       <Modal
         animationType="slide"
         transparent={true}
@@ -123,6 +119,7 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderRadius: 5,
     padding: 6,
+    fontSize: 16
   },
   submitButton: {
     marginLeft: 10,

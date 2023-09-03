@@ -147,7 +147,7 @@ function JambHome({navigation}) {
             >
               <>
                 <MaterialCommunityIcons name="nature" size={35} color="black" />
-                <Text style={styles.midTopContentRowText} >National score ranking</Text>
+                <Text style={styles.midTopContentRowText} >National watchers</Text>
                 <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
               </>
             </TouchableOpacity>

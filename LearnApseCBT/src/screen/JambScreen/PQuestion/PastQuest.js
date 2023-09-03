@@ -119,10 +119,10 @@ function SelectByGeneral(){
     <View>
       <ScrollView> 
 		<ReadMore  text = {instruction} msg = {greetings} maxLength={25} />
-		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select one subject: </Text>
+		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select a subject: </Text>
 			<View style = {{paddingBottom: 110}}>
 				{Subject.map((eachSubject, index)=>(
-					<QuestButton key={index} subject= {eachSubject}/>
+					<QuestButton key={index} subject= {eachSubject} pickerType= "Year"/>
 				))}
 			</View>
 	 </ScrollView>  
@@ -151,13 +151,31 @@ function SelectByTopic(){
   const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
   return(
-    <View style = {{
-      paddingLeft: insets.left + 10,
-      paddingRight: insets.right + 10,
-      paddingTop: insets.top + 15,
-      paddingBottom: insets.bottom + 12,
-    }}>
-      <Text>Study Past Questions by topic</Text>  
+    <View>
+      <ScrollView> 
+		<Text style={{fontSize: 17, fontWeight: "500", marginTop:15, marginBottom: 25, paddingHorizontal: 10}}>Study By Topic</Text>
+		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select a subject: </Text>
+			<View style = {{paddingBottom: 110}}>
+				{Subject.map((eachSubject, index)=>(
+					<QuestButton key={index} subject= {eachSubject} pickerType="Topic"/>
+				))}
+			</View>
+	 </ScrollView>  
+		<View style = {{
+			paddingLeft: insets.left + 10,
+      	  paddingRight: insets.right + 10,
+      	  borderWidth: 2
+		}}>
+			 <TouchableHighlight 
+		 		onPress={()=> navigation.navigate("Show question list")}
+	     		underlayColor="lightgray"
+		 		style={styles.studyButton}
+	  	   >
+         		<Text style={ styles.studyButtonText }>
+              		Study Now
+         	 	</Text>
+      	  </TouchableHighlight>
+		</View>
     </View>
   );
 }
@@ -184,12 +202,12 @@ const styles = StyleSheet.create({
   // Study Button
  studyButton:{
  	height: 42,
- 	backgroundColor: "gray",
+ 	backgroundColor: "green",
  	borderRadius: 18,
  	justifyContent: "center",
      alignItems: "center",
      position: "absolute",
-    bottom:  3, // Adjust this value to control the distance from the bottom
+    bottom:  2, // Adjust this value to control the distance from the bottom
     alignSelf: "center",
     width:  "100%",
      
