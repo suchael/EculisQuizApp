@@ -154,6 +154,7 @@ const styles= StyleSheet.create({
 		borderTopLeftRadius: 8,
 	},
 	attachedToButtonRight: {
+		borderWidth:2, 
 		flex: 1,
 		borderRightWidth:2,
 		borderBottomWidth: 2,

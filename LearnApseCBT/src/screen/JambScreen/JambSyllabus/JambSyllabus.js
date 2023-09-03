@@ -88,6 +88,21 @@ function Main(){
 				<JambSubjectList/>
 				<JambSubjectList/>
 				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
+				<JambSubjectList/>
 			</View>
 		</ScrollView>
 	);

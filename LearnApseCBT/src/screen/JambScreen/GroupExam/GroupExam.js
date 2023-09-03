@@ -138,6 +138,13 @@ function GroupSession(){
 					{/*Performance Issue: Copy and Paste  "ExamGrouping" multiple times*/}
 					{/* and the Buttons starts to lag*/}
 					<ExamGrouping/>
+					<ExamGrouping/>
+					<ExamGrouping/>
+					<ExamGrouping/>
+					<ExamGrouping/>
+					<ExamGrouping/>
+					<ExamGrouping/>
+					<ExamGrouping/>
 					
 				</View>
 			</View>

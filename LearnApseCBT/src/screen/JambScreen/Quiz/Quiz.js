@@ -116,7 +116,7 @@ function BottomBtn (){
 		 		style={styles.studyButton}
 	  	   >
          		<Text style={ styles.studyButtonText }>
-              		Study Now
+              		Quiz me
          	 	</Text>
       	  </TouchableHighlight>
 	);

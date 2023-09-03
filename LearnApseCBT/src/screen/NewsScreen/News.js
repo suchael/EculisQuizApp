@@ -62,7 +62,7 @@ function NewsHome() {
               					paddingLeft: insets.left + 10,
               					paddingRight: insets.right + 10,
               					paddingTop: insets.top + 12,
-              					paddingBottom: insets.bottom + 150,
+              					paddingBottom: insets.bottom,
               height: "100%",
               flex:1
             					}]}
@@ -85,8 +85,13 @@ function NewsHome() {
         			<News/>
         			<News/>
         			<News/>
-        			<News/>
-        
+        			<News/>    
+        			<News/>    
+        			<News/>    
+
+					<TouchableOpacity style = {{padding: 10, marginTop: 120, borderRadius: 15, backgroundColor: "gray", justifyContent: "center", alignItems: "center"}}>
+        				<Text style={{fontSize: 17, fontWeight: "bold"}}>More News</Text>
+        			</TouchableOpacity> 
         		</View>
      		</ScrollView>
     	</View>

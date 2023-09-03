@@ -69,11 +69,17 @@ function Main(){
                       					  paddingBottom: insets.bottom + 140,
 									}}
 			>
-				<Text style = {{fontSize: 17, fontWeight:"500", color: "#555", marginBottom:20, }}>
-						Do you want to know your JAMB subject combination?{"\n"}Choose course: 
+				<Text style = {{fontSize: 17, fontWeight:"500",  marginBottom:20, }}>
+						To know about your JAMB subject combination?{"\n"}Choose course: 
 				</Text>
 				<Department course = "Engineering"/>
 				<Department course = "Law"/>
+				<Department course = "Medicine"/>
+				<Department course = "Medicine"/>
+				<Department course = "Medicine"/>
+				<Department course = "Medicine"/>
+				<Department course = "Medicine"/>
+				<Department course = "Medicine"/>
 				<Department course = "Medicine"/>
 			</View>
 		</ScrollView>
@@ -84,7 +90,7 @@ function Department ({course}){
 	const [icon, setIcon] = useState(false);
 	const detectPress = ()=>{setIcon( !icon )};
 	return (
-		<View style ={{paddingVertical: 2, marginBottom: 0}}>
+		<View style ={{paddingVertical: 2, marginBottom: 20}}>
 			<Text style ={{fontSize: 18, fontWeight: "bold"}}>
 				{course}
 			</Text>
