@@ -60,15 +60,17 @@ function HomeHeader(){
                       borderBottomWidth: 2,
                       borderColor: "gray",
                   }]}>
-      <TouchableHighlight
+      <TouchableOpacity 
         onPress={() => navigation.goBack() }
-        activeOpacity={0.9}
-        underlayColor="lightgray"
-        style = {{borderWidth:2, width: 60, height: 40, justifyContent: "center"}}
+        activeOpacity={0.5}
+        underlayColor="red"
+        style = {{width: 60, height: 40, borderRadius: 20, justifyContent: "center"}}
       >
         <AntDesign name="arrowleft" size={27} color="#333"  style={{marginLeft: -4}}/>
-      </TouchableHighlight>
-      <Text style = {styles.homeHeaderText}>Quiz{"  "}Mode</Text>
+      </TouchableOpacity>
+      <View style ={{flex:1, justifyContent: "center", alignItems: "center",}}>
+      	<Text style = {styles.homeHeaderText}>Quiz{"  "}Mode</Text>
+      </View>
     </View>
   );
 }
@@ -82,8 +84,10 @@ function Main(){
     <View>
       <ScrollView> 
 		<View style = {{paddingLeft: insets.left + 10}}>
-			<Text style ={{fontSize: 16, fontWeight: "500", marginVertical: 10}}>Welcome to offline Quiz</Text>
-		    <Text style ={{fontSize: 18, fontWeight: "bold", marginBottom: 6, marginTop: 8, }}>Pick a subject: </Text>
+			<View style = {{justifyContent: "center", alignItems: "center"}}>
+				<Text style ={{fontSize: 16, fontWeight: "500", marginVertical: 10}}>Welcome to offline Quiz</Text>
+		    	<Text style ={{fontSize: 18, fontWeight: "bold", marginBottom: 6, marginTop: 8, }}>Pick a subject: </Text>
+			</View>
 		</View>
 			<View style = {{paddingBottom: 110}}>
 				{Subject.map((eachSubject, index)=>(
@@ -171,7 +175,6 @@ const styles = StyleSheet.create({
   },
   homeHeader: {
     flexDirection: "row",
-    gap: 20,
     alignItems: "center",
   },
   homeHeaderIcon: {
@@ -179,6 +182,7 @@ const styles = StyleSheet.create({
   homeHeaderText: {
     fontSize: 20,
     fontWeight: "600",
+    marginLeft: "-20%"
   },
   
   // Study Button

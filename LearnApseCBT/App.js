@@ -19,7 +19,7 @@ import CustTest from './src/screen/JambScreen/CustTest/CustTest.js';
 import ExamMode from './src/screen/JambScreen/ExamMode/ExamMode.js';
 import OnlineBat from './src/screen/JambScreen/OnlineBat/OnlineBat.js';
 import Quiz from './src/screen/JambScreen/Quiz/Quiz.js';
-import NationalRank from './src/screen/JambScreen/NationalRank/NationalRank.js';
+import NationalWatchers from './src/screen/JambScreen/NationalWatchers/NationalWatchers.js';
 import NovelsArt from './src/screen/JambScreen/NovelsArt/NovelsArt.js';
 import Bookmarks from './src/screen/JambScreen/Bookmarks/Bookmarks.js';
 import JambSyllabus from './src/screen/JambScreen/JambSyllabus/JambSyllabus.js';
@@ -70,7 +70,7 @@ export default function App() {
 							/>
 							<Stack.Screen 
 								name='NationalWatchers' 
-								component={NationalRank}
+								component={NationalWatchers}
 							/>
 							<Stack.Screen 
 								name='Novels and Art' 

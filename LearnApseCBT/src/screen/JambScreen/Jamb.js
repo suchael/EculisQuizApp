@@ -140,7 +140,7 @@ function JambHome({navigation}) {
           </View>
           <View style={styles.bottom}>
             <TouchableOpacity 
-              onPress={() => navigation.navigate("National score ranking")}
+              onPress={() => navigation.navigate("NationalWatchers")}
               activeOpacity={0.3}
               underlayColor="lightgray"
               style={styles.bottomContent}
