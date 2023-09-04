@@ -224,7 +224,7 @@ function JambHome({navigation}) {
         underlayColor="lightgray"
         style={styles.teacherNetwork}
       >
-        <Text style={styles.teacherNetworkText} >Teacher{"\n"}Network</Text>
+        <Text style={styles.teacherNetworkText} >Teachers{"\n"}Network</Text>
       </TouchableHighlight>
     </View>
     </SafeAreaProvider>

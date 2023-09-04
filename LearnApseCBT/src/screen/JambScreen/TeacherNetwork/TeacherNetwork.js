@@ -1,157 +1,186 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, TextInput, TouchableOpacity, StyleSheet, BackHandler } from 'react-native';
+import {View, 
+        Text, 
+        StyleSheet,
+        ScrollView,
+        Dimensions,
+        TouchableOpacity,
+        TouchableHighlight } from 'react-native';
 
-const App = ({ navigation }) => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+import React , {useState}from 'react';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 
-  const handleBackPress = () => {
-    if (!modalVisible) {
-      setModalVisible(true); // Open the modal
-      return true; // Prevent default back behavior
-    }
-    return false; // Allow default back behavior
-  };
+import {
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
-    };
-  }, [modalVisible]);
+// Icons
+import { AntDesign } from '@expo/vector-icons';
 
-  const closeModal = () => {
-    setModalVisible(false);
-    setInputValue('');
-  };
 
-  const PASSWORD = '555';
-  const handleSubmit = () => {
-    if (inputValue === PASSWORD) {
-      closeModal();
-      navigation.goBack(); // Navigate to the previous screen
-    }
-  };
+// my import
 
+
+const Stack = createNativeStackNavigator();
+
+
+export default function TeacherNetwork() {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Text style={styles.buttonText}>End Exam Btn</Text>
-      </TouchableOpacity>
+    <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}} initialRouteName ="TeacherNetworkMain">
+      <Stack.Screen name='TeacherNetworkMain' component = {TeacherNetworkMain}/>
+      
+    </Stack.Navigator>
+  )
+}
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-      >
-        {/* Blurred Background */}
-        <View style={styles.blurBackground} />
 
-        {/* Modal Content */}
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View style={{ minWidth: 260 }}>
-              <View style={styles.modalViewTextTitle}>
-                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>End Exam?</Text>
-              </View>
-              <Text style={{ fontSize: 15.5, marginTop: 7 }}>...Are you sure you want to End or Submit this exam? </Text>
-              <Text style={{ fontSize: 16, marginTop: 9, marginBottom: 5 }}>
-                Type <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{PASSWORD}</Text> to Submit
-              </Text>
-            </View>
-            <View style={styles.row}>
-              <TextInput
-                style={styles.input}
-                placeholder={PASSWORD}
-                value={inputValue}
-                onChangeText={setInputValue}
-              />
-              <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-                <Text style={[styles.submitAndCancelBtnText, { color: 'white' }]}>Submit</Text>
-              </TouchableOpacity>
-            </View>
-            <TouchableOpacity style={styles.cancelButton} onPress={closeModal}>
-              <Text style={styles.submitAndCancelBtnText}>Cancel</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+function TeacherNetworkMain(){
+  const insets = useSafeAreaInsets();
+  return(
+    <View style={styles.homeContainer}>
+      <HomeHeader/>
+      <Main/>
+      <StudentButton/>
+      <TabBar/>
     </View>
   );
-};
+}
+
+function HomeHeader(){
+  const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
+  
+  return(
+    <View style = {[styles.homeHeader, 
+                    {
+                      paddingLeft: insets.left + 10,
+                      paddingRight: insets.right + 10,
+                      paddingTop: insets.top + 4,
+                      paddingBottom: insets.bottom + 8,
+                      //borderBottomWidth: 2,
+                      //borderColor: "gray",
+                  }]}>
+      	<Text style = {styles.homeHeaderText}>LearnApse</Text>
+    </View>
+  );
+}
+
+
+function Main(){
+	const insets = useSafeAreaInsets();
+	const screenHeight = Dimensions.get("window").height;
+	return(
+			<View style = {{ 
+						
+					  paddingLeft: insets.left + 10,
+                      paddingRight: insets.right + 10,
+                      paddingTop: insets.top + 4,
+                      paddingBottom: insets.bottom}}
+			>
+                      <View style ={{ height:  screenHeight * 0.1441, padding: 2, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+                      	<View style ={{borderWidth:2, paddingHorizontal: 18, paddingVertical: 6, borderRadius: 5}}>
+                      		<Text style={{fontSize: 30, fontWeight: "bold",}}>Teachers</Text>
+                      		<Text style={{fontSize: 30, fontWeight: "bold",}}>Network</Text>
+                      	</View>
+                      	<View style ={{height: "100%",justifyContent: "flex-end", alignItems: "flex-end"}}>
+                      		<TouchableOpacity style ={{paddingVertical: 6, paddingHorizontal: 16, borderRadius: 15, backgroundColor: "lightgray", borderWidth: 2, justifyContent: "center", alignItems: "center", backgroundColor: "white"}}>
+                      			<Text style={{fontSize: 17, fontWeight: "600",}}>Create Job</Text>
+                      		</TouchableOpacity>
+                      	</View>
+                      </View>
+                      <Text style ={{ marginVertical: 15,fontSize: 16, fontWeight: "600"}}>Are you searching for a job, teachers at your school, or private lesson tutors?</Text>
+			</View>
+	);
+}
+
+
+const Tab = createMaterialTopTabNavigator();
+function TabBar(){
+  return(
+    <Tab.Navigator initialRouteName="General"
+      screenOptions={{
+        tabBarActiveTintColor: "#000000",
+        tabBarInactiveTintColor: "#777",
+        tabBarLabelStyle: {
+          fontSize: 16,
+          textTransform: "none",
+          fontWeight: "bold",
+        },
+        tabBarStyle: {
+          height: 40, // Adjust the height of the tab bar
+          borderBottomWidth: 0, // Remove top border
+          backgroundColor: "lightgray",
+        },
+        tabBarIndicatorStyle: {
+          bottom: 0, // Adjust the position of the indicator
+          backgroundColor: "black",
+          height: 3,
+        },
+        animation: "none",
+    }}>
+      <Tab.Screen name ="School Job" component={School}/>
+      <Tab.Screen name ="Teachers" component={School}/>
+    </Tab.Navigator>
+  );
+}
+
+function School(){
+	return(
+		<View style ={{borderWidth: 2, height: 30}}>
+			<Text>Hello</Text>
+		</View>
+	);
+}
+
+
+
+function StudentButton() {
+  const navigation = useNavigation();
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.navigate("HomeScreen")}
+      style={{
+        borderRadius: 20,
+        padding: 8,
+        backgroundColor: "gray",
+        borderWidth: 2,
+        position: "absolute",
+        bottom: 16,
+        right: 16,
+        zIndex: 1, // Adjust the zIndex value as needed
+      }}
+    >
+      <Text style={{ fontSize: 16, fontWeight: "bold" }}>Student{"\n"}Mode</Text>
+    </TouchableOpacity>
+  );
+}
+
+
+
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  homeContainer:{
+    flex:1,
+    backgroundColor: "lightgray",
   },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
+  homeHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 10,
   },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  homeHeaderIcon: {
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+  homeHeaderText: {
+    fontSize: 24,
+    fontWeight: "900",
   },
-  modalViewTextTitle: {
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: -4,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  input: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
-    padding: 6,
-  },
-  submitButton: {
-    marginLeft: 10,
-    padding: 10,
-    backgroundColor: 'blue',
-    borderRadius: 5,
-  },
-  cancelButton: {
-    marginTop: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    backgroundColor: 'lightgray',
-    maxWidth: 300,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-  submitAndCancelBtnText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  blurBackground: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black
-  },
+  
+  
 });
 
-export default App;
+
+
+
+
