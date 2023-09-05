@@ -21,8 +21,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 // my import
-import CreateJobModal from "./CreateJobModal";
-
+import CreateJobModal from "./CreateJobModal.js";
+import ProfileModal from "./ProfileModal.js";
+import JobsAndTeacherNearby from "./JobsAndTeacherNearby.js";
 
 
 const Stack = createNativeStackNavigator();
@@ -32,7 +33,8 @@ export default function TeacherNetwork() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}} initialRouteName ="TeacherNetworkMain">
       <Stack.Screen name='TeacherNetworkMain' component = {TeacherNetworkMain}/>
-      
+      <Stack.Screen name='JobsAndTeacherNearby' component = {JobsAndTeacherNearby}/>
+   
     </Stack.Navigator>
   )
 }
@@ -89,15 +91,27 @@ function Main() {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation ();
   
-  const [modalVisible, setModalVisible] = useState(false);
-  const openModal = ()=>{
-  	setModalVisible(true);
+  //Job Modal//
+  const [jobModalVisible, setJobModalVisible] = useState(false);
+  const openJobModal = ()=>{
+  	setJobModalVisible(true);
   }
   
-  const closeModal = ()=>{
-  	setModalVisible(false);
+  const closeJobModal = ()=>{
+  	setJobModalVisible(false);
+  }
+  //Ending of Job Modal//
+
+  // Profile Modal
+  const [profileModalVisible, setProfileModalVisible] = useState(false);
+  const openProfileModal = ()=>{
+  	setProfileModalVisible(true);
   }
   
+  const closeProfileModal = ()=>{
+  	setProfileModalVisible(false);
+  }
+  // Ending of Profile Modal
 
   // Change the Background and border of JobFinder or Teacher Btn when clicked 
   const [isSchoolJobClicked, setIsSchoolJobClicked] = useState(true);
@@ -116,24 +130,33 @@ function Main() {
         style={{
           paddingLeft: insets.left + 10,
           paddingRight: insets.right + 10,
-          paddingTop: insets.top + 4,
+          paddingTop: insets.top + 25,
           paddingBottom: insets.bottom + 120,
         }}
       >
+      {/*Teachers Network and Create Job wrapper*/}
         <View style={styles.teacherNetworkJobWrapper}>
-          	{/*Teachers Network and Create Job wrapper*/}
           	<View style = {styles.teacherNetwork}>
             		<Text style={styles.teacherNetworkText}>Teachers</Text>
             		<Text style={styles.teacherNetworkText}>Network</Text>
           	</View>
-          	<View style={styles.createJobWrapper}>
-           		 <TouchableOpacity onPress={openModal}  style={styles.createJobBtn}>
-            			  <Text style={{ fontSize: 17, fontWeight: '600' }}>Create Job</Text>
+          	<View style={[styles.createJobWrapper, {backgroundColor: "#888", borderRadius: 20}]}>
+          		  
+          		<TouchableOpacity onPress ={openProfileModal} style={styles.createJobBtn}>
+            			  <Text style={{ fontSize: 14, fontWeight: '600', color: "white" }}>Your profile</Text>
           		  </TouchableOpacity>
-          		  <CreateJobModal visible ={modalVisible} onClose={closeModal}/>
+           		 <TouchableOpacity onPress={openJobModal}  style={styles.createJobBtn}>
+            			  <Text style={{ fontSize: 14, fontWeight: '600', color: "white"  }}>Create Job</Text>
+          		  </TouchableOpacity>
+          		  <CreateJobModal visible ={jobModalVisible} onClose={closeJobModal}/>
+          		 <ProfileModal visible ={profileModalVisible} onClose={closeProfileModal}/>
+          			
         	  </View>
         </View>
-        <Text style={{marginVertical: 15,fontSize: 16,fontWeight: '600',}}>
+        {/*Closing -*Teachers Network and Create Job wrapper*/}
+        
+       
+        <Text style={{marginVertical: 35,  fontSize: 16,fontWeight: '600',}}>
           	Are you in search of School Teachers, a Job or Private Lesson Tutors?
         </Text>
 
@@ -171,6 +194,19 @@ function Main() {
   );
 }
 
+function Profile(){
+	const navigation = useNavigation();
+  return (
+    <TouchableOpacity
+      onPress={() => navigation.navigate("JobsAndTeacherNearby")}
+      style={{padding: 8, borderRadius: 20, justifyContent: "center", alignItems: "center", backgroundColor: "white", borderWidth: 2}}
+    >
+      <Text style={[styles.studentBtnText, {fontSize: 15, color: "black", fontWeight: "bold"}]}>Your Profile</Text>
+    </TouchableOpacity>
+  );
+}
+
+
 
 function SchoolJobView(){
 	return(
@@ -197,6 +233,8 @@ function SchoolJobView(){
 		</View>
 	);
 }
+
+
 
 
 
@@ -344,10 +382,10 @@ function JobsNearbyBtn(){
 	const navigation = useNavigation();
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("HomeScreen")}
+      onPress={() => navigation.navigate("JobsAndTeacherNearby")}
       style={styles.jobsNearbyBtn}
     >
-      <Text style={[styles.studentBtnText, {fontSize: 15, color: "black", fontWeight: "bold"}]}>Jobs Nearby</Text>
+      <Text style={[styles.studentBtnText, {fontSize: 15, color: "black", fontWeight: "bold"}]}>Nearby Jobs and Teacher</Text>
     </TouchableOpacity>
   );
 }
@@ -392,18 +430,19 @@ const styles = StyleSheet.create({
 	},
   createJobWrapper: {
   		height: '100%',
-           justifyContent: 'flex-end',
+           justifyContent: "space-between",
            alignItems: 'flex-end',
 	},
 	createJobBtn: {
 			paddingVertical: 6,
-            paddingHorizontal: 16,
+            paddingHorizontal: 5,
+            width: 120,
             borderRadius: 25,
-            backgroundColor: 'lightgray',
             borderWidth: 2,
+            borderColor: "white",
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: 'white',
+            backgroundColor: 'black',
 	},
   
   // Teacher and School Job Btn section
@@ -415,6 +454,7 @@ const styles = StyleSheet.create({
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
+          //marginBottom: 5,
 	},
   
   // Bottom Botton section
@@ -423,7 +463,7 @@ const styles = StyleSheet.create({
         padding: 8,
         backgroundColor: "white",
         position: "absolute",
-        right: 150, 
+        right: 110, 
 		left: 10, 
 		bottom: 2,
         justifyContent: "center",

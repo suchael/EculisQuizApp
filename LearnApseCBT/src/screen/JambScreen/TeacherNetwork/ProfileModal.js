@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function CreateJobModal({ visible, onClose }) {
+export default function ProfileModak({ visible, onClose }) {
   const navigation = useNavigation();
   const [schoolName, setSchoolName] = useState('');
   const [location, setLocation] = useState('');
@@ -29,14 +29,14 @@ export default function CreateJobModal({ visible, onClose }) {
     <Modal animationType="slide" transparent={true} visible={visible} onRequestClose={onClose}>
       <View style={styles.overlay}>
         <ScrollView contentContainerStyle={styles.modalContent}>
-          <View style = {{justifyContent: "center", alignItems: "center", backgroundColor: "black", height: 40, borderRadius: 5, marginBottom: 15}}>
-        		<Text style={[styles.modalTitle, {color: "white"}]}>Create Job</Text>
+        	<View style = {{justifyContent: "center", alignItems: "center", backgroundColor: "black", height: 40, borderRadius: 5, marginBottom: 15}}>
+        		<Text style={[styles.modalTitle, {color: "white"}]}>Your Profile</Text>
         	</View>
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Name of School:</Text>
+            <Text style={styles.label}>Full Name:</Text>
             <TextInput
               style={styles.input}
-              placeholder="E.g XYZ International School"
+              placeholder="E.g Daniel Akpan"
               value={schoolName}
               onChangeText={setSchoolName}
             />
@@ -53,10 +53,10 @@ export default function CreateJobModal({ visible, onClose }) {
           </View>
           
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Vacancy:</Text>
+            <Text style={styles.label}>Have taught:</Text>
             <TextInput
               style={styles.input}
-              placeholder="E.g Full-time Physics Teacher"
+              placeholder="E.g Physics and Chemistry "
               value={vacancy}
               onChangeText={setVacancy}
             />
@@ -69,7 +69,7 @@ export default function CreateJobModal({ visible, onClose }) {
               <Text style={styles.cancelBtnText}>Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.submitButton} onPress={handleFindBtnPress}>
-              <Text style={styles.submitBtnText}>Submit</Text>
+              <Text style={styles.submitBtnText}>Save</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

@@ -35,6 +35,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 //My imports
 import NewsContent from "./NewsContent.js";
 
+
+
 const NewsScreenStack = createNativeStackNavigator();
 
 export default function NewsScreen(){
@@ -89,7 +91,7 @@ function NewsHome() {
         			<News/>    
         			<News/>    
 
-					<TouchableOpacity style = {{padding: 10, marginTop: 120, borderRadius: 15, backgroundColor: "gray", justifyContent: "center", alignItems: "center"}}>
+					<TouchableOpacity style = {{padding: 10, marginTop: 120, marginBottom: 15, borderRadius: 25, backgroundColor: "gray", justifyContent: "center", alignItems: "center"}}>
         				<Text style={{fontSize: 17, fontWeight: "bold"}}>More News</Text>
         			</TouchableOpacity> 
         		</View>
@@ -104,7 +106,7 @@ function News(){
 	const navigation= useNavigation();
     const screenWidth = Dimensions.get('window').width;
     return(
-        <TouchableOpacity onPress ={()=>navigation.goBack()} style={{ backgroundColor: "#999", padding: 12, borderRadius: 10, marginBottom: 10 }}>
+        <TouchableOpacity onPress ={()=>navigation.navigate("NewsContent")} style={{ backgroundColor: "#999", padding: 12, borderRadius: 10, marginBottom: 10 }}>
             <View style={{ flexDirection: "row", gap: 2, justifyContent: "space-between" , }}>
             	{/*Picture*/}
                 <View style={{ borderWidth: 2, width: 60, height: 50, borderRadius: 10 }} />

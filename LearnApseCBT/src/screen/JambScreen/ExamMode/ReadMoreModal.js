@@ -81,7 +81,7 @@ function MessageBox(){
             Attention:{' '}
             <Text style={styles.messageNormalText}>
               This is a strict Exam Mode. To simulate the real world, Your score will be visible online to everyone checking the{' '}
-              <UnderLineTextBtn text="National Score Ranking."  goTo = "National score ranking"/>
+              <UnderLineTextBtn text = "National Watchers" goTo="NationalWatchers"/>.
             </Text>
           </Text>
         </View>
