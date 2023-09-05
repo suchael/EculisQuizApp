@@ -38,12 +38,50 @@ export default function ShowQuestionList() {
 
 
 
-function Home() {
-   const [isHeaderShown, setIsHeaderShown] = useState(true);
+function Home({navigation}) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleBackPress = () => {
+    if (!modalVisible) {
+      setModalVisible(true); // Open the modal
+      return true; // Prevent default back behavior
+    }
+    return false; // Allow default back behavior
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
+  }, [modalVisible]);
+
+	const openModal = () => {
+    setModalVisible(true);
+    
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setInputValue('');
+  };
+
+  const PASSWORD = '555';
+  const handleSubmit = () => {
+    if (inputValue === PASSWORD) {
+      closeModal();
+      navigation.goBack(); // Navigate to the previous screen
+    }
+  };
   return (
     <View style={styles.container}>
     		<HomeHeader/>
     		<TabBar/>
+    		<PrevBtn/>
+			<EndExamBtn toggleModal={openModal} />
+			<NextBtn/>
+			<QuitExamNotif navigation={navigation} visible={modalVisible} PASSWORD= {PASSWORD} inputValue={inputValue} setInputValue={setInputValue} handleSubmit={handleSubmit} closeModal={closeModal}/>
     </View>
   );
 }
@@ -130,10 +168,6 @@ function MainContainer({navigation}){
 					<QuestionInterface/>
 				</View>
 			</ScrollView>
-			<PrevBtn/>
-			<EndExamBtn toggleModal={toggleModal} />
-			<QuitExamNotif navigation={navigation} visible={modalVisible}/>
-			<NextBtn/>
 		</View>
 	);
 }
@@ -143,7 +177,7 @@ function QuestionInterface() {
   return (
     <View style={styles.questionInterfaceMain}>
         <QuestionInterfaceContainer ind = {1}/>
-        <GoToNumbers/>
+        <GoToBtnList/>
     </View>
   );
 }
@@ -201,57 +235,30 @@ function QuestionInterfaceContainer({ind}){
 	);
 }
 
-function GoToNumbers(){
-	return(
-		<View style={{borderRadius: 14,borderWidth:2, backgroundColor: "white", paddingVertical: 12, paddingHorizontal: 10, flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 8, flexWrap:"wrap"}}>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			<GoToBtnList/>
-			
-		</View>
-	);
+// Display List of nswered numbers
+
+function GoToBtnList() {
+  // Create an array of numbers representing the question buttons (1 to 20)
+  const questionNumbers = Array.from({ length: 47 }, (_, index) => index + 1);
+
+  return (
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingHorizontal: 2 }}>
+      {questionNumbers.map((number) => (
+        <TouchableOpacity
+          key={number}
+          style={{ borderWidth: 2, width: '15%',  height: 40,borderRadius: 8, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', margin: 2 }}
+          onPress={() => {
+            // Handle button click, e.g., navigate to the corresponding question
+            console.log(`Go to question ${number}`);
+          }}
+        >
+          <Text style={{ fontSize: 16, fontWeight: '500' }}>{number}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
 }
 
-function GoToBtnList(){
-	return(
-		<TouchableOpacity style = {{borderWidth:2, width: 48, height: 48, borderRadius: 8, justifyContent: "center", alignItems: "center", backgroundColor: "white"}}>
-				<Text style = {{fontSize: 16, fontWeight: "500"}}>1</Text>
-		</TouchableOpacity>
-	);
-}
 
 
 function PrevBtn(){
@@ -287,7 +294,7 @@ function EndExamBtn({toggleModal}){
         			onPress={handleBackPress}
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {right: windowWidth * 0.375}]}
+        			style= {{borderWidth: 2, position: "absolute",right: windowWidth *0.35, left: windowWidth * 0.35, bottom: 0, height: 46, borderRadius: 10 ,backgroundColor: "gray", justifyContent: "center", alignItems: "center"}}
       	>
         	<Text style = {{fontSize: 16, fontWeight: "bold"}}>End Exam</Text>
       	</TouchableHighlight>  

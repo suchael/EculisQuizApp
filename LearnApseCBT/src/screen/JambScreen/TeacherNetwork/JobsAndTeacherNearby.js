@@ -66,31 +66,35 @@ function HomeHeader() {
         onPress={() => navigation.goBack()}
         activeOpacity={0.9}
         underlayColor="lightgray"
-        style={{ width: 60, height: 40, justifyContent: 'center' }}
+        style={{ width: '15%', height: 40, justifyContent: 'center' }}
       >
         <AntDesign name="arrowleft" size={27} color="#333" style={{ marginLeft: -4 }} />
       </TouchableHighlight>
 
       {/* search bar */}
-<View style={{ flexDirection: 'row', alignItems: 'center',  }}>
-
-  <TouchableHighlight
-    onPress={handleSearch}
-    activeOpacity={0.9}
-    underlayColor="lightgray"
-    style={{width: 270, height: 36,backgroundColor: 'lightgray', borderRadius: 18, }}
-  >
-  	<View style ={{flexDirection: "row", }}>
-  		  <TextInput
-    			style={{ width: "100%", height: 36, justifyContent: "center", alignItems: "center" ,paddingHorizontal: 5, paddingLeft: 20, fontSize: 16}}
-    			placeholder="Search by title e.g Maths"
-    			value={searchText}
-    			onChangeText={(text) => setSearchText(text)}
-  		/>
-  	</View>
-  </TouchableHighlight>
-</View>
-
+      <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
+        <TouchableHighlight
+          onPress={handleSearch}
+          activeOpacity={0.9}
+          underlayColor="lightgray"
+          style={{ flex: 1, height: 36, backgroundColor: 'lightgray', borderRadius: 18 }}
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <TextInput
+              style={{
+                flex: 1,
+                height: 36,
+                paddingHorizontal: 5,
+                paddingLeft: 20,
+                fontSize: 16,
+              }}
+              placeholder="Search by title e.g Maths"
+              value={searchText}
+              onChangeText={(text) => setSearchText(text)}
+            />
+          </View>
+        </TouchableHighlight>
+      </View>
     </View>
   );
 }

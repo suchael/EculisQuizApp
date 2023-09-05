@@ -1,44 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, TextInput, TouchableOpacity, StyleSheet, BackHandler } from 'react-native';
+import { View, Text, Modal, 
+				TextInput, TouchableOpacity, 
+				StyleSheet, BackHandler } from 'react-native';
 
-const App = ({ navigation, visible }) => {
-  const [modalVisible, setModalVisible] = useState(visible);
-  const [inputValue, setInputValue] = useState('');
 
-  const handleBackPress = () => {
-    if (!modalVisible) {
-      setModalVisible(true); // Open the modal
-      return true; // Prevent default back behavior
-    }
-    return false; // Allow default back behavior
-  };
 
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
-    };
-  }, [modalVisible]);
 
-  const closeModal = () => {
-    setModalVisible(false);
-    setInputValue('');
-  };
-
-  const PASSWORD = '555';
-  const handleSubmit = () => {
-    if (inputValue === PASSWORD) {
-      closeModal();
-      navigation.goBack(); // Navigate to the previous screen
-    }
-  };
-
+export default function QuitExamNotif({ navigation, visible, PASSWORD, inputValue, setInputValue, handleSubmit, closeModal }){
   return (
-    <View style={styles.container}>
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={visible}
       >
         {/* Blurred Background */}
         <View style={styles.blurBackground} />
@@ -72,7 +45,6 @@ const App = ({ navigation, visible }) => {
           </View>
         </View>
       </Modal>
-    </View>
   );
 };
 
@@ -147,8 +119,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black
+    backgroundColor: 'rgba(0, 0, 0, 0.7)', // Semi-transparent black
   },
 });
 
-export default App;
+

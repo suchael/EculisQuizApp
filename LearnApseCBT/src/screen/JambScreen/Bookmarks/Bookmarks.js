@@ -1,28 +1,26 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
-const Triangle = () => {
+function GoToBtnList() {
+  // Create an array of numbers representing the question buttons (1 to 20)
+  const questionNumbers = Array.from({ length: 213 }, (_, index) => index + 1);
+
   return (
-  <View style = {{flex: 1, justifyContent: "center", alignItems: "center"}}>
-    <View style={styles.triangle} />
-  </View>
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingHorizontal: 5 }}>
+      {questionNumbers.map((number) => (
+        <TouchableOpacity
+          key={number}
+          style={{ borderWidth: 2, width: 48, height: 48, borderRadius: 8, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', margin: 1 }}
+          onPress={() => {
+            // Handle button click, e.g., navigate to the corresponding question
+            console.log(`Go to question ${number}`);
+          }}
+        >
+          <Text style={{ fontSize: 16, fontWeight: '500' }}>{number}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
-};
+}
 
-const styles = {
-  triangle: {
-    width: 0,
-    height: 2,
-    backgroundColor: 'yellow',
-    borderStyle: 'solid',
-    borderWidth: 2,
-    borderLeftWidth: 50, // Adjust the width as needed
-    borderRightWidth: 50, // Adjust the width as needed
-    borderBottomWidth: 20, // Adjust the height as needed
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: 'black', // You can change the color
-  },
-};
-
-export default Triangle;
+export default GoToBtnList;
