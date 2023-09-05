@@ -104,9 +104,12 @@ function News(){
 	const navigation= useNavigation();
     const screenWidth = Dimensions.get('window').width;
     return(
-        <TouchableOpacity onPress ={()=>navigation.navigate("NewsContent")} style={{ backgroundColor: "#999", padding: 12, borderRadius: 10, marginBottom: 10 }}>
-            <View style={{ flexDirection: "row", gap: 2, justifyContent: "center", }}>
+        <TouchableOpacity onPress ={()=>navigation.goBack()} style={{ backgroundColor: "#999", padding: 12, borderRadius: 10, marginBottom: 10 }}>
+            <View style={{ flexDirection: "row", gap: 2, justifyContent: "space-between" , }}>
+            	{/*Picture*/}
                 <View style={{ borderWidth: 2, width: 60, height: 50, borderRadius: 10 }} />
+                {/*Closing ofPicture*/}
+                
                 <View style={{ width: screenWidth * 0.67, marginLeft: 10,  }}>
                     <Text style={{ fontSize: 17, fontWeight: "600" ,marginTop: -4,}}>
                         School of nursing Entrance Result is out Now!! check it from
