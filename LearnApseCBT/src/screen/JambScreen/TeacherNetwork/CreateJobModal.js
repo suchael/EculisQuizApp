@@ -29,11 +29,11 @@ export default function CreateJobModal({ visible, onClose }) {
     <Modal animationType="slide" transparent={true} visible={visible} onRequestClose={onClose}>
       <View style={styles.overlay}>
         <ScrollView contentContainerStyle={styles.modalContent}>
-          <View style = {{justifyContent: "center", alignItems: "center", backgroundColor: "black", height: 40, borderRadius: 5, marginBottom: 15}}>
-        		<Text style={[styles.modalTitle, {color: "white"}]}>Create Job</Text>
+          <View style = {{justifyContent: "center", alignItems: "center", backgroundColor: "black", height: 40, borderRadius: 5, marginBottom: 25}}>
+        		<Text style={[styles.modalTitle, {color: "white"}]}>Create Job or Vacancy</Text>
         	</View>
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Name of School:</Text>
+            <Text style={styles.label}>Name of your School:</Text>
             <TextInput
               style={styles.input}
               placeholder="E.g XYZ International School"

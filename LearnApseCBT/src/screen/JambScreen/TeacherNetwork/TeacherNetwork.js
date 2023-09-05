@@ -140,8 +140,7 @@ function Main() {
             		<Text style={styles.teacherNetworkText}>Teachers</Text>
             		<Text style={styles.teacherNetworkText}>Network</Text>
           	</View>
-          	<View style={[styles.createJobWrapper, {backgroundColor: "#888", borderRadius: 20}]}>
-          		  
+          	<View style={[styles.createJobWrapper, {backgroundColor: "#888", borderRadius: 20}]}> 		  
           		<TouchableOpacity onPress ={openProfileModal} style={styles.createJobBtn}>
             			  <Text style={{ fontSize: 14, fontWeight: '600', color: "white" }}>Your profile</Text>
           		  </TouchableOpacity>
@@ -150,7 +149,6 @@ function Main() {
           		  </TouchableOpacity>
           		  <CreateJobModal visible ={jobModalVisible} onClose={closeJobModal}/>
           		 <ProfileModal visible ={profileModalVisible} onClose={closeProfileModal}/>
-          			
         	  </View>
         </View>
         {/*Closing -*Teachers Network and Create Job wrapper*/}
@@ -248,27 +246,27 @@ function SchoolJobBtn(){
                 <View style={{ borderWidth: 2, width: 60, height: 50, borderRadius: 10 }} />
                 {/*Closing ofPicture*/}
                 
-                <View style={{ width: screenWidth * 0.67, marginLeft: 10,  }}>
-                    <Text style={{ fontSize: 17, fontWeight: "600" ,marginTop: -4, marginBottom: 5}}>
-                        Vonman International School
+                <View style={{ flex:1 , marginLeft: 10,}}>
+                    <Text style={{ fontSize: 18, fontWeight: "600" ,marginTop: -4, marginBottom: 5}}>
+                        Vonman International School of Nigeria and Abroad 
                     </Text>
-                    <Text style={{ fontSize: 15, fontWeight: "600" }}>
+                    <Text style={{ fontSize: 16, fontWeight: "600" }}>
                         Location: <Text style={{fontWeight: "500"}}>Lagos</Text>
                     </Text>
-                    <Text style={{ fontSize: 15, fontWeight: "600" }}>
+                    <Text style={{ fontSize: 16, fontWeight: "600" }}>
                         Vacancy: <Text style={{fontWeight: "500"}}>Full-time Physics and Chemistry teacher</Text>
                     </Text>
-                    <Text style={{ fontSize: 15, fontWeight: "600" }}>
-                        Status: <Text style={{fontWeight: "500"}}>Closed</Text>
+                    <Text style={{ fontSize: 16, fontWeight: "600" , marginTop: 6}}>
+                        Number of Applicants: <Text style={{fontWeight: "500"}}>20</Text>
                     </Text>
-                    <Text style={{ fontSize: 14, fontWeight: "600", color: "#333", marginTop: 6}}>
+                    <Text style={{ fontSize: 14, fontWeight: "600", color: "#333",}}>
                         23 mins ago
                     </Text>
                 </View>
             </View>
             
             {/*Apply to Job*/}
-            <ApplyBtn/>
+            <SchoolApplyBtn/>
         </View>
     );
 }
@@ -312,15 +310,15 @@ function TeacherJobBtn(){
                 <View style={{ borderWidth: 2, width: 60, height: 50, borderRadius: 10 }} />
                 {/*Closing ofPicture*/}
                 
-                <View style={{ width: screenWidth * 0.67, marginLeft: 10,  }}>
-                	<Text style={{ fontSize: 17, fontWeight: "600" , marginTop: -4, marginBottom: 5}}>
+                <View style={{ flex: 1, marginLeft: 10,  }}>
+                	<Text style={{ fontSize: 18, fontWeight: "600" , marginTop: -4, marginBottom: 5}}>
                         Nicholas Mayowa 
                     </Text>
-                    <Text style={{ fontSize: 15, fontWeight: "600" }}>
+                    <Text style={{ fontSize: 16, fontWeight: "600" }}>
                         Location: <Text style={{fontWeight: "500"}}>Lagos</Text>
                     </Text>
-                    <Text style={{ fontSize: 15, fontWeight: "600" }}>
-                        Have taught: <Text style={{fontWeight: "500"}}>Physics and Chemistry teacher</Text>
+                    <Text style={{ fontSize: 16, fontWeight: "600" }}>
+                        Have taught: <Text style={{fontWeight: "500"}}>Physics and Chemistry</Text>
                     </Text>
                     <Text style={{ fontSize: 14, fontWeight: "600", color: "#333", marginTop: 6}}>
                         23 mins ago
@@ -329,7 +327,7 @@ function TeacherJobBtn(){
             </View>
             
             {/*Apply to Job*/}
-            <ApplyBtn/>
+            <TeacherApplyBtn/>
         </View>
     );
 }
@@ -337,7 +335,7 @@ function TeacherJobBtn(){
 
 
 
-function ApplyBtn(){
+function SchoolApplyBtn(){
 	const navigation = useNavigation();
 	const [apply, setIsApply] = useState ("Apply now");
 	
@@ -348,11 +346,40 @@ function ApplyBtn(){
   return (
     <TouchableOpacity
       onPress={handlePress}
-      style={{backgroundColor: "gray", paddingVertical: 6, justifyContent: "center", alignItems: "center", borderRadius: 15, marginTop: 10}}
+      style={{backgroundColor: apply ==="Application received"? "#666":"#777", 
+      			  borderWidth: apply === "Application received" ? 2:2, 
+					borderColor: apply === "Application received" ? "black": "gray",
+					borderRadius: apply === "Application received" ? 30: 15,
+					paddingVertical: 6, justifyContent: "center", alignItems: "center", marginTop: 10}}
     >
     	<View style ={{flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 10}}>
       		<Text style={styles.jobsNearbyBtnText}>{apply}</Text>
       		{apply === "Application received" && (<Ionicons name="ios-checkmark-circle-outline" size={28} color="blue" />) }
+        </View>
+    </TouchableOpacity>
+  );
+}
+
+function TeacherApplyBtn(){
+	const navigation = useNavigation();
+	const [apply, setIsApply] = useState ("Hire me");
+	
+	const handlePress = () => {
+  		setIsApply((prevState) => (prevState === "Hire me" ? "Hired" : "Hire me"));
+	}
+
+  return (
+    <TouchableOpacity
+      onPress={handlePress}
+      style={{backgroundColor: apply ==="Hired"? "#666":"#777", 
+      			  borderWidth: apply === "Hired" ? 2:2, 
+					borderColor: apply === "Hired" ? "black": "gray",
+					borderRadius: apply === "Hired" ? 30: 15,
+					paddingVertical: 6, justifyContent: "center", alignItems: "center", marginTop: 10}}
+    >
+    	<View style ={{flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 10}}>
+      		<Text style={styles.jobsNearbyBtnText}>{apply}</Text>
+      		{apply === "Hired" && (<Ionicons name="ios-checkmark-circle-outline" size={28} color="blue" />) }
         </View>
     </TouchableOpacity>
   );

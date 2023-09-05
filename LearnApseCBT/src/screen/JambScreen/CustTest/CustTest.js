@@ -108,11 +108,11 @@ function TabBar(){
 
 function SelectByGeneral(){
   const insets = useSafeAreaInsets();
-  const instruction= "Customise this exam to your preference";
+  const instruction= "Customise this Test to your preference";
   return(
     <View>
       	<ScrollView> 
-			<Text style ={{fontSize: 16.5, fontWeight: "500", paddingHorizontal: 10,  marginTop: 15, marginBottom: 10}}>{instruction}</Text>
+			<Text style ={{fontSize: 16.5, fontWeight: "500", paddingHorizontal: 10,  marginTop: 30, marginBottom: 5}}>{instruction}</Text>
 			<TopBtn/>
 			<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select one or more subjects: </Text>
 			<View style = {{paddingBottom: 140}}>
@@ -128,7 +128,7 @@ function SelectByGeneral(){
 
 function TopBtn(){
 	return (
-		<View style={{ paddingVertical: 2, flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: "transparent", gap:20, marginBottom: 20}}>
+		<View style={{ paddingVertical: 2, flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: "transparent", gap:20, marginBottom: 40}}>
 					{/*Hour*/}
 					<MinAndHourModal Type="Hour"/>
 					{/*Minute*/}
@@ -161,7 +161,7 @@ function SelectByTopic(){
   return(
     <View>
       <ScrollView> 
-		<Text style ={{fontSize: 16.5, fontWeight: "500", paddingHorizontal: 10,  marginTop: 15, marginBottom: 10}}>You can customise this exam by Topic</Text>
+		<Text style ={{fontSize: 16.5, fontWeight: "500", paddingHorizontal: 10,  marginTop: 30, marginBottom: 5}}>You can customise this Test by  specific Topic</Text>
 		<TopBtn/>
 		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select one or more subjects and a topic: </Text>
 			<View style = {{paddingBottom: 140}}>
