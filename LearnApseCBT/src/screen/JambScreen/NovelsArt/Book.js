@@ -74,7 +74,8 @@ function Main() {
           paddingLeft: insets.left + 10,
           paddingRight: insets.right + 10,
           paddingTop: insets.top + 12,
-          paddingBottom: insets.bottom + 170,
+          paddingBottom: insets.bottom + 150,
+          marginHorizontal: 10,
         }}
       >
         {/*Picture and author*/}
@@ -101,8 +102,11 @@ function Main() {
           </View>
         </View>
 
-        {/*Divider*/}
-        <View style={{ borderWidth: 2, borderRadius: 35, paddingHorizontal: 10, paddingVertical: 35, marginHorizontal: -10, marginVertical: 55,}}>
+        
+        <View style={{ backgroundColor: "lightgray", borderWidth: 2, borderRadius: 35, paddingHorizontal: 10, paddingVertical: 35, marginHorizontal: -10, marginVertical: 55,}}>
+        	<View style ={{borderWidth:2, padding: 4, justifyContent: "center", alignItems: "center", borderRadius: 15, position: "absolute",  top: -18, left: 10, right: 0, backgroundColor: "white", width: "40%"}}>
+        		<Text style ={{fontSize: 18, fontWeight: "600"}}>Content</Text>
+        	</View>
         	<BookBtns text="Plot Summary" />
         	<BookBtns text="Chapter 1" />
         	<BookBtns text="Chapter 2" />

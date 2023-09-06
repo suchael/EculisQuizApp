@@ -45,9 +45,7 @@ function MainContainer(){
 				</View>
 			</ScrollView>
 			<Header/>
-			<PrevBtn/>
-			<OkButton/>
-			<NextBtn/>
+			<BottomButtons/>
 		</View>
 	);
 }
@@ -149,7 +147,7 @@ A desert is a barren area of landscape where little precipitation occurs and con
               			</Text>
           			</TouchableHighlight>              
             		  <TouchableHighlight 
-		 				onPress={()=>{}}
+		 				onPress={()=>navigation.navigate("Analysis")}
 	     				underlayColor="lightgray"
 			 			activeOpacity={0.9}
 	      			>
@@ -182,33 +180,51 @@ function Header(){
 }
 
 
+
+function BottomButtons(){
+	return (
+		<View style ={{paddingVertical: 0, height: 60, width: "100%" , backgroundColor: "transparent", position: "absolute", bottom:0, zIndex: 1, paddingHorizontal: 10, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+			<PrevBtn/>
+			<OkBtn/>
+			<NextBtn/>
+		</View>
+	);
+}
+
+
 function PrevBtn(){
 	return (
 		<TouchableHighlight
         			onPress={() => console.log("Prev Btn") }
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {left: 10}]}
+        			style= {styles.nextAndPrevBtn}
       	>
         		<AntDesign name="arrowleft" size={30} color="black" />
       	</TouchableHighlight>
 	);
 }
 
-function OkButton(){
-	const windowWidth = Dimensions.get('window').width;
-	const navigation = useNavigation();
+
+
+
+function OkBtn(){
+	const navigation= useNavigation ();
 	return(
+	  <>
 		<TouchableHighlight
-        			onPress={() => navigation.goBack()}
+        			onPress={()=>navigation.goBack()}
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {right: windowWidth * 0.375}]}
+        			style= {styles.nextAndPrevBtn}
       	>
         	<Text style = {{fontSize: 16, fontWeight: "bold"}}>Ok</Text>
       	</TouchableHighlight>  
+      	
+      </>
 	);
 }
+
 
 function NextBtn (){
 	return(
@@ -216,13 +232,12 @@ function NextBtn (){
         			onPress={() => console.log("Next Btn")}
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {right: 10}]}
+        			style= {styles.nextAndPrevBtn}
       	>
         		<AntDesign name="arrowright" size={30} color="black" />
       	</TouchableHighlight>  
 	);
 }
-
 
 
 const styles = StyleSheet.create({
@@ -328,7 +343,6 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		backgroundColor: "gray",
 		borderRadius: 10,
-		position: "absolute",
-		bottom: 0,
+		marginBottom: -14,
    },
 });

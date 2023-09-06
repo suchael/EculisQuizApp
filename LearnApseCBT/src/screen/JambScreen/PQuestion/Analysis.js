@@ -46,9 +46,7 @@ function MainContainer(){
 				</View>
 			</ScrollView>
 			<Header/>
-			<PrevBtn/>
-			<OkButton/>
-			<NextBtn/>
+			<BottomButtons/>
 		</View>
 	);
 }
@@ -81,16 +79,16 @@ function QuestionInterfaceContainer({ind}){
 			
 			
 			
-			<View style = {[styles.questionAndExplanationScreen, {marginTop: 30, marginBottom: 30}]}>
+			<View style = {[styles.questionAndExplanationScreen, {marginTop: 60, marginBottom: 30}]}>
 				<View style = {styles.questionScreenNumberView}>
 					<Text style = {[styles.questionScreenNumber, {
 													position: "absolute",
 													backgroundColor: "white",
 													bottom: 0,
-													fontSize: 20
+													fontSize: 20, 
 											}]}
 					>
-						Analysis 
+						Analysis of each option 
 					</Text>
 				</View>
 				<Text style = {styles.optionContainerOptions}>
@@ -137,6 +135,7 @@ function QuestionInterfaceContainer({ind}){
 
 
 function Header(){
+	// This is an Empty Header... From the screen to question 
 	const insets = useSafeAreaInsets();
 	return(
 			<View style={{flexDirection: "row", 
@@ -155,41 +154,58 @@ function Header(){
 }
 
 
+function BottomButtons(){
+	return (
+		<View style ={{paddingVertical: 0, height: 60, width: "100%" , backgroundColor: "transparent", position: "absolute", bottom:0, zIndex: 1, paddingHorizontal: 10, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+			<PrevBtn/>
+			<OkBtn/>
+			<NextBtn/>
+		</View>
+	);
+}
+
+
 function PrevBtn(){
 	return (
 		<TouchableHighlight
-        			onPress={() => console.log("left") }
+        			onPress={() => console.log("Prev Btn") }
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {left: 10}]}
+        			style= {styles.nextAndPrevBtn}
       	>
         		<AntDesign name="arrowleft" size={30} color="black" />
       	</TouchableHighlight>
 	);
 }
 
-function OkButton(){
-	const windowWidth = Dimensions.get('window').width;
-	const navigation = useNavigation();
+
+
+
+function OkBtn(){
+	const navigation= useNavigation ();
 	return(
+	  <>
 		<TouchableHighlight
-        			onPress={() => navigation.goBack()}
+        			onPress={()=>navigation.goBack()}
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {right: windowWidth * 0.375}]}
+        			style= {styles.nextAndPrevBtn}
       	>
         	<Text style = {{fontSize: 16, fontWeight: "bold"}}>Ok</Text>
       	</TouchableHighlight>  
+      	
+      </>
 	);
 }
+
 
 function NextBtn (){
 	return(
 		<TouchableHighlight
-        			onPress={() => console.log("right")}
+        			onPress={() => console.log("Next Btn")}
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {right: 10}]}
+        			style= {styles.nextAndPrevBtn}
       	>
         		<AntDesign name="arrowright" size={30} color="black" />
       	</TouchableHighlight>  
@@ -285,7 +301,6 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		backgroundColor: "gray",
 		borderRadius: 10,
-		position: "absolute",
-		bottom: 0,
+		marginBottom: -14,
    },
 });

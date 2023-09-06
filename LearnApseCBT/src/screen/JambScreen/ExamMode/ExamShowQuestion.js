@@ -38,50 +38,14 @@ export default function ShowQuestionList() {
 
 
 
-function Home({navigation}) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-
-  const handleBackPress = () => {
-    if (!modalVisible) {
-      setModalVisible(true); // Open the modal
-      return true; // Prevent default back behavior
-    }
-    return false; // Allow default back behavior
-  };
-
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
-    };
-  }, [modalVisible]);
-
-	const openModal = () => {
-    setModalVisible(true);
-    
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
-    setInputValue('');
-  };
-
-  const PASSWORD = '555';
-  const handleSubmit = () => {
-    if (inputValue === PASSWORD) {
-      closeModal();
-      navigation.goBack(); // Navigate to the previous screen
-    }
-  };
+function Home() {
+  
   return (
     <View style={styles.container}>
     		<HomeHeader/>
     		<TabBar/>
-    		<PrevBtn/>
-			<EndExamBtn toggleModal={openModal} />
-			<NextBtn/>
-			<QuitExamNotif navigation={navigation} visible={modalVisible} PASSWORD= {PASSWORD} inputValue={inputValue} setInputValue={setInputValue} handleSubmit={handleSubmit} closeModal={closeModal}/>
+    		<BottomButtons/>
+    	
     </View>
   );
 }
@@ -261,18 +225,70 @@ function GoToBtnList() {
 
 
 
+
+
+function BottomButtons(){
+	const navigation = useNavigation ();
+	const [modalVisible, setModalVisible] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+
+  const handleBackPress = () => {
+    if (!modalVisible) {
+      setModalVisible(true); // Open the modal
+      return true; // Prevent default back behavior
+    }
+    return false; // Allow default back behavior
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
+  }, [modalVisible]);
+
+	const openModal = () => {
+    setModalVisible(true);
+    
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setInputValue('');
+  };
+
+  const PASSWORD = '555';
+  const handleSubmit = () => {
+    if (inputValue === PASSWORD) {
+      closeModal();
+      navigation.goBack(); // Navigate to the previous screen
+    }
+  };
+	return (
+		<View style ={{paddingVertical: 0, height: 60, width: "100%" , backgroundColor: "transparent", position: "absolute", bottom:0, zIndex: 1, paddingHorizontal: 10, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+			<PrevBtn/>
+			<EndExamBtn toggleModal={openModal} />
+			<NextBtn/>
+			<QuitExamNotif navigation={navigation} visible={modalVisible} PASSWORD= {PASSWORD} inputValue={inputValue} setInputValue={setInputValue} handleSubmit={handleSubmit} closeModal={closeModal}/>
+		</View>
+	);
+}
+
+
 function PrevBtn(){
 	return (
 		<TouchableHighlight
         			onPress={() => console.log("Prev Btn") }
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {left: 10}]}
+        			style= {styles.nextAndPrevBtn}
       	>
         		<AntDesign name="arrowleft" size={30} color="black" />
       	</TouchableHighlight>
 	);
 }
+
+
 
 
 function EndExamBtn({toggleModal}){
@@ -294,7 +310,7 @@ function EndExamBtn({toggleModal}){
         			onPress={handleBackPress}
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {{borderWidth: 2, position: "absolute",right: windowWidth *0.35, left: windowWidth * 0.35, bottom: 0, height: 46, borderRadius: 10 ,backgroundColor: "gray", justifyContent: "center", alignItems: "center"}}
+        			style= {styles.nextAndPrevBtn}
       	>
         	<Text style = {{fontSize: 16, fontWeight: "bold"}}>End Exam</Text>
       	</TouchableHighlight>  
@@ -310,7 +326,7 @@ function NextBtn (){
         			onPress={() => console.log("Next Btn")}
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {right: 10}]}
+        			style= {styles.nextAndPrevBtn}
       	>
         		<AntDesign name="arrowright" size={30} color="black" />
       	</TouchableHighlight>  
@@ -419,8 +435,8 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		backgroundColor: "gray",
 		borderRadius: 10,
-		position: "absolute",
-		bottom: 0,
+		borderWidth: 2,
+		marginBottom: -13
    },
 });
 

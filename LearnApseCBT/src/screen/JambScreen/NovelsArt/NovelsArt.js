@@ -121,8 +121,10 @@ function DepartmentOfArt(){
                       					  paddingBottom: insets.bottom + 20,
                       					  borderWidth:2, 
                       					  marginTop: 25,
+                      					  marginHorizontal: 10,
                       					  borderRadius: 20,
                       					  marginBottom: 140,
+                      					  backgroundColor: "lightgray",
                       					  
 									}}
 		>
@@ -132,16 +134,16 @@ function DepartmentOfArt(){
 			<Text style = {{fontSize:15, fontWeight: "500", color: "#666", marginBottom:5}}>This section is strictly for Art students</Text>
 			
 			{/*Literary-Dramatic Terms*/}
-			<View style= {{justifyContent: "space-between", alignItems: "center", flexDirection: "row", paddingVertical: 15}}>
-				<TouchableOpacity style = {{backgroundColor: "#777", borderRadius: 15, paddingHorizontal: 18, paddingVertical: 10, marginTop: 4, width: 160}}>
-					<View style = {{justifyContent: "space-between", alignItems: "center", flexDirection: "row", gap: 5}}>
-						<Text style ={{fontSize: 17, fontWeight: "600"}}>Literary{"\n"}Appreciation</Text>
+			<View style= {{justifyContent: "space-between", alignItems: "center", flexDirection: "row", paddingVertical: 20}}>
+				<TouchableOpacity style = {{backgroundColor: "#777", borderRadius: 15, paddingHorizontal: 18, paddingVertical: 10, marginTop: 4, width: "44%"}}>
+					<View style = {{justifyContent: "space-between", alignItems: "center", flexDirection: "row", gap: 2}}>
+						<Text style ={{fontSize: 15, fontWeight: "600"}}>Literary{"\n"}Appreciation</Text>
 						<FontAwesome name="angle-right" size={24} color="black" />
 					</View>
 				</TouchableOpacity>
-				<TouchableOpacity style = {{backgroundColor: "#777", borderRadius: 15, paddingHorizontal: 18, paddingVertical: 10, marginTop: 4, width: 160}}>
-					<View style = {{justifyContent: "space-between", alignItems: "center", flexDirection: "row", gap: 5}}>
-						<Text style ={{fontSize: 17, fontWeight: "600"}}>Dramatic{"\n"}Terminologies </Text>
+				<TouchableOpacity style = {{backgroundColor: "#777", borderRadius: 15, paddingHorizontal: 18, paddingVertical: 10, marginTop: 4, width: "44%"}}>
+					<View style = {{justifyContent: "space-between", alignItems: "center", flexDirection: "row", gap: 2}}>
+						<Text style ={{fontSize: 15, fontWeight: "600"}}>Dramatic{"\n"}Terminologies </Text>
 						<FontAwesome name="angle-right" size={24} color="black" />
 					</View>
 				</TouchableOpacity>

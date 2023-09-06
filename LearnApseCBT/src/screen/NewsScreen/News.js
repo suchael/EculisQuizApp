@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState} from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableHighlight,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 
 import {
@@ -52,8 +53,15 @@ export default function NewsScreen(){
 
 
 function NewsHome() {
-	const navigation= useNavigation();
+  const navigation= useNavigation();
   const insets = useSafeAreaInsets();
+  const [searchText, setSearchText] = useState('');
+
+  const handleSearch = () => {
+    // Implement your search logic here using the searchText state
+    console.log('Searching for:', searchText);
+  };
+
   return (
     <SafeAreaProvider>
     	<View style = {{backgroundColor: "#6EAAF5"}}>
@@ -75,7 +83,25 @@ function NewsHome() {
         			</View>
         
         			{/*SearchBox*/}
-        			<View style = {{borderWidth:2, marginTop:10, height: 40, marginBottom: 35}}>
+        			<View style = {{ marginTop:10, height: 40, marginBottom: 35}}>
+        				<View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', }}>
+        					<TouchableHighlight
+         						 onPress={handleSearch}
+       						   activeOpacity={0.9}
+          						underlayColor="lightgray"
+      						    style={{ height: "100%", flex: 1,  backgroundColor: 'white', borderRadius: 18, borderWidth:2, borderColor: "#888" }}
+        					>
+        						  <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 15 }}>
+        								<Feather name="search" size={22} color="gray" />
+            							<TextInput
+              								style={{ flex: 1, height: 36, paddingHorizontal: 5, paddingLeft: 20, fontSize: 16 }}
+              								placeholder="Search news..."
+              								value={searchText}
+              								onChangeText={(text) => setSearchText(text)}
+         							   />
+        						  </View>
+        					</TouchableHighlight>
+      				</View>
         			</View>
         			{/*SearchBox closing*/}
         

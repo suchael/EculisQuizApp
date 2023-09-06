@@ -9,21 +9,21 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   TouchableHighlight,
+  ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 // Icons
 import { Entypo } from '@expo/vector-icons';
 
-// my import 
+// my import
 import UnderLineTextBtn from "./UnderLineTextBtn.js";
 
-
-const ExamInstructionModal = ({ visible, onClose}) => {
+const ExamInstructionModal = ({ visible, onClose }) => {
   const navigation = useNavigation();
-  console.log(navigation)
   const windowHeight = Dimensions.get('window').height;
-  const modalHeight = windowHeight * 0.70;  // Make the modal 70% of the screen height  
+  const modalHeight = windowHeight * 0.70; // Make the modal 70% of the screen height
+
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
       <TouchableWithoutFeedback onPress={onClose}>
@@ -32,54 +32,65 @@ const ExamInstructionModal = ({ visible, onClose}) => {
       <View style={[styles.modal, { height: modalHeight }]}>
         <View style={styles.content}>
           <View style={styles.exitButton}>
-          	<TouchableHighlight 
-						onPress = {onClose} 
-						underlayColor="#9999"
-						style= {{height: 60, width: 60, borderRadius:30, justifyContent: "center", alignItems: "center", marginTop: -8, marginRight: -10}}
-			 >
-          			<Entypo name="cross" size={30} color="gray" />
-          	</TouchableHighlight>
-		  </View>
-          <Text style={styles.headerText}>Instruction:</Text>
-          <Text style={styles.modalText}>
-            This is a strict Exam mode. Attempting to minimise your phone a maximum of 3 times will quit the exam and your score would
-            be submitted online once there is an internet connection. {"\n\n"}Be informed that Every score in this section is also available online to everyone via <UnderLineTextBtn text = "National Watchers" goTo="NationalWatchers"/>.
-          </Text>
-          <Text style={styles.headerText}>Your Subjects:</Text>
-          <Text style={[styles.modalText, {marginLeft: 12, marginBottom:-8}]}>
-            • English: 60
-            {'\n'}
-            • Physics: 40
-            {'\n'}
-            • Biology: 40
-            {'\n'}
-            • Chemistry: 40
-            {'\n'}
-          </Text>
-          <Text style={[styles.headerText, {marginTop:0}]}>Total:  <Text style={[styles.modalText, {fontWeight: "normal"}]}>180 questions </Text></Text>
-          <Text style={[styles.headerText, {marginTop:0}]}>Duration:  <Text style={[styles.modalText, {fontWeight: "normal"}]}> 2 hours (120 minutes) </Text></Text>
-          <TouchableOpacity 
-					style={styles.startButton} 
-					onPress= {()=>{onClose()
-												navigation.navigate("ExamShowQuestion")
-										}}
-		  >
-            	<Text style={styles.buttonText}>Start Exam</Text>
-          </TouchableOpacity>
+            <TouchableHighlight
+              onPress={onClose}
+              underlayColor="#9999"
+              style={{
+                height: 60,
+                width: 60,
+                borderRadius: 30,
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: -8,
+                marginRight: -10,
+              }}
+            >
+              <Entypo name="cross" size={30} color="gray" />
+            </TouchableHighlight>
+          </View>
+          <ScrollView>
+          <View style={{ flex: 1}}>
+            <Text style={styles.headerText}>Instruction:</Text>
+            <Text style={styles.modalText}>
+              This is a strict Exam mode. Attempting to minimize your phone a maximum of 3 times will quit the exam and your score would be submitted online once there is an internet connection. {"\n\n"}Be informed that Every score in this section is also available online to everyone via <UnderLineTextBtn text="National Watchers" goTo="NationalWatchers" />.
+            </Text>
+            <Text style={styles.headerText}>Your Subjects:</Text>
+            <Text style={[styles.modalText, { marginLeft: '4%', marginBottom: -8 }]}>
+              • English: 60
+              {'\n'}
+              • Physics: 40
+              {'\n'}
+              • Biology: 40
+              {'\n'}
+              • Chemistry: 40
+              {'\n'}
+            </Text>
+            <Text style={[styles.headerText, { marginTop: 0 }]}>Total: <Text style={[styles.modalText, { fontWeight: "normal" }]}>180 questions </Text></Text>
+            <Text style={[styles.headerText, { marginTop: 0 }]}>Duration: <Text style={[styles.modalText, { fontWeight: "normal" }]}> 2 hours (120 minutes) </Text></Text>
+            
+            </View>
+          </ScrollView>
+          <TouchableOpacity
+              style={styles.startButton}
+              onPress={() => {
+                onClose();
+                navigation.navigate("ExamShowQuestion");
+              }}
+            >
+              <Text style={styles.buttonText}>Start Exam</Text>
+            </TouchableOpacity>
         </View>
       </View>
     </Modal>
   );
 }
 
-
-
 const styles = StyleSheet.create({
- exitButton: {
- 	height: 34, 
-	 marginTop: -12, 
-	 flexDirection: "row",
-	  justifyContent: "flex-end",
+  exitButton: {
+    height: 34,
+    marginTop: -12,
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
   overlay: {
     flex: 1,
@@ -88,36 +99,39 @@ const styles = StyleSheet.create({
   modal: {
     position: 'absolute',
     bottom: 0,
-    width: '100%',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    flex: 1,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
     backgroundColor: 'white',
     justifyContent: 'space-between',
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    left: 20,
+    right: 20,
   },
   content: {
-    //marginBottom: 20,
+    flex: 1,
+    marginBottom: 0,
+    backgroundColor: "transparent",
   },
   headerText: {
-    fontSize: 16,
+    fontSize:  17, // Adjust as needed for responsive font size
     fontWeight: 'bold',
-    marginBottom: 6,
+    marginBottom: '2%', // Adjust as needed for responsive spacing
   },
   modalText: {
-    fontSize: 16,
-    marginBottom: 8,
+    fontSize:  16, // Adjust as needed for responsive font size
+    marginBottom: '2%', // Adjust as needed for responsive spacing
   },
   startButton: {
     backgroundColor: 'blue',
-    paddingVertical: 10,
-    borderRadius: 8,
+    paddingVertical: 10, // Adjust as needed for responsive padding
+    borderRadius: 25,
     alignItems: 'center',
-    marginTop: 16,
-    marginBottom: 4
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 17, // Adjust as needed for responsive font size
     fontWeight: 'bold',
   },
 });

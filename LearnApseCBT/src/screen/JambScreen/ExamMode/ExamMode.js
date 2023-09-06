@@ -172,9 +172,9 @@ const styles = StyleSheet.create({
   
   // Study Button
  continueButton:{
- 	height: 42, 
+ 	height: 46, 
 	 borderWidth:2, 
-	 backgroundColor: "gray", 
+	 backgroundColor: "white", 
 	 justifyContent: "center", 
 	 alignItems: "center", 
 	 position: "absolute", 
@@ -184,8 +184,8 @@ const styles = StyleSheet.create({
   },
   continueButtonText: {
   	fontSize: 17,
-  	fontWeight: "300",
-  	color: "white",
+  	fontWeight: "600",
+  	color: "black",
    },
 });
 
