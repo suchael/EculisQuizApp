@@ -121,7 +121,7 @@ function MainContainer({navigation}){
 	const insets = useSafeAreaInsets();
 	return(
 		<View style = {styles.mainContainer}>
-			<ScrollView >
+			<ScrollView contentContainerStyle={{ flexGrow: 1 }} >
 				<View style = {{
                   	paddingLeft: insets.left + 10,
                   	paddingRight: insets.right + 10,

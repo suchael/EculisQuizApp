@@ -85,7 +85,7 @@ function SelectByGeneral(){
   const insets = useSafeAreaInsets();
   return(
     <View>
-      <ScrollView> 
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}> 
 			<ReadMoreBtn/>
 			<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select any three subjects: </Text>
 			<View style = {{paddingBottom: 110}}>

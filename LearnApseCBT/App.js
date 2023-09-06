@@ -14,6 +14,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Status_bar from "./src/Status_bar.js";
 import HomeScreen from './src/HomeScreen.js';
 import SearchInputScreen from './src/SearchInputScreen.js';
+
+{/*JambScreen*/}
 import PastQuest from './src/screen/JambScreen/PQuestion/PastQuest.js';
 import CustTest from './src/screen/JambScreen/CustTest/CustTest.js';
 import ExamMode from './src/screen/JambScreen/ExamMode/ExamMode.js';
@@ -27,6 +29,12 @@ import JambSubComb from './src/screen/JambScreen/JambSubComb/JambSubComb.js';
 import ExamHist from './src/screen/JambScreen/ExamHist/ExamHist.js';
 import GroupExam from './src/screen/JambScreen/GroupExam/GroupExam.js';
 import TeacherNetwork from './src/screen/JambScreen/TeacherNetwork/TeacherNetwork.js';
+{/*Closing JambScreen*/}
+
+
+{/*NewsScreen*/}
+import NewsContent from "./src/screen/NewsScreen/NewsContent.js";
+{/* Closing - NewsScreen*/}
 
 
 
@@ -47,6 +55,8 @@ export default function App() {
 								name='SearchInputScreen' 
 								component={SearchInputScreen}
 							/>
+							
+							{/*JambScreem*/}
 							<Stack.Screen 
 								name='Past questions' 
 								component={PastQuest}
@@ -100,6 +110,17 @@ export default function App() {
 								name='Teacher network' 
 								component={TeacherNetwork}
 							/>
+							{/*Closing - JambScreen*/}
+							
+							
+							{/*NewsScreen*/}
+							<Stack.Screen 
+								name='NewsContent' 
+								component={NewsContent}
+							/>
+							{/*Closing - NewsScreen*/}
+							
+							
 					</Stack.Navigator>
   		  </NavigationContainer>
   	</SafeAreaProvider>

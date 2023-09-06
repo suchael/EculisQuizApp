@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 25,
     position: "absolute",
-    bottom: 0,
+    bottom: 0.3,
     left: 10,
     right: 10,
   },

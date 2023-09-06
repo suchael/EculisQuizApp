@@ -117,7 +117,7 @@ function SelectByGeneral(){
   const greetings  = "\nGreetings to all the Nigerian teachers out there. You all are second to none."
   return(
     <View>
-      <ScrollView> 
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}> 
 		<ReadMore  text = {instruction} msg = {greetings} maxLength={25} />
 		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select a subject: </Text>
 			<View style = {{paddingBottom: 110}}>
@@ -152,7 +152,7 @@ function SelectByTopic(){
   const insets = useSafeAreaInsets();
   return(
     <View>
-      <ScrollView> 
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}> 
 		<Text style={{fontSize: 17, fontWeight: "500", marginTop:15, marginBottom: 25, paddingHorizontal: 10}}>Study By Topic</Text>
 		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select a subject: </Text>
 			<View style = {{paddingBottom: 110}}>
