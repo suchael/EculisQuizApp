@@ -29,6 +29,11 @@ import JambSubComb from './src/screen/JambScreen/JambSubComb/JambSubComb.js';
 import ExamHist from './src/screen/JambScreen/ExamHist/ExamHist.js';
 import GroupExam from './src/screen/JambScreen/GroupExam/GroupExam.js';
 import TeacherNetwork from './src/screen/JambScreen/TeacherNetwork/TeacherNetwork.js';
+
+import Login from "./src/screen/JambScreen/LoginAndSignUp/Login.js";
+import Signup from "./src/screen/JambScreen/LoginAndSignUp/Signup.js";
+import ForgotPword from "./src/screen/JambScreen/LoginAndSignUp/ForgotPword/ForgotPword.js";
+import SixDigitCode from "./src/screen/JambScreen/LoginAndSignUp/ForgotPword/SixDigitCode.js";
 {/*Closing JambScreen*/}
 
 
@@ -109,6 +114,22 @@ export default function App() {
 							<Stack.Screen 
 								name='Teacher network' 
 								component={TeacherNetwork}
+							/>
+							<Stack.Screen 
+								name='Login' 
+								component={Login}
+							/>
+							<Stack.Screen 
+								name='Signup' 
+								component={Signup}
+							/>
+							<Stack.Screen 
+								name='ForgotPword' 
+								component={ForgotPword}
+							/>
+							<Stack.Screen 
+								name='SixDigitCode' 
+								component={SixDigitCode}
 							/>
 							{/*Closing - JambScreen*/}
 							

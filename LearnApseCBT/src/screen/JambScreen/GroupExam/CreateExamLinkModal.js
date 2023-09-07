@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
   modal: {
     position: 'absolute',
     bottom: 0,
-    width: '100%',
+    left: 20,
+    right: 20,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     backgroundColor: 'white',
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flexGrow: 1,
-    paddingBottom: 50,
+    paddingBottom: 10,
   },
   heading: {
     fontSize: 20,

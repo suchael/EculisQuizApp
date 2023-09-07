@@ -27,6 +27,13 @@ import {
   Entypo,
 } from '@expo/vector-icons';
 
+// My imports
+import UnderLineTextBtn from "./ExamMode/UnderLineTextBtn.js";
+
+
+
+
+
 
 const JambScreenStack = createNativeStackNavigator();
 
@@ -244,7 +251,7 @@ function AlertBox() {
   };
   
    // Toggle the user Alert message using "true/false"
-  setUserStatus(true, false); 
+  setUserStatus(false, false); 
   let content;
 
   if (!userStatus.loggedIn) {
@@ -258,7 +265,7 @@ function AlertBox() {
           				activeOpacity={0.9}
           				underlayColor="lightgray"
         			>
-          				<Text style={styles.clickableText}>Login</Text>
+          				<Text style={[styles.clickableText, {marginBottom: 4}]}><UnderLineTextBtn text = "Login" goTo="Login"/></Text>       
         			</TouchableHighlight>
     	</View>
     );
@@ -274,7 +281,7 @@ function AlertBox() {
           				activeOpacity={0.9}
           				underlayColor="lightgray"
         			>
-          				<Text style={styles.clickableText}>Activate now</Text>
+          				<Text style={[styles.clickableText, {marginBottom: 4}]}><UnderLineTextBtn text = "Activate Now" goTo="NationalWatchers"/></Text>       
         			</TouchableHighlight>
     	</View>
     );
