@@ -251,7 +251,7 @@ function AlertBox() {
   };
   
    // Toggle the user Alert message using "true/false"
-  setUserStatus(false, false); 
+  setUserStatus(true, false); 
   let content;
 
   if (!userStatus.loggedIn) {

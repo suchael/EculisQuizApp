@@ -110,7 +110,7 @@ function Main() {
         }}
       >
       	{/*Login Section*/}
-      	<View style ={{backgroundColor: "white", minHeight: 300, borderRadius: 14, marginTop: -5, borderWidth: 2, borderColor: "#999", paddingVertical: 25, paddingHorizontal: 20}}>
+      	<View style ={{backgroundColor: "white", minHeight: 300, borderRadius: 14, marginTop: -5, borderWidth: 2, borderColor: "blue", paddingVertical: 25, paddingHorizontal: 20}}>
       		{/*LearnApse Logo*/}
       		<View style ={{justifyContent: "center", alignItems: "center"}}>
       			<View style ={{borderWidth: 2, height: 120, width: 120, borderRadius: 5, justifyContent: "center", alignItems: "center"}}>

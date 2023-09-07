@@ -117,7 +117,7 @@ function Main() {
       		</View>
       		{/*Closing - LearnApse Logo*/}
       
-      		<View style={{justifyContent: "center", alignItems: "center", marginTop: 12 , marginBottom: 20}}>
+      		<View style={{justifyContent: "center", alignItems: "center", marginTop: 12 , marginBottom: 20, backgroundColor: "lightgray", padding: 6, borderRadius: 4}}>
       			<Text style ={{fontSize: 17, fontWeight: "500"}}>Welcome to <Text style ={{fontWeight: "600"}}>LearnApse</Text></Text>
       			<Text style ={{fontSize: 17, fontWeight: "500"}}>Your favorite JAMB/SSCE CBT App</Text>
       		</View>
@@ -176,7 +176,7 @@ function Main() {
       	{/*Closing - Login Section*/}
       
       	{/*Signup Section*/}
-      	<View style ={{backgroundColor: "white", minHeight: 60, borderRadius: 10, marginTop: 8, borderWidth: 2, borderColor: "#555", paddingVertical: 15, paddingHorizontal: 10, flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 10}}>
+      	<View style ={{backgroundColor: "white", minHeight: 60, borderRadius: 10, marginTop: 8, borderWidth: 2, borderColor: "blue", paddingVertical: 15, paddingHorizontal: 10, flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 10}}>
       		<Text style ={{fontSize: 17, fontWeight: "600"}}>Don't have an account?</Text>
       		<UnderLineTextBtn text = "Signup" goTo="Signup"/>
       	</View>
