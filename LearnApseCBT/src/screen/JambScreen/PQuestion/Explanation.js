@@ -98,10 +98,10 @@ function QuestionInterfaceContainer({ind}){
 				</Text>
 			</View>
 			<View style = {styles.optionMain}>
-				<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
+				<View style= {[styles.optionContainer, {backgroundColor: "#004B49", borderColor: "transparent"}]}>
+					<Text style = {{fontSize: 17, fontWeight: "bold",color: "white"}}>
 						A{". "}
-						<Text style = {styles.optionContainerOptions}>
+						<Text style = {[styles.optionContainerOptions, {fontWeight: "bold"}]}>
               				which contains protons and neutrons 				
 						</Text>
 					</Text>			
@@ -160,19 +160,6 @@ A desert is a barren area of landscape where little precipitation occurs and con
 				
 			</View>
 			<View style = {styles.screenContBottomBtn}>
-				  	<TouchableHighlight 
-		 					onPress={showModal} 		
-	     					underlayColor="lightgray"
-			 				activeOpacity={0.9}
-							style ={{height: 40, borderRadius: 4, justifyContent: "center", alignItems: "center"}}
-	      			>
-              			<Text style= {styles.screenBottomBtnText}>   
-								Error{" "}?      
-              			</Text>
-          			</TouchableHighlight>        
-          
-					 <ErrorQuestion showModal={showModal} modalVisible={modalVisible} hideModal={hideModal} toggleOption={toggleOption} selectedOptions={selectedOptions}/>
-
             		  <TouchableHighlight 
 		 				onPress={()=>navigation.navigate("Analysis")}
 	     				underlayColor="lightgray"
@@ -182,7 +169,19 @@ A desert is a barren area of landscape where little precipitation occurs and con
               			<Text style= {styles.screenBottomBtnText}>
               					Analysis 
               			</Text>
-          			</TouchableHighlight>              
+          			</TouchableHighlight>     
+
+					<TouchableHighlight 
+		 					onPress={showModal} 		
+	     					underlayColor="lightgray"
+			 				activeOpacity={0.9}
+							style ={{height: 40, borderRadius: 4, justifyContent: "center", alignItems: "center"}}
+	      			>
+              			<Text style= {styles.screenBottomBtnText}>   
+								Error{" "}?      
+              			</Text>
+          			</TouchableHighlight>   
+					  <ErrorQuestion showModal={showModal} modalVisible={modalVisible} hideModal={hideModal} toggleOption={toggleOption} selectedOptions={selectedOptions}/>              
 			</View>
 		</View>
 	);

@@ -92,41 +92,89 @@ function QuestionInterfaceContainer({ind}){
 					</Text>
 				</View>
 				<Text style = {styles.optionContainerOptions}>
+					Correct Answer: A
 					<ReadMore  text = {explanation} maxLength={5} />
 				</Text>
 				<View style = {styles.optionMain}>
-				<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						A{". "}
-						<Text style = {styles.optionContainerOptions}>
-              				which contains protons and neutrons 				
+					<View style ={{justifyContent: "center", alignItems: "center"}}>
+						<View style= {[styles.optionContainer, {width: "100%", backgroundColor: "#004B49"}]}>
+							<Text style = {{fontSize: 17, fontWeight: "bold", color: "white"}}>
+								A{". "}
+								<Text style = {styles.optionContainerOptions}>
+              						which contains protons and neutrons  which contains protons and neutrons 				
+								</Text>
+							</Text>			
+         	  		 </View>
+         
+         			{/*Each Option Analysis*/}
+         			<View style ={{borderWidth: 2, borderColor: "#004B49", width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 4, marginBottom: 15}}>
+         				<Text style ={{fontSize: 16, fontWeight: "600"}}>I like peace ✌️
+							But if you decide to choose war... I assure you only your shadow will live to tell the story
 						</Text>
-					</Text>			
-         	   </View>
-         	<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						B{". "}
-						<Text style = {styles.optionContainerOptions}>
-              				which is positively charged
-         				</Text>
-					</Text>			
-         	   </View>
-				<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						C{". "}
-						<Text style = {styles.optionContainerOptions}>
-              				which is massive and can cause deflection of a few projectiles
-         				</Text>
-					</Text>			
-         	   </View>
-         	<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						D{". "}
-						<Text style = {styles.optionContainerOptions}>
-              				which is very large and in which close to 98% of projectiles pass undeflected
-         				</Text>
-					</Text>			
-         	   </View>
+         			</View>
+         			{/*Closing - Each Option Analysis*/}
+         		</View>
+         
+         
+         		<View style ={{justifyContent: "center", alignItems: "center"}}>
+						<View style= {[styles.optionContainer, {width: "100%",backgroundColor: "#F0EDE1"}]}>
+							<Text style = {{fontSize: 17, fontWeight: "bold", }}>
+								B{". "}
+								<Text style = {styles.optionContainerOptions}>
+              						which contains protons and neutrons  which contains protons and neutrons 				
+								</Text>
+							</Text>			
+         	  		 </View>
+         
+         			{/*Each Option Analysis*/}
+         			<View style ={{borderWidth: 2,  width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 4, marginBottom: 15}}>
+         				<Text style ={{fontSize: 16, fontWeight: "600"}}>I like peace ✌️
+							But if you decide to choose war... I assure you only your shadow will live to tell the story
+						</Text>
+         			</View>
+         			{/*Closing - Each Option Analysis*/}
+         		</View>
+
+
+				<View style ={{justifyContent: "center", alignItems: "center"}}>
+						<View style= {[styles.optionContainer, {width: "100%", backgroundColor: "#F0EDE1"}]}>
+							<Text style = {{fontSize: 17, fontWeight: "bold",}}>
+								C{". "}
+								<Text style = {styles.optionContainerOptions}>
+              						which contains protons and neutron			
+								</Text>
+							</Text>			
+         	  		 </View>
+         
+         			{/*Each Option Analysis*/}
+         			<View style ={{borderWidth: 2, width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 4, marginBottom: 15}}>
+         				<Text style ={{fontSize: 16, fontWeight: "600"}}>I like peace ✌️
+							But if you decide to choose war... I assure you only your shadow will live to tell the storyBut if you decide to choose war... I assure you only your shadow will live to tell the story
+						</Text>
+         			</View>
+         			{/*Closing - Each Option Analysis*/}
+         		</View>
+         
+         
+         		<View style ={{justifyContent: "center", alignItems: "center"}}>
+						<View style= {[styles.optionContainer, {width: "100%", backgroundColor: "#F0EDE1" }]}>
+							<Text style = {{fontSize: 17, fontWeight: "bold",}}>
+								D{". "}
+								<Text style = {styles.optionContainerOptions}>
+              						which contains protons and neutrons  which contains protons and neutrons 			
+								</Text>
+							</Text>			
+         	  		 </View>
+         
+         			{/*Each Option Analysis*/}
+         			<View style ={{borderWidth: 2,  width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 4, marginBottom: 15}}>
+         				<Text style ={{fontSize: 16, fontWeight: "600"}}>I like peace ✌️
+							But if you decide to choose war... I assure you only your shadow will live to tell the storyBut if you decide to choose war... I assure you only your shadow will live to tell the storyBut if you decide to choose war... I assure you only your shadow will live to tell the stor
+						</Text>
+         			</View>
+         			{/*Closing - Each Option Analysis*/}
+         		</View>
+         		
 			</View>
 			</View>
 		</View>
@@ -290,6 +338,7 @@ const styles = StyleSheet.create({
 	optionContainerOptions: {
 		fontSize: 14, 
 		fontWeight: "600",
+		marginVertical: 15,
 	},
   
   // Bottom Buttons
