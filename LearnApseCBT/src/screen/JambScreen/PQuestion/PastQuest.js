@@ -27,6 +27,7 @@ import Analysis from "./Analysis.js";
 import ErrorQuestion from "./ErrorQuestion.js";
 import ReadMore from "./ReadMore.js";
 import subjects from  "../../../SubjectDb.js";
+import CommentSection from "./CommentSection.js";
 
 
 
@@ -41,6 +42,7 @@ export default function PastQuest() {
   	<Stack.Screen name='Explanation' component = {Explanation}/>
   	<Stack.Screen name='Analysis' component = {Analysis}/>
   	<Stack.Screen name='ErrorQuestion' component = {ErrorQuestion}/>
+  	<Stack.Screen name='CommentSection' component = {CommentSection}/>
     </Stack.Navigator>
   )
 }

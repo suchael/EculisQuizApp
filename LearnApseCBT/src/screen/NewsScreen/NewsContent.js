@@ -89,8 +89,9 @@ Diam donec adipiscing tristique risus nec feugiat in fermentum posuere. Tellus i
 }
 
 function CommentBtn() {
+  const navigation= useNavigation ();
   return (
-    <TouchableOpacity style={styles.commentButton}>
+    <TouchableOpacity onPress={()=>navigation.navigate("NewsCommentSection")} style={styles.commentButton}>
       <Text style={styles.commentButtonText}>Post or View comments (5)</Text>
     </TouchableOpacity>
   );

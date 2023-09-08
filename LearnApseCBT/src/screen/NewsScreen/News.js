@@ -35,7 +35,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //My imports
 import NewsContent from "./NewsContent.js";
-
+import NewsCommentSection from "./NewsCommentSection.js";
 
 
 const NewsScreenStack = createNativeStackNavigator();
@@ -47,6 +47,7 @@ export default function NewsScreen(){
     >
       <NewsScreenStack.Screen name="NewsHome" component={NewsHome} options={{headerShown: false}}/>
       <NewsScreenStack.Screen name="NewsContent" component={NewsContent} options={{headerShown: false}}/>
+      <NewsScreenStack.Screen name="NewsCommentSection" component={NewsCommentSection} options={{headerShown: false}}/>
     </NewsScreenStack.Navigator>
   );
 }

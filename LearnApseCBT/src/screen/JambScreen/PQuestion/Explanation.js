@@ -147,7 +147,7 @@ A desert is a barren area of landscape where little precipitation occurs and con
 				</Text>
 				
 				<TouchableHighlight 
-		 					onPress={()=>{navigation.navigate("Error")}} 		
+		 					onPress={()=>{navigation.navigate("CommentSection")}} 		
 	     					underlayColor="white"
 			 				activeOpacity={0.9}
 							style = {{borderWidth:2, padding: 3, marginTop: 20, marginBottom: 10, justifyContent: "center", flex:1, alignItems: "center", borderRadius: 10, backgroundColor: "lightgray"}}
