@@ -104,8 +104,8 @@ function TabBar(){
         },
         animation: "none",
     }}>
-      <Tab.Screen name ="General" component={SelectByGeneral}/>
-      <Tab.Screen name ="Topic Based" component={SelectByTopic}/>
+      <Tab.Screen name ="Subject" component={SelectBySubject}/>
+      <Tab.Screen name ="Topic" component={SelectByTopic}/>
     </Tab.Navigator>
   );
 }
@@ -113,7 +113,7 @@ function TabBar(){
 
 
 
-function SelectByGeneral(){
+function SelectBySubject(){
 	const insets = useSafeAreaInsets();
 	return(
 		<ScrollView style ={{height: "100%", backgroundColor: "white",}}>

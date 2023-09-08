@@ -99,20 +99,22 @@ function TabBar(){
         },
         animation: "none",
     }}>
-      <Tab.Screen name ="General" component={SelectByGeneral}/>
-      <Tab.Screen name ="Topic Based" component={SelectByTopic}/>
+      <Tab.Screen name ="Subject" component={SelectBySubject}/>
+      <Tab.Screen name ="Topic" component={SelectByTopic}/>
     </Tab.Navigator>
   );
 }
 
 
-function SelectByGeneral(){
+function SelectBySubject(){
   const insets = useSafeAreaInsets();
   const instruction= "Customise this Test to your preference";
   return(
     <View>
       	<ScrollView> 
-			<Text style ={{fontSize: 16.5, fontWeight: "500", paddingHorizontal: 10,  marginTop: 30, marginBottom: 5}}>{instruction}</Text>
+      	  <View style ={{backgroundColor: "lightgray", borderWidth: 2, borderColor: "#777", paddingVertical: 8, paddingHorizontal: 4, marginTop: 30, marginBottom: 10, marginHorizontal: 10, justifyContent: "center", alignItems: "center", borderRadius: 2}}>
+      			<Text style ={{fontSize: 16.5, fontWeight: "500", paddingHorizontal: 10,}}>{instruction}</Text>
+      	  </View>
 			<TopBtn/>
 			<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select one or more subjects: </Text>
 			<View style = {{paddingBottom: 140}}>
@@ -128,7 +130,7 @@ function SelectByGeneral(){
 
 function TopBtn(){
 	return (
-		<View style={{ paddingVertical: 2, flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: "transparent", gap:20, marginBottom: 40}}>
+		<View style={{ paddingVertical: 2, flexDirection: "row", alignItems: "center", justifyContent: "space-between", backgroundColor: "transparent", gap:20, marginBottom: 30}}>
 					{/*Hour*/}
 					<MinAndHourModal Type="Hour"/>
 					{/*Minute*/}
@@ -158,10 +160,13 @@ function BottomBtn(){
 function SelectByTopic(){
   const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
+  const instruction= "This Test section is based on Topics ";
   return(
     <View>
       <ScrollView> 
-		<Text style ={{fontSize: 16.5, fontWeight: "500", paddingHorizontal: 10,  marginTop: 30, marginBottom: 5}}>You can customise this Test by  specific Topic</Text>
+		<View style ={{backgroundColor: "lightgray", borderWidth: 2, borderColor: "#777", paddingVertical: 8, paddingHorizontal: 4, marginTop: 30, marginBottom: 10, marginHorizontal: 10, justifyContent: "center", alignItems: "center", borderRadius: 2}}>
+      			<Text style ={{fontSize: 16.5, fontWeight: "500", paddingHorizontal: 10,}}>{instruction}</Text>
+        </View>
 		<TopBtn/>
 		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select one or more subjects and a topic: </Text>
 			<View style = {{paddingBottom: 140}}>

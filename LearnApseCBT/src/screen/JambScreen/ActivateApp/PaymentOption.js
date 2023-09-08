@@ -113,18 +113,18 @@ function Main() {
       >
       	{/* Activate App wrapper*/}
       	<View style ={{backgroundColor: "white", minHeight: 350, borderRadius: 14, borderWidth: 2, borderColor: "#999", alignItems: "center", paddingVertical: 20, paddingHorizontal: 10}}>
-				<View style ={{justifyContent: "center", alignItems: "center", paddingHorizontal: 6,  marginBottom: 5 }}>
-					<Text style ={{fontSize: 17, fontWeight: "600"}}>Choose your preferred payment method</Text>
+				<View style ={{width: "100%", paddingVertical: 8, justifyContent: "center", alignItems: "center",  marginBottom: 30, backgroundColor: "lightgray", borderRadius: 3}}>
+					<Text style ={{fontSize: 17, fontWeight: "600"}}>Choose your payment method</Text>
 				</View>
       		
-      			<TouchableOpacity onPress={()=>{}} style ={{height: 46, width: 300, paddingHorizontal: "10%",borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", gap: 20, alignItems:"center", marginTop: 10}}>
+      			<TouchableOpacity onPress={()=>{}} style ={{height: 50, width: 300, paddingHorizontal: "10%",borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", gap: 20, alignItems:"center", marginTop: 30}}>
 					  	<FontAwesome5 name="google-pay" size={24} color="black" />
-      					<Text style ={{fontSize: 17, fontWeight: "bold", color: "black",  }}>Google pay</Text>
+      					<Text style ={{fontSize: 20, fontWeight: "bold", color: "black",  }}>Google pay</Text>
       			</TouchableOpacity>
       			
-      		<TouchableOpacity onPress={()=>{}} style ={{height: 46, width: 300, paddingHorizontal: "10%",borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", gap: 20, alignItems:"center", marginTop: 10}}>
+      		<TouchableOpacity onPress={()=>{}} style ={{height: 50, width: 300, paddingHorizontal: "10%",borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", gap: 20, alignItems:"center", marginTop: 30}}>
 					  <Foundation name="paypal" size={24} color="black" />
-      				<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", }}>PayPal</Text>
+      				<Text style ={{fontSize: 20, fontWeight: "bold", color: "black", }}>PayPal</Text>
       		</TouchableOpacity>
          	
       		

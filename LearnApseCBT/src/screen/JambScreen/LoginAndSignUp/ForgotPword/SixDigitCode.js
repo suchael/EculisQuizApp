@@ -141,12 +141,12 @@ function Main() {
       		</View>
       		{/*Closing - Email and Password*/}
       
-      		<View style ={{flexDirection: "row", gap: 10, marginVertical: 10}}>
+      		<View style ={{flexDirection: "row", gap: 10, marginBottom: 3, justifyContent: "center", alignItems: "center"}}>
       			<Text style ={{fontSize: 16, fontWeight: "500"}}>
 						Didn't receive it?
 			  	</Text>
-				  <TouchableHighlight onPress ={()=>console.log("resend")} >
-					<Text style ={{fontSize: 17, fontWeight: "600"}}>Resend</Text>
+				  <TouchableHighlight style ={{padding: 6}} onPress ={()=>console.log("resend")} >
+					<Text style ={{fontSize: 17, fontWeight: "600", textDecorationLine: "underline"}}>Resend code</Text>
 				 </TouchableHighlight>
 			</View>
       

@@ -265,7 +265,7 @@ function AlertBox() {
           				activeOpacity={0.9}
           				underlayColor="lightgray"
         			>
-          				<Text style={[styles.clickableText, {marginBottom: 4}]}><UnderLineTextBtn text = "Login" goTo="Login"/></Text>       
+          				<Text style={[styles.clickableText, {marginBottom: 1}]}><UnderLineTextBtn text = "Login" goTo="Login"/></Text>       
         			</TouchableHighlight>
     	</View>
     );
@@ -281,7 +281,7 @@ function AlertBox() {
           				activeOpacity={0.9}
           				underlayColor="lightgray"
         			>
-          				<Text style={[styles.clickableText, {marginBottom: 4}]}><UnderLineTextBtn text = "Activate Now" goTo="ActivateApp"/></Text>       
+          				<Text style={[styles.clickableText, {marginBottom: 1}]}><UnderLineTextBtn text = "Activate Now" goTo="ActivateApp"/></Text>       
         			</TouchableHighlight>
     	</View>
     );
@@ -291,9 +291,12 @@ function AlertBox() {
   }
   if (userStatus.loggedIn && userStatus.appActivated) {
     content = (
-			<Text style={styles.alertText}>
-				Hi, it is few weeks to JAMB... Are you prepared? Join students in the ongoing Online Battle 
+    	<View style ={{justifyContent: "center", alignItems: "center", paddingTop: 5}}>
+			<Text style={[styles.alertText, {paddingHorizontal: 4,}]}>
+				Bored? Join students in the ongoing
 			</Text>
+			<UnderLineTextBtn text = "Online Battle" goTo="Online battle"/>
+		</View>
 	)
   }
   return <View style={styles.alert}>{content}</View>;
@@ -320,15 +323,15 @@ const styles = StyleSheet.create({
     marginTop: 2,
     marginBottom: 15,
     backgroundColor: "#FAFAFA",
-    borderTopRightRadius: 44,
-    borderTopLeftRadius: 44,
+    borderTopRightRadius: 60,
+    borderTopLeftRadius: 60,
     alignItems: "center",
     justifyContent: "center",
   },
   alertText: {
     fontSize: 13,
     fontWeight: "600",
-    color: "#444",
+    color: "black",
     paddingBottom: 2,
   },
   clickableText: {

@@ -106,14 +106,14 @@ function TabBar(){
         },
         animation: "none",
     }}>
-      <Tab.Screen name ="General" component={SelectByGeneral}/>
-      <Tab.Screen name ="Topic Based" component={SelectByTopic}/>
+      <Tab.Screen name ="Subject" component={SelectBySubject}/>
+      <Tab.Screen name ="Topic" component={SelectByTopic}/>
     </Tab.Navigator>
   );
 }
 
 
-function SelectByGeneral(){
+function SelectBySubject(){
   const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
   const instruction = "JAMB CBT era started in 2015, and as a result, JAMB halted the issuance of past questions from that year onwards. Much effort has been put together by teachers all over Nigeria, as well as students who sat for the exam in previous years, to compile questions from 2015 and above.\n"

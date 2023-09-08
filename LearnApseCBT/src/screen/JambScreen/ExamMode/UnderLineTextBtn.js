@@ -4,7 +4,7 @@ import {View, Text, TouchableOpacity} from "react-native";
 export default function UnderLineTextBtn({ text , goTo}) {
 	const navigation= useNavigation();
     return (
-      <TouchableOpacity onPress={()=>navigation.navigate(goTo)}    style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <TouchableOpacity onPress={()=>navigation.navigate(goTo)}    style={{ justifyContent: 'center', alignItems: 'center' , padding: 6,}}>
         <Text
           style={{
             textDecorationLine: 'underline',
