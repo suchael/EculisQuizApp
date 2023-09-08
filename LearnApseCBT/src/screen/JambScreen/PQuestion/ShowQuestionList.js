@@ -146,6 +146,7 @@ function QuestionInterfaceContainer({ind}){
 		 					onPress={()=>{navigation.navigate("Analysis")}} 		
 	     					underlayColor="lightgray"
 			 				activeOpacity={0.9}
+							style ={{height: 35, justifyContent: "center", alignItems: "center", borderRadius: 5}}
 	      			>
               			<Text style= {styles.screenBottomBtnText}>   
 								Analysis      
@@ -155,6 +156,7 @@ function QuestionInterfaceContainer({ind}){
 		 				onPress={()=>{navigation.navigate("Explanation")}} 		
 	     				underlayColor="lightgray"
 			 			activeOpacity={0.9}
+						style ={{height: 35, justifyContent: "center", alignItems: "center", borderRadius: 5}}
 	      			>
               			<Text style= {styles.screenBottomBtnText}>
               					Explanation 
@@ -183,15 +185,15 @@ function TopButtons(){
                   width: "100%",
                   position: "absolute",
                   top:0,
-                  backgroundColor: "lightgray"
+                  backgroundColor: "transparent"
 			}}>
 				<TouchableHighlight
         			onPress={() => console.log("Page Selector")}
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style = {styles.topBtnTouchables}
+        			style = {[styles.topBtnTouchables, {alignItems: "center", justifyContent: "center", }]}
       		  >
-      			  <View style = {styles.topBtnTouchablesView}>
+      			  <View style = {[styles.topBtnTouchablesView, {alignItems: "center", justifyContent: "center", }]}>
       					<Text style ={styles.topBtnText}>Page 1</Text>
       					<FontAwesome name="angle-down" size={28} color="black" />			 
 					</View>
@@ -200,14 +202,14 @@ function TopButtons(){
         			onPress={toggleSwitch}
         			activeOpacity={0.5}
         			underlayColor="white"
-        			style = {[styles.topBtnTouchables, {paddingTop: 5}]}
+        			style = {[styles.topBtnTouchables, {paddingTop: 1}]}
       		  >
       			  <View style = {styles.topBtnTouchablesView}>
-      					<Text style ={styles.topBtnText}>Show answers</Text>
-      					<View style = {{borderWidth:2, height: 20, width: 40, justifyContent: "center", alignItems: "center"}}>
+      					<Text style ={styles.topBtnText}>Show{"\n"}Answers</Text>
+      					<View style = {{height: 20, width: 40, justifyContent: "center", alignItems: "center"}}>
       						<Switch  style={{borderWidth: 2, borderColor: "red"}}
         							trackColor={{ false: "#767577", true: "white" }}
-        							thumbColor={isEnabled ? "gray" : "red"}
+        							thumbColor={isEnabled ? "blue" : "gray"}
         							ios_backgroundColor="#3e3e3e"
         							onValueChange={toggleSwitch}
         							value={isEnabled}
@@ -268,7 +270,7 @@ const styles = StyleSheet.create({
   // main container
   mainContainer:{
   	flex:1,
-  	backgroundColor: "lightblue",
+  	backgroundColor: "lightgray",
   },
   
   
@@ -277,23 +279,24 @@ const styles = StyleSheet.create({
   	borderWidth:2, 
 	  padding: 3, 
 	  alignItems: "center", 
-	  borderBottomLeftRadius: 5, 
-      borderBottomRightRadius: 5,
+	  borderBottomLeftRadius: 8, 
+      borderBottomRightRadius: 8,
       marginLeft: 10,
       backgroundColor: "gray",
   },
   topBtnTouchables: {
-  	borderWidth:2, 
+  	backgroundColor: "#999",
 	  padding: 3, 
 	  alignItems: "center", 
-	  borderBottomLeftRadius: 5, 
-	  borderBottomRightRadius: 5
+	  borderBottomLeftRadius: 8, 
+	  borderBottomRightRadius: 8,
   },
   topBtnTouchablesView: {
   	flexDirection: "row", 
 	  justifyContent: "space-between", 
 	  alignItems: "center", 
-	  gap: 14
+	  gap: 14, 
+	  paddingHorizontal: 6,
   },
   topBtnText: {
   	fontSize: 17, 
@@ -361,12 +364,13 @@ const styles = StyleSheet.create({
 	},
   screenContBottomBtn: {
   	  borderWidth:2, 
-		marginTop:14, 
+		marginTop: 25, 
 		marginBottom:5,
 		paddingHorizontal:10, 
 		flexDirection: "row", 
 		justifyContent: "space-between", 
-		borderRadius: 4
+		borderRadius: 4,
+		backgroundColor: "lightgray"
 	},
 	screenBottomBtnText: {
 		textDecorationLine: "underline", 

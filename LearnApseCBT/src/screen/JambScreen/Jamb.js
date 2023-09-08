@@ -281,7 +281,7 @@ function AlertBox() {
           				activeOpacity={0.9}
           				underlayColor="lightgray"
         			>
-          				<Text style={[styles.clickableText, {marginBottom: 4}]}><UnderLineTextBtn text = "Activate Now" goTo="NationalWatchers"/></Text>       
+          				<Text style={[styles.clickableText, {marginBottom: 4}]}><UnderLineTextBtn text = "Activate Now" goTo="ActivateApp"/></Text>       
         			</TouchableHighlight>
     	</View>
     );

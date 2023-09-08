@@ -34,6 +34,10 @@ import Login from "./src/screen/JambScreen/LoginAndSignUp/Login.js";
 import Signup from "./src/screen/JambScreen/LoginAndSignUp/Signup.js";
 import ForgotPword from "./src/screen/JambScreen/LoginAndSignUp/ForgotPword/ForgotPword.js";
 import SixDigitCode from "./src/screen/JambScreen/LoginAndSignUp/ForgotPword/SixDigitCode.js";
+
+import ActivateApp from "./src/screen/JambScreen/ActivateApp/ActivateApp.js";
+import BasicAdvancePaymentPlan from "./src/screen/JambScreen/ActivateApp/BasicAdvancePaymentPlan.js";
+import PaymentOption from "./src/screen/JambScreen/ActivateApp/PaymentOption.js";
 {/*Closing JambScreen*/}
 
 
@@ -115,6 +119,8 @@ export default function App() {
 								name='Teacher network' 
 								component={TeacherNetwork}
 							/>
+							
+							
 							<Stack.Screen 
 								name='Login' 
 								component={Login}
@@ -131,6 +137,20 @@ export default function App() {
 								name='SixDigitCode' 
 								component={SixDigitCode}
 							/>
+							
+							<Stack.Screen 
+								name='ActivateApp' 
+								component={ActivateApp}
+							/>
+							<Stack.Screen 
+								name='BasicAdvancePaymentPlan' 
+								component={BasicAdvancePaymentPlan}
+							/>
+							<Stack.Screen 
+								name='PaymentOption' 
+								component={PaymentOption}
+							/>
+							
 							{/*Closing - JambScreen*/}
 							
 							

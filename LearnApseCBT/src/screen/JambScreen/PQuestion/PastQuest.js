@@ -40,6 +40,7 @@ export default function PastQuest() {
       <Stack.Screen name='Show question list' component = {ShowQuestionList}/>
   	<Stack.Screen name='Explanation' component = {Explanation}/>
   	<Stack.Screen name='Analysis' component = {Analysis}/>
+  	<Stack.Screen name='ErrorQuestion' component = {ErrorQuestion}/>
     </Stack.Navigator>
   )
 }

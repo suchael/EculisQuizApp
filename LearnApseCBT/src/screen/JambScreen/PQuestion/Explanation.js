@@ -17,7 +17,7 @@ import { AntDesign , FontAwesome} from '@expo/vector-icons';
 
 // My import
 import subjects from  "../../../SubjectDb.js";
-
+import ErrorQuestion from "./ErrorQuestion.js";
 
 export default function Explanation() {
    const [isHeaderShown, setIsHeaderShown] = useState(true);
@@ -62,6 +62,29 @@ function QuestionInterface() {
 
 function QuestionInterfaceContainer({ind}){
 	const navigation = useNavigation();
+	
+	const [modalVisible, setModalVisible] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+
+  const showModal = () => {
+    setModalVisible(true);
+  };
+
+  const hideModal = () => {
+    setModalVisible(false);
+  };
+
+  const toggleOption = (option) => {
+    const updatedOptions = [...selectedOptions];
+
+    if (updatedOptions.includes(option)) {
+      updatedOptions.splice(updatedOptions.indexOf(option), 1);
+    } else {
+      updatedOptions.push(option);
+    }
+
+    setSelectedOptions(updatedOptions);
+  };
 	return(
 		<View style = {styles.questionInterfaceContainer}>
 			<View style = {styles.questionAndExplanationScreen}>
@@ -127,7 +150,7 @@ A desert is a barren area of landscape where little precipitation occurs and con
 		 					onPress={()=>{navigation.navigate("Error")}} 		
 	     					underlayColor="white"
 			 				activeOpacity={0.9}
-							style = {{borderWidth:2, padding: 3, marginTop: 20, justifyContent: "center", flex:1, alignItems: "center", borderRadius: 10, backgroundColor: "lightgray"}}
+							style = {{borderWidth:2, padding: 3, marginTop: 20, marginBottom: 10, justifyContent: "center", flex:1, alignItems: "center", borderRadius: 10, backgroundColor: "lightgray"}}
 	      			>
               			<Text style= {{fontSize: 17, fontWeight: "600", padding: 2}}>   
 								Post or View other answers (5)    
@@ -138,18 +161,23 @@ A desert is a barren area of landscape where little precipitation occurs and con
 			</View>
 			<View style = {styles.screenContBottomBtn}>
 				  	<TouchableHighlight 
-		 					onPress={()=>{navigation.navigate("Error")}} 		
+		 					onPress={showModal} 		
 	     					underlayColor="lightgray"
 			 				activeOpacity={0.9}
+							style ={{height: 40, borderRadius: 4, justifyContent: "center", alignItems: "center"}}
 	      			>
               			<Text style= {styles.screenBottomBtnText}>   
 								Error{" "}?      
               			</Text>
-          			</TouchableHighlight>              
+          			</TouchableHighlight>        
+          
+					 <ErrorQuestion showModal={showModal} modalVisible={modalVisible} hideModal={hideModal} toggleOption={toggleOption} selectedOptions={selectedOptions}/>
+
             		  <TouchableHighlight 
 		 				onPress={()=>navigation.navigate("Analysis")}
 	     				underlayColor="lightgray"
 			 			activeOpacity={0.9}
+						style ={{height: 40, borderRadius: 4, justifyContent: "center", alignItems: "center"}}
 	      			>
               			<Text style= {styles.screenBottomBtnText}>
               					Analysis 
@@ -321,11 +349,13 @@ const styles = StyleSheet.create({
   screenContBottomBtn: {
   	  borderWidth: 2, 
 		marginTop: 40, 
-		marginBottom: 5,
+		marginBottom: 15,
 		paddingHorizontal:10, 
 		flexDirection: "row", 
 		justifyContent: "space-between", 
-		borderRadius: 4
+		borderRadius: 4,
+		alignItems: "center",
+		backgroundColor: "lightgray"
 	},
 	screenBottomBtnText: {
 		textDecorationLine: "underline", 
