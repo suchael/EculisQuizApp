@@ -18,11 +18,12 @@ import { useNavigation } from '@react-navigation/native';
 import {  AntDesign, FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
 
 // My import
-import TruncatedText from "../PQuestion/TruncatedText.js";
+
+
 
 export default function Logout () {
   return (
-    <View>
+    <View style ={{flex: 1}}>
       <HomeHeader />
       <Main />
     </View>
@@ -75,7 +76,7 @@ function Main() {
         style={{
           paddingLeft: insets.left + 10,
           paddingRight: insets.right + 10,
-          paddingTop: insets.top + 60,
+          paddingTop: insets.top,
           paddingBottom: insets.bottom + 10,
           flex: 1, 
           justifyContent: "center",
@@ -83,7 +84,7 @@ function Main() {
         }}
       >
       
-      <View style ={{borderWidth: 2, borderColor: "#888", padding: 15, borderRadius: 5}}>
+      <View style ={{borderWidth: 2, borderColor: "#888", padding: 15, borderRadius: 5, gap: 50}}>
         	<View style ={{flexDirection: "row", padding: 15, borderRadius: 4, backgroundColor: "lightgray"}}>
         		<Text style ={{fontSize: 17, fontWeight: "600"}}>
         			Are you sure you want to logout?

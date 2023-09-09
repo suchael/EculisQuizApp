@@ -15,14 +15,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
 // Icons
-import {  AntDesign, FontAwesome, MaterialCommunityIcons} from '@expo/vector-icons';
+import {  AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
 
 // My import
-import TruncatedText from "../PQuestion/TruncatedText.js";
 
-export default function Logout () {
+
+export default function UpdateQuestion () {
   return (
-    <View>
+    <View style ={{flex: 1}}>
       <HomeHeader />
       <Main />
     </View>
@@ -58,7 +58,7 @@ function HomeHeader() {
       >
         <AntDesign name="arrowleft" size={27} color="#333" style={{ marginLeft: -4 }} />
       </TouchableHighlight>
-      <Text style={styles.homeHeaderText}>Logout</Text>
+      <Text style={styles.homeHeaderText}>Update Question</Text>
     </View>
   );
 }
@@ -75,28 +75,25 @@ function Main() {
         style={{
           paddingLeft: insets.left + 10,
           paddingRight: insets.right + 10,
-          paddingTop: insets.top + 60,
-          paddingBottom: insets.bottom + 10,
-          flex: 1, 
-          justifyContent: "center",
+          paddingTop: insets.top + "40%",
+          paddingBottom: insets.bottom + 30,
+          flex: 1, gap: 30,
           alignItems: "center",
         }}
       >
-      
-      <View style ={{borderWidth: 2, borderColor: "#888", padding: 15, borderRadius: 5}}>
-        	<View style ={{flexDirection: "row", padding: 15, borderRadius: 4, backgroundColor: "lightgray"}}>
-        		<Text style ={{fontSize: 17, fontWeight: "600"}}>
-        			Are you sure you want to logout?
-        		</Text>
-       	 </View>
-        
-        	<TouchableOpacity  style ={{height: 46, paddingHorizontal: 15, borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", justifyContent:"center", alignItems:"center", gap: 15,marginTop: 20}}>
-				  <MaterialCommunityIcons name="reload" size={24} color="black" />
-      			<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", }}>Logout </Text>
-     	  </TouchableOpacity>
-       
-       
+        <View style ={{flexDirection: "row", padding: 15, borderRadius: 4, backgroundColor: "lightgray"}}>
+        	<Text style ={{fontSize: 17, fontWeight: "600"}}>
+        		Question status: <Text style ={{fontWeight: "500"}}>{"\t\t"}Out of date</Text>
+        	</Text>
         </View>
+        
+        <TouchableOpacity  style ={{height: 46, paddingHorizontal: 15, borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", justifyContent:"center", alignItems:"center", gap: 15,marginTop: 20}}>
+				  <MaterialCommunityIcons name="reload" size={24} color="black" />
+      			<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", }}>Update now</Text>
+       </TouchableOpacity>
+       
+       
+        
       </View>
     </ScrollView>
   );

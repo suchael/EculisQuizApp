@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState} from "react";
 import {View,
 				Text, 
 				StyleSheet, 
@@ -12,18 +12,34 @@ import {
 	useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 				
-
-import SearchInputScreen from "./SearchInputScreen";
-
-//icons
+				
+// Icons
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 
 
+// My import
+import SearchInputScreen from "../SearchInputScreen";
+import HeaderNav from "./HeaderNav/HeaderNav.js";
+
+
+
+
+
 function Header(){
 	const dimHeight = useWindowDimensions().height * 0.5;	//height of header
 	const insets = useSafeAreaInsets();
+	
+	const navigation = useNavigation ();
+    const [modalVisible, setModalVisible] = useState(false);
+    const openModal = ()=>{
+  		setModalVisible(true);
+    }
+  
+    const closeModal = ()=>{
+  		setModalVisible(false);
+    }
 	return(
 		<View style= {[styles.container,
 									{paddingTop: insets.top + 20,
@@ -33,19 +49,29 @@ function Header(){
 				<Text style= {styles.learnApseText}>LearnApse</Text>
 				<View style={{alignItems: "center", justifyContent: "space-between", flexDirection: "row", gap:8}}>
 					<InputFieldViewBox/>
+					
+					{/*Header Navigation Icon*/}
 					<TouchableHighlight
-						onPress={() => console.log("Right Top Navigation icon")}
+						onPress={openModal}
 						activeOpacity={0.9}
 						underlayColor="lightgray" 
-						style = {styles.topIcons}
+						style = {[styles.topIcons, {width: 50, height: 50, borderRadius: 25}]}
 					>
-						<Text style={styles.iconWrapper}> <MaterialIcons name="menu" size={35} color="white" /></Text>
+						<View style ={{justifyContent: "center", alignItems: "center", borderWidth: 2, borderColor: "white", borderRadius: 4, padding: 2, }}>
+							<MaterialIcons name="menu" size={22} color="white" style ={{marginTop: -0.6}}/>
+						</View>
+						
 					</TouchableHighlight>
+					<HeaderNav visible ={modalVisible} onClose={closeModal}/>
+      
+					{/*Closing - Header Navigation Icon*/}
+					
 				</View>
 			</View>
 		</View>
 	);
 }
+
 
 function InputFieldViewBox(){
 	const navigation = useNavigation();
@@ -64,6 +90,8 @@ function InputFieldViewBox(){
 		</TouchableHighlight>		
 	);
 }
+
+
 
 function SearchInputShowKeyBoard(){
 	return (
@@ -96,11 +124,11 @@ const styles = StyleSheet.create({
 	},
 	topIcons:{
 		width: 50,
-		height: 40,
+		height: 50,
 		alignItems: "center",
 		justifyContent: "center",
 		padding: 4,
-		borderRadius: 20,
+		borderRadius: 25,
 	},
 	inputContainerText:{
 		fontSize: 15,
@@ -111,7 +139,7 @@ const styles = StyleSheet.create({
 	inputContainerTouchable:{
 		paddingTop: 3,
 	},
-	iconWrapper: {},
+	
 	
 });
 

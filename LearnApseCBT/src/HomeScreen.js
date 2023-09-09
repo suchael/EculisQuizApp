@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import Jamb from "./screen/JambScreen/Jamb.js";
 import News from "./screen/NewsScreen/News.js";
 import Ssce from "./screen/SsceScreen/Ssce.js";
-import Header from "./Header.js";
+import Header from "./Header/Header.js";
 
 const TopTab = createMaterialTopTabNavigator();
 

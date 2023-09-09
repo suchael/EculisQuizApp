@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
   // main container
   mainContainer:{
   	flex:1,
-  	backgroundColor: "lightblue",
+  	backgroundColor: "lightgray",
   },
   
   // Question Interface

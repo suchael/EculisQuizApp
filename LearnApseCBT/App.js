@@ -15,6 +15,15 @@ import Status_bar from "./src/Status_bar.js";
 import HomeScreen from './src/HomeScreen.js';
 import SearchInputScreen from './src/SearchInputScreen.js';
 
+{/*Header Navigation*/}
+import UpdateQuestion from "./src/Header/HeaderNav/UpdateQuestion.js";
+import Profile from "./src/Header/HeaderNav/Profile.js";
+import ContactUs from "./src/Header/HeaderNav/ContactUs.js";
+import Logout from "./src/Header/HeaderNav/Logout.js";
+{/*Closing - Header Navigation*/}
+
+
+
 {/*JambScreen*/}
 import PastQuest from './src/screen/JambScreen/PQuestion/PastQuest.js';
 import CustTest from './src/screen/JambScreen/CustTest/CustTest.js';
@@ -60,6 +69,26 @@ export default function App() {
 							options={{headerShown: false}}
 							component={HomeScreen}
 							/>
+							
+							{/*Header Navigation*/}
+							<Stack.Screen 
+								name='UpdateQuestion' 
+								component={UpdateQuestion}
+							/>
+							<Stack.Screen 
+								name='Profile' 
+								component={Profile}
+							/>
+							<Stack.Screen 
+								name='ContactUs' 
+								component={ContactUs}
+							/>
+							<Stack.Screen 
+								name='Logout' 
+								component={Logout}
+							/>
+							{/*Closing - Header Navigation*/}
+							
 							<Stack.Screen 
 								name='SearchInputScreen' 
 								component={SearchInputScreen}
