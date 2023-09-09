@@ -17,11 +17,11 @@ import { useNavigation } from '@react-navigation/native';
 // Icons
 import { AntDesign } from '@expo/vector-icons';
 
-
 // My import
 import ReadMoreModal from "./ReadMoreModal.js";
 import GroupExamResult from "./GroupExamResult.js";
-import CreateExamLinkModal from "./CreateExamLinkModal.js";
+import CreateExamLink from "./CreateExamLink.js";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +30,7 @@ export default function GroupExam(){
 		<Stack.Navigator screenOptions={{headerShown: false, animation: "none", }} initialRouteName = "GroupExamHome">
       		<Stack.Screen name ='GroupExamHome' component = {GroupExamHome}/>
       		<Stack.Screen name ='GroupExamResult' component = {GroupExamResult}/>
-      		<Stack.Screen name ='CreateExamLinkModal' component = {CreateExamLinkModal}/>	
+      		<Stack.Screen name ='CreateExamLink' component = {CreateExamLink}/>	
     	</Stack.Navigator>
 	);
 }
@@ -56,11 +56,10 @@ function HomeHeader(){
                     {
                       paddingLeft: insets.left + 10,
                       paddingRight: insets.right + 10,
-                      paddingTop: insets.top + 12,
+                      paddingTop: insets.top + 5,
                       paddingBottom: insets.bottom + 4,
-                      borderBottomWidth: 2,
-                      borderBottomColor: "gray",
-                  
+                      
+                  	backgroundColor: "white",
                   }]}>
       <TouchableHighlight
         onPress={() => navigation.goBack() }
@@ -76,14 +75,22 @@ function HomeHeader(){
   );
 }
 
+
 function Main(){
 	return(
-		<ScrollView>
-			<InstructionBtn/>
-			<GroupSession/>
-		</ScrollView>
+		<View style ={{flex: 1, backgroundColor: "#6EAAF5"}}>
+	  	<View style={{flex: 1}}>
+			<ScrollView style={{flex: 1, borderWidth: 2, borderColor: "#888", borderRadius: 40, backgroundColor: "white",  padding: 5, overflow: "hidden"}}>
+				<View>
+					<InstructionBtn/>
+					<GroupSession/>
+				</View>
+			</ScrollView>
+     	</View>
+       </View>
 	);
 }
+
 
 function InstructionBtn(){
   const [modalVisible, setModalVisible] = useState(false);
@@ -116,6 +123,7 @@ function InstructionBtn(){
 
 
 function GroupSession(){
+	const navigation=useNavigation ();
 	const [modalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
@@ -127,10 +135,10 @@ function GroupSession(){
   };
 	return(
 		<View style ={{padding:10, marginBottom:50,}}>
-			<TouchableOpacity onPress={openModal} style ={{backgroundColor: "gray", padding: 8, borderRadius:16,justifyContent: "center", alignItems:"center"}}>
+			<TouchableOpacity onPress={()=> navigation.navigate("CreateExamLink")} style ={{backgroundColor: "gray", padding: 8, borderRadius: 25,justifyContent: "center", alignItems:"center"}}>
 				<Text style ={{fontSize:17, fontWeight:"bold"}}>Create Exam Link</Text>
 			</TouchableOpacity>
-			<CreateExamLinkModal visible={modalVisible} onClose={closeModal} />
+			
 			<View style ={{borderWidth:2, marginTop: 40, borderRadius:15, paddingVertical: 12, paddingHorizontal:10, minHeight: 30}}>
 				<View style ={{justifyContent: "center", alignItems: "center"}}>
 					<Text style ={{fontSize:17, fontWeight:"bold", marginBottom: 10}}>Group Exam History</Text>

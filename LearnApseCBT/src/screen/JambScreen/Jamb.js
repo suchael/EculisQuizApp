@@ -66,7 +66,9 @@ function JambHome({navigation}) {
           ]}
         >
           <View style={styles.midTop}>
-            <AlertBox />
+            <View style ={{marginTop: 0,}}>
+            	<AlertBox />
+            </View>
             <View style={styles.midTopContent}>
               <View style={styles.midTopContentRow1}>
                 <TouchableOpacity
@@ -256,7 +258,7 @@ function AlertBox() {
 
   if (!userStatus.loggedIn) {
     content = (
-    	<View style ={{ flexDirection: "column",justifyContent: "center", alignItems: "center"}}>
+    	<View style ={{ flexDirection: "column",justifyContent: "center", alignItems: "center" , }}>
     			   <Text style={styles.alertText}>
         				You are not logged in, please{" "}
         		   </Text>
