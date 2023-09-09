@@ -81,8 +81,12 @@ function Main() {
           flex: 1,
         }}
       >
-        <Text style = {{fontSize: 17, fontWeight: "500", color: "#444"}}>Today's exam highest score</Text>
-        
+        <View style = {{borderWidth: 2, borderColor: "#888", paddingHorizontal: 4, paddingVertical: 8, backgroundColor: "lightgray", borderRadius: 4, marginVertical: 20}}>
+					<Text style = {{fontSize: 17, fontWeight:"500", color: "#555",}}>
+						Today's National Exam score
+					</Text>
+		</View>
+		
         {/*First, Second - Third position board*/}
         <View style = {{borderWidth: 2, height: screenHeight*0.577, marginBottom: 15}}>
         	<Text>First, Second, third</Text>

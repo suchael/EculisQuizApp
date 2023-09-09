@@ -28,7 +28,7 @@ import HeaderNav from "./HeaderNav/HeaderNav.js";
 
 
 function Header(){
-	const dimHeight = useWindowDimensions().height * 0.5;	//height of header
+	
 	const insets = useSafeAreaInsets();
 	
 	const navigation = useNavigation ();
@@ -36,13 +36,12 @@ function Header(){
     const openModal = ()=>{
   		setModalVisible(true);
     }
-  
     const closeModal = ()=>{
   		setModalVisible(false);
     }
 	return(
 		<View style= {[styles.container,
-									{paddingTop: insets.top + 20,
+									{paddingTop: insets.top + 16,
 									paddingRight: insets.right + 10,
 									paddingLeft: insets.left + 10}]}>
 			<View style= {styles.top}>
@@ -60,10 +59,8 @@ function Header(){
 						<View style ={{justifyContent: "center", alignItems: "center", borderWidth: 2, borderColor: "white", borderRadius: 4, padding: 2, }}>
 							<MaterialIcons name="menu" size={22} color="white" style ={{marginTop: -0.6}}/>
 						</View>
-						
 					</TouchableHighlight>
 					<HeaderNav visible ={modalVisible} onClose={closeModal}/>
-      
 					{/*Closing - Header Navigation Icon*/}
 					
 				</View>
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
 	},
 	top:{
 		flexDirection: "row",
-		marginBottom: 5,
+		marginBottom: -5,
 		justifyContent: "space-between",
 	},
 	topIcons:{

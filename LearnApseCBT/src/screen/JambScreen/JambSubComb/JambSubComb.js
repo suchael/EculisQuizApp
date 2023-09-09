@@ -69,9 +69,11 @@ function Main(){
                       					  paddingBottom: insets.bottom + 140,
 									}}
 			>
-				<Text style = {{fontSize: 17, fontWeight:"500",  marginBottom:20, }}>
-						To know about your JAMB subject combination?{"\n"}Choose course: 
-				</Text>
+				<View style ={{borderWidth: 2, borderColor: "#888", borderRadius: 5, backgroundColor: "lightgray", paddingHorizontal: 8, paddingVertical: 12, marginVertical: 20}}>
+					<Text style = {{fontSize: 17, fontWeight:"500", }}>
+						Here is a list of compiled JAMB subject for your department
+					</Text>
+				</View>
 				<Department course = "Engineering"/>
 				<Department course = "Law"/>
 				<Department course = "Medicine"/>

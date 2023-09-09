@@ -127,7 +127,7 @@ function Main() {
 			 	 </View>
       		</View>
       
-      		<TouchableOpacity onPress={()=>navigation.navigate("PaymentOption")} style ={{height: 46, paddingHorizontal: "10%",borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", gap: 20, alignItems:"center", marginTop: 10}}>
+      		<TouchableOpacity onPress={()=>navigation.navigate("PaymentOption")} style ={{height: 46, paddingHorizontal: "10%",borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", gap: 20, alignItems:"center", marginTop: 60}}>
 					  <MaterialIcons name="payments" size={24} color="black" />
       				<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", }}>Starter Plan:</Text>
       				<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", }}>₦2,200</Text>

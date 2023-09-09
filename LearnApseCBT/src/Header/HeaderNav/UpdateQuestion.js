@@ -77,23 +77,22 @@ function Main() {
           paddingRight: insets.right + 10,
           paddingTop: insets.top + "40%",
           paddingBottom: insets.bottom + 30,
-          flex: 1, gap: 30,
+          flex: 1, gap: 30, 
           alignItems: "center",
         }}
       >
-        <View style ={{flexDirection: "row", padding: 15, borderRadius: 4, backgroundColor: "lightgray"}}>
-        	<Text style ={{fontSize: 17, fontWeight: "600"}}>
-        		Question status: <Text style ={{fontWeight: "500"}}>{"\t\t"}Out of date</Text>
-        	</Text>
-        </View>
+      	<View style ={{borderWidth: 2, borderColor: "#888", borderRadius: 5, gap: 20, paddingHorizontal: 15, paddingVertical: 30}}>
+        		<View style ={{flexDirection: "row", padding: 15, borderRadius: 4, backgroundColor: "lightgray"}}>
+        			<Text style ={{fontSize: 17, fontWeight: "600"}}>
+        				Question status: <Text style ={{fontWeight: "500"}}>{"\t\t"}Out of date</Text>
+        			</Text>
+     	  	 </View>
         
-        <TouchableOpacity  style ={{height: 46, paddingHorizontal: 15, borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", justifyContent:"center", alignItems:"center", gap: 15,marginTop: 20}}>
-				  <MaterialCommunityIcons name="reload" size={24} color="black" />
-      			<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", }}>Update now</Text>
-       </TouchableOpacity>
-       
-       
-        
+      	  	<TouchableOpacity  style ={{height: 46, paddingHorizontal: 15, borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", justifyContent:"center", alignItems:"center", gap: 15,marginTop: 20}}>
+					  <MaterialCommunityIcons name="reload" size={24} color="black" />
+      				<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", }}>Update now</Text>
+      		 </TouchableOpacity>
+  	    </View>  
       </View>
     </ScrollView>
   );

@@ -131,9 +131,9 @@ function QuestionInterfaceContainer({ind}){
 					</Text>			
          	   </View>
 			</View>
-			<View style = {[styles.questionAndExplanationScreen, {marginTop:18, backgroundColor: "#F0EDE1"}]}>
+			<View style = {[styles.questionAndExplanationScreen, {marginTop:18, backgroundColor: "lightgray"}]}>
 				<View style = {styles.questionScreenNumberView}>
-					<Text style = {[styles.questionScreenNumber, {fontSize:20}]}>
+					<Text style = {[styles.questionScreenNumber, {fontSize:20, backgroundColor: "white"}]}>
 						Explanation 
 					</Text>
 				</View>
@@ -150,7 +150,7 @@ A desert is a barren area of landscape where little precipitation occurs and con
 		 					onPress={()=>{navigation.navigate("CommentSection")}} 		
 	     					underlayColor="white"
 			 				activeOpacity={0.9}
-							style = {{borderWidth:2, padding: 3, marginTop: 20, marginBottom: 10, justifyContent: "center", flex:1, alignItems: "center", borderRadius: 10, backgroundColor: "lightgray"}}
+							style = {{borderWidth:2, padding: 3, marginTop: 20, marginBottom: 10, justifyContent: "center", flex:1, alignItems: "center", borderRadius: 10, backgroundColor: "white"}}
 	      			>
               			<Text style= {{fontSize: 17, fontWeight: "600", padding: 2}}>   
 								Post or View other answers (5)    
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
   // main container
   mainContainer:{
   	flex:1,
-  	backgroundColor: "lightblue",
+  	backgroundColor: "white",
   },
  
   // Question Interface

@@ -82,9 +82,11 @@ function Main(){
                       					  paddingBottom: insets.bottom + 140,
 									}}
 			>
-				<Text style = {{fontSize: 17, fontWeight:"500", color: "#555", marginBottom:20, }}>
+				<View style = {{borderWidth: 2, borderColor: "#888", paddingHorizontal: 4, paddingVertical: 8, backgroundColor: "lightgray", borderRadius: 4, marginVertical: 20}}>
+					<Text style = {{fontSize: 17, fontWeight:"500", color: "#555",}}>
 						Select Subject: 
-				</Text>
+					</Text>
+				</View>
 				<JambSubjectList/>
 				<JambSubjectList/>
 				<JambSubjectList/>

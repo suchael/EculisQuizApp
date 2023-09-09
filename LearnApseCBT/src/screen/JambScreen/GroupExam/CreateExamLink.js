@@ -67,7 +67,7 @@ function CreateExamLinkModal({ visible, onClose }){
        		<View style ={{ justifyContent: "center", alignItems: "center"}}>
        			<View style ={{width: "80%", borderWidth: 2, borderColor: "#888", backgroundColor: "lightgray", paddingHorizontal: 15, paddingVertical: 8, borderRadius: 3, marginTop: 20, marginBottom: 30}}>
        				<Text style={styles.instruction}>
-        	    			Note: To reduce exam malpractice during the session of this exam, students cannot use multiple tabs or web browsers. Attempting to do so would quit the exam.
+        	    			Note: To reduce exam malpractice, we ensure that students cannot use multiple tabs or web browsers. Attempting to do so would quit the exam.
        	  		 </Text>
        			</View>
        		</View>

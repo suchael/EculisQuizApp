@@ -50,9 +50,9 @@ const ExamInstructionModal = ({ visible, onClose }) => {
           </View>
           <ScrollView>
           <View style={{ flex: 1}}>
-            <Text style={styles.headerText}>Instruction:</Text>
+            <Text style={styles.headerText}>Note:</Text>
             <Text style={styles.modalText}>
-              This is a strict Exam mode. Attempting to minimize your phone a maximum of 3 times will quit the exam and your score would be submitted online. {"\n\n"}
+              To give you an exam feeling and seriousness, we ensured that you cannot use multiple tabs like internet browsers and so on. Attempting to do so would  submit your scores online. {"\n\n"}
 			  Be informed that Every score in this section is also available online to everyone via  <UnderLineTextBtn text="National Watchers" goTo="NationalWatchers" closeModal={onClose}/>
             </Text>
             <Text style={styles.headerText}>Your Subjects:</Text>

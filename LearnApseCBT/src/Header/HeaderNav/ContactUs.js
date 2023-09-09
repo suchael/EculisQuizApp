@@ -81,7 +81,8 @@ function Main() {
           flex: 1,
         }}
       >
-        
+    <View style ={{borderWidth: 2, borderColor: "#999", borderRadius: 5, paddingHorizontal: 10, paddingVertical: 25, marginBottom: 80}}>
+    	<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", }}>For enquiries and support </Text>
         <TouchableOpacity  style ={{height: 46, paddingHorizontal: 15, borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", justifyContent:"flex-start", alignItems:"center", gap: 15,marginTop: 20}}>
 						  <FontAwesome name="whatsapp" size={24} color="black" />
       					<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", }}>Message us via WhatsApp</Text>
@@ -99,7 +100,7 @@ function Main() {
        
        
         
-        <View style ={{alignItems: "center", marginTop: 40, marginBottom: 80}}>
+        <View style ={{alignItems: "center", marginTop: 40, }}>
         	<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", marginTop: 10}}>Follow us</Text>
         	<View style ={{flexDirection:"row", alignItems: "center", justifyContent: "center", width: 300, gap: 20,borderColor: "#666", borderRadius: 4, paddingBottom: 20, paddingHorizontal: 10, alignItems: "center", }}>
         		<TouchableOpacity style ={{flexDirection: "row", borderWidth: 2 , gap: 15, alignItems: "center", padding: 5, marginTop: 10, borderRadius: 5}}>
@@ -113,6 +114,8 @@ function Main() {
         	</View>
         </View>
         
+        
+      </View> 
       </View>
     </ScrollView>
   );

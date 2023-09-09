@@ -95,9 +95,12 @@ function JAMB_ProseCarousel(){
                       					  paddingTop: insets.top + 12,
                       					  paddingBottom: insets.bottom + 15,
 									}}>
-		<Text style = {{fontSize: 17, fontWeight:"500", color: "#555", marginBottom:20, }}>
+		<View style ={{paddingVertical: 4, paddingHorizontal: 4, marginTop: 10, marginBottom: 10, marginHorizontal: 10, justifyContent: "center", alignItems: "center", borderRadius: 2}}>
+      			<Text style = {{fontSize: 17, fontWeight:"500",}}>
 						JAMB compulsory prose
-		</Text>
+				  </Text>
+       </View>
+		
 		<TouchableOpacity>
 			<View style = {{justifyContent: "center", alignItems: "center", paddingVertical: 4}}>
 				<View style = {{borderWidth: 2, justifyContent: "center", alignItems: "center", width: 160, height: 160 , borderRadius: 5}}>
@@ -122,16 +125,16 @@ function DepartmentOfArt(){
                       					  borderWidth:2, 
                       					  marginTop: 25,
                       					  marginHorizontal: 10,
-                      					  borderRadius: 20,
+                      					  borderRadius: 40,
                       					  marginBottom: 140,
                       					  backgroundColor: "lightgray",
                       					  
 									}}
 		>
 			<View style= {{justifyContent: "center", alignItems: "center"}}>
-				<Text style = {{fontSize:18, fontWeight: "600", marginBottom: 10, marginTop:10}}>Department of Art</Text>
+				<Text style = {{fontSize:20, fontWeight: "600", marginBottom: 10, marginTop:10}}>Department of Art</Text>
 			</View>
-			<Text style = {{fontSize:15, fontWeight: "500", color: "#666", marginBottom:5}}>This section is strictly for Art students</Text>
+			<Text style = {{fontSize:15, fontWeight: "500", color: "#333", marginBottom:5}}>This section is strictly for Art students</Text>
 			
 			{/*Literary-Dramatic Terms*/}
 			<View style= {{justifyContent: "space-between", alignItems: "center", flexDirection: "row", paddingVertical: 20}}>
