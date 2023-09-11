@@ -116,12 +116,18 @@ function TabBar(){
 function SelectBySubject(){
   const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
-  const instruction = "JAMB CBT era started in 2015, and as a result, JAMB halted the issuance of past questions from that year onwards. Much effort has been put together by teachers all over Nigeria, as well as students who sat for the exam in previous years, to compile questions from 2015 and above.\n"
+  const instruction = "The length of questions from 2015 and beyond may vary. JAMB CBT era began in 2015, leading to JAMB discontinuing the issuance of past questions from that year onward. Teachers have collaborated to compile questions from 2015 and beyond while keeping in mind the structure of the exam syllabus.\n"
   const greetings  = "\nGreetings to all the Nigerian teachers out there. You all are second to none."
   return(
     <View>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}> 
-		<ReadMore  text = {instruction} msg = {greetings} maxLength={25} />
+		
+		<View style ={{borderWidth: 2, borderColor: "#888", borderRadius: 5, backgroundColor: "lightgray", paddingHorizontal: 8, paddingVertical: 12, marginVertical: 20, marginHorizontal: 10}}>
+				<Text style = {{fontSize: 17, fontWeight:"500", marginBottom: 5}}>
+					Internet connection is not required.
+				</Text>
+				<ReadMore  text = {instruction} msg = {greetings} maxLength={25} />
+		</View>
 		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select a subject: </Text>
 			<View style = {{paddingBottom: 110}}>
 				{Subject.map((eachSubject, index)=>(
@@ -156,7 +162,11 @@ function SelectByTopic(){
   return(
     <View>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}> 
-		<Text style={{fontSize: 17, fontWeight: "500", marginTop:15, marginBottom: 25, paddingHorizontal: 10}}>Study By Topic</Text>
+        <View style ={{borderWidth: 2, borderColor: "#888", borderRadius: 5, backgroundColor: "lightgray", paddingHorizontal: 8, paddingVertical: 6, marginVertical: 20, marginHorizontal: 10}}>
+				<Text style = {{fontSize: 17, fontWeight:"500", }}>
+					Study past questions by topic.
+				</Text>
+		</View>
 		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select a subject: </Text>
 			<View style = {{paddingBottom: 110}}>
 				{Subject.map((eachSubject, index)=>(

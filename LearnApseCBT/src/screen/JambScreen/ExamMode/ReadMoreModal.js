@@ -80,21 +80,45 @@ function MessageBox(){
           <Text style={styles.messageHeaderText}>
             Attention:{' '}
             <Text style={styles.messageNormalText}>
-              This is a strict Exam Mode. To simulate the real world, Your score will be visible online to everyone checking the{' '}
-              <UnderLineTextBtn text = "National Watchers" goTo="NationalWatchers"/>.
+              This is a strict Exam Mode. To simulate the real world, Your score will be submitted online and anyone checking the{' '}
+              <UnderLineTextBtn text = "National  Watchers" goTo="NationalWatchers"/> can see it. This has proven to imbibe seriousness in students.{"\n\n"}
             </Text>
+            <Text style={styles.messageNormalText}>
+          		If you wish to override this setting, consider choosing the <UnderLineTextBtn text="Customised  Test" goTo = "Custom test" /> option.
+        	</Text>
           </Text>
         </View>
         <View style={styles.messageContent}>
           <Text style={styles.messageNormalText}>
-            Just like in the actual exam, in this Exam Mode, the English Language section consists of a total of 60 questions and is
-            compulsory by default. Other subjects contain 40 questions each. You are expected to select three additional subjects of
-            your choice to make a total of four subjects.
+            Just like in the actual exam, in this strict mode:
           </Text>
+          <View style ={{paddingLeft: 10, marginVertical: 3}}>
+          	<View style ={{flexDirection: "row",  }}>
+          		<Text style ={{fontSize: 18, fontWeight: "bold", position: "absolute"}}>•{"\t"}</Text>
+          		<View style ={{marginLeft: 10}}>
+          			<Text style ={{fontSize: 15, fontWeight: "600"}}>
+          				English language = 60 questions 
+          			</Text>
+          		</View>
+          	</View>
+          	
+          	<View style ={{flexDirection: "row", }}>
+          		<Text style ={{fontSize: 18, fontWeight: "bold", position: "absolute"}}>•</Text>
+          		<View style ={{marginLeft: 10}}>
+          			<Text style ={{fontSize: 15, fontWeight: "600"}}>
+          				Other subjects = 40 questions each
+          			</Text>
+          		</View>
+          	</View>
+          
+          </View>
+          <Text style ={{fontSize: 16.5, fontWeight: "500"}}>
+          	You are expected to select three additional subjects of
+              your choice to make a total of four.
+          </Text>
+          
         </View>
-        <Text style={styles.messageNormalText}>
-          If you wish to override this setting, consider choosing the <UnderLineTextBtn text="Customised Test" goTo = "Custom test" /> option.
-        </Text>
+        
       </View>
     );
   };
@@ -105,7 +129,7 @@ const styles = StyleSheet.create({
     	borderWidth:2, 
 		borderRadius: 10, 
 		padding:6, 
-		paddingBottom: 10,
+		paddingVertical: 10,
     	backgroundColor: 'white',
   },
   messageHeader: {
@@ -117,7 +141,7 @@ const styles = StyleSheet.create({
   },
   messageNormalText: {
     fontSize: 16.5,
-    fontWeight: '400',
+    fontWeight: '500',
     marginTop: 12
   },
 });

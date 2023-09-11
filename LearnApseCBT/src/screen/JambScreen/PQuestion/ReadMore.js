@@ -31,13 +31,9 @@ const ReadMore= ({ text, msg ,maxLength }) => {
       return text.substring(0, maxLength) + '...';
   };
   return (
-    <View style={{ flexDirection: 'column' , marginBottom: 20,marginTop: 18,
-    	  paddingLeft: insets.left + 10,
-      	paddingRight: insets.right + 10,
-      	flex:1,
-	}}>
+    <View style={{ flexDirection: 'column' , flex:1,}}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style= {{fontSize: 16, fontWeight: "400"}}>
+        <Text style= {{fontSize: 16, fontWeight: "500"}}>
 			<Text style= {{fontWeight: "600", fontSize: 16, flexWrap: "wrap"}}>Note: </Text> 
 			{renderText()} 
 			

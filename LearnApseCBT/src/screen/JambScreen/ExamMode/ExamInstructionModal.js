@@ -55,9 +55,9 @@ const ExamInstructionModal = ({ visible, onClose }) => {
               To give you an exam feeling and seriousness, we ensured that you cannot use multiple tabs like internet browsers and so on. Attempting to do so would  submit your scores online. {"\n\n"}
 			  Be informed that Every score in this section is also available online to everyone via  <UnderLineTextBtn text="National Watchers" goTo="NationalWatchers" closeModal={onClose}/>
             </Text>
-            <Text style={styles.headerText}>Your Subjects:</Text>
-            <Text style={[styles.modalText, { marginLeft: '4%', marginBottom: -8 }]}>
-              • English: 60
+            <Text style={[styles.headerText, {marginTop: 4, marginBottom: 0}]}>Your Subjects:</Text>
+            <Text style={[styles.modalText, { marginLeft: '4%', marginBottom: -8, fontSize: 15, fontWeight: "bold" }]}>
+              • English + Life Changer Prose: 60
               {'\n'}
               • Physics: 40
               {'\n'}

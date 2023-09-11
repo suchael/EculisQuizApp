@@ -108,7 +108,7 @@ function TabBar(){
 
 function SelectBySubject(){
   const insets = useSafeAreaInsets();
-  const instruction= "Customise this Test to your preference";
+  const instruction= "Internet connection is not required. Customise this Test to your preference";
   return(
     <View>
       	<ScrollView> 
@@ -116,7 +116,6 @@ function SelectBySubject(){
       			<Text style ={{fontSize: 16.5, fontWeight: "500", paddingHorizontal: 10,}}>{instruction}</Text>
       	  </View>
 			<TopBtn/>
-			<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select one or more subjects: </Text>
 			<View style = {{paddingBottom: 140}}>
 				{Subject.map((eachSubject, index)=>(
 					<QuestButton key={index} subject={eachSubject} pickerType="Year" />
@@ -160,7 +159,7 @@ function BottomBtn(){
 function SelectByTopic(){
   const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
-  const instruction= "This Test section is based on Topics ";
+  const instruction= "Test your knowledge on any topic you have studied.";
   return(
     <View>
       <ScrollView> 
@@ -168,7 +167,6 @@ function SelectByTopic(){
       			<Text style ={{fontSize: 16.5, fontWeight: "500", paddingHorizontal: 10,}}>{instruction}</Text>
         </View>
 		<TopBtn/>
-		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select one or more subjects and a topic: </Text>
 			<View style = {{paddingBottom: 140}}>
 				{Subject.map((eachSubject, index)=>(
 					<QuestButton key={index} subject= {eachSubject} pickerType="Topic" pickerMode="Number"/>
