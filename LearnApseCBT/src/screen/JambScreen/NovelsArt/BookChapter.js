@@ -57,7 +57,11 @@ function HomeHeader() {
       >
         <AntDesign name="arrowleft" size={27} color="#333" style={{ marginLeft: -4 }} />
       </TouchableHighlight>
-      <Text style={styles.homeHeaderText}>Panic of growing old</Text>
+      
+      <View style ={{justifyContent: " center", alignItems: "center", gap: 6 }}>
+        	<Text style={styles.homeHeaderText}>Panic of growing old</Text>
+			<Text style = {{fontSize: 17, fontWeight: "600"}}>Chapter 1/20</Text>
+	  </View>
     </View>
   );
 }
@@ -78,12 +82,10 @@ function MainContainer(){
                   	paddingBottom: insets.bottom + 150,             	
                 }}
 				>
-					<View style ={{justifyContent: " center", alignItems: "center", marginVertical: 10}}>
-						<Text style = {{fontSize: 17, fontWeight: "600"}}>Chapter 1/20</Text>
-					</View>
 					
 					{/* Content */}
-					<Text style = {{fontSize: 16.5, fontWeight: "500", }}>
+					<View style ={{marginTop: 20}}>
+						<Text style = {{fontSize: 16.5, fontWeight: "500", }}>
 						yes, your app has the potential to compete with myschool. both apps offer a variety of features for students and teachers, but your app has some unique features that could set it apart, such as the online battle mode, the group exam link, and the ability to generate questions by topic.
 
 here are some ideas on how to market your app:
@@ -106,7 +108,8 @@ Here are some ideas on how to market your app:
 * **Get involved in the community:** Another way to market your app is to get involved in the community. You can participate in online forums and discussion groups, or you can attend conferences and events. This will help you to connect with potential users and to build awareness for your app.
 
 By following these tips, you can increase the chances of your app competing with Myschool.
-					</Text>
+						</Text>
+					</View>
 				</View>
 			</ScrollView>
 			<PrevBtn/>
@@ -185,7 +188,7 @@ const styles = StyleSheet.create({
   // main container
   mainContainer:{
   	flex:1,
-  	backgroundColor: "lightblue",
+  	backgroundColor: "white",
   },
  
  

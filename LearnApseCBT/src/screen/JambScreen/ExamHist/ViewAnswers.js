@@ -98,36 +98,61 @@ function MainContainer() {
           paddingLeft: insets.left + 10,
           paddingRight: insets.right + 10,
           paddingTop: insets.top + 10,
-          paddingBottom: insets.bottom + 80,
-          flexDirection: "row",
+          paddingBottom: insets.bottom + 100,
+          
         }}
       >
-        <ButtonList />
-        <ButtonList />
-        <ButtonList />
+      {/*Color Instruction*/}
+      <View style = {{padding: 10, borderWidth: 2, borderColor: "#999", backgroundColor: "white", borderRadius: 5, gap: 8, marginVertical: 30,}}>
+      	<View style = {{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
+      		<Text style={{ fontSize: 16, fontWeight: '900', color: "black", }}>Questions you got</Text>
+      		<View style ={{height: 30, width: 50, marginLeft: 20, backgroundColor: "#4CBB17", borderRadius: 4 }}></View>
+      	</View>
+      	<View style = {{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
+      		<Text style={{ fontSize: 16, fontWeight: '900', color: "black" ,  }}>Questions you Missed</Text>
+      		<View style ={{height: 30, width: 50, marginLeft: 20, backgroundColor: "red", borderRadius: 4 }}></View>
+      	</View>
+      	<View style = {{flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
+      		<Text style={{ fontSize: 16, fontWeight: '900', color: "black" }}>Questions you Skipped</Text>
+      		<View style ={{height: 30, width: 50, marginLeft: 20, backgroundColor: "lightgray", borderRadius: 4 }}></View>
+      	</View>
+      </View>
+      {/*Closing: Color Instruction*/}
+        
+        <GoToBtnList COLOR = "pink"/>
+        
         {/* ... Continue adding ButtonList components */}
       </ScrollView>
     </View>
   );
 }
 
-function ButtonList() {
+function GoToBtnList({COLOR}) {
+  // Create an array of numbers representing the question buttons (1 to 20)
+  const questionNumbers = Array.from({ length: 20 }, (_, index) => index + 1);
+  const navigation = useNavigation ();
   return (
-    <TouchableHighlight
-      onPress={() => {}}
-      activeOpacity={0.9}
-      underlayColor="white"
-      style={{ width: 45, height: 45, backgroundColor: 'lightgray', margin: 2 }}
-    >
-      <Text style={{ fontSize: 16, fontWeight: 'bold' }}>1</Text>
-    </TouchableHighlight>
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingHorizontal: 2 ,}}>
+      {questionNumbers.map((number) => (
+        <TouchableOpacity
+          key={number}
+          style={{ width: '15%',  height: 40,borderRadius: 8, justifyContent: 'center', alignItems: 'center', backgroundColor: number % 2 ===0? "#4CBB17": "red", margin: 2 }}
+          onPress={() => navigation.navigate("OnlineBattle")}
+        >
+          <Text style={{ fontSize: 16, fontWeight: '900', color: "white" }}>{number}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 }
 
+
+
 function HomeBtn() {
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
-      onPress={() => {}}
+      onPress={() => navigation.navigate("HomeScreen")}
       style={styles.homeBtn}
     >
       <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white' }}>
@@ -152,17 +177,17 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    backgroundColor: 'lightblue',
+    backgroundColor: 'white',
   },
   homeBtn: {
-    width: '90%',
-    height: 46,
+    height: 42,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'gray',
-    borderRadius: 15,
+    borderRadius: 25,
     position: 'absolute',
-    bottom: 20,
-    left: '5%',
+    bottom: 0.2,
+    left: 10,
+    right: 10,
   },
 });

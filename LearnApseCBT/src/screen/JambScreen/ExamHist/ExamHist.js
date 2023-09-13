@@ -79,21 +79,25 @@ function Main(){
 	return(
 		<ScrollView>
 			<View style = {{ 
-										paddingTop: insets.top + 12,
+										paddingTop: insets.top + 50,
 										paddingLeft: insets.left + 10, 
 										paddingRight: insets.right + 10, 
-										paddingBottom: insets.bottom +40}}
+										paddingBottom: insets.bottom +40,
+										
+						}}
 			>
-				<History/>
-				<History/>
-				<History/>
-				<History/>
-				<History/>
-				<History/>
-				<History/>
-				<History/>
-				<History/>
-				<History/>
+				<View style ={{borderWidth: 2, borderColor: "#888", borderRadius: 6, paddingVertical: 20, paddingHorizontal: 5}}>
+					<History/>
+					<History/>
+					<History/>
+					<History/>
+					<History/>
+					<History/>
+					<History/>
+					<History/>
+					<History/>
+					<History/>
+				</View>
 			</View>
 		</ScrollView>
 	);
@@ -102,7 +106,7 @@ function Main(){
 function History(){
 	const navigation= useNavigation();
 	return(
-		<View style={{borderBottomWidth: 2, paddingBottom: 15, marginBottom:20}}>
+		<View style={{paddingBottom: 15, marginBottom:20}}>
 					<Text style = {{fontSize:15,}}>
 						<Text style={{fontSize:17, fontWeight: "600"}}>Type: </Text>
 						JAMB
@@ -119,16 +123,17 @@ function History(){
 						<Text style={{fontSize:17, fontWeight: "600"}}>Mode: </Text>
 						Custom Exam
 					</Text>
-					<Text style = {{fontSize:15}}>
+					<Text style = {{fontSize:14, fontWeight: "900"}}>
 						<Text style={{fontSize:17, fontWeight: "600"}}>Date: </Text>
 						Feb 12th, 2023
 					</Text>
 					<TouchableOpacity 
 							onPress={()=> navigation.navigate("ExamHistResult")}
-							style={{width: "100%", height: 40, borderRadius:10,backgroundColor: "gray", justifyContent: "center", alignItems: "center"}}
+							style={{ height: 40, borderRadius: 25,backgroundColor: "gray", justifyContent: "center", alignItems: "center", marginTop: 8}}
 					>
 						<Text style = {{fontSize:16, fontWeight: "bold"}}>Details</Text>
 					</TouchableOpacity>
+					<View style ={{borderBottomWidth: 2, marginHorizontal: -5, marginTop: 12, borderColor: "#888" }}></View>
 		</View>
 	);
 }
@@ -138,7 +143,7 @@ function History(){
 const styles = StyleSheet.create({
 	homeContainer:{
     flex:1,
-    backgroundColor: "lightgray",
+    backgroundColor: "white",
   },
   homeHeader: {
     flexDirection: "row",

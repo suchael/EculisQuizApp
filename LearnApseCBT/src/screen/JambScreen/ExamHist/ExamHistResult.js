@@ -64,7 +64,7 @@ function Main(){
 										paddingBottom: insets.bottom+ 80}}
 			>
 				<ScrollView>
-					<View style = {{borderWidth:2, minHeight: 450, paddingBottom:  20, marginTop: 20, marginBottom: 140, borderRadius: 25}}>
+					<View style = {{borderWidth:2, minHeight: 450, paddingBottom:  20, marginTop: 20, marginBottom: 140, borderRadius: 25, backgroundColor: "white"}}>
 						{/*LearnApse Row*/}
 						<View style = {{borderTopLeftRadius: 25, borderTopRightRadius:25, paddingHorizontal: 6, paddingTop: 14, flexDirection: "row", alignItems: "center"}}>
 								<View style = {{marginRight: 40, borderWidth:2, height: 60, width: 60, alignItems: "center", justifyContent:"center"}}>
@@ -180,12 +180,13 @@ function Main(){
 						</View>
 						{/*Subject table closing*/}
 						
-						<View style = {{justifyContent: "center", alignItems: "center", marginTop: 8, marginBottom:4}}>
-							<Text style = {{fontSize:17, fontWeight: "600"}}>Time Analysis</Text>
-						</View>
 						
 						{/*Time Analysis*/}
-						<View style ={{flexDirection: "row"}}>
+						<View style = {{justifyContent: "center", alignItems: "center", marginTop: 12, marginBottom:4}}>
+							<Text style = {{fontSize:17, fontWeight: "600"}}>Time Analysis</Text>
+						</View>
+			
+						<View style ={{flexDirection: "row", }}>
 								<View style ={{borderTopWidth:2, borderRightWidth:2 ,width: "60%", padding: 4, justifyContent: "center"}}>
 									<Text style = {{fontSize:16, fontWeight: "600"}}>Total Exam Time</Text>
 								</View>
@@ -209,9 +210,10 @@ function Main(){
 
 
 function HomeBtn(){
+	const navigation = useNavigation();
 	return (
 		<TouchableOpacity 
-        			onPress={() => console.log("Prev Btn") }
+        			onPress={() => navigation.navigate("HomeScreen") }
         			style= {[styles.homeAndExplBtn, {left: 10}]}
       	>
         		<Text style ={styles.homeAndExplText}>Home</Text>
@@ -238,7 +240,7 @@ function ViewExplanationBtn(){
 const styles = StyleSheet.create({
 	homeContainer:{
     flex:1,
-    backgroundColor: "lightgray",
+    backgroundColor: "white",
   },
   homeHeader: {
     flexDirection: "row",

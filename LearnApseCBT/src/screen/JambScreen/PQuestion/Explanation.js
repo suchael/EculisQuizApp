@@ -54,7 +54,7 @@ function MainContainer(){
 function QuestionInterface() {
   return (
     <View style={styles.questionInterfaceMain}>
-        <QuestionInterfaceContainer/>
+        <QuestionInterfaceContainer ind = "1"/>
     </View>
   );
 }
@@ -90,7 +90,7 @@ function QuestionInterfaceContainer({ind}){
 			<View style = {styles.questionAndExplanationScreen}>
 				<View style = {styles.questionScreenNumberView}>
 					<Text style = {styles.questionScreenNumber}>
-						Question {ind}
+						Question{"\t\t"}{ind}
 					</Text>
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
@@ -133,7 +133,7 @@ function QuestionInterfaceContainer({ind}){
 			</View>
 			<View style = {[styles.questionAndExplanationScreen, {marginTop:18, backgroundColor: "lightgray"}]}>
 				<View style = {styles.questionScreenNumberView}>
-					<Text style = {[styles.questionScreenNumber, {fontSize:20, backgroundColor: "white"}]}>
+					<Text style = {[styles.questionScreenNumber, {fontSize:22, backgroundColor: "white"}]}>
 						Explanation 
 					</Text>
 				</View>
@@ -153,7 +153,7 @@ A desert is a barren area of landscape where little precipitation occurs and con
 							style = {{borderWidth:2, padding: 3, marginTop: 20, marginBottom: 10, justifyContent: "center", flex:1, alignItems: "center", borderRadius: 10, backgroundColor: "white"}}
 	      			>
               			<Text style= {{fontSize: 17, fontWeight: "600", padding: 2}}>   
-								Post or View other answers (5)    
+								Post or View public answers (5)    
               			</Text>
           	</TouchableHighlight>              
 				
@@ -316,12 +316,11 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	questionScreenNumber: {
-		fontSize: 13, 
+		fontSize: 17, 
 		fontWeight: "bold", 
 		borderWidth: 2, 
-		paddingLeft: 6, 
-		paddingRight: 2, 
-		paddingTop: 1, 
+		paddingHorizontal: 10,
+		paddingVertical: 2,
 		borderRadius: 5
 	},
    questionScreenQuestionContent: {

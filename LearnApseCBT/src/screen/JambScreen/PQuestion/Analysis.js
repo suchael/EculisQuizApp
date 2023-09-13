@@ -55,7 +55,7 @@ function MainContainer(){
 function QuestionInterface() {
   return (
     <View style={styles.questionInterfaceMain}>
-        <QuestionInterfaceContainer/>
+        <QuestionInterfaceContainer ind = "1"/>
     </View>
   );
 }
@@ -63,13 +63,12 @@ function QuestionInterface() {
 
 function QuestionInterfaceContainer({ind}){
 	const navigation = useNavigation();
-	const explanation = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of";
 	return(
 		<View style = {styles.questionInterfaceContainer}>
 			<View style = {styles.questionAndExplanationScreen}>
 				<View style = {styles.questionScreenNumberView}>
 					<Text style = {styles.questionScreenNumber}>
-						Question {ind}
+						Question{"\t\t"}{ind}
 					</Text>
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
@@ -311,12 +310,11 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	questionScreenNumber: {
-		fontSize: 13, 
+		fontSize: 17, 
 		fontWeight: "bold", 
 		borderWidth: 2, 
-		paddingLeft: 6, 
-		paddingRight: 2, 
-		paddingTop: 1, 
+		paddingHorizontal: 10,
+		paddingVertical: 2, 
 		borderRadius: 5
 	},
    questionScreenQuestionContent: {

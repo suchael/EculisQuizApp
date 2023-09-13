@@ -122,7 +122,7 @@ function HomeHeader(){
       >
         <AntDesign name="arrowleft" size={27} color="#333"  style={{marginLeft: -4}}/>
       </TouchableHighlight>
-      <Text style = {styles.homeHeaderText}>Comment{"  "}Section</Text>
+      <Text style = {styles.homeHeaderText}>Public{"  "}Answer</Text>
     </View>
   );
 }

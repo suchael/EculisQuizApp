@@ -175,7 +175,7 @@ function LitYearBtn(){
 					onPress={()=> navigation.navigate("RecommendedBooks")}
 					style = {{backgroundColor: "#777", borderRadius: 15, paddingHorizontal: 18, paddingVertical: 12, marginBottom: 8}}>
 					<View style = {{justifyContent: "space-between", alignItems: "center", flexDirection: "row"}}>
-						<Text style ={{fontSize: 17, fontWeight: "600"}}>Literature Text: 2020 - 2024</Text>
+						<Text style ={{fontSize: 17, fontWeight: "600"}}>Literature Text:{"  "}2020 - 2024</Text>
 						<FontAwesome name="angle-right" size={24} color="black" />
 					</View>
 		</TouchableOpacity>
