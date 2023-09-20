@@ -149,14 +149,14 @@ function JambHome({navigation}) {
           </View>
           <View style={styles.bottom}>
             <TouchableOpacity 
-              onPress={() => navigation.navigate("NationalWatchers")}
+              onPress={() => navigation.navigate("HallOfFame")}
               activeOpacity={0.3}
               underlayColor="lightgray"
               style={styles.bottomContent}
             >
               <>
                 <MaterialCommunityIcons name="nature" size={35} color="black" />
-                <Text style={styles.midTopContentRowText} >National watchers</Text>
+                <Text style={styles.midTopContentRowText} >Hall of Fame</Text>
                 <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
               </>
             </TouchableOpacity>

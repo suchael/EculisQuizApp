@@ -83,7 +83,7 @@ function Main() {
         }}
       >
         {/*Big Icon*/}
-        <View style = {{ height: 100, marginBottom: 15}}>
+        <View style = {{ height: 100, marginBottom: 15, justifyContent: "space-between", alignItems: "center"}}>
         	<View style ={{borderWidth: 2.5, borderColor: "#999", width: 70, height: 70, borderRadius: 35, justifyContent: "center", alignItems: "center", position: "absolute", left: 20, right: 0, bottom: 5, zIndex:1, backgroundColor: "white"}}>
         		<FontAwesome5 name="user" size={40} color="#999" />
         	</View>
@@ -100,7 +100,7 @@ function Main() {
 
 function About(){
 	return(
-		<View style = {{paddingVertical: 15, marginBottom: 10, alignItems: "space-between d"}}>
+		<View style = {{paddingVertical: 15, marginBottom: 10,}}>
         		{/**/}
           <View>
         		<View style ={{borderWidth: 0.5, borderColor: "#999",  flexDirection: "row", padding: 10, justifyContent: "space-between", gap: 10, flex: 1, marginBottom: 10}}>
@@ -126,6 +126,18 @@ function About(){
         				<Text style = {{fontSize: 16, fontWeight: "500", marginTop: 8, marginBottom: 4}}>Note: This is the name visible to everyone in the National Watchers and Group Exam section.</Text>
         			</View>
         		</View>
+        
+        
+            	<View style ={{borderWidth: 0.5, borderColor: "#999",  flexDirection: "row", padding: 10, justifyContent: "space-between", gap: 10, flex: 1, marginBottom: 10}}>
+        			<FontAwesome5 name="user-alt" size={18} color="black" />
+        			<View style ={{justifyContent: "center", flex:1}}>
+        				<Text style = {{fontSize: 17, fontWeight: "600"}}>
+								Account Type:{"  "}
+								<Text style = {{fontWeight: "500", fontSize: 16}}>Student</Text>
+						</Text>
+        			</View>
+        		</View>
+        
         
         		<View style ={{borderWidth: 0.5, borderColor: "#999",  flexDirection: "row", padding: 10, justifyContent: "space-between", gap: 10, flex: 1, marginBottom: 10}}>
         			<FontAwesome5 name="user-alt" size={18} color="black" />

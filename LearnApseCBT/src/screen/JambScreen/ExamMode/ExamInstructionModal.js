@@ -52,10 +52,10 @@ const ExamInstructionModal = ({ visible, onClose }) => {
           <View style={{ flex: 1}}>
             <Text style={styles.headerText}>Note:</Text>
             <Text style={styles.modalText}>
-              To give you an exam feeling and seriousness, we ensured that you cannot use multiple tabs like internet browsers and so on. Attempting to do so would  submit your scores online. {"\n\n"}
-			  Be informed that Every score in this section is also available online to everyone via  <UnderLineTextBtn text="National Watchers" goTo="NationalWatchers" closeModal={onClose}/>
+              To give you an exam feeling and seriousness, we ensured that you cannot use multiple tabs like internet browsers and so on. Attempting to do so would  submit your scores immediately.{"\n\n"}
+			  Be reminded that your total score in this section is publicly visible via the <UnderLineTextBtn text="Hall of Fame" goTo="HallOfFame" closeModal={onClose}/> section.
             </Text>
-            <Text style={[styles.headerText, {marginTop: 4, marginBottom: 0}]}>Your Subjects:</Text>
+            <Text style={[styles.headerText, {marginTop: 4, marginBottom: 5}]}>Your subject combination:</Text>
             <Text style={[styles.modalText, { marginLeft: '4%', marginBottom: -8, fontSize: 15, fontWeight: "bold" }]}>
               • English + Life Changer Prose: 60
               {'\n'}

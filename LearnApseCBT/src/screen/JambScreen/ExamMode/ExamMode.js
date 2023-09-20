@@ -115,7 +115,7 @@ function ReadMoreBtn(){
 		<View style = {{flexDirection: "row", justifyContent: "center", alignItems: "center", justifyContent: "center",marginVertical: 14,paddingLeft: 10,}}>
 				<Text style = {{fontSize:16, fontWeight: "bold"}}>Attention: </Text>
 				<Text style = {{fontSize: 16}}>
-					This is a strict Exam
+					Welcome to strict
 				</Text>
 				 <TouchableOpacity onPress = {openModal}>
 					 <Text style ={{color: "blue"}}>{" "}...Read More</Text>

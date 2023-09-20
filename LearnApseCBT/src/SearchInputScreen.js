@@ -1,17 +1,181 @@
-import React, { useState } from "react";
-import {
-  View,
-  TextInput,
-  KeyboardAvoidingView,
-  StyleSheet,
-  TouchableHighlight,
-  Text,
-  Platform,
-  Dimensions 
-} from "react-native";
 
-//icon
-import { FontAwesome } from '@expo/vector-icons';
+import {View, 
+        Text, 
+        StyleSheet,
+        Switch,
+        ScrollView,
+        TouchableOpacity,
+        KeyboardAvoidingView,
+        TextInput,
+        TouchableHighlight } from 'react-native';
+        
+import React , {useState} from 'react';
+
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import { useNavigation } from '@react-navigation/native';
+
+// Icons
+import { AntDesign , FontAwesome, Ionicons} from '@expo/vector-icons';
+
+// My import
+//import subjects from  "../../../SubjectDb.js";
+
+
+export default function ShowQuestionList() {
+   const [isHeaderShown, setIsHeaderShown] = useState(true);
+  return (
+    <View style={styles.container}>
+    		<HomeHeader/>
+			<MainContainer/>
+    </View>
+  );
+}
+
+
+function HomeHeader(){
+  const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
+  return(
+    <View style = {[styles.homeHeader, 
+                    {
+                      paddingLeft: insets.left + 10,
+                      paddingRight: insets.right + 10,
+                      paddingTop: insets.top + 12,
+                      paddingBottom: insets.bottom + 6,
+                      
+                  
+                  }]}>
+      <TouchableHighlight
+        onPress={() => navigation.goBack() }
+        activeOpacity={0.9}
+        underlayColor="lightgray"
+        style = {{width: 60, height: 40, justifyContent: "center"}}
+      >
+        <AntDesign name="arrowleft" size={27} color="#333"  style={{marginLeft: -4}}/>
+      </TouchableHighlight>
+      
+      <TouchableOpacity style ={{borderWidth: 2, borderColor: "#888", borderRadius: 3, paddingHorizontal: 16, paddingVertical: 4, flex:1}}>
+      	<View style = {{flexDirection: "row", justifyContent: "space-between", alignItems: "center",}}>
+      		<Text style = {{fontSize: 16, fontWeight: "600"}}>Find a question by subject</Text>
+      		<FontAwesome name="angle-down" size={24} color="black" />
+      	</View>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+
+function MainContainer(){
+	const insets = useSafeAreaInsets();
+	
+	
+	return(
+		<View style = {styles.mainContainer}>
+			<ScrollView >
+				<View style = {{
+                  	paddingLeft: insets.left + 10,
+                  	paddingRight: insets.right + 10,
+                  	paddingTop: insets.top + 10,
+                  	paddingBottom: insets.bottom + 100,             	
+                }}
+				>
+					
+					<QuestionInterface/>
+				</View>
+			</ScrollView>
+			<BottomBtn/>
+		</View>
+	);
+}
+
+
+
+function QuestionInterface() {
+  return (
+    <View style={styles.questionInterfaceMain}>
+      <SearchInputScreen/>
+      <QuestionInterfaceContainer ind = "1"/>
+      <QuestionInterfaceContainer ind = "1"/>
+      <QuestionInterfaceContainer ind = "1"/>
+    </View>
+  );
+}
+
+
+function QuestionInterfaceContainer({ind}){
+	const navigation = useNavigation()
+	return(
+		<View style = {styles.questionInterfaceContainer}>
+			<View style = {styles.questionScreen}>
+				<View style = {styles.questionScreenNumberView}>
+					<Text style = {styles.questionScreenNumber}>
+						Question {ind}
+					</Text>
+				</View>
+				<Text style = {styles.questionScreenQuestionContent}>
+					Which of the following statements does not show Rutherford's account of Nuclear Theory? An atom contains a region
+				</Text>
+			</View>
+			<View style = {styles.optionMain}>
+				<View style= {styles.optionContainer}>
+					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
+						A{". "}
+						<Text style = {styles.optionContainerOptions}>
+              				which contains protons and neutrons 				
+						</Text>
+					</Text>			
+         	   </View>
+         	<View style= {styles.optionContainer}>
+					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
+						B{". "}
+						<Text style = {styles.optionContainerOptions}>
+              				which is positively charged
+         				</Text>
+					</Text>			
+         	   </View>
+				<View style= {styles.optionContainer}>
+					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
+						C{". "}
+						<Text style = {styles.optionContainerOptions}>
+              				which is massive and can cause deflection of a few projectiles
+         				</Text>
+					</Text>			
+         	   </View>
+         	<View style= {styles.optionContainer}>
+					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
+						D{". "}
+						<Text style = {styles.optionContainerOptions}>
+              				which is very large and in which close to 98% of projectiles pass undeflected
+         				</Text>
+					</Text>			
+         	   </View>
+			</View>
+			<View style = {styles.screenContBottomBtn}>
+				  	<TouchableHighlight 
+		 					onPress={()=>{navigation.navigate("Analysis")}} 		
+	     					underlayColor="lightgray"
+			 				activeOpacity={0.9}
+							style ={{height: 35, justifyContent: "center", alignItems: "center", borderRadius: 5}}
+	      			>
+              			<Text style= {styles.screenBottomBtnText}>   
+								Analysis      
+              			</Text>
+          			</TouchableHighlight>              
+            		  <TouchableHighlight 
+		 				onPress={()=>{navigation.navigate("Explanation")}} 		
+	     				underlayColor="lightgray"
+			 			activeOpacity={0.9}
+						style ={{height: 35, justifyContent: "center", alignItems: "center", borderRadius: 5}}
+	      			>
+              			<Text style= {styles.screenBottomBtnText}>
+              					Explanation 
+              			</Text>
+          			</TouchableHighlight>              
+			</View>
+		</View>
+	);
+}
+
 
 function SearchInputScreen() {
   const [textInputValue, setTextInputValue] = useState(""); 
@@ -20,8 +184,9 @@ function SearchInputScreen() {
   };
   
   return (
+  <View style = {{marginVertical: 30}}>
     <KeyboardAvoidingView
-      style={styles.container}
+      style={styles.keyboardContainer}
       behavior={Platform.OS === "ios" ? "padding" : null}
       keyboardVerticalOffset={0}
     >
@@ -39,26 +204,186 @@ function SearchInputScreen() {
           style={styles.sendButton}
           onPress={handleSendButtonPress} // Call the function to log user-typed message
           activeOpacity={0.9}
-          underlayColor="lightgray" 
+          underlayColor="#777" 
         >
-          <Text style={styles.sendButtonText}><FontAwesome name="send-o" size={24} color="white" /></Text>
+          <Ionicons name="send" size={24} color="black" />
         </TouchableHighlight>
       </View>
       {/* You can add other UI elements below the input field */}
     </KeyboardAvoidingView>
+  </View>
   );
 }
 
+function BottomBtn(){
+	return (
+		<View style = {{ position: "absolute", bottom: 0, left: 15, right: 15, flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 4}}>
+			<TouchableHighlight
+        			onPress={() => console.log("Prev Btn") }
+        			activeOpacity={0.9}
+        			underlayColor="white"
+        			style= {styles.nextAndPrevBtn}
+      	>
+        		<AntDesign name="arrowleft" size={30} color="black" />
+      	</TouchableHighlight>
+      	<TouchableHighlight
+        			onPress={() => console.log("Page Selector")}
+        			activeOpacity={0.9}
+        			underlayColor="white"
+        			style = {[styles.topBtnTouchables, {alignItems: "center", justifyContent: "center",flex:1, borderRadius: 4, paddingVertical: 8 , width: 20}]}
+      	>
+      			  <View style = {[styles.topBtnTouchablesView, {alignItems: "center", justifyContent: "center", gap: 1}]}>
+      					<Text style ={styles.topBtnText}>Page{"  "}2/10</Text>
+					</View>
+          </TouchableHighlight>
+      	<TouchableHighlight
+        			onPress={() => console.log("Next Btn")}
+        			activeOpacity={0.9}
+        			underlayColor="white"
+        			style= {styles.nextAndPrevBtn}
+      	>
+        		<AntDesign name="arrowright" size={30} color="black" />
+      	</TouchableHighlight>  
+		</View>
+	);
+}
 
-const screenWidth = Dimensions.get('window').width;
-const GAP = 0.7905// This is the best gap between the input box anf the send button
-const inputGap = screenWidth * GAP;
+
 
 
 const styles = StyleSheet.create({
-  container: {
+  container:{
     flex: 1,
-    justifyContent: "flex-end", // Align input at the bottom
+  },
+  homeHeader: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
+    borderColor: "#999",
+    borderBottomWidth:2,
+  },
+  homeHeaderText: {
+    fontSize: 20,
+    fontWeight: "500",
+  },
+  
+  // main container
+  mainContainer:{
+  	flex:1,
+  	backgroundColor: "lightgray",
+  },
+  
+  
+  // Top Button... This is for Top "Page Selector" and "Show Questions" btn
+  topBtn: {
+  	borderWidth:2, 
+	  padding: 3, 
+	  alignItems: "center", 
+	  borderBottomLeftRadius: 8, 
+      borderBottomRightRadius: 8,
+      marginLeft: 10,
+      backgroundColor: "gray",
+  },
+  topBtnTouchables: {
+  	backgroundColor: "#999",
+	  padding: 3, 
+	  alignItems: "center", 
+  },
+  topBtnTouchablesView: {
+  	flexDirection: "row", 
+	  justifyContent: "space-between", 
+	  alignItems: "center", 
+	  gap: 14, 
+	  paddingHorizontal: 6,
+  },
+  topBtnText: {
+  	fontSize: 17, 
+	  fontWeight: "600", 
+	  color:"#222"
+  },
+  
+  // Question Interface
+  questionInterfaceMain: {
+  	//borderWidth : 2, 
+	  marginBottom: 20,
+   },
+   questionInterfaceContainer: {
+   	backgroundColor: "white",
+   	borderWidth: 2, 
+	   padding:4, 
+	   borderColor: "#999", 
+	   borderRadius: 15, 
+	   marginBottom: 35
+	},
+	questionScreen: {
+		borderWidth:2, 
+		borderColor: "#999", 
+	    padding: 8, 
+		flexDirection: "column", 
+		borderRadius: 15,  
+		backgroundColor: "white", 
+		marginBottom: 6
+	},
+	questionScreenNumberView: {
+		marginTop: -2, 
+		justifyContent: "center", 
+		alignItems: "center",
+	},
+	questionScreenNumber: {
+		fontSize: 15, 
+		fontWeight: "bold", 
+		borderWidth: 2, 
+		paddingLeft: 6, 
+		paddingRight: 2, 
+		paddingTop: 1, 
+		borderRadius: 5
+	},
+   questionScreenQuestionContent: {
+   	fontSize: 16.7, 
+	   fontWeight: "500", 
+	},
+	optionMain: {
+		//borderWidth:2, 
+		paddingTop: 5
+	},
+	optionContainer: {
+		paddingHorizontal: 8 ,
+		paddingVertical: 4,
+		borderWidth: 2, 
+		borderColor: "#777", 
+		borderRadius: 7, 
+		marginTop: 3, 
+		backgroundColor: "white" 
+	},
+	optionContainerOptions: {
+		fontSize: 16.7, 
+		fontWeight: "500",
+		paddingVertical: 20,
+		borderWidth: 2,
+	},
+  screenContBottomBtn: {
+  	  borderWidth:2, 
+  	  borderColor: "#777", 
+		marginTop: 25, 
+		marginBottom:5,
+		paddingHorizontal:10, 
+		flexDirection: "row", 
+		justifyContent: "space-between", 
+		borderRadius: 4,
+		backgroundColor: "lightgray"
+	},
+	screenBottomBtnText: {
+		textDecorationLine: "underline", 
+		fontSize: 17, 
+		fontWeight: "bold", 
+		paddingVertical: 2
+	},
+	
+  //Keyboard
+	keyboardContainer: {
+    flex: 1,
+    justifyContent: "space-between", 
+    alignItems: "center",
     padding: 6,
   },
   inputContainer: {
@@ -75,17 +400,16 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     fontSize: 16,
     marginRight: 6,
+    backgroundColor: "white",
   },
   sendButton: {
-    backgroundColor: "orange",
+    backgroundColor: "white",
+    borderWidth: 2,
     borderRadius: 25,
     width: 50,
     height: 50,
     justifyContent: "center",
     alignItems: "center",
-    position: "absolute",
-    bottom: 0,
-    right: 0,
     marginLeft: 4,
   },
   sendButtonText: {
@@ -93,6 +417,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
+  
+  // Bottom Buttons
+	nextAndPrevBtn: {
+		//borderWidth: 2,
+		width: 90,
+		height: 46,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "gray",
+		borderRadius: 10,
+   },
 });
 
-export default SearchInputScreen;

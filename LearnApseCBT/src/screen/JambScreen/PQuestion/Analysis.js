@@ -83,20 +83,20 @@ function QuestionInterfaceContainer({ind}){
 					<Text style = {[styles.questionScreenNumber, {
 													position: "absolute",
 													backgroundColor: "white",
-													bottom: 0,
+													bottom: -6,
 													fontSize: 20, 
 											}]}
 					>
 						Analysis of each option 
 					</Text>
 				</View>
-				<Text style = {styles.optionContainerOptions}>
+				<Text style = {[styles.optionContainerOptions, {fontWeight: "bold"}]}>
 					Correct Answer: A
 					
 				</Text>
 				<View style = {styles.optionMain}>
 					<View style ={{justifyContent: "center", alignItems: "center"}}>
-						<View style= {[styles.optionContainer, {width: "100%", backgroundColor: "#004B49"}]}>
+						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "#004B49",}]}>
 							<Text style = {{fontSize: 17, fontWeight: "bold", color: "white",}}>
 								A{". "}
 								<Text style = {styles.optionContainerOptions}>
@@ -106,9 +106,9 @@ function QuestionInterfaceContainer({ind}){
          	  		 </View>
          
          			{/*Each Option Analysis*/}
-         			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, borderColor: "#004B49", width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 4, marginBottom: 15, backgroundColor: "white"}}>
-         				<Text style ={{fontSize: 16, fontWeight: "600"}}>I like peace 
-							But if you decide to choose war... I assure you only your shadow will live to tell the story
+         			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, borderColor: "#004B49", width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 10, marginBottom: 15, backgroundColor: "white"}}>
+         				<Text style ={{fontSize: 16, fontWeight: "500"}}>I like peace 
+							But if you decide to choose wa
 						</Text>
          			</View>
          			{/*Closing - Each Option Analysis*/}
@@ -116,8 +116,8 @@ function QuestionInterfaceContainer({ind}){
          
          
          		<View style ={{justifyContent: "center", alignItems: "center"}}>
-						<View style= {[styles.optionContainer, {width: "100%",backgroundColor: "white"}]}>
-							<Text style = {{fontSize: 17, fontWeight: "bold", }}>
+						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "white"}]}>
+							<Text style = {{fontSize: 17, fontWeight: "500", }}>
 								B{". "}
 								<Text style = {styles.optionContainerOptions}>
               						which contains protons and neutrons  which contains protons and neutrons 				
@@ -126,8 +126,8 @@ function QuestionInterfaceContainer({ind}){
          	  		 </View>
          
          			{/*Each Option Analysis*/}
-         			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2,  width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 4, marginBottom: 15, backgroundColor: "white"}}>
-         				<Text style ={{fontSize: 16, fontWeight: "600"}}>I like peace 
+         			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2,  width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 10, marginBottom: 15, backgroundColor: "white"}}>
+         				<Text style ={{fontSize: 16, fontWeight: "500"}}>I like peace 
 							But if you decide to choose war... I assure you only your shadow will live to tell the story
 						</Text>
          			</View>
@@ -136,8 +136,8 @@ function QuestionInterfaceContainer({ind}){
 
 
 				<View style ={{justifyContent: "center", alignItems: "center"}}>
-						<View style= {[styles.optionContainer, {width: "100%", backgroundColor: "white"}]}>
-							<Text style = {{fontSize: 17, fontWeight: "bold",}}>
+						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "white"}]}>
+							<Text style = {{fontSize: 17, fontWeight: "500",}}>
 								C{". "}
 								<Text style = {styles.optionContainerOptions}>
               						which contains protons and neutron			
@@ -146,8 +146,8 @@ function QuestionInterfaceContainer({ind}){
          	  		 </View>
          
          			{/*Each Option Analysis*/}
-         			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 4, marginBottom: 15, backgroundColor: "white"}}>
-         				<Text style ={{fontSize: 16, fontWeight: "600"}}>I like peace 
+         			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 10, marginBottom: 15, backgroundColor: "white"}}>
+         				<Text style ={{fontSize: 16, fontWeight: "500"}}>I like peace 
 							But if you decide to choose war... I assure you only your shadow will live to tell the storyBut if you decide to choose war... I assure you only your shadow will live to tell the story
 						</Text>
          			</View>
@@ -156,8 +156,8 @@ function QuestionInterfaceContainer({ind}){
          
          
          		<View style ={{justifyContent: "center", alignItems: "center"}}>
-						<View style= {[styles.optionContainer, {width: "100%", backgroundColor: "white" }]}>
-							<Text style = {{fontSize: 17, fontWeight: "bold",}}>
+						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "white" }]}>
+							<Text style = {{fontSize: 17, fontWeight: "500",}}>
 								D{". "}
 								<Text style = {styles.optionContainerOptions}>
               						which contains protons and neutrons  which contains protons and neutrons 			
@@ -166,8 +166,8 @@ function QuestionInterfaceContainer({ind}){
          	  		 </View>
          
          			{/*Each Option Analysis*/}
-         			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2,  width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 4, marginBottom: 15, backgroundColor: "white"}}>
-         				<Text style ={{fontSize: 16, fontWeight: "600"}}>I like peace 
+         			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2,  width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 10,  marginBottom: 15, backgroundColor: "white"}}>
+         				<Text style ={{fontSize: 16, fontWeight: "500"}}>I like peace 
 							But if you decide to choose war... I assure you only your shadow will live to tell the storyBut if you decide to choose war... I assure you only your shadow will live to tell the storyBut if you decide to choose war... I assure you only your shadow will live to tell the stor
 						</Text>
          			</View>
@@ -290,8 +290,8 @@ const styles = StyleSheet.create({
    },
    questionInterfaceContainer: {
    	backgroundColor: "white",
-   	borderWidth: 2, 
-	   padding:4, 
+   	//borderWidth: 2, 
+	   //padding:4, 
 	   //borderColor: "blue", 
 	   borderRadius: 15, 
 	   marginBottom: 35
@@ -334,8 +334,8 @@ const styles = StyleSheet.create({
 		backgroundColor: "white" 
 	},
 	optionContainerOptions: {
-		fontSize: 14, 
-		fontWeight: "600",
+		fontSize: 15.5, 
+		fontWeight: "500",
 		marginVertical: 15,
 	},
   

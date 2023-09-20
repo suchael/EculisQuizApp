@@ -52,34 +52,67 @@ function HomeHeader(){
       </TouchableHighlight>
       <View style = {{flexDirection: "column"}}>
       	<Text style = {styles.homeHeaderText}>English Language</Text>
-      	<Text style = {{fontSize: 13, fontWeight: "700"}}>JAMB: 2004 </Text>
+      	<Text style = {{fontSize: 14, fontWeight: "900"}}>JAMB: 2004 </Text>
       </View>
+      <TouchableHighlight
+        			onPress={() => console.log("Page Selector")}
+        			activeOpacity={0.9}
+        			underlayColor="white"
+        			style = {[styles.topBtnTouchables, {alignItems: "center", justifyContent: "center",flex:1, borderRadius: 4, paddingVertical: 8 }]}
+      >
+      			  <View style = {[styles.topBtnTouchablesView, {alignItems: "center", justifyContent: "center", gap: 1}]}>
+      					<Text style ={styles.topBtnText}>Page{"  "}1/10</Text>
+					</View>
+      </TouchableHighlight>
     </View>
   );
 }
 
 
+
 function MainContainer(){
 	const insets = useSafeAreaInsets();
+	
+	//Toggle for Switch
+	const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => {
+    	setIsEnabled(previousState => !previousState);
+    };
 	return(
 		<View style = {styles.mainContainer}>
 			<ScrollView >
 				<View style = {{
                   	paddingLeft: insets.left + 10,
                   	paddingRight: insets.right + 10,
-                  	paddingTop: insets.top + 60,
+                  	paddingTop: insets.top + 10,
                   	paddingBottom: insets.bottom + 100,             	
                 }}
 				>
+					{/*Toggle Switch*/}
+					<View style = {[styles.topBtnTouchables, {paddingHorizontal: 10, paddingVertical: 3, borderRadius: 5, marginBottom: 14}]}>
+      			  	<View style = {styles.topBtnTouchablesView}>
+      					<Text style ={styles.topBtnText}>Show All Answers</Text>
+      						<View style = {{height: 34, width: 80, justifyContent: "center", alignItems: "center", }}>
+      							<Switch  style={{borderWidth: 2, borderColor: "red", transform: [{ scaleX: 1.5}, { scaleY: 1.5}]}}
+        								trackColor={{ false: "#767577", true: "white" }}
+        								thumbColor={isEnabled ? "black" : "gray"}
+        								ios_backgroundColor="#3e3e3e"
+        								onValueChange={toggleSwitch}
+        								value={isEnabled}
+      							/>
+							</View>		 
+						</View>
+      			  </View>
+      		 	{/*Closing: Toggle Switch*/}
+      
 					<QuestionInterface/>
 				</View>
 			</ScrollView>
-			<TopButtons/>
-			<PrevBtn/>
-			<NextBtn/>
+			<BottomBtn/>
 		</View>
 	);
 }
+
 
 
 function QuestionInterface() {
@@ -167,85 +200,29 @@ function QuestionInterfaceContainer({ind}){
 	);
 }
 
-function TopButtons(){
-	const insets = useSafeAreaInsets();
-	
-	//Toggle for Switch
-	const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => {
-    	setIsEnabled(previousState => !previousState);
-    };
-   
-	return(
-			<View style={{flexDirection: "row", 
-				  justifyContent: "space-between",
-                  paddingLeft: insets.left + 10,
-                  paddingRight: insets.right + 10,
-                  paddingBottom: insets.bottom,
-                  width: "100%",
-                  position: "absolute",
-                  top:0,
-                  backgroundColor: "transparent"
-			}}>
-				<TouchableHighlight
-        			onPress={() => console.log("Page Selector")}
-        			activeOpacity={0.9}
-        			underlayColor="white"
-        			style = {[styles.topBtnTouchables, {alignItems: "center", justifyContent: "center", }]}
-      		  >
-      			  <View style = {[styles.topBtnTouchablesView, {alignItems: "center", justifyContent: "center", }]}>
-      					<Text style ={styles.topBtnText}>Page 1</Text>
-      					<FontAwesome name="angle-down" size={28} color="black" />			 
-					</View>
-      		</TouchableHighlight>
-			  <TouchableHighlight
-        			onPress={toggleSwitch}
-        			activeOpacity={0.5}
-        			underlayColor="white"
-        			style = {[styles.topBtnTouchables, {paddingTop: 1}]}
-      		  >
-      			  <View style = {styles.topBtnTouchablesView}>
-      					<Text style ={styles.topBtnText}>Show{"\n"}Answers</Text>
-      					<View style = {{height: 20, width: 40, justifyContent: "center", alignItems: "center"}}>
-      						<Switch  style={{borderWidth: 2, borderColor: "red"}}
-        							trackColor={{ false: "#767577", true: "white" }}
-        							thumbColor={isEnabled ? "blue" : "gray"}
-        							ios_backgroundColor="#3e3e3e"
-        							onValueChange={toggleSwitch}
-        							value={isEnabled}
-      						/>
-						</View>		 
-					</View>
-      		</TouchableHighlight>
-			</View>
-	);
-}
 
 
-function PrevBtn(){
+
+function BottomBtn(){
 	return (
-		<TouchableHighlight
+		<View style = {{ position: "absolute", bottom: 0, left: 10, right: 10, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+			<TouchableHighlight
         			onPress={() => console.log("Prev Btn") }
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {left: 10}]}
+        			style= {styles.nextAndPrevBtn}
       	>
         		<AntDesign name="arrowleft" size={30} color="black" />
       	</TouchableHighlight>
-	);
-}
-
-
-function NextBtn (){
-	return(
-		<TouchableHighlight
+      	<TouchableHighlight
         			onPress={() => console.log("Next Btn")}
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {right: 10}]}
+        			style= {styles.nextAndPrevBtn}
       	>
         		<AntDesign name="arrowright" size={30} color="black" />
       	</TouchableHighlight>  
+		</View>
 	);
 }
 
@@ -288,8 +265,6 @@ const styles = StyleSheet.create({
   	backgroundColor: "#999",
 	  padding: 3, 
 	  alignItems: "center", 
-	  borderBottomLeftRadius: 8, 
-	  borderBottomRightRadius: 8,
   },
   topBtnTouchablesView: {
   	flexDirection: "row", 
@@ -313,14 +288,14 @@ const styles = StyleSheet.create({
    	backgroundColor: "white",
    	borderWidth: 2, 
 	   padding:4, 
-	   //borderColor: "blue", 
+	   borderColor: "#999", 
 	   borderRadius: 15, 
 	   marginBottom: 35
 	},
 	questionScreen: {
 		borderWidth:2, 
+		borderColor: "#999", 
 	    padding: 8, 
-		//borderColor: "red", 
 		flexDirection: "column", 
 		borderRadius: 15,  
 		backgroundColor: "white", 
@@ -352,6 +327,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 8 ,
 		paddingVertical: 4,
 		borderWidth: 2, 
+		borderColor: "#777", 
 		borderRadius: 7, 
 		marginTop: 3, 
 		backgroundColor: "white" 
@@ -364,6 +340,7 @@ const styles = StyleSheet.create({
 	},
   screenContBottomBtn: {
   	  borderWidth:2, 
+  	  borderColor: "#777", 
 		marginTop: 25, 
 		marginBottom:5,
 		paddingHorizontal:10, 
@@ -388,8 +365,6 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		backgroundColor: "gray",
 		borderRadius: 10,
-		position: "absolute",
-		bottom: 0,
    },
 });
 

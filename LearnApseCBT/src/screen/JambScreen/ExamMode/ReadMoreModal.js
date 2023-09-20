@@ -80,11 +80,13 @@ function MessageBox(){
           <Text style={styles.messageHeaderText}>
             Attention:{' '}
             <Text style={styles.messageNormalText}>
-              This is a strict Exam Mode. To simulate the real world, Your score will be submitted online and anyone checking the{' '}
-              <UnderLineTextBtn text = "National  Watchers" goTo="NationalWatchers"/> can see it. This has proven to imbibe seriousness in students.{"\n\n"}
-            </Text>
+  Welcome to strict Exam Mode. Here, your achievements are on live display for friends and international sponsors to see. {'\n'}
+  But that is not all. The best of the best could also be sponsored and offered scholarships. {"\n\n"}Note that your score is available globally via the
+  <UnderLineTextBtn text="Hall of Fame" goTo="HallOfFame"/> section.{"\n\n"}
+</Text>
+
             <Text style={styles.messageNormalText}>
-          		If you wish to override this setting, consider choosing the <UnderLineTextBtn text="Customised  Test" goTo = "Custom test" /> option.
+          		If you wish to override this setting and you do not want your score to be visible globally, consider choosing the <UnderLineTextBtn text="Customised  Test" goTo = "Custom test" /> option.
         	</Text>
           </Text>
         </View>

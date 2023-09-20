@@ -30,7 +30,7 @@ import CustTest from './src/screen/JambScreen/CustTest/CustTest.js';
 import ExamMode from './src/screen/JambScreen/ExamMode/ExamMode.js';
 import OnlineBat from './src/screen/JambScreen/OnlineBat/OnlineBat.js';
 import Quiz from './src/screen/JambScreen/Quiz/Quiz.js';
-import NationalWatchers from './src/screen/JambScreen/NationalWatchers/NationalWatchers.js';
+import HallOfFame from './src/screen/JambScreen/HallOfFame/HallOfFame.js';
 import NovelsArt from './src/screen/JambScreen/NovelsArt/NovelsArt.js';
 import Bookmarks from './src/screen/JambScreen/Bookmarks/Bookmarks.js';
 import JambSyllabus from './src/screen/JambScreen/JambSyllabus/JambSyllabus.js';
@@ -117,8 +117,8 @@ export default function App() {
 								component={Quiz}
 							/>
 							<Stack.Screen 
-								name='NationalWatchers' 
-								component={NationalWatchers}
+								name='HallOfFame' 
+								component={HallOfFame}
 							/>
 							<Stack.Screen 
 								name='Novels and Art' 

@@ -59,7 +59,7 @@ function HomeHeader() {
       >
         <AntDesign name="arrowleft" size={27} color="#333" style={{ marginLeft: -4 }} />
       </TouchableHighlight>
-      <Text style={styles.homeHeaderText}>National{"  "}Watchers</Text>
+      <Text style={styles.homeHeaderText}>Hall{" "}of{" "}Fame</Text>
     </View>
   );
 }
