@@ -166,7 +166,7 @@ function BottomBtn() {
 	const navigation= useNavigation();
   return (
     <View style={{flexDirection: "row", justifyContent: "space-between", bottom: -1, paddingHorizontal: 8, width: "100%" , backgroundColor: "lightgray", paddingTop: 8}}>
-      <TouchableOpacity onPress={()=>navigation.navigate("OnlineBatGameScreen")} style={{ borderWidth: 2, backgroundColor: "gray", justifyContent: "center", alignItems: "center", paddingHorizontal: 26, paddingVertical: 10, borderRadius: 15 , width: "100%"}}>
+      <TouchableOpacity onPress={()=>navigation.navigate("OnlineBatGameScreen")} style={{ borderWidth: 2, backgroundColor: "gray", justifyContent: "center", alignItems: "center", paddingHorizontal: 26, paddingVertical: 10, borderRadius: 25 , width: "100%"}}>
         	<Text style={{ fontSize: 17, fontWeight: "bold" }}>Play</Text>
       </TouchableOpacity>
     </View>

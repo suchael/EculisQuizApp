@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, 
 				TextInput, TouchableOpacity, 
-				StyleSheet, BackHandler } from 'react-native';
+				StyleSheet, BackHandler, Platform,
+} from 'react-native';
 
 
 
 
 export default function QuitExamNotif({ navigation, visible, PASSWORD, inputValue, setInputValue, handleSubmit, closeModal }){
+	const keyboardType = Platform.OS === 'ios' ? 'number-pad' : 'numeric';
+
   return (
       <Modal
         animationType="slide"
@@ -19,17 +22,22 @@ export default function QuitExamNotif({ navigation, visible, PASSWORD, inputValu
         {/* Modal Content */}
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <View style={{ minWidth: 260 }}>
+            <View style={{ minWidth: 260,}}>
               <View style={styles.modalViewTextTitle}>
-                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>End Exam?</Text>
+                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>End Exam?</Text>
               </View>
               <Text style={{ fontSize: 15.5, marginTop: 7 }}>Are you sure you want to End or Submit this exam? </Text>
-              <Text style={{ fontSize: 16, marginTop: 9, marginBottom: 5 }}>
-                Type <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{PASSWORD}</Text> to Submit
+              <Text style={{ fontSize: 16, marginTop: 15, marginBottom: 8 }}>
+                Type{"  "}
+				<Text style={{ fontSize: 18, fontWeight: 'bold' }}>{PASSWORD}</Text>{"  "}to Submit
               </Text>
             </View>
             <View style={styles.row}>
               <TextInput
+				keyboardType={keyboardType}
+				autoCompleteType="off"
+				autoComplete = "off"
+				autoCorrect={false} 
                 style={styles.input}
                 placeholder={PASSWORD}
                 value={inputValue}
@@ -62,12 +70,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    
   },
   modalView: {
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 10,
-    padding: 10,
+    paddingVertical: 25,
+    paddingHorizontal: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,

@@ -105,25 +105,25 @@ function MainContainer() {
       {/*Color Instruction*/}
       <View style = {{padding: 10, borderWidth: 2, borderColor: "#999", backgroundColor: "white", borderRadius: 5, gap: 8, marginVertical: 30,}}>
       	<View style ={{justifyContent: "center", alignItems: "center"}}>
-      		<Text style = {{fontSize: 16, fontWeight: "500"}}>Your Maths score: 30/40 </Text>
+      		<Text style = {{fontSize: 16, fontWeight: "600"}}>Your Maths score: 30/40 </Text>
       	</View>
       
       	<View style = {{flexDirection: "row", alignItems: "center", justifyContent: "space-between", }}>
-      		<Text style={{ fontSize: 16, fontWeight: '900', color: "black", }}>Questions you got</Text>
+      		<Text style={{ fontSize: 16, fontWeight: '500', color: "black", }}>Questions you got</Text>
       		<View style ={{height: 30, width: 50, marginLeft: 20, backgroundColor: "#4CBB17", borderRadius: 4, justifyContent: 'center', alignItems: 'center',  }}>
       			<Text style = {{fontSize: 16, fontWeight: "900"}}>30</Text>
 			</View>
       	</View>
       
       	<View style = {{flexDirection: "row", alignItems: "center", justifyContent: "space-between", }}>
-      		<Text style={{ fontSize: 16, fontWeight: '900', color: "black", }}>Questions you missed</Text>
+      		<Text style={{ fontSize: 16, fontWeight: '500', color: "black", }}>Questions you missed</Text>
       		<View style ={{height: 30, width: 50, marginLeft: 20, backgroundColor: "red", borderRadius: 4, justifyContent: 'center', alignItems: 'center',  }}>
       			<Text style = {{fontSize: 16, fontWeight: "900"}}> 4</Text>
 			</View>
       	</View>
       
       	<View style = {{flexDirection: "row", alignItems: "center", justifyContent: "space-between", }}>
-      		<Text style={{ fontSize: 16, fontWeight: '900', color: "black", }}>Questions you skipped</Text>
+      		<Text style={{ fontSize: 16, fontWeight: '500', color: "black", }}>Questions you skipped</Text>
       		<View style ={{height: 30, width: 50, marginLeft: 20, backgroundColor: "lightgray", borderRadius: 4, justifyContent: 'center', alignItems: 'center',  }}>
       			<Text style = {{fontSize: 16, fontWeight: "900"}}>6</Text>
 			</View>
@@ -134,7 +134,7 @@ function MainContainer() {
       </View>
       {/*Closing: Color Instruction*/}
         
-        <GoToBtnList COLOR = "pink"/>
+        <GoToBtnList/>
         
         {/* ... Continue adding ButtonList components */}
       </ScrollView>
@@ -142,9 +142,9 @@ function MainContainer() {
   );
 }
 
-function GoToBtnList({COLOR}) {
+function GoToBtnList() {
   // Create an array of numbers representing the question buttons (1 to 20)
-  const questionNumbers = Array.from({ length: 60 }, (_, index) => index + 1);
+  const questionNumbers = Array.from({ length: 44 }, (_, index) => index + 1);
   const navigation = useNavigation ();
   return (
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingHorizontal: 2 ,}}>
@@ -152,7 +152,7 @@ function GoToBtnList({COLOR}) {
         <TouchableOpacity
           key={number}
           style={{ width: '15%',  height: 40,borderRadius: 8, justifyContent: 'center', alignItems: 'center', backgroundColor: number % 2 ===0? "#4CBB17": "red", margin: 2 }}
-          onPress={() => navigation.navigate("OnlineBattle")}
+          onPress={() => navigation.navigate("Analysis")}
         >
           <Text style={{ fontSize: 16, fontWeight: '900', color: "white" }}>{number}</Text>
         </TouchableOpacity>

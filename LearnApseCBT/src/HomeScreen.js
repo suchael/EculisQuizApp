@@ -58,7 +58,7 @@ function Main() {
         }}
       >
         <TopTab.Screen 
-          name="Ssce" 
+          name="WAEC" 
           component={Ssce} 
         />
         <TopTab.Screen

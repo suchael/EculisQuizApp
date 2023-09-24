@@ -74,13 +74,12 @@ function NewsHome() {
               					paddingRight: insets.right + 10,
               					paddingTop: insets.top + 12,
               					paddingBottom: insets.bottom,
-              height: "100%",
-              flex:1
+              
             					}]}
         			>
-        			<View style = {{flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 5}}>
-        				<EvilIcons name="bell" size={26} color="black" />
-        				<Text style={{fontSize: 18, fontWeight: "500"}}>Latest Education News </Text>
+        			<View style = {{flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 12, marginTop: 15}}>
+        				<FontAwesome name="bell" size={24} color="black" />
+        				<Text style={{fontSize: 18, fontWeight: "600"}}>Latest Education News </Text>
         			</View>
         
         			{/*SearchBox*/}
@@ -158,8 +157,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "lightgray",
     flex: 1,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
   },
   
 });

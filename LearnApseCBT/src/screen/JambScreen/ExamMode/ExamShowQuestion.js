@@ -5,7 +5,7 @@ import {View,
         ScrollView,
         Dimensions,
         TouchableOpacity,
-        BackHandler,
+        BackHandler, FlatList,
         TouchableHighlight } from 'react-native';
         
 import React , {useState, useEffect} from 'react';
@@ -199,29 +199,32 @@ function QuestionInterfaceContainer({ind}){
 	);
 }
 
+
+
+
 // Display List of nswered numbers
 
 function GoToBtnList() {
   // Create an array of numbers representing the question buttons (1 to 20)
-  const questionNumbers = Array.from({ length: 47 }, (_, index) => index + 1);
-
+  const questionNumbers = Array.from({ length: 44 }, (_, index) => index + 1);
+  const navigation = useNavigation ();
   return (
-    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingHorizontal: 2 }}>
+    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingHorizontal: 2 ,  paddingLeft: 10, borderWidth: 2, paddingVertical: 5, borderRadius: 10}}>
+
       {questionNumbers.map((number) => (
         <TouchableOpacity
           key={number}
-          style={{ borderWidth: 2, width: '15%',  height: 40,borderRadius: 8, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', margin: 2 }}
-          onPress={() => {
-            // Handle button click, e.g., navigate to the corresponding question
-            console.log(`Go to question ${number}`);
-          }}
+          style={{ width: '15%',  height: 40, borderWidth: 2, borderRadius: 8, justifyContent: 'center', alignItems: 'center', backgroundColor: "white", margin: 2 }}
+          onPress={() => navigation.navigate("Logout")}
         >
-          <Text style={{ fontSize: 16, fontWeight: '500' }}>{number}</Text>
+          <Text style={{ fontSize: 16, fontWeight: '900', color: "black" }}>{number}</Text>
         </TouchableOpacity>
       ))}
     </View>
   );
 }
+
+
 
 
 
@@ -265,19 +268,8 @@ function BottomButtons(){
     }
   };
 	return (
-		<View style ={{paddingVertical: 0, height: 60, width: "100%" , backgroundColor: "transparent", position: "absolute", bottom:0, zIndex: 1, paddingHorizontal: 10, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-			<PrevBtn/>
-			<EndExamBtn toggleModal={openModal} />
-			<NextBtn/>
-			<QuitExamNotif navigation={navigation} visible={modalVisible} PASSWORD= {PASSWORD} inputValue={inputValue} setInputValue={setInputValue} handleSubmit={handleSubmit} closeModal={closeModal}/>
-		</View>
-	);
-}
-
-
-function PrevBtn(){
-	return (
-		<TouchableHighlight
+		<View style ={{paddingVertical: 0, height: 60, backgroundColor: "transparent", position: "absolute", bottom:0, left: 15, right: 15, zIndex: 1, paddingHorizontal: 10, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+			<TouchableHighlight
         			onPress={() => console.log("Prev Btn") }
         			activeOpacity={0.9}
         			underlayColor="white"
@@ -285,14 +277,23 @@ function PrevBtn(){
       	>
         		<AntDesign name="arrowleft" size={30} color="black" />
       	</TouchableHighlight>
+			<EndExamBtn toggleModal={openModal} />
+			<TouchableHighlight
+        			onPress={() => console.log("Next Btn")}
+        			activeOpacity={0.9}
+        			underlayColor="white"
+        			style= {styles.nextAndPrevBtn}
+      	>
+        		<AntDesign name="arrowright" size={30} color="black" />
+      	</TouchableHighlight>  
+			<QuitExamNotif navigation={navigation} visible={modalVisible} PASSWORD= {PASSWORD} inputValue={inputValue} setInputValue={setInputValue} handleSubmit={handleSubmit} closeModal={closeModal}/>
+		</View>
 	);
 }
 
 
-
-
 function EndExamBtn({toggleModal}){
-	const windowWidth = Dimensions.get('window').width;
+	//const windowWidth = Dimensions.get('window').width;
 	const handleBackPress = () => {
     toggleModal(); // Toggle the modal visibility
     return true; // Prevent default back behavior
@@ -319,19 +320,6 @@ function EndExamBtn({toggleModal}){
 	);
 }
 
-
-function NextBtn (){
-	return(
-		<TouchableHighlight
-        			onPress={() => console.log("Next Btn")}
-        			activeOpacity={0.9}
-        			underlayColor="white"
-        			style= {styles.nextAndPrevBtn}
-      	>
-        		<AntDesign name="arrowright" size={30} color="black" />
-      	</TouchableHighlight>  
-	);
-}
 
 
 
@@ -428,14 +416,12 @@ const styles = StyleSheet.create({
   
   // Bottom Buttons
 	nextAndPrevBtn: {
-		borderWidth: 2,
 		width: 90,
 		height: 46,
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "gray",
-		borderRadius: 10,
-		borderWidth: 2,
+		borderRadius: 18,
 		marginBottom: -13
    },
 });

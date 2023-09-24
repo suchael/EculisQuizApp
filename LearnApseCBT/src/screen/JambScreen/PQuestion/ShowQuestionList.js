@@ -16,7 +16,7 @@ import { AntDesign , FontAwesome} from '@expo/vector-icons';
 
 // My import
 import subjects from  "../../../SubjectDb.js";
-
+import PageSelectorModal from "./PageSelectorModal.js";
 
 function ShowQuestionList() {
    const [isHeaderShown, setIsHeaderShown] = useState(true);
@@ -50,20 +50,11 @@ function HomeHeader(){
       >
         <AntDesign name="arrowleft" size={27} color="#333" style={{marginLeft: -4}} />
       </TouchableHighlight>
-      <View style = {{flexDirection: "column"}}>
+      <View style = {{flexDirection: "column", }}>
       	<Text style = {styles.homeHeaderText}>English Language</Text>
-      	<Text style = {{fontSize: 14, fontWeight: "900"}}>JAMB: 2004 </Text>
+      	<Text style = {{fontSize: 15, fontWeight: "900"}}>JAMB: 2004 </Text>
       </View>
-      <TouchableHighlight
-        			onPress={() => console.log("Page Selector")}
-        			activeOpacity={0.9}
-        			underlayColor="white"
-        			style = {[styles.topBtnTouchables, {alignItems: "center", justifyContent: "center",flex:1, borderRadius: 4, paddingVertical: 8 }]}
-      >
-      			  <View style = {[styles.topBtnTouchablesView, {alignItems: "center", justifyContent: "center", gap: 1}]}>
-      					<Text style ={styles.topBtnText}>Page{"  "}1/10</Text>
-					</View>
-      </TouchableHighlight>
+      <PageSelectorModal/>
     </View>
   );
 }
@@ -93,7 +84,7 @@ function MainContainer(){
       			  	<View style = {styles.topBtnTouchablesView}>
       					<Text style ={styles.topBtnText}>Show All Answers</Text>
       						<View style = {{height: 34, width: 80, justifyContent: "center", alignItems: "center", }}>
-      							<Switch  style={{borderWidth: 2, borderColor: "red", transform: [{ scaleX: 1.5}, { scaleY: 1.5}]}}
+      							<Switch  style={{borderWidth: 2, borderColor: "red", transform: [{ scaleX: 1.4}, { scaleY: 1.4}]}}
         								trackColor={{ false: "#767577", true: "white" }}
         								thumbColor={isEnabled ? "black" : "gray"}
         								ios_backgroundColor="#3e3e3e"
@@ -142,32 +133,32 @@ function QuestionInterfaceContainer({ind}){
 			</View>
 			<View style = {styles.optionMain}>
 				<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						A{". "}
+					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+						A{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which contains protons and neutrons 				
 						</Text>
 					</Text>			
          	   </View>
          	<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						B{". "}
+					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+						B{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which is positively charged
          				</Text>
 					</Text>			
          	   </View>
 				<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						C{". "}
+					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+						C{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which is massive and can cause deflection of a few projectiles
          				</Text>
 					</Text>			
          	   </View>
          	<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						D{". "}
+					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+						D{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which is very large and in which close to 98% of projectiles pass undeflected
          				</Text>
@@ -205,7 +196,7 @@ function QuestionInterfaceContainer({ind}){
 
 function BottomBtn(){
 	return (
-		<View style = {{ position: "absolute", bottom: 0, left: 10, right: 10, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+		<View style = {{ position: "absolute", bottom: 0, left: 22, right: 22, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
 			<TouchableHighlight
         			onPress={() => console.log("Prev Btn") }
         			activeOpacity={0.9}
@@ -305,6 +296,12 @@ const styles = StyleSheet.create({
 		marginTop: -2, 
 		justifyContent: "center", 
 		alignItems: "center",
+		//position: "absolute",
+		//top: -15,
+		//left: 0,
+		//right: 0,
+		//zIndex: 2,
+		//backgroundColor: "red"
 	},
 	questionScreenNumber: {
 		fontSize: 15, 
@@ -313,7 +310,8 @@ const styles = StyleSheet.create({
 		paddingLeft: 6, 
 		paddingRight: 2, 
 		paddingTop: 1, 
-		borderRadius: 5
+		borderRadius: 5,
+		backgroundColor: "white"
 	},
    questionScreenQuestionContent: {
    	fontSize: 16.7, 
@@ -358,13 +356,13 @@ const styles = StyleSheet.create({
   
   // Bottom Buttons
 	nextAndPrevBtn: {
-		borderWidth: 2,
+		//borderWidth: 2,
 		width: 90,
 		height: 46,
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "gray",
-		borderRadius: 10,
+		borderRadius: 18, 
    },
 });
 

@@ -157,7 +157,7 @@ function JambHome({navigation}) {
               <>
                 <MaterialCommunityIcons name="nature" size={35} color="black" />
                 <Text style={styles.midTopContentRowText} >Hall of Fame</Text>
-                <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
+                <AntDesign name="right" size={20} color="black"  style={{position:"absolute" ,  right: 15}} />
               </>
             </TouchableOpacity>
             <TouchableOpacity
@@ -169,7 +169,7 @@ function JambHome({navigation}) {
               <>
                 <FontAwesome5 name="diagnoses" size={30} color="black" />
                 <Text style={styles.bottomContentText} >Novels and Art </Text>
-                <AntDesign name="right" size={18} color="black"  style={{position:"absolute" ,  right: 8}} />
+                <AntDesign name="right" size={20} color="black"  style={{position:"absolute" ,  right: 15}} />
               </>
             </TouchableOpacity>
             <TouchableOpacity
@@ -319,11 +319,13 @@ const styles = StyleSheet.create({
   },
   alert: {
     paddingTop: 4,
-    paddingBottom:4,
+    paddingBottom: 7,
     paddingLeft: 20,
     paddingRight: 20,
     marginTop: 2,
-    marginBottom: 15,
+    marginBottom: 28,
+    borderWidth: 2,
+    borderColor: "#999",
     backgroundColor: "#FAFAFA",
     borderTopRightRadius: 60,
     borderTopLeftRadius: 60,
@@ -331,7 +333,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   alertText: {
-    fontSize: 13,
+    fontSize: 14.5,
     fontWeight: "600",
     color: "black",
     paddingBottom: 2,
@@ -374,7 +376,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   midTopContentRow2Exam: {
-    //borderWidth: 2,
+    borderWidth: 2,
+    borderColor: "#8888",
     backgroundColor: "#6EAAF5",
     width: 115,
     height: 115,
@@ -397,19 +400,18 @@ const styles = StyleSheet.create({
       alignItems: "center",
   },
   
-  //Bottom
+  //BottomBtn 
   bottom: {
     //borderWidth: 2,
     marginTop:20,
     marginBottom: 80,
   },
   bottomContent: {
-    height: 54,
+    height: 64,
     //borderWidth: 2,
-    marginBottom: 6,
+    marginBottom: 10,
     paddingLeft: 26,
-    borderRadius: 5,
-    borderBottomLeftRadius: 20,
+    borderRadius: 35,
     backgroundColor: "#FAFAFA",
     flexDirection: "row",
     gap: 14,

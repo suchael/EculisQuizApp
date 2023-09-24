@@ -111,23 +111,24 @@ function Main() {
         }}
       >
       	{/* Activate App wrapper*/}
-      	<View style ={{backgroundColor: "white", minHeight: 350, borderRadius: 14, borderWidth: 2, borderColor: "#999", paddingVertical: 25, paddingHorizontal: 10}}>
-				<View style ={{justifyContent: "center", alignItems: "center", padding: 6, borderRadius: 4, backgroundColor: "lightgray", marginBottom: 15}}>
-					<Text style ={{fontSize: 17, fontWeight: "600"}}>This App have not been activated</Text>
-				</View>
+      	<View style ={{backgroundColor: "white", minHeight: 350, borderRadius: 14, borderWidth: 2, borderColor: "#999", paddingVertical: 25, paddingHorizontal: 10, justifyContent: "center", alignItems: "center"}}>
+      		  <View style ={{flex: 1, marginHorizontal: -10, backgroundColor: "white", paddingHorizontal: 10, }}>
+      				<View style ={{justifyContent: "center", alignItems: "center", padding: 6, borderRadius: 4, backgroundColor: "lightgray", marginBottom: 15}}>
+							<Text style ={{fontSize: 17, fontWeight: "600"}}>This App have not been activated</Text>
+					 </View>
       		
-      		
-         
-      		<TouchableOpacity onPress={()=>navigation.navigate("BasicAdvancePaymentPlan")} style ={{height: 46, borderRadius: 35, backgroundColor: "blue", justifyContent:"center", alignItems:"center", marginTop: 10}}>
-      			<Text style ={{fontSize: 17, fontWeight: "bold", color: "white", }}>Activate Now</Text>
-      		</TouchableOpacity>
+      				<TouchableOpacity onPress={()=>navigation.navigate("BasicAdvancePaymentPlan")} style ={{height: 46, borderRadius: 35, backgroundColor: "blue", justifyContent:"center", alignItems:"center", marginTop: 4}}>
+      					<Text style ={{fontSize: 17, fontWeight: "bold", color: "white", }}>Activate Now</Text>
+      				</TouchableOpacity>
+      		  </View>
+				
       		
       
-      		<View style ={{flex: 1, marginHorizontal: -10, backgroundColor: "white", marginTop: 40,  paddingVertical: 25, paddingHorizontal: 10}}>
-      				<View style ={{justifyContent: "center", alignItems: "center", padding: 6, borderRadius: 4, backgroundColor: "lightgray", marginBottom: 15}}>
+      		<View style ={{flex: 1, marginHorizontal: -10, backgroundColor: "white", marginTop: 40,  paddingHorizontal: 10, justifyContent: "flex-end"}}>
+      			  <View style ={{justifyContent: "center", alignItems: "center", padding: 6, borderRadius: 4,  marginBottom: 1}}>
 							<Text style ={{fontSize: 17, fontWeight: "600"}}>For enquiries and support</Text>
 					</View>
-					<TouchableOpacity onPress={handleLogin} style ={{height: 46, paddingHorizontal: "10%",borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", justifyContent:"space-between", alignItems:"center", marginTop: 10}}>
+					<TouchableOpacity onPress={handleLogin} style ={{height: 46, paddingHorizontal: "8%",borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", justifyContent:"space-between", alignItems:"center", marginTop: 4, gap: 15}}>
 						  <FontAwesome name="whatsapp" size={24} color="black" />
       					<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", }}>Message us via WhatsApp</Text>
       			</TouchableOpacity>

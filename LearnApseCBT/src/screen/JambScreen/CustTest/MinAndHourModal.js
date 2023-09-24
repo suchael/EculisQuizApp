@@ -1,20 +1,12 @@
-
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, TouchableHighlight, Modal, ScrollView, StyleSheet, BackHandler } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, TouchableOpacity, Modal, FlatList, StyleSheet, BackHandler } from 'react-native';
 import { Fontisto } from '@expo/vector-icons';
 
-const NUMBER = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-  11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-  21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-  31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-  41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
-  51, 52, 53, 54, 55, 56, 57, 58, 59, 60
-];
+const NUMBER = Array.from({ length: 60 }, (_, index) => index);
+const firstFiveNUMBER = NUMBER.slice(0, 5);
 
-
-export default function MinAndHourModal({Type}){
-  const [selectedNumber, setSelectedNumber] = useState(40);
+const MinAndHourModal = ({ Type }) => {
+  const [selectedNumber, setSelectedNumber] = useState(Type === "Hour" ? 1 : 30);
   const [modalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
@@ -25,68 +17,79 @@ export default function MinAndHourModal({Type}){
     setModalVisible(false);
   };
 
-  const selectNumber = (number) => {
-    setSelectedNumber(number);
-    closeAndResetModal();
-  };
-
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       if (modalVisible) {
         closeAndResetModal();
-        return true; // Prevent default behavior (exit the app)
+        return true;
       }
-      return false; // Let the default behavior continue (back navigation)
+      return false;
     });
 
     return () => backHandler.remove();
   }, [modalVisible]);
 
-  const renderNumber = (number) => (
-    <TouchableOpacity key={number} style={styles.option} onPress={() => selectNumber(number)}>
-      <Text style={{ fontSize: 17, fontWeight: "500" }}>{number}</Text>
+  const renderNumber = useCallback(({ item }) => (
+    <TouchableOpacity
+      key={item}
+      style={styles.option}
+      onPress={() => selectNumber(item)}
+    >
+      <Text style={{ fontSize: 17, fontWeight: "500" }}>{item}</Text>
     </TouchableOpacity>
+  ), []);
+
+  const selectNumber = (number) => {
+    setSelectedNumber(number);
+    closeAndResetModal();
+  };
+
+  const keyExtractor = useCallback((item) => item.toString(), []);
+
+  const modalContent = (
+    <FlatList
+      data={Type === "Hour" ? firstFiveNUMBER : NUMBER}
+      renderItem={renderNumber}
+      keyExtractor={keyExtractor}
+      initialNumToRender={15}
+    />
   );
 
   return (
-    <View style={[styles.container, {backgroundColor: "transparent"}]}>
-    	<View style ={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 2}}>
-    		<Text style ={{fontSize: 18, fontWeight: "600"}}>{Type}: </Text>
-    		
-    		<TouchableHighlight
-        		onPress={openModal}
-        		underlayColor="lightgray"
-        		style={{width: 100, borderWidth: 2, borderRadius: 4, backgroundColor: "lightgray"}}
-      	  >
-        		<View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 4}}>
-          			<Text style={{ fontWeight: "700", fontSize: 18 }}>{selectedNumber}</Text>
-          			<Fontisto name="angle-down" size={16} color="black" />
-        		</View>
-      	</TouchableHighlight>
-    	</View>
+    <View style={[styles.container, { backgroundColor: "transparent" }]}>
+      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 2 }}>
+        <Text style={{ fontSize: 18, fontWeight: "600" }}>{Type}: </Text>
+
+        <TouchableOpacity
+          onPress={openModal}
+          style={{ width: 100, borderWidth: 2, borderRadius: 4, backgroundColor: "lightgray" }}
+        >
+          <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingVertical: 4, paddingHorizontal: 15 }}>
+            <Text style={{ fontWeight: "700", fontSize: 18 }}>{selectedNumber}</Text>
+            <Fontisto name="angle-down" size={16} color="black" />
+          </View>
+        </TouchableOpacity>
+      </View>
 
       <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={closeAndResetModal}>
-      
-      {/*Modal Wrapper*/}
-        <TouchableHighlight
+        <TouchableOpacity
           style={{ flex: 1 }}
           onPress={closeAndResetModal}
+          activeOpacity={1}
           underlayColor="transparent"
         >
           <View style={styles.modalBackdrop}>
-            <View style={styles.modal}>
-              <ScrollView>
-              		{NUMBER.map(renderNumber)}
-              </ScrollView>
+            <View style={[styles.modal, { height: Type === "Hour" ? "32%" : "64%" }]}>
+              {modalContent}
             </View>
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </Modal>
     </View>
   );
 };
 
-
+export default React.memo(MinAndHourModal);
 
 const styles = StyleSheet.create({
   container: {
@@ -94,16 +97,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  button: {
+  option: {
     padding: 10,
-    backgroundColor: 'lightblue',
+    justifyContent: "center",
+    alignItems: "center",
   },
   modalBackdrop: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.65)',
-    
   },
   modal: {
     width: "40%",
@@ -111,22 +114,4 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     overflow: 'hidden',
   },
-  pickerContainer: {
-    flex: 1,
-  },
-  option: {
-    padding: 10,
-    //borderBottomWidth: 1.4,
-    borderBottomColor: 'lightgray',
-    justifyContent: "center",
-    alignItems: "center",
-    
-    
-  },
-  
 });
-
-
-
-
-

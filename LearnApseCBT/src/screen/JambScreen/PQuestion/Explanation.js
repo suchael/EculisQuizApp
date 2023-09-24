@@ -45,7 +45,7 @@ function MainContainer(){
 				</View>
 			</ScrollView>
 			<Header/>
-			<BottomButtons/>
+			<BottomBtn/>
 		</View>
 	);
 }
@@ -99,32 +99,32 @@ function QuestionInterfaceContainer({ind}){
 			</View>
 			<View style = {styles.optionMain}>
 				<View style= {[styles.optionContainer, {backgroundColor: "#004B49", borderColor: "transparent"}]}>
-					<Text style = {{fontSize: 17, fontWeight: "bold",color: "white"}}>
-						A{". "}
+					<Text style = {{fontSize: 18, fontWeight: "bold",color: "white"}}>
+						A{".  "}
 						<Text style = {[styles.optionContainerOptions, {fontWeight: "bold"}]}>
               				which contains protons and neutrons 				
 						</Text>
 					</Text>			
          	   </View>
          	<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						B{". "}
+					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+						B{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which is positively charged
          				</Text>
 					</Text>			
          	   </View>
 				<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						C{". "}
+					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+						C{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which is massive and can cause deflection of a few projectiles
          				</Text>
 					</Text>			
          	   </View>
          	<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						D{". "}
+					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+						D{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which is very large and in which close to 98% of projectiles pass undeflected
          				</Text>
@@ -139,11 +139,7 @@ function QuestionInterfaceContainer({ind}){
 				</View>
 				<Text style = {{fontSize: 17, fontWeight: "600", marginVertical:10}}>Correct Answer: A</Text>
 				<Text style = {styles.optionContainerOptions}>
-					Savannas are quite low in tree species diversity because of stringent ecological requirements but fairly high in diversity of herbaceous plants. Tree growth is controlled not only by rainfall but also by soil type; large areas of hardpan soils, allow no tree roots to penetrate except through cracks, and the cracks determine tree distribution.
-Large mammals are at their most diverse in this open environment, in which they can move about freely and yet find shelter among woody vegetation. Large herbivores are successful because of the tremendous biomass of herbaceous vegetation produced annually, and there are many carnivores to crop them in turn.
-Tropical rain forests occur in areas of tropical rainforest climate in which there is no dry season, distinct buttress roots of trees.
-Montane forest refers to any ecosystem found in mountains. These ecosystems are strongly affected by climate, which gets colder as elevation increases.
-A desert is a barren area of landscape where little precipitation occurs and consequently living conditions are hostile for plant and animal life.
+					A mixture of iodine and sulphur can be separated by adding Carbon disulphide that is (CS₂) then stir the solution and filter it . As sulphur dissolved in CS₂, so it come into filter and got separated from the mixture.
 				</Text>
 				
 				<TouchableHighlight 
@@ -208,20 +204,14 @@ function Header(){
 
 
 
-function BottomButtons(){
-	return (
-		<View style ={{paddingVertical: 0, height: 60, width: "100%" , backgroundColor: "transparent", position: "absolute", bottom:0, zIndex: 1, paddingHorizontal: 10, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-			<PrevBtn/>
-			<OkBtn/>
-			<NextBtn/>
-		</View>
-	);
-}
 
 
-function PrevBtn(){
+
+function BottomBtn(){
+	const navigation= useNavigation ();
 	return (
-		<TouchableHighlight
+		<View style = {{ position: "absolute", bottom: 0, left: 22, right: 22, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+			<TouchableHighlight
         			onPress={() => console.log("Prev Btn") }
         			activeOpacity={0.9}
         			underlayColor="white"
@@ -229,33 +219,17 @@ function PrevBtn(){
       	>
         		<AntDesign name="arrowleft" size={30} color="black" />
       	</TouchableHighlight>
-	);
-}
-
-
-
-
-function OkBtn(){
-	const navigation= useNavigation ();
-	return(
-	  <>
-		<TouchableHighlight
+      
+      	<TouchableHighlight
         			onPress={()=>navigation.goBack()}
         			activeOpacity={0.9}
         			underlayColor="white"
         			style= {styles.nextAndPrevBtn}
       	>
-        	<Text style = {{fontSize: 16, fontWeight: "bold"}}>Ok</Text>
+        		<Text style = {{fontSize: 16, fontWeight: "bold"}}>Ok</Text>
       	</TouchableHighlight>  
-      	
-      </>
-	);
-}
-
-
-function NextBtn (){
-	return(
-		<TouchableHighlight
+      
+      	<TouchableHighlight
         			onPress={() => console.log("Next Btn")}
         			activeOpacity={0.9}
         			underlayColor="white"
@@ -263,8 +237,10 @@ function NextBtn (){
       	>
         		<AntDesign name="arrowright" size={30} color="black" />
       	</TouchableHighlight>  
+		</View>
 	);
 }
+
 
 
 const styles = StyleSheet.create({
@@ -364,13 +340,12 @@ const styles = StyleSheet.create({
   
   // Bottom Buttons
 	nextAndPrevBtn: {
-		borderWidth: 2,
+		//borderWidth: 2,
 		width: 90,
 		height: 46,
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "gray",
-		borderRadius: 10,
-		marginBottom: -14,
+		borderRadius: 18,
    },
 });

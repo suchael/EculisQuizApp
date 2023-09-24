@@ -26,7 +26,7 @@ export default function QuestButton({subject}){
       							  paddingRight: insets.right + 10,
       							  flex:1,
 		}}>
-			<View style = {styles.container}>
+			
 		  	<TouchableOpacity 
 		 		onPress={handleToggle} 		
 	     		underlayColor="lightgray"
@@ -34,52 +34,37 @@ export default function QuestButton({subject}){
 			 	style = {[styles.buttonContainer, {backgroundColor: isToggleOn ? "white" :  "gray"}]}
 	      	>
               	<View style = {styles.buttonContainerRect}>
-              		<Text style = {[styles.buttonRectText, {color: isToggleOn? "black": "white"}]}>
-						<TruncatedText text = {subject.name} maxLength = {24}/>
-					 </Text>
               		<View style = {styles.switchContainer}>
               			<View style = {{width: 16, height: 16, borderRadius: 8, backgroundColor: isToggleOn ?  "blue": "#666"}}>
               			</View>
               		</View>
+
+              		<Text style = {[styles.buttonRectText, {color: isToggleOn? "black": "white"}]}>
+						<TruncatedText text = {subject.name} maxLength = {30}/>
+					 </Text>
+              		
               	</View>
           	</TouchableOpacity>                     
-			</View>
+			
 		</View>
 	);
 }
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 
 const styles= StyleSheet.create({
-	container: {
-		flexDirection: "row",
-		alignItems: "center",
-		marginTop: 5,
-		borderWidth: 2,
-		borderTopRightRadius: 40,
-		borderBottomRightRadius: 40,
-		borderTopLeftRadius: 32,
-		borderBottomLeftRadius: 32,
-		
-	},
+	
 	buttonContainer:{
 		flex:1,
 		flexDirection: "row",
-		flexDirection: "space-between",
-		paddingTop: 10.8,
-		paddingBottom: 10.8, 
-		borderTopRightRadius: 40,
-		borderBottomRightRadius: 40,
-		borderTopLeftRadius: 32,
-		borderBottomLeftRadius: 32,
+		marginTop: 6,
+		paddingVertical: 14,
+		borderRadius: 10
 	},
 	buttonContainerRect:{
 		flexDirection: "row",
-		justifyContent: "space-between",
 		alignItems: "center",
-		paddingLeft: 30,
+		paddingLeft: 15,
 	},
 	buttonRectText:{
 		fontSize: 18,
@@ -87,7 +72,7 @@ const styles= StyleSheet.create({
 	
 	// Switch Container 
 	switchContainer:{
-		padding: 2,
+		padding: 3,
 		borderRadius: 20,
 		marginRight: 20, 
 		justifyContent: "center",

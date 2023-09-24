@@ -29,12 +29,19 @@ export default function QuestButton({subject, pickerType}){
 	const insets = useSafeAreaInsets();
 	// Switch and TouchableHighlight state
 	const [isToggleOn, setIsToggleOn] = useState(false);
-	const handleToggle = ()=> setIsToggleOn(!isToggleOn);
-	
+	const handleToggle = () => {	
+  	//	requestAnimationFrame(() => { // Wrap the state change in requestAnimationFrame for optimisation 
+    			setIsToggleOn(!isToggleOn);
+  	//	});
+	  };
+
 	// PickerModal Visibility 
 	const [modalVisible, setModalVisible] = useState(false);
-	const handlePickerToggle = () => setModalVisible(!modalVisible);
-	
+	const handlePickerToggle = () => {
+  	//	requestAnimationFrame(() => { // Wrap the state change in requestAnimationFrame for optimisation 
+    			setModalVisible(!modalVisible);
+		//  });
+	};
 	
 	return(
 		<View style = {{

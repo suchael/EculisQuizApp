@@ -4,10 +4,10 @@ import {View,
         ScrollView,
         Dimensions,
         TouchableOpacity,
-        BackHandler,
+        BackHandler, FlatList,
         TouchableHighlight } from 'react-native';
 
-import React , {useState}from 'react';
+import React , {useState, useCallback, }from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
@@ -20,6 +20,7 @@ import {
 import { AntDesign } from '@expo/vector-icons';
 
 
+// my import
 // my import
 import QuestButton from "./QuestButton.js";
 import ExamInstructionModal from "./ExamInstructionModal.js";
@@ -42,64 +43,74 @@ export default function ExamMode() {
 }
 
 
-function Home(){
+const Home = () => {
   const insets = useSafeAreaInsets();
-  return(
+  return (
     <View style={styles.homeContainer}>
-      <HomeHeader/>
-      <SelectByGeneral/>
-      <ContinueButton/>
+      <HomeHeader />
+      <SelectByGeneral />
+      <ContinueButton />
     </View>
   );
 }
 
-function HomeHeader(){
+const HomeHeader = () => {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
-  return(
-    <View style = {[styles.homeHeader, 
-                    {
-                      paddingLeft: insets.left + 10,
-                      paddingRight: insets.right + 10,
-                      paddingTop: insets.top + 12,
-                      paddingBottom: insets.bottom + 4,
-                      borderBottomWidth: 2,
-                      borderBottomColor: "gray",
-                  
-                  }]}>
+
+  return (
+    <View style={[styles.homeHeader, {
+      paddingLeft: insets.left + 10,
+      paddingRight: insets.right + 10,
+      paddingTop: insets.top + 12,
+      paddingBottom: insets.bottom + 4,
+      borderBottomWidth: 2,
+      borderBottomColor: 'gray',
+    }]}>
       <TouchableHighlight
-        onPress={() => navigation.goBack() }
+        onPress={() => navigation.goBack()}
         activeOpacity={0.9}
         underlayColor="lightgray"
-        style = {{width: 60, height: 40, justifyContent: "center"}}
+        style={{ width: 60, height: 40, justifyContent: 'center' }}
       >
-        <AntDesign name="arrowleft" size={27} color="#333"  style={{marginLeft: -4}}/>
+        <AntDesign name="arrowleft" size={27} color="#333" style={{ marginLeft: -4 }} />
       </TouchableHighlight>
-      <Text style = {styles.homeHeaderText}>Exam{"  "}Mode</Text>
+      <Text style={styles.homeHeaderText}>Exam Mode</Text>
     </View>
   );
 }
 
-function SelectByGeneral(){
-  const navigation = useNavigation(); // Use the useNavigation hook
+
+const SelectByGeneral = () => {
+  const navigation = useNavigation();
   const insets = useSafeAreaInsets();
-  return(
+
+  const renderSubject = useCallback(({ item }) => (
+    <QuestButton subject={item} />
+  ), []);
+
+  return (
     <View>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}> 
-			<ReadMoreBtn/>
-			<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select any three subjects: </Text>
-			<View style = {{paddingBottom: 110}}>
-				{Subject.map((eachSubject, index)=>(
-					<QuestButton key={index} subject= {eachSubject}/>
-				))}
-			</View>
-	   </ScrollView>
+      <FlatList
+        data={Subject}
+        renderItem={renderSubject}
+        keyExtractor={(item, index) => index.toString()}
+        ListHeaderComponent= {()=>(
+        	<View>
+        	      <ReadMoreBtn />
+      			<Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 4, paddingLeft: insets.left + 10 }}>Select any three subjects: </Text>
+      	  </View>
+		)}
+        ListFooterComponent={<View style={{ paddingBottom: 210 }} />}
+      />
     </View>
   );
 }
 
-function ReadMoreBtn(){
+
+const ReadMoreBtn = () => {
   const [modalVisible, setModalVisible] = useState(false);
+
   const openModal = () => {
     setModalVisible(true);
     BackHandler.addEventListener('hardwareBackPress', closeModal);
@@ -110,86 +121,81 @@ function ReadMoreBtn(){
     BackHandler.removeEventListener('hardwareBackPress', closeModal);
     return true;
   };
- 
-	return (
-		<View style = {{flexDirection: "row", justifyContent: "center", alignItems: "center", justifyContent: "center",marginVertical: 14,paddingLeft: 10,}}>
-				<Text style = {{fontSize:16, fontWeight: "bold"}}>Attention: </Text>
-				<Text style = {{fontSize: 16}}>
-					Welcome to strict
-				</Text>
-				 <TouchableOpacity onPress = {openModal}>
-					 <Text style ={{color: "blue"}}>{" "}...Read More</Text>
-				</TouchableOpacity>
-				<ReadMoreModal visible={modalVisible} onClose={closeModal}/>
-			</View>
-	);
+
+  return (
+    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', justifyContent: 'center', marginVertical: 25, paddingLeft: 10, borderTopWidth: 2, borderBottomWidth: 2, borderColor: "#888", padding: 5, backgroundColor: "white" }}>
+      <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Attention: </Text>
+      <Text style={{ fontSize: 16 }}>Welcome to strict</Text>
+      <TouchableOpacity onPress={openModal}>
+        <Text style={{ color: 'blue' }}> ...Read More</Text>
+      </TouchableOpacity>
+      <ReadMoreModal visible={modalVisible} onClose={closeModal} />
+    </View>
+  );
 }
 
-function ContinueButton(){
-	const navigation = useNavigation();
-    const [modalVisible, setModalVisible] = useState(false);
-    const showModal = () => {
-    	setModalVisible(true);
-    };
 
-    const closeModal = () => {
-    	setModalVisible(false);
-    };
-	return(
-	 <>
-		<TouchableHighlight 
-		 		onPress={showModal} 		
-	     		underlayColor="white"
-			 	activeOpacity={0.9}
-				 style ={styles.continueButton}
-	     >
-              <Text style= {styles.continueButtonText}>
-					Continue 
-			  </Text>      		
-     	</TouchableHighlight>     
-     <ExamInstructionModal visible={modalVisible} onClose={closeModal}/>
-   </>                
-	);
+const ContinueButton = () => {
+  const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const showModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  return (
+    <>
+      <TouchableHighlight
+        onPress={showModal}
+        underlayColor="white"
+        activeOpacity={0.9}
+        style={styles.continueButton}
+      >
+        	<Text style={styles.continueButtonText}>Continue</Text>
+      </TouchableHighlight>
+      <ExamInstructionModal visible={modalVisible} onClose={closeModal} />
+    </>
+  );
 }
+
 
 
 const styles = StyleSheet.create({
-  homeContainer:{
-    flex:1,
-    backgroundColor: "lightgray",
+  homeContainer: {
+    flex: 1,
+    backgroundColor: 'lightgray',
   },
   homeHeader: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 20,
-    alignItems: "center",
-  },
-  homeHeaderIcon: {
+    alignItems: 'center',
   },
   homeHeaderText: {
     fontSize: 20,
-    fontWeight: "600",
+    fontWeight: '600',
   },
-  
-  // Study Button
- continueButton:{
- 	height: 46, 
-	 borderWidth:2, 
-	 backgroundColor: "white", 
-	 justifyContent: "center", 
-	 alignItems: "center", 
-	 position: "absolute", 
-	 bottom:0, 
-	 width: "100%", 
-	 borderRadius: 24
+
+  continueButton: {
+    height: 46,
+    borderWidth: 2,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 10,
+    left: 15,
+    right: 15,
+    borderRadius: 24,
   },
   continueButtonText: {
-  	fontSize: 17,
-  	fontWeight: "600",
-  	color: "black",
-   },
+    fontSize: 17,
+    fontWeight: '600',
+    color: 'black',
+  },
 });
-
-
-
 
 

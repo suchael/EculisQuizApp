@@ -214,15 +214,17 @@ const styles = StyleSheet.create({
   
   // Study Button
  studyButton:{
- 	height: 42,
- 	backgroundColor: "green",
- 	borderRadius: 18,
+ 	height: 46,
+ 	backgroundColor: "black",
+ 	borderRadius: 25,
  	justifyContent: "center",
      alignItems: "center",
      position: "absolute",
-    bottom:  2, // Adjust this value to control the distance from the bottom
-    alignSelf: "center",
-    width:  "100%",
+    bottom:  10, // Adjust this value to control the distance from the bottom
+    left: 15,
+    right: 15,
+	alignSelf: "center",
+    
      
   },
   studyButtonText: {

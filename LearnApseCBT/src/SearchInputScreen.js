@@ -6,6 +6,7 @@ import {View,
         ScrollView,
         TouchableOpacity,
         KeyboardAvoidingView,
+        TouchableWithoutFeedback,
         TextInput,
         TouchableHighlight } from 'react-native';
         
@@ -18,7 +19,8 @@ import { useNavigation } from '@react-navigation/native';
 import { AntDesign , FontAwesome, Ionicons} from '@expo/vector-icons';
 
 // My import
-//import subjects from  "../../../SubjectDb.js";
+import SearchInputPageSelectorModal from "./SearchInputPageSelectorModal.js";
+import SearchInputSubjectSelectorModal from "./SearchInputSubjectSelectorModal.js";
 
 
 export default function ShowQuestionList() {
@@ -51,15 +53,10 @@ function HomeHeader(){
         underlayColor="lightgray"
         style = {{width: 60, height: 40, justifyContent: "center"}}
       >
-        <AntDesign name="arrowleft" size={27} color="#333"  style={{marginLeft: -4}}/>
+       	 <AntDesign name="arrowleft" size={27} color="#333"  style={{marginLeft: -4}}/>
       </TouchableHighlight>
+      <Text style = {{fontSize: 18, fontWeight: "600"}}>Search Question </Text>
       
-      <TouchableOpacity style ={{borderWidth: 2, borderColor: "#888", borderRadius: 3, paddingHorizontal: 16, paddingVertical: 4, flex:1}}>
-      	<View style = {{flexDirection: "row", justifyContent: "space-between", alignItems: "center",}}>
-      		<Text style = {{fontSize: 16, fontWeight: "600"}}>Find a question by subject</Text>
-      		<FontAwesome name="angle-down" size={24} color="black" />
-      	</View>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -91,8 +88,15 @@ function MainContainer(){
 
 
 function QuestionInterface() {
+	const [isBottomBtnVisible, setIsBottomBtnVisible] = useState(true); // This Trico ensures the btoombtn does not stay ontop keyboard 
+
   return (
     <View style={styles.questionInterfaceMain}>
+      <View style ={{borderWidth: 2, borderColor: "#888", borderRadius: 5, paddingHorizontal: 8, paddingVertical: 4,marginTop: 30, marginBottom: 30, backgroundColor: "white"}}>
+      	<Text style ={{fontSize: 17, fontWeight: "500"}}>Hi, looking for a specific past question and answer?</Text>
+      </View>
+      <SearchInputSubjectSelectorModal/>
+      
       <SearchInputScreen/>
       <QuestionInterfaceContainer ind = "1"/>
       <QuestionInterfaceContainer ind = "1"/>
@@ -184,7 +188,7 @@ function SearchInputScreen() {
   };
   
   return (
-  <View style = {{marginVertical: 30}}>
+  <View style = {{marginBottom: 30, marginTop: 5}}>
     <KeyboardAvoidingView
       style={styles.keyboardContainer}
       behavior={Platform.OS === "ios" ? "padding" : null}
@@ -194,7 +198,7 @@ function SearchInputScreen() {
         <TextInput
           style={styles.input}
           placeholder="Enter a keyword or sentence"
-          autoFocus={true}
+          autoFocus={false}
           multiline
           scrollEnabled
           value={textInputValue}
@@ -226,16 +230,7 @@ function BottomBtn(){
       	>
         		<AntDesign name="arrowleft" size={30} color="black" />
       	</TouchableHighlight>
-      	<TouchableHighlight
-        			onPress={() => console.log("Page Selector")}
-        			activeOpacity={0.9}
-        			underlayColor="white"
-        			style = {[styles.topBtnTouchables, {alignItems: "center", justifyContent: "center",flex:1, borderRadius: 4, paddingVertical: 8 , width: 20}]}
-      	>
-      			  <View style = {[styles.topBtnTouchablesView, {alignItems: "center", justifyContent: "center", gap: 1}]}>
-      					<Text style ={styles.topBtnText}>Page{"  "}2/10</Text>
-					</View>
-          </TouchableHighlight>
+      	<SearchInputPageSelectorModal/>
       	<TouchableHighlight
         			onPress={() => console.log("Next Btn")}
         			activeOpacity={0.9}

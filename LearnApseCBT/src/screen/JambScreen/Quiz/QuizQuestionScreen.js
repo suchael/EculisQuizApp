@@ -186,9 +186,9 @@ function ContinueButton() {
         alignItems: "center",
         marginHorizontal: 20, // Adjust this margin as needed
         position: "absolute", // Fixed position
-        bottom: 1, // Adjust the bottom distance as needed
-        left: 0, // Adjust the left distance as needed
-        right: 0, // Adjust the right distance as needed
+        bottom: 10, // Adjust the bottom distance as needed
+        left: 15, // Adjust the left distance as needed
+        right: 15, // Adjust the right distance as needed
       }}
     >
       <Text style={{ fontSize: 17, fontWeight: "bold" }}>Continue</Text>

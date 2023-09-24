@@ -46,7 +46,7 @@ function MainContainer(){
 				</View>
 			</ScrollView>
 			<Header/>
-			<BottomButtons/>
+			<BottomBtn/>
 		</View>
 	);
 }
@@ -72,13 +72,13 @@ function QuestionInterfaceContainer({ind}){
 					</Text>
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
-					Which of the following statements does not show Rutherford's account of Nuclear Theory? An atom contains a region
+					A mixture of iodine and sulphur crystals can be separated by treatment with?
 				</Text>
 			</View>
 			
 			
 			
-			<View style = {[styles.questionAndExplanationScreen, {marginTop: 60, marginBottom: 30, backgroundColor: "lightgray"}]}>
+			<View style = {[styles.questionAndExplanationScreen, {marginTop: 30, marginBottom: 30, backgroundColor: "lightgray"}]}>
 				<View style = {styles.questionScreenNumberView}>
 					<Text style = {[styles.questionScreenNumber, {
 													position: "absolute",
@@ -97,18 +97,18 @@ function QuestionInterfaceContainer({ind}){
 				<View style = {styles.optionMain}>
 					<View style ={{justifyContent: "center", alignItems: "center"}}>
 						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "#004B49",}]}>
-							<Text style = {{fontSize: 17, fontWeight: "bold", color: "white",}}>
-								A{". "}
+							<Text style = {{fontSize: 18, fontWeight: "bold", color: "white",}}>
+								A{".  "}
 								<Text style = {styles.optionContainerOptions}>
-              						which contains protons and neutrons  which contains protons and neutrons 				
+              						Water to filter off sulphur
 								</Text>
 							</Text>			
          	  		 </View>
          
          			{/*Each Option Analysis*/}
          			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, borderColor: "#004B49", width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 10, marginBottom: 15, backgroundColor: "white"}}>
-         				<Text style ={{fontSize: 16, fontWeight: "500"}}>I like peace 
-							But if you decide to choose wa
+         				<Text style ={{fontSize: 16, fontWeight: "500"}}>
+							This option is not effective for separating a mixture of iodine and sulfur because both iodine and sulfur are insoluble in water. You cannot filter off either component using water.
 						</Text>
          			</View>
          			{/*Closing - Each Option Analysis*/}
@@ -116,19 +116,19 @@ function QuestionInterfaceContainer({ind}){
          
          
          		<View style ={{justifyContent: "center", alignItems: "center"}}>
-						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "white"}]}>
-							<Text style = {{fontSize: 17, fontWeight: "500", }}>
-								B{". "}
+						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "pink"}]}>
+							<Text style = {{fontSize: 18, fontWeight: "900", }}>
+								B{".  "}
 								<Text style = {styles.optionContainerOptions}>
-              						which contains protons and neutrons  which contains protons and neutrons 				
+              						carbon (IV) sulphide to filter off iodine
 								</Text>
 							</Text>			
          	  		 </View>
          
          			{/*Each Option Analysis*/}
          			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2,  width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 10, marginBottom: 15, backgroundColor: "white"}}>
-         				<Text style ={{fontSize: 16, fontWeight: "500"}}>I like peace 
-							But if you decide to choose war... I assure you only your shadow will live to tell the story
+         				<Text style ={{fontSize: 16, fontWeight: "500"}}>
+							Carbon (IV) sulphide to filter off iodine: This is the correct option. Carbon disulfide (carbon (IV) sulphide) is a suitable solvent for iodine, which dissolves iodine but not sulfur. By using carbon disulfide, you can dissolve the iodine, leaving the sulfur behind. Afterward, you can filter the mixture to separate the undissolved sulfur from the iodine solution.
 						</Text>
          			</View>
          			{/*Closing - Each Option Analysis*/}
@@ -136,19 +136,19 @@ function QuestionInterfaceContainer({ind}){
 
 
 				<View style ={{justifyContent: "center", alignItems: "center"}}>
-						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "white"}]}>
-							<Text style = {{fontSize: 17, fontWeight: "500",}}>
-								C{". "}
+						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "pink"}]}>
+							<Text style = {{fontSize: 18, fontWeight: "900",}}>
+								C{".  "}
 								<Text style = {styles.optionContainerOptions}>
-              						which contains protons and neutron			
+              						ethanoic acid to filter off sulphur
 								</Text>
 							</Text>			
          	  		 </View>
          
          			{/*Each Option Analysis*/}
          			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 10, marginBottom: 15, backgroundColor: "white"}}>
-         				<Text style ={{fontSize: 16, fontWeight: "500"}}>I like peace 
-							But if you decide to choose war... I assure you only your shadow will live to tell the storyBut if you decide to choose war... I assure you only your shadow will live to tell the story
+         				<Text style ={{fontSize: 16, fontWeight: "500"}}>
+							Ethanoic acid (acetic acid) is not typically used to separate iodine and sulfur. It may react with sulfur but is not an effective solvent for iodine. This method is not commonly used for this purpose.
 						</Text>
          			</View>
          			{/*Closing - Each Option Analysis*/}
@@ -156,19 +156,19 @@ function QuestionInterfaceContainer({ind}){
          
          
          		<View style ={{justifyContent: "center", alignItems: "center"}}>
-						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "white" }]}>
-							<Text style = {{fontSize: 17, fontWeight: "500",}}>
-								D{". "}
+						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "pink" }]}>
+							<Text style = {{fontSize: 18, fontWeight: "900",}}>
+								D{".  "}
 								<Text style = {styles.optionContainerOptions}>
-              						which contains protons and neutrons  which contains protons and neutrons 			
+              						methanol to filter off iodine
 								</Text>
 							</Text>			
          	  		 </View>
          
          			{/*Each Option Analysis*/}
          			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2,  width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 10,  marginBottom: 15, backgroundColor: "white"}}>
-         				<Text style ={{fontSize: 16, fontWeight: "500"}}>I like peace 
-							But if you decide to choose war... I assure you only your shadow will live to tell the storyBut if you decide to choose war... I assure you only your shadow will live to tell the storyBut if you decide to choose war... I assure you only your shadow will live to tell the stor
+         				<Text style ={{fontSize: 16, fontWeight: "500"}}>
+							Methanol is not an ideal solvent for iodine. While it can dissolve iodine to some extent, it's not as effective as carbon disulfide. Using methanol may result in incomplete separation.
 						</Text>
          			</View>
          			{/*Closing - Each Option Analysis*/}
@@ -201,20 +201,11 @@ function Header(){
 }
 
 
-function BottomButtons(){
+function BottomBtn(){
+	const navigation= useNavigation ();
 	return (
-		<View style ={{paddingVertical: 0, height: 60, width: "100%" , backgroundColor: "transparent", position: "absolute", bottom:0, zIndex: 1, paddingHorizontal: 10, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-			<PrevBtn/>
-			<OkBtn/>
-			<NextBtn/>
-		</View>
-	);
-}
-
-
-function PrevBtn(){
-	return (
-		<TouchableHighlight
+		<View style = {{ position: "absolute", bottom: 0, left: 22, right: 22, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+			<TouchableHighlight
         			onPress={() => console.log("Prev Btn") }
         			activeOpacity={0.9}
         			underlayColor="white"
@@ -222,33 +213,17 @@ function PrevBtn(){
       	>
         		<AntDesign name="arrowleft" size={30} color="black" />
       	</TouchableHighlight>
-	);
-}
-
-
-
-
-function OkBtn(){
-	const navigation= useNavigation ();
-	return(
-	  <>
-		<TouchableHighlight
+      
+      	<TouchableHighlight
         			onPress={()=>navigation.goBack()}
         			activeOpacity={0.9}
         			underlayColor="white"
         			style= {styles.nextAndPrevBtn}
       	>
-        	<Text style = {{fontSize: 16, fontWeight: "bold"}}>Ok</Text>
+        		<Text style = {{fontSize: 16, fontWeight: "bold"}}>Ok</Text>
       	</TouchableHighlight>  
-      	
-      </>
-	);
-}
-
-
-function NextBtn (){
-	return(
-		<TouchableHighlight
+      
+      	<TouchableHighlight
         			onPress={() => console.log("Next Btn")}
         			activeOpacity={0.9}
         			underlayColor="white"
@@ -256,8 +231,10 @@ function NextBtn (){
       	>
         		<AntDesign name="arrowright" size={30} color="black" />
       	</TouchableHighlight>  
+		</View>
 	);
 }
+
 
 
 
@@ -334,20 +311,19 @@ const styles = StyleSheet.create({
 		backgroundColor: "white" 
 	},
 	optionContainerOptions: {
-		fontSize: 15.5, 
+		fontSize: 16, 
 		fontWeight: "500",
 		marginVertical: 15,
 	},
   
   // Bottom Buttons
 	nextAndPrevBtn: {
-		borderWidth: 2,
+		//borderWidth: 2,
 		width: 90,
 		height: 46,
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "gray",
-		borderRadius: 10,
-		marginBottom: -14,
+		borderRadius: 18,
    },
 });

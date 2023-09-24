@@ -15,7 +15,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
 // Icons
-import {  AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
+import {  AntDesign, MaterialCommunityIcons, Entypo} from '@expo/vector-icons';
 
 // My import
 
@@ -89,7 +89,7 @@ function Main() {
      	  	 </View>
         
       	  	<TouchableOpacity  style ={{height: 46, paddingHorizontal: 15, borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", justifyContent:"center", alignItems:"center", gap: 15,marginTop: 20}}>
-					  <MaterialCommunityIcons name="reload" size={24} color="black" />
+					  <Entypo name="cycle" size={24} color="black" />
       				<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", }}>Update now</Text>
       		 </TouchableOpacity>
   	    </View>  

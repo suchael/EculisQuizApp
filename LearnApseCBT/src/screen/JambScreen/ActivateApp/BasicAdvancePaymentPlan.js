@@ -21,7 +21,9 @@ import { useNavigation } from '@react-navigation/native';
 // Icons
 import { AntDesign, Feather, FontAwesome} from '@expo/vector-icons'; // Import your icon libraries
 import { MaterialIcons } from '@expo/vector-icons';
+
 // My import
+import LearnApseMockModal from "./LearnApseMockModal.js";
 
 
 export default function LoginScreen() {
@@ -75,25 +77,19 @@ function Main() {
   const insets = useSafeAreaInsets();
   const navigation=useNavigation ();
   
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [loginSuccess, setLoginSuccess] = useState(null); // Initialize it as true initially
-
-  const togglePasswordVisibility = () => {
-  setIsPasswordVisible((prevIsPasswordVisible) => !prevIsPasswordVisible);
-};
-
-  const PASSWORD= "Eculis";
-  const NAME= "Success";
-  const handleLogin = () => {
-    	if (password === PASSWORD) {
-      		setLoginSuccess(true)
-    	} else {
-      		setLoginSuccess(false)
-    	}
+  const [modalVisible, setModalVisible] = useState(false);
+  const openModal = () => {
+    setModalVisible(true);
+    BackHandler.addEventListener('hardwareBackPress', closeModal);
   };
 
+  const closeModal = () => {
+    setModalVisible(false);
+    BackHandler.removeEventListener('hardwareBackPress', closeModal);
+    return true;
+  };
+  
+  
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View
@@ -110,9 +106,9 @@ function Main() {
         }}
       >
       	{/* Activate App wrapper*/}
-      	<View style ={{backgroundColor: "white", maxHeight: 350, borderRadius: 14, borderWidth: 2, borderColor: "#999", alignItems: "center", paddingVertical: 20, paddingHorizontal: 10}}>
+      	<View style ={{backgroundColor: "white", borderRadius: 14, borderWidth: 2, borderColor: "#999", alignItems: "center", paddingVertical: 20, paddingHorizontal: 10}}>
 				<View style ={{justifyContent: "center", alignItems: "center", paddingHorizontal: 6,  marginBottom: 5 }}>
-					<Text style ={{fontSize: 17, fontWeight: "600"}}>Note: Subscription is to be renewed every 6 months </Text>
+					<Text style ={{fontSize: 17, fontWeight: "500"}}>Note: Subscription is to be renewed every 6 months </Text>
 				</View>
       		
       		<View style ={{justifyContent: "center", alignItems: "center"}}>
@@ -122,9 +118,19 @@ function Main() {
       					<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", }}>₦3,200</Text>
       					<AntDesign name="right" size={18} color="black"  style ={{position: "absolute", right: 7}}/>
       			</TouchableOpacity>
-      			<View style ={{ width: "90%", justifyContent: "center", alignItems: "center", padding: 10, borderRadius: 4, backgroundColor: "lightgray", borderWidth: 2, borderColor: "gray", marginBottom: 30 }}>
-						<Text style ={{fontSize: 15, fontWeight: "600"}}>This package includes the LearnApse official Global UTME mock</Text>
+      			<View style ={{ width: "90%", justifyContent: "center", alignItems: "center",  paddingHorizontal: 10, paddingVertical: 6, borderBottomLeftRadius: 7, borderBottomRightRadius: 7, backgroundColor: "lightgray", borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, borderColor: "gray", marginBottom: 30 }}>
+      				  <View style ={{flex: 1, }}>
+      								<Text style ={{fontSize: 15, fontWeight: "600"}}>This package includes the LearnApse Global UTME mock.  </Text>
+							  		<TouchableOpacity style ={{paddingVertical: 4}} onPress = {openModal}>
+											<View style ={{flexDirection: "row",}}>
+												<Text style ={{fontSize: 15, fontWeight: "600",}}>To know more{"  "}</Text>
+												<Text style ={{fontSize: 16, fontWeight: "600", textDecorationLine: "underline"}}>Click me</Text>
+											</View>
+							 		</TouchableOpacity>
+									<LearnApseMockModal visible={modalVisible} onClose={closeModal}/>
+      				  </View>
 			 	 </View>
+			
       		</View>
       
       		<TouchableOpacity onPress={()=>navigation.navigate("PaymentOption")} style ={{height: 46, paddingHorizontal: "10%",borderRadius: 10, backgroundColor: "white", borderWidth: 2, borderColor: "blue", flexDirection: "row", gap: 20, alignItems:"center", marginTop: 60}}>
@@ -133,8 +139,6 @@ function Main() {
       				<Text style ={{fontSize: 17, fontWeight: "bold", color: "black", }}>₦2,200</Text>
       				<AntDesign name="right" size={18} color="black"  style ={{position: "absolute", right: 7}}/>
       		</TouchableOpacity>
-         	
-      		
       
       	</View>
       	{/*Closing - Activate App wrapper*/}

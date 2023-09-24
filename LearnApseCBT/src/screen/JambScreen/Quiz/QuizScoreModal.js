@@ -51,11 +51,11 @@ export default function ScoreModal({visible, onClose}){
 					<TouchableOpacity
             			style={{ flex: 1, width: '100%' , justifyContent: "center", alignItems: "center"}}
             			onPress={onClose}>
-            				<View style ={{borderRadius: 15, backgroundColor: "white", padding: 2, minHeight:  windowHeight * 0.4034, minWidth: windowHeight * 0.4034, justifyContent: "space-between", alignItems: "center", }}>
+            				<View style ={{borderRadius: 15, backgroundColor: "white", padding: 2, height:  "45%", width: "60%", justifyContent: "space-between", alignItems: "center", }}>
             					<ScrollView>
 								{/*Display Answer*/}
 								<View style ={{marginVertical: 5, justifyContent: "center", alignItems: "center"}}>
-									<Text style ={{fontSize: 20, fontWeight: "600", }}>Correct Answer: B</Text>
+									<Text style ={{fontSize: 20, fontWeight: "600", marginTop: 12, marginBottom: 8}}>Correct Answer: B</Text>
 								</View>
 								
 								{/*User Score*/}
