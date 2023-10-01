@@ -4,7 +4,7 @@ import {View,
         StyleSheet,
         Switch,
         ScrollView,
-        Dimensions,
+        Dimensions, TouchableOpacity,
         TouchableHighlight } from 'react-native';
         
 import React , {useState} from 'react';
@@ -13,7 +13,7 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native';
 
 // Icons
-import { AntDesign , FontAwesome} from '@expo/vector-icons';
+import { AntDesign , FontAwesome, Ionicons, MaterialIcons, Feather} from '@expo/vector-icons';
 
 // My import
 import subjects from  "../../../SubjectDb.js";
@@ -89,9 +89,17 @@ function QuestionInterfaceContainer({ind}){
 		<View style = {styles.questionInterfaceContainer}>
 			<View style = {styles.questionAndExplanationScreen}>
 				<View style = {styles.questionScreenNumberView}>
+					
+					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center", padding: 3}}>
+						<Feather name="bookmark" size={24} color="black" />
+					</TouchableOpacity>
 					<Text style = {styles.questionScreenNumber}>
-						Question{"\t\t"}{ind}
+						Question {ind}
 					</Text>
+					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center",  padding: 3}}>
+						<MaterialIcons name="content-copy" size={24} color="black" />
+					</TouchableOpacity>
+
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
 					Which of the following statements does not show Rutherford's account of Nuclear Theory? An atom contains a region
@@ -132,10 +140,13 @@ function QuestionInterfaceContainer({ind}){
          	   </View>
 			</View>
 			<View style = {[styles.questionAndExplanationScreen, {marginTop:18, backgroundColor: "lightgray"}]}>
-				<View style = {styles.questionScreenNumberView}>
+				<View style = {[styles.questionScreenNumberView, {flexDirection: "column", alignItems: "center"}]}>
 					<Text style = {[styles.questionScreenNumber, {fontSize:22, backgroundColor: "white"}]}>
 						Explanation 
 					</Text>
+					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center",  padding: 3, position: "absolute", top: 0, right: 2}}>
+						<MaterialIcons name="content-copy" size={24} color="black" />
+					</TouchableOpacity>
 				</View>
 				<Text style = {{fontSize: 17, fontWeight: "600", marginVertical:10}}>Correct Answer: A</Text>
 				<Text style = {styles.optionContainerOptions}>
@@ -273,9 +284,9 @@ const styles = StyleSheet.create({
    questionInterfaceContainer: {
    	backgroundColor: "white",
    	borderWidth: 2, 
-	   padding:4, 
+	   padding:  6, 
 	   //borderColor: "blue", 
-	   borderRadius: 15, 
+	   borderRadius: 18, 
 	   marginBottom: 35
 	},
 	questionAndExplanationScreen: {
@@ -283,13 +294,15 @@ const styles = StyleSheet.create({
 	    padding: 8, 
 		//borderColor: "red", 
 		flexDirection: "column", 
-		borderRadius: 15,  
+		borderRadius: 18,  
 		marginBottom: 6
 	},
 	questionScreenNumberView: {
 		marginTop: -2, 
-		justifyContent: "center", 
+		justifyContent: "space-between", 
 		alignItems: "center",
+		flexDirection: "row",
+		paddingBottom: 6, 
 	},
 	questionScreenNumber: {
 		fontSize: 17, 
@@ -311,9 +324,10 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 8 ,
 		paddingVertical:4,
 		borderWidth: 2, 
-		borderRadius: 8, 
-		marginTop: 3, 
-		backgroundColor: "white" 
+		borderRadius: 9, 
+		marginTop: 5, 
+		backgroundColor: "white" ,
+		minHeight: 46
 	},
 	optionContainerOptions: {
 		fontSize: 16.7, 

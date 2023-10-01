@@ -16,7 +16,7 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native';
 
 // Icons
-import { AntDesign , FontAwesome, Ionicons} from '@expo/vector-icons';
+import { AntDesign , FontAwesome, Ionicons, MaterialIcons, Feather} from '@expo/vector-icons';
 
 // My import
 import SearchInputPageSelectorModal from "./SearchInputPageSelectorModal.js";
@@ -92,9 +92,7 @@ function QuestionInterface() {
 
   return (
     <View style={styles.questionInterfaceMain}>
-      <View style ={{borderWidth: 2, borderColor: "#888", borderRadius: 5, paddingHorizontal: 8, paddingVertical: 4,marginTop: 30, marginBottom: 30, backgroundColor: "white"}}>
-      	<Text style ={{fontSize: 17, fontWeight: "500"}}>Hi, looking for a specific past question and answer?</Text>
-      </View>
+      
       <SearchInputSubjectSelectorModal/>
       
       <SearchInputScreen/>
@@ -112,9 +110,18 @@ function QuestionInterfaceContainer({ind}){
 		<View style = {styles.questionInterfaceContainer}>
 			<View style = {styles.questionScreen}>
 				<View style = {styles.questionScreenNumberView}>
+					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center", padding: 3}}>
+						<Feather name="bookmark" size={24} color="black" />
+					</TouchableOpacity>
 					<Text style = {styles.questionScreenNumber}>
 						Question {ind}
 					</Text>
+					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center",  padding: 3}}>
+						<MaterialIcons name="content-copy" size={24} color="black" />
+					</TouchableOpacity>
+				</View>
+				<View style ={{marginTop: 8, marginBottom: 3, justifyContent: "center", alignItems: "center"}}>
+					<Text style ={{fontSize: 15, fontWeight: "600"}}>WAEC: 2005</Text>
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
 					Which of the following statements does not show Rutherford's account of Nuclear Theory? An atom contains a region
@@ -301,6 +308,7 @@ const styles = StyleSheet.create({
   questionInterfaceMain: {
   	//borderWidth : 2, 
 	  marginBottom: 20,
+	  //marginTop: 20
    },
    questionInterfaceContainer: {
    	backgroundColor: "white",
@@ -321,8 +329,9 @@ const styles = StyleSheet.create({
 	},
 	questionScreenNumberView: {
 		marginTop: -2, 
-		justifyContent: "center", 
+		justifyContent: "space-between", 
 		alignItems: "center",
+		flexDirection: "row",
 	},
 	questionScreenNumber: {
 		fontSize: 15, 

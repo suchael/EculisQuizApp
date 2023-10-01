@@ -50,7 +50,7 @@ function HomeHeader() {
       </TouchableHighlight>
 
       <View style={{ flexDirection: 'row', gap: 15 }}>
-        <Text style={styles.homeHeaderText}>View Answers</Text>
+        <Text style={styles.homeHeaderText}>View Answer</Text>
       </View>
     </View>
   );
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray',
     borderRadius: 25,
     position: 'absolute',
-    bottom: 0.2,
+    bottom: 10,
     left: 10,
     right: 10,
   },

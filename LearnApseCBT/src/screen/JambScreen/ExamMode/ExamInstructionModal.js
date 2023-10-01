@@ -49,7 +49,7 @@ const ExamInstructionModal = ({ visible, onClose }) => {
             </TouchableHighlight>
           </View>
           <ScrollView>
-          <View style={{ flex: 1}}>
+          <View style={{ flex: 1, paddingBottom: 10}}>
             <Text style={styles.headerText}>Note:</Text>
             <Text style={styles.modalText}>
               To give you an exam feeling and seriousness, we ensured that you cannot use multiple tabs like internet browsers and so on. Attempting to do so would  submit your scores immediately.{"\n\n"}
@@ -100,6 +100,8 @@ const styles = StyleSheet.create({
   modal: {
     position: 'absolute',
     bottom: 0,
+    left: 20,
+    right: 20,
     flex: 1,
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
@@ -107,8 +109,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingTop: 20,
-    left: 20,
-    right: 20,
+    
   },
   content: {
     flex: 1,
@@ -126,6 +127,7 @@ const styles = StyleSheet.create({
   },
   startButton: {
     backgroundColor: 'blue',
+    marginBottom: 10, 
     paddingVertical: 10, // Adjust as needed for responsive padding
     borderRadius: 25,
     alignItems: 'center',

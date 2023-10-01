@@ -145,15 +145,15 @@ function Main() {
 function LiteratureProse({ myRef }) {
   const navigation = useNavigation();
   return (
-    <View ref={myRef} style={{ paddingVertical: 2, marginBottom: 10,}}>
+    <View ref={myRef} style={{ paddingVertical: 2, marginBottom: 30,}}>
       <View  style={{ justifyContent: "center", alignItems: "center" }}>
-        <View style={{ padding: 4, width: 100, borderWidth: 2, borderColor: "#999", backgroundColor: "white", borderRadius: 5, justifyContent: "center", alignItems: "center", marginBottom: 15 }}>
+        <View style={{ padding: 4, width: 100, borderWidth: 2, borderColor: "#999", backgroundColor: "white", borderRadius: 5, justifyContent: "center", alignItems: "center", marginBottom: 5}}>
           <Text style={{ fontSize: 18, fontWeight: "bold" }}>Prose</Text>
         </View>
       </View>
 
       {/* African */}
-      <Text style={{ fontSize: 16, fontWeight: "600", marginTop: 8, marginBottom: 10 }}>African Prose</Text>
+      <Text style={{ fontSize: 16, fontWeight: "600", marginTop: 4, marginBottom: 10 }}>African Prose</Text>
       <ButtonList />
       <ButtonList />
       <ButtonList />
@@ -161,7 +161,7 @@ function LiteratureProse({ myRef }) {
       <ButtonList />
 
       {/* Non African */}
-      <Text style={{ fontSize: 16, fontWeight: "600", marginTop: 8, marginBottom: 10 }}>Non-African Prose</Text>
+      <Text style={{ fontSize: 16, fontWeight: "600", marginTop: 4, marginBottom: 10 }}>Non-African Prose</Text>
       <ButtonList />
       <ButtonList />
       <ButtonList />
@@ -174,9 +174,9 @@ function LiteratureProse({ myRef }) {
 function LiteraturePoetry({ myRef }) {
   const navigation = useNavigation();
   return (
-    <View ref={myRef} style={{ paddingVertical: 2, marginBottom: 10,}}>
+    <View ref={myRef} style={{ paddingVertical: 2, marginBottom: 30,}}>
       <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <View style={{ padding: 4, width: 100, borderWidth: 2, borderColor: "#999", backgroundColor: "white", borderRadius: 5, justifyContent: "center", alignItems: "center", marginBottom: 15 }}>
+        <View style={{ padding: 4, width: 100, borderWidth: 2, borderColor: "#999", backgroundColor: "white", borderRadius: 5, justifyContent: "center", alignItems: "center", marginBottom: 5 }}>
           <Text style={{ fontSize: 18, fontWeight: "bold" }}>Poetry</Text>
         </View>
       </View>
@@ -203,9 +203,9 @@ function LiteraturePoetry({ myRef }) {
 function LiteratureDrama({ myRef }) {
   const navigation = useNavigation();
   return (
-    <View ref={myRef} style={{ paddingVertical: 2, marginBottom: 10,}}>
+    <View ref={myRef} style={{ paddingVertical: 2, marginBottom: 30,}}>
       <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <View style={{ padding: 4, width: 100, borderWidth: 2, borderColor: "#999", backgroundColor: "white", borderRadius: 5, justifyContent: "center", alignItems: "center", marginBottom: 15 }}>
+        <View style={{ padding: 4, width: 100, borderWidth: 2, borderColor: "#999", backgroundColor: "white", borderRadius: 5, justifyContent: "center", alignItems: "center", marginBottom: 5 }}>
           <Text style={{ fontSize: 18, fontWeight: "bold" }}>Drama</Text>
         </View>
       </View>
@@ -235,11 +235,11 @@ function LiteratureDrama({ myRef }) {
 function ButtonList(){
 	const navigation = useNavigation ();
 	return (
-				<TouchableOpacity onPress={()=>navigation.navigate("Book")} style ={{height: 35, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingLeft: 12, marginBottom: 15}}>
+				<TouchableOpacity onPress={()=>navigation.navigate("Book")} style ={{height: 35, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingLeft: 12, paddingRight: 8, marginBottom: 15}}>
 					<>
 						<View>
-							<Text style ={{fontSize: 17, fontWeight: "500", lineHeight: 18}}>1. Panic of growing old</Text>
-							<Text style ={{fontSize: 14, fontWeight: "600", paddingLeft: 18,}}>By: John Thomas</Text>
+							<Text style ={{fontSize: 17, fontWeight: "500", lineHeight: 18}} numberOfLines ={1}>1. Panic of growing oldPanic of growing old Panic of growing old</Text>
+							<Text style ={{fontSize: 14, fontWeight: "600", paddingLeft: 18,}} numberOfLines ={1}>By: John Thomas</Text>
 						</View>
 						<FontAwesome name="angle-right" size={24} color="black" />
 					</>

@@ -45,9 +45,7 @@ export default function QuestButton({subject, pickerType}){
 			 	style = {styles.buttonContainer}
 	      	>
               	<View style = {styles.buttonContainerRect}>
-              		<Text style = {[styles.buttonRectText, {color: isToggleOn? "black": "white"}]}>
-						<TruncatedText text = {subject.name} maxLength = {24}/>
-					 </Text>
+					  <TruncatedText text = {subject.name} maxLength = {24} color = {isToggleOn? "black": "white"}/>
               		<View style = {styles.switchContainer}>
               			<View style = {{width: 16, height: 16, borderRadius: 8, backgroundColor: isToggleOn ?  "green": "white"}}>
               			</View>

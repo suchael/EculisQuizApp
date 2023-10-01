@@ -264,7 +264,7 @@ function BottomButtons(){
   const handleSubmit = () => {
     if (inputValue === PASSWORD) {
       closeModal();
-      navigation.goBack(); // Navigate to the previous screen
+      navigation.navigate("Exam history", {screen: "ExamHistResult"}); // Navigate to the previous screen
     }
   };
 	return (

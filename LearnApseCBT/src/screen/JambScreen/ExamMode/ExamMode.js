@@ -36,8 +36,10 @@ const Stack = createNativeStackNavigator();
 export default function ExamMode() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}} initialRouteName = "Home">
-      <Stack.Screen name ='Home' component = {Home}/>
-      <Stack.Screen name ='ExamShowQuestion' component = {ExamShowQuestion}/>
+      	<Stack.Screen name ='Home' component = {Home}/>
+      	<Stack.Screen name ='ExamShowQuestion' component = {ExamShowQuestion} options={{
+          	gestureEnabled: false, // Disable swipe-back gesture
+      	}}/>
     </Stack.Navigator>
   )
 }
@@ -148,7 +150,7 @@ const ContinueButton = () => {
   };
 
   return (
-    <>
+    <View style ={{position: "absolute", bottom:0, left: 0, right: 0, paddingHorizontal: 15, paddingVertical: 10, backgroundColor: "transparent"}}>
       <TouchableHighlight
         onPress={showModal}
         underlayColor="white"
@@ -158,7 +160,7 @@ const ContinueButton = () => {
         	<Text style={styles.continueButtonText}>Continue</Text>
       </TouchableHighlight>
       <ExamInstructionModal visible={modalVisible} onClose={closeModal} />
-    </>
+    </View>
   );
 }
 
@@ -185,10 +187,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute',
-    bottom: 10,
-    left: 15,
-    right: 15,
     borderRadius: 24,
   },
   continueButtonText: {

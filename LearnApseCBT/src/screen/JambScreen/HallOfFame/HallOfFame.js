@@ -19,7 +19,6 @@ import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
 // My import
-import TruncatedText from "../PQuestion/TruncatedText.js";
 
 export default function NationalRank() {
   return (
@@ -105,13 +104,13 @@ function Main() {
 
 function About({name}){
 	return(
-		<View style = {{borderBottomWidth: 0.5, borderTopWidth: 0.5, borderColor: "#999", flexDirection: "row",  justifyContent: "space-between", paddingVertical: 5, marginHorizontal: -10, paddingHorizontal: 10, marginBottom: 10}}>
+		<View style = {{borderBottomWidth: 0.5, borderTopWidth: 0.5, borderColor: "#999", flexDirection: "row",  justifyContent: "space-between", flex: 1, paddingVertical: 5, marginHorizontal: -10, paddingHorizontal: 10, marginBottom: 10, gap: 10}}>
         		{/*Left - Pic and score*/}
-        		<View style ={{flexDirection: "row", justifyContent: "space-between", gap: 10}}>
+        		<View style ={{flexDirection: "row", gap: 10, flex: 1}}>
         			<View style ={{borderWidth: 2,  width: 40, height: 40, borderRadius: 20}}>
         			</View>
-        			<View style ={{justifyContent: "center", }}>
-        				<Text style = {{fontSize: 18, fontWeight: "600"}}><TruncatedText text = {name} maxLength = {25}/></Text>
+        			<View style ={{justifyContent: "center", flex: 1}}>
+        				<Text style = {{fontSize: 18, fontWeight: "500",}} numberOfLines ={1} >{name}</Text>
         				<Text style = {{fontSize: 17, fontWeight: "500"}}>Score: 270/400</Text>
         				<Text style = {{fontSize: 15, fontWeight: "600"}}>Location: Lagos</Text>
         			</View>

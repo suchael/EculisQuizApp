@@ -10,14 +10,8 @@ import Header from "./Header/Header.js";
 
 const TopTab = createMaterialTopTabNavigator();
 
-function HomeScreen(){
-  return(
-      <Main/>
-  );
-}
 
-
-function Main() {
+function HomeScreen() {
   const navigation = useNavigation();
   useEffect(() => {
     //  when user clicks on the back botton of their phone 

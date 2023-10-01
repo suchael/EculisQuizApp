@@ -37,11 +37,11 @@ function HomeHeader() {
         styles.homeHeader,
         {
           paddingLeft: insets.left + 10,
-          paddingRight: insets.right + 10,
+          paddingRight: insets.right + 15,
           paddingTop: insets.top + 12,
           paddingBottom: insets.bottom + 4,
           borderBottomWidth: 2,
-          borderBottomColor: 'gray',
+          borderBottomColor: 'gray', 
         },
       ]}
     >
@@ -58,9 +58,9 @@ function HomeHeader() {
         <AntDesign name="arrowleft" size={27} color="#333" style={{ marginLeft: -4 }} />
       </TouchableHighlight>
       
-      <View style ={{justifyContent: " center", alignItems: "center", gap: 6 }}>
-        	<Text style={styles.homeHeaderText}>Panic of growing old</Text>
-			<Text style = {{fontSize: 17, fontWeight: "600"}}>Chapter 1/20</Text>
+      <View style ={{justifyContent: " center", alignItems: "center", flex: 1 , }}>
+        	<Text style={styles.homeHeaderText} numberOfLines={1}>Panic of growing old in anotherman Kingdom of Niger</Text>
+			<Text style = {{fontSize: 17, fontWeight: "600"}}>Chapter 2/20</Text>
 	  </View>
     </View>
   );
@@ -175,10 +175,10 @@ const styles = StyleSheet.create({
   },
   homeHeader: {
     flexDirection: "row",
-    gap: 10,
+    justifyContent: "center",
     alignItems: "center",
     borderColor: "#999",
-    borderBottomWidth:2,
+    borderBottomWidth: 2,
   },
   homeHeaderText: {
     fontSize: 20,

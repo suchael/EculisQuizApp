@@ -38,10 +38,9 @@ export default function QuestButton({subject}){
               			<View style = {{width: 16, height: 16, borderRadius: 8, backgroundColor: isToggleOn ?  "blue": "#666"}}>
               			</View>
               		</View>
-
-              		<Text style = {[styles.buttonRectText, {color: isToggleOn? "black": "white"}]}>
-						<TruncatedText text = {subject.name} maxLength = {30}/>
-					 </Text>
+					  <View style = {{flex:1,}}>
+							<TruncatedText text = {subject.name} color = {isToggleOn? "black": "white"} style ={{borderWidth: 2}}/>
+					 </View>
               		
               	</View>
           	</TouchableOpacity>                     
@@ -64,7 +63,8 @@ const styles= StyleSheet.create({
 	buttonContainerRect:{
 		flexDirection: "row",
 		alignItems: "center",
-		paddingLeft: 15,
+		paddingHorizontal: 15,
+		flex:1,
 	},
 	buttonRectText:{
 		fontSize: 18,

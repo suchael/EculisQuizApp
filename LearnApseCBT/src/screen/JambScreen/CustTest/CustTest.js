@@ -193,7 +193,7 @@ function SelectByTopic() {
 function BottomBtn() {
   const navigation = useNavigation();
   return (
-    <View style={{ paddingHorizontal: 5, position: 'absolute', bottom: 10, left: 15, right: 15 }}>
+    <View style={{ paddingHorizontal: 10, paddingBottom: 10, position: 'absolute', bottom: 0, left: 0, right: 0, backgroundColor: "transparent" }}>
       <TouchableHighlight
         onPress={() => navigation.navigate('Show question list')}
         underlayColor="lightgray"

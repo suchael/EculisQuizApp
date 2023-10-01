@@ -3,7 +3,7 @@ import {View,
         Text, 
         StyleSheet,
         Switch,
-        ScrollView,
+        ScrollView,TouchableOpacity,
         TouchableHighlight } from 'react-native';
         
 import React , {useState} from 'react';
@@ -12,7 +12,7 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native';
 
 // Icons
-import { AntDesign , FontAwesome} from '@expo/vector-icons';
+import { AntDesign , FontAwesome, MaterialIcons, Feather} from '@expo/vector-icons';
 
 // My import
 import subjects from  "../../../SubjectDb.js";
@@ -50,9 +50,9 @@ function HomeHeader(){
       >
         <AntDesign name="arrowleft" size={27} color="#333" style={{marginLeft: -4}} />
       </TouchableHighlight>
-      <View style = {{flexDirection: "column", }}>
-      	<Text style = {styles.homeHeaderText}>English Language</Text>
-      	<Text style = {{fontSize: 15, fontWeight: "900"}}>JAMB: 2004 </Text>
+      <View style = {{flexDirection: "column",flex: 1 }}>
+      	<Text style = {styles.homeHeaderText} numberOfLines ={1}>English Language and literature</Text>
+      	<Text style = {{fontSize: 15, fontWeight: "900"}} numberOfLines ={1}>JAMB: 2004</Text>
       </View>
       <PageSelectorModal/>
     </View>
@@ -123,9 +123,15 @@ function QuestionInterfaceContainer({ind}){
 		<View style = {styles.questionInterfaceContainer}>
 			<View style = {styles.questionScreen}>
 				<View style = {styles.questionScreenNumberView}>
+					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center", padding: 3}}>
+						<Feather name="bookmark" size={24} color="black" />
+					</TouchableOpacity>
 					<Text style = {styles.questionScreenNumber}>
 						Question {ind}
 					</Text>
+					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center",  padding: 3}}>
+						<MaterialIcons name="content-copy" size={24} color="black" />
+					</TouchableOpacity>
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
 					Which of the following statements does not show Rutherford's account of Nuclear Theory? An atom contains a region
@@ -294,8 +300,10 @@ const styles = StyleSheet.create({
 	},
 	questionScreenNumberView: {
 		marginTop: -2, 
-		justifyContent: "center", 
+		justifyContent: "space-between", 
 		alignItems: "center",
+		flexDirection: "row",
+		paddingBottom: 10, 
 		//position: "absolute",
 		//top: -15,
 		//left: 0,

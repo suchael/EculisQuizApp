@@ -134,9 +134,7 @@ const QuestButton = React.memo(({ subject }) => {
           style={styles.buttonContainer}
         >
           <View style={styles.buttonContainerRect}>
-            <Text style={[styles.buttonRectText, { color: isToggleOn ? 'black' : 'white' }]}>
-              <TruncatedText text={subject.name} maxLength={24} />
-            </Text>
+            <TruncatedText text = {subject.name} color = {isToggleOn? "black": "white"}/>
             <View style={styles.switchContainer}>
               <View
                 style={{

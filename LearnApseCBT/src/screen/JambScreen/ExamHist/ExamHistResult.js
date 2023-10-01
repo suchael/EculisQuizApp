@@ -48,62 +48,39 @@ function HomeHeader(){
       >
         <AntDesign name="arrowleft" size={27} color="#333"  style={{marginLeft: -4}}/>
       </TouchableHighlight>
-      <Text style = {styles.homeHeaderText}>Result</Text>
+      <Text style = {styles.homeHeaderText}>Result Details</Text>
     </View>
   );
 }
 
 
+
 function Main(){
 	const insets = useSafeAreaInsets();
 	return(
-			<View style = {{ 
-										paddingTop: insets.top ,
-										paddingLeft: insets.left + 10, 
-										paddingRight: insets.right + 10, 
-										paddingBottom: insets.bottom+ 80}}
-			>
-				<ScrollView>
-					<View style = {{borderWidth:2, minHeight: 450, paddingBottom:  20, marginTop: 20, marginBottom: 140, borderRadius: 25, backgroundColor: "white"}}>
-						{/*LearnApse Row*/}
-						<View style = {{borderTopLeftRadius: 25, borderTopRightRadius:25, paddingHorizontal: 6, paddingTop: 14, flexDirection: "row", alignItems: "center"}}>
-								<View style = {{marginRight: 40, borderWidth:2, height: 60, width: 60, alignItems: "center", justifyContent:"center"}}>
-									<Text>LA Logo</Text>
-								</View>
-								<Text style ={{fontWeight: "bold", fontSize:  30}}>LearnApse</Text>
-						</View>
-						{/*Score and Pict Row*/}
-						<View style={{flexDirection: "row",}}>
-							{/*Left*/}
-							<View style={{paddingVertical:10, paddingHorizontal: 6, maxWidth:"40%"}}>
-								<View style ={{borderWidth:2, width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent:"center"}}>
-									<Text>Pic</Text>
-								</View>
-								<Text style ={{fontSize:16, fontWeight: "500"}}>Ahmed{"\n"}Success</Text>
-							</View>
-							{/*Left Closing*/}
-							
-							{/*Right */}
-							<View style={{padding:10, width: "100%"}}>
+			<View style ={{flex: 1}}>
+				<ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 80, paddingHorizontal: 8, justifyContent: "center", alignItems: "center",  }}>
+					<View style = {{marginTop: 2, backgroundColor: "white", paddingTop: insets.top, }}>
+				
+							{/*Score and Pict Row Closing*/}
+							<View style={{ justifyContent: 'center', alignItems: "center", flex: 1, borderWidth: 2}}>
 								<Text style = {{fontSize: 17, fontWeight: "600", marginBottom: 4}}>Your average UTME score</Text>
-								<Text style ={{fontSize: 35}}>
+								<Text style ={{fontSize: 38, }}>
 									260/400
 								</Text>
 							</View>
-							{/*Right  closing*/}
-						</View>
 						{/*Score and Pict Row Closing*/}
 						
-						<View style = {{justifyContent: "center", alignItems: "center", marginTop: 8}}>
-							<Text style = {{fontSize:17, fontWeight: "600"}}>Performance Analysis</Text>
+						<View style = {{justifyContent: "center", alignItems: "center", marginTop: 40}}>
+							<Text style = {{fontSize:19, fontWeight: "600", marginBottom: 5}}>Performance Analysis</Text>
 						</View>
 						
 						
 						{/*Subject table*/}
-						<View style ={{paddingVertical:4,}}>
+						<View style ={{paddingVertical:4, }}>
 							{/*Row 1*/}
-							<View style ={{flexDirection: "row"}}>
-								<View style ={{borderTopWidth:2, borderRightWidth: 2,width: "55%", padding: 4, justifyContent: "center"}}>
+							<View style ={{flexDirection: "row", borderLeftWidth: 2, borderRightWidth: 2}}>
+								<View style ={{borderTopWidth:2, borderRightWidth: 2, width: "55%", padding: 4, justifyContent: "center"}}>
 									<Text style = {{fontSize:16, fontWeight: "600"}}>Subjects</Text>
 								</View>
 								<View style ={{borderTopWidth:2, borderRightWidth: 2,width: "22.5%", padding: 4, justifyContent: "center"}}>
@@ -115,7 +92,7 @@ function Main(){
 							</View>
 							
 							{/*Row 2*/}
-							<View style ={{flexDirection: "row"}}>
+							<View style ={{flexDirection: "row", borderLeftWidth: 2, borderRightWidth: 2}}>
 								<View style ={{borderTopWidth:2, borderRightWidth: 2, width: "55%", padding: 4, justifyContent: "center"}}>
 									<Text style = {{fontSize:16, fontWeight: "500"}}>Math</Text>
 								</View>
@@ -128,7 +105,7 @@ function Main(){
 							</View>
 							
 							{/*Row 3*/}
-							<View style ={{flexDirection: "row"}}>
+							<View style ={{flexDirection: "row", borderLeftWidth: 2, borderRightWidth: 2}}>
 								<View style ={{borderTopWidth:2, borderRightWidth: 2, width: "55%", padding: 4, justifyContent: "center"}}>
 									<Text style = {{fontSize:16, fontWeight: "500"}}>Engl</Text>
 								</View>
@@ -141,7 +118,7 @@ function Main(){
 							</View>
 							
 							{/*Row 4*/}
-							<View style ={{flexDirection: "row"}}>
+							<View style ={{flexDirection: "row", borderLeftWidth: 2, borderRightWidth: 2}}>
 								<View style ={{borderTopWidth:2, borderRightWidth: 2, width: "55%", padding: 4, justifyContent: "center"}}>
 									<Text style = {{fontSize:16, fontWeight: "500"}}>Phys</Text>
 								</View>
@@ -154,52 +131,53 @@ function Main(){
 							</View>
 							
 							{/*Row 5*/}
-							<View style ={{flexDirection: "row"}}>
-								<View style ={{borderTopWidth:2, borderRightWidth: 2, borderBottomWidth: 2,width: "55%", padding: 4, justifyContent: "center"}}>
+							<View style ={{flexDirection: "row", borderLeftWidth: 2, borderRightWidth: 2}}>
+								<View style ={{borderTopWidth:2, borderRightWidth: 2, width: "55%", padding: 4, justifyContent: "center"}}>
 									<Text style = {{fontSize:16, fontWeight: "500"}}>Biol</Text>
 								</View>
 								<View style ={{borderTopWidth:2, borderRightWidth: 2, width: "22.5%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "500"}}>13/40</Text>
+									<Text style = {{fontSize:16, fontWeight: "500"}}>32/40</Text>
 								</View>
 								<View style ={{borderTopWidth:2, width: "22.5%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "500"}}>D</Text>
+									<Text style = {{fontSize:16, fontWeight: "500"}}>A</Text>
 								</View>
 							</View>
 							
 							{/*Row 6 - Show total score under Row*/}
-							<View style ={{flexDirection: "row"}}>
-								<View style ={{width: "54.4%", padding: 4, justifyContent: "center"}}>
+							<View style ={{flexDirection: "row", borderLeftWidth: 2, borderRightWidth: 2}}>
+								<View style ={{borderTopWidth:2, borderRightWidth: 2, borderBottomWidth: 2,  width: "55%", padding: 4, justifyContent: "center"}}>
 								</View>
-								<View style ={{borderWidth:2, width: "23.2%", padding: 4, justifyContent: "center"}}>
+								<View style ={{borderTopWidth:2, borderRightWidth: 2, borderBottomWidth: 2, width: "22.5%", padding: 4, justifyContent: "center"}}>
 									<Text style = {{fontSize:16, fontWeight: "600"}}>260/400</Text>
 								</View>
-								<View style ={{borderBottomWidth:2, borderTopWidth:2, width: "22.5%", padding: 4, justifyContent: "center"}}>
+								<View style ={{borderTopWidth:2, width: "22.5%", padding: 4, justifyContent: "center", borderBottomWidth: 2}}>
 									<Text style = {{fontSize:16, fontWeight: "600"}}>C</Text>
 								</View>
 							</View>
+							{/*Subject table closing*/}
+							
 						</View>
-						{/*Subject table closing*/}
 						
-						
+	
 						{/*Time Analysis*/}
-						<View style = {{justifyContent: "center", alignItems: "center", marginTop: 12, marginBottom:4}}>
-							<Text style = {{fontSize:17, fontWeight: "600"}}>Time Analysis</Text>
+						<View style = {{justifyContent: "center", alignItems: "center", marginTop: 40, marginBottom:4}}>
+							<Text style = {{fontSize: 19, fontWeight: "600", marginBottom: 5}}>Time Analysis</Text>
 						</View>
 			
 						<View style ={{flexDirection: "row", }}>
-								<View style ={{borderTopWidth:2, borderRightWidth:2 ,width: "60%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "600"}}>Total Exam Time</Text>
+								<View style ={{borderTopWidth:2, borderLeftWidth: 2, borderRightWidth:2 ,width: "60%", padding: 4, justifyContent: "center"}}>
+									<Text style = {{fontSize:16, fontWeight: "500"}}>Total Exam Time</Text>
 								</View>
-								<View style ={{borderTopWidth:2, width: "40%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "500"}}>02:00:00</Text>
+								<View style ={{borderTopWidth:2, borderRightWidth: 2, width: "40%", padding: 4, justifyContent: "center"}}>
+									<Text style = {{fontSize:16, fontWeight: "600"}}>02:00:00</Text>
 								</View>
 						</View>
-						<View style ={{flexDirection: "row"}}>
-								<View style ={{borderTopWidth:2, borderBottomWidth: 2, borderRightWidth:2, width: "60%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "600"}}>Total Time Spent</Text>
+						<View style ={{flexDirection: "row",}}>
+								<View style ={{borderBottomWidth: 2, borderLeftWidth:2,  borderRightWidth:2, width: "60%", padding: 4, justifyContent: "center"}}>
+									<Text style = {{fontSize:16, fontWeight: "500"}}>Total Time Spent</Text>
 								</View>
-								<View style ={{borderTopWidth:2, borderBottomWidth: 2, width: "40%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "500"}}>01:30:20</Text>
+								<View style ={{borderBottomWidth: 2, borderRightWidth: 2, width: "40%", padding: 4, justifyContent: "center"}}>
+									<Text style = {{fontSize:16, fontWeight: "600"}}>01:30:20</Text>
 								</View>
 						</View>
 					</View>
@@ -229,7 +207,7 @@ function ViewExplanationBtn(){
         			onPress={() => navigation.navigate("ViewAnswers")}
         			style= {[styles.homeAndExplBtn, {right: 10, width:110}]}
       	>
-        		<Text style ={styles.homeAndExplText}>Explanation</Text>
+        		<Text style ={styles.homeAndExplText}>View Answer</Text>
       	</TouchableOpacity>  
 	);
 }
@@ -255,15 +233,15 @@ const styles = StyleSheet.create({
   },
   
   homeAndExplBtn: {
-		borderWidth: 2,
+		//borderWidth: 2,
 		width: 90,
 		height: 46,
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "gray",
-		borderRadius: 10,
+		borderRadius: 25,
 		position: "absolute",
-		bottom: 0,
+		bottom: 10,
 	},
 	homeAndExplText: {
 		fontSize: 16,

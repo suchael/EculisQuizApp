@@ -4,7 +4,7 @@ import {View,
         StyleSheet,
         Switch,
         ScrollView,
-        Dimensions,
+        Dimensions,TouchableOpacity,
         TouchableHighlight } from 'react-native';
         
 import React , {useState} from 'react';
@@ -13,7 +13,7 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native';
 
 // Icons
-import { AntDesign , FontAwesome} from '@expo/vector-icons';
+import { AntDesign , FontAwesome, Ionicons, MaterialIcons} from '@expo/vector-icons';
 
 // My import
 import subjects from  "../../../SubjectDb.js";
@@ -70,6 +70,9 @@ function QuestionInterfaceContainer({ind}){
 					<Text style = {styles.questionScreenNumber}>
 						Question{"\t\t"}{ind}
 					</Text>
+					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center",  padding: 3, position: "absolute", top: 0, right: 2}}>
+						<MaterialIcons name="content-copy" size={24} color="black" />
+					</TouchableOpacity>
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
 					A mixture of iodine and sulphur crystals can be separated by treatment with?
@@ -78,26 +81,23 @@ function QuestionInterfaceContainer({ind}){
 			
 			
 			
-			<View style = {[styles.questionAndExplanationScreen, {marginTop: 30, marginBottom: 30, backgroundColor: "lightgray"}]}>
+			<View style = {[styles.questionAndExplanationScreen, {marginVertical: 30, backgroundColor: "lightgray", borderRadius: 50, }]}>
 				<View style = {styles.questionScreenNumberView}>
 					<Text style = {[styles.questionScreenNumber, {
-													position: "absolute",
 													backgroundColor: "white",
-													bottom: -6,
 													fontSize: 20, 
 											}]}
 					>
 						Analysis of each option 
 					</Text>
 				</View>
-				<Text style = {[styles.optionContainerOptions, {fontWeight: "bold"}]}>
+				<Text style = {[styles.optionContainerOptions, {fontWeight: "bold", marginTop: 20}]}>
 					Correct Answer: A
-					
 				</Text>
 				<View style = {styles.optionMain}>
 					<View style ={{justifyContent: "center", alignItems: "center"}}>
-						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "#004B49",}]}>
-							<Text style = {{fontSize: 18, fontWeight: "bold", color: "white",}}>
+						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "lightgreen",}]}>
+							<Text style = {{fontSize: 18, }}>
 								A{".  "}
 								<Text style = {styles.optionContainerOptions}>
               						Water to filter off sulphur
@@ -275,16 +275,18 @@ const styles = StyleSheet.create({
 	},
 	questionAndExplanationScreen: {
 		borderWidth:2, 
-	    padding: 8, 
+	    paddingHorizontal: 8, 
+		paddingVertical: 12,
 		//borderColor: "red", 
 		flexDirection: "column", 
-		borderRadius: 15,  
-		marginBottom: 6
+		borderRadius: 18,  
+		marginBottom: 12
 	},
 	questionScreenNumberView: {
 		marginTop: -2, 
 		justifyContent: "center", 
 		alignItems: "center",
+		paddingBottom: 6,
 	},
 	questionScreenNumber: {
 		fontSize: 17, 
@@ -306,7 +308,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 8 ,
 		paddingVertical: 2,
 		borderWidth: 2, 
-		borderRadius: 8, 
+		borderRadius: 12, 
 		marginTop: 3, 
 		backgroundColor: "white" 
 	},
