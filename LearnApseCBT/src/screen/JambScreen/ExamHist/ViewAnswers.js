@@ -20,7 +20,6 @@ export default function ViewAnswers() {
     <View style={styles.container}>
       <HomeHeader />
       <TabBar />
-      <HomeBtn />
     </View>
   );
 }
@@ -109,20 +108,6 @@ function MainContainer() {
       	</View>
       
       	<View style = {{flexDirection: "row", alignItems: "center", justifyContent: "space-between", }}>
-      		<Text style={{ fontSize: 16, fontWeight: '500', color: "black", }}>Questions you got</Text>
-      		<View style ={{height: 30, width: 50, marginLeft: 20, backgroundColor: "#4CBB17", borderRadius: 4, justifyContent: 'center', alignItems: 'center',  }}>
-      			<Text style = {{fontSize: 16, fontWeight: "900"}}>30</Text>
-			</View>
-      	</View>
-      
-      	<View style = {{flexDirection: "row", alignItems: "center", justifyContent: "space-between", }}>
-      		<Text style={{ fontSize: 16, fontWeight: '500', color: "black", }}>Questions you missed</Text>
-      		<View style ={{height: 30, width: 50, marginLeft: 20, backgroundColor: "red", borderRadius: 4, justifyContent: 'center', alignItems: 'center',  }}>
-      			<Text style = {{fontSize: 16, fontWeight: "900"}}> 4</Text>
-			</View>
-      	</View>
-      
-      	<View style = {{flexDirection: "row", alignItems: "center", justifyContent: "space-between", }}>
       		<Text style={{ fontSize: 16, fontWeight: '500', color: "black", }}>Questions you skipped</Text>
       		<View style ={{height: 30, width: 50, marginLeft: 20, backgroundColor: "lightgray", borderRadius: 4, justifyContent: 'center', alignItems: 'center',  }}>
       			<Text style = {{fontSize: 16, fontWeight: "900"}}>6</Text>
@@ -135,8 +120,9 @@ function MainContainer() {
       {/*Closing: Color Instruction*/}
         
         <GoToBtnList/>
+        <HomeBtn />
         
-        {/* ... Continue adding ButtonList components */}
+       
       </ScrollView>
     </View>
   );
@@ -144,7 +130,7 @@ function MainContainer() {
 
 function GoToBtnList() {
   // Create an array of numbers representing the question buttons (1 to 20)
-  const questionNumbers = Array.from({ length: 44 }, (_, index) => index + 1);
+  const questionNumbers = Array.from({ length: 60 }, (_, index) => index + 1);
   const navigation = useNavigation ();
   return (
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingHorizontal: 2 ,}}>
@@ -152,7 +138,7 @@ function GoToBtnList() {
         <TouchableOpacity
           key={number}
           style={{ width: '15%',  height: 40,borderRadius: 8, justifyContent: 'center', alignItems: 'center', backgroundColor: number % 2 ===0? "#4CBB17": "red", margin: 2 }}
-          onPress={() => navigation.navigate("Analysis")}
+          onPress={() => navigation.navigate("Past questions", {screen: "Explanation"})}
         >
           <Text style={{ fontSize: 16, fontWeight: '900', color: "white" }}>{number}</Text>
         </TouchableOpacity>
@@ -200,9 +186,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'gray',
     borderRadius: 25,
-    position: 'absolute',
-    bottom: 10,
-    left: 10,
-    right: 10,
+    marginTop:  80
+    //position: 'absolute',
+    //bottom: 10,
+    //left: 10,
+    //right: 10,
   },
 });

@@ -13,7 +13,7 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native';
 
 // Icons
-import { AntDesign , FontAwesome, Ionicons, MaterialIcons} from '@expo/vector-icons';
+import { AntDesign , FontAwesome, Ionicons, MaterialIcons, } from '@expo/vector-icons';
 
 // My import
 import subjects from  "../../../SubjectDb.js";
@@ -81,7 +81,7 @@ function QuestionInterfaceContainer({ind}){
 			
 			
 			
-			<View style = {[styles.questionAndExplanationScreen, {marginVertical: 30, backgroundColor: "lightgray", borderRadius: 50, }]}>
+			<View style = {[styles.questionAndExplanationScreen, {marginVertical: 30, backgroundColor: "lightgray", borderRadius: 25}]}>
 				<View style = {styles.questionScreenNumberView}>
 					<Text style = {[styles.questionScreenNumber, {
 													backgroundColor: "white",
@@ -91,23 +91,24 @@ function QuestionInterfaceContainer({ind}){
 						Analysis of each option 
 					</Text>
 				</View>
-				<Text style = {[styles.optionContainerOptions, {fontWeight: "bold", marginTop: 20}]}>
+				<Text style = {styles.correctAnswerText}>
 					Correct Answer: A
 				</Text>
 				<View style = {styles.optionMain}>
 					<View style ={{justifyContent: "center", alignItems: "center"}}>
-						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "lightgreen",}]}>
-							<Text style = {{fontSize: 18, }}>
+						<View style= {[styles.optionContainer, {borderColor: "#00A86B", borderWidth: 2.5, backgroundColor: "#98FB98"}]}>
+							<Text style = {styles.optionText}>
 								A{".  "}
-								<Text style = {styles.optionContainerOptions}>
-              						Water to filter off sulphur
+								<Text style = {[styles.optionText, {fontWeight: "500", fontSize: 16.7}]}>
+              						Water to filter off sulphurWater to filter off sulphur
 								</Text>
-							</Text>			
+							</Text>
+							<AntDesign name="checkcircle" size={26} color="#00A86B" />			
          	  		 </View>
          
          			{/*Each Option Analysis*/}
-         			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, borderColor: "#004B49", width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 10, marginBottom: 15, backgroundColor: "white"}}>
-         				<Text style ={{fontSize: 16, fontWeight: "500"}}>
+         			<View style ={styles.attachToOption}>
+         				<Text style ={{fontSize: 16, fontWeight: "500", marginTop: -4,}}>
 							This option is not effective for separating a mixture of iodine and sulfur because both iodine and sulfur are insoluble in water. You cannot filter off either component using water.
 						</Text>
          			</View>
@@ -116,18 +117,19 @@ function QuestionInterfaceContainer({ind}){
          
          
          		<View style ={{justifyContent: "center", alignItems: "center"}}>
-						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "pink"}]}>
-							<Text style = {{fontSize: 18, fontWeight: "900", }}>
+						<View style= {styles.optionContainer}>
+							<Text style = {styles.optionText}>
 								B{".  "}
-								<Text style = {styles.optionContainerOptions}>
+								<Text style = {[styles.optionText, {fontWeight: "500", fontSize: 16.7}]}>
               						carbon (IV) sulphide to filter off iodine
 								</Text>
 							</Text>			
+							<MaterialIcons name="cancel" size={32} color="red" />			
          	  		 </View>
          
          			{/*Each Option Analysis*/}
-         			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2,  width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 10, marginBottom: 15, backgroundColor: "white"}}>
-         				<Text style ={{fontSize: 16, fontWeight: "500"}}>
+         			<View style ={styles.attachToOption}>
+         				<Text style ={{fontSize: 16, fontWeight: "500", marginTop: -4,}}>
 							Carbon (IV) sulphide to filter off iodine: This is the correct option. Carbon disulfide (carbon (IV) sulphide) is a suitable solvent for iodine, which dissolves iodine but not sulfur. By using carbon disulfide, you can dissolve the iodine, leaving the sulfur behind. Afterward, you can filter the mixture to separate the undissolved sulfur from the iodine solution.
 						</Text>
          			</View>
@@ -136,18 +138,19 @@ function QuestionInterfaceContainer({ind}){
 
 
 				<View style ={{justifyContent: "center", alignItems: "center"}}>
-						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "pink"}]}>
-							<Text style = {{fontSize: 18, fontWeight: "900",}}>
+						<View style= {styles.optionContainer}>
+							<Text style = {styles.optionText}>
 								C{".  "}
-								<Text style = {styles.optionContainerOptions}>
+								<Text style = {[styles.optionText, {fontWeight: "500", fontSize: 16.7}]}>
               						ethanoic acid to filter off sulphur
 								</Text>
-							</Text>			
+							</Text>
+							<MaterialIcons name="cancel" size={32} color="red" />					
          	  		 </View>
          
          			{/*Each Option Analysis*/}
-         			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 10, marginBottom: 15, backgroundColor: "white"}}>
-         				<Text style ={{fontSize: 16, fontWeight: "500"}}>
+         			<View style ={styles.attachToOption}>
+         				<Text style ={{fontSize: 16, fontWeight: "500", marginTop: -4,}}>
 							Ethanoic acid (acetic acid) is not typically used to separate iodine and sulfur. It may react with sulfur but is not an effective solvent for iodine. This method is not commonly used for this purpose.
 						</Text>
          			</View>
@@ -156,18 +159,19 @@ function QuestionInterfaceContainer({ind}){
          
          
          		<View style ={{justifyContent: "center", alignItems: "center"}}>
-						<View style= {[styles.optionContainer, {width: "100%", minHeight: 50, backgroundColor: "pink" }]}>
-							<Text style = {{fontSize: 18, fontWeight: "900",}}>
+						<View style= {styles.optionContainer}>
+							<Text style = {styles.optionText}>
 								D{".  "}
-								<Text style = {styles.optionContainerOptions}>
-              						methanol to filter off iodine
+								<Text style = {[styles.optionText, {fontWeight: "500", fontSize: 16.7}]}>
+              						methanol to filter off iodine methanol to filter off iodine methanol to filter off iodine methanol to filter off iodine
 								</Text>
-							</Text>			
+							</Text>
+							<MaterialIcons name="cancel" size={32} color="red" />					
          	  		 </View>
          
          			{/*Each Option Analysis*/}
-         			<View style ={{borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2,  width: "94%", borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 10,  marginBottom: 15, backgroundColor: "white"}}>
-         				<Text style ={{fontSize: 16, fontWeight: "500"}}>
+         			<View style ={styles.attachToOption}>
+         				<Text style ={{fontSize: 16, fontWeight: "500", marginTop: -4, }}>
 							Methanol is not an ideal solvent for iodine. While it can dissolve iodine to some extent, it's not as effective as carbon disulfide. Using methanol may result in incomplete separation.
 						</Text>
          			</View>
@@ -305,17 +309,43 @@ const styles = StyleSheet.create({
 		paddingTop: 5
 	},
 	optionContainer: {
-		paddingHorizontal: 8 ,
-		paddingVertical: 2,
-		borderWidth: 2, 
-		borderRadius: 12, 
-		marginTop: 3, 
-		backgroundColor: "white" 
+		justifyContent: "space-between", 
+		alignItems: "center", 
+		flexDirection: "row",
+		paddingHorizontal: 12,
+		paddingVertical: 6,
+		borderWidth: 2.1, 
+		borderColor: "red",
+		borderRadius: 10, 
+		marginTop: 7, 
+		backgroundColor: "pink" ,
+		minHeight: 46,
+		width: "100%",
 	},
-	optionContainerOptions: {
-		fontSize: 16, 
-		fontWeight: "500",
-		marginVertical: 15,
+	
+	optionText:{
+		fontSize: 18, 
+		fontWeight: "600",
+		marginTop: -4,
+		flex: 1
+		
+	},
+	correctAnswerText: {
+		fontWeight: "bold",
+		fontSize: 16.7, 
+		marginVertical: 20,
+		flex: 1,
+		
+	},
+	attachToOption: {borderBottomWidth: 2,
+		 borderLeftWidth: 2, 
+		 borderRightWidth: 2, 
+		 borderColor: "#777", 
+		 width: "86%", 
+		 borderBottomLeftRadius: 12, 
+		 borderBottomRightRadius: 12,
+		 padding: 10, marginBottom: 15,
+		 backgroundColor: "white",
 	},
   
   // Bottom Buttons

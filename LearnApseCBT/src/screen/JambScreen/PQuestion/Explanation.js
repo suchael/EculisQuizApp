@@ -106,16 +106,17 @@ function QuestionInterfaceContainer({ind}){
 				</Text>
 			</View>
 			<View style = {styles.optionMain}>
-				<View style= {[styles.optionContainer, {backgroundColor: "#004B49", borderColor: "transparent"}]}>
-					<Text style = {{fontSize: 18, fontWeight: "bold",color: "white"}}>
+				<View style= {[styles.optionContainer, {borderWidth: 3.5, borderColor: "#00A86B", }]}>
+					<Text style = {[styles.optionContainerOptions, {fontSize: 18, fontWeight: "bold",}]}>
 						A{".  "}
-						<Text style = {[styles.optionContainerOptions, {fontWeight: "bold"}]}>
+						<Text style = {styles.optionContainerOptions}>
               				which contains protons and neutrons 				
 						</Text>
-					</Text>			
+					</Text>	
+					<AntDesign name="checkcircle" size={26} color="#00A86B" />
          	   </View>
          	<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+					<Text style = {[styles.optionContainerOptions, {fontSize: 18, fontWeight: "bold",}]}>
 						B{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which is positively charged
@@ -123,20 +124,21 @@ function QuestionInterfaceContainer({ind}){
 					</Text>			
          	   </View>
 				<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+					<Text style = {[styles.optionContainerOptions, {fontSize: 18, fontWeight: "bold",}]}>
 						C{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which is massive and can cause deflection of a few projectiles
          				</Text>
 					</Text>			
          	   </View>
-         	<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+         	<View style= {[styles.optionContainer, {borderWidth: 3, borderColor: "red"}]}>
+					<Text style = {[styles.optionContainerOptions, {fontSize: 18, fontWeight: "bold",}]}>
 						D{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which is very large and in which close to 98% of projectiles pass undeflected
          				</Text>
-					</Text>			
+					</Text>
+					<MaterialIcons name="cancel" size={32} color="red" />			
          	   </View>
 			</View>
 			<View style = {[styles.questionAndExplanationScreen, {marginTop:18, backgroundColor: "lightgray"}]}>
@@ -149,7 +151,7 @@ function QuestionInterfaceContainer({ind}){
 					</TouchableOpacity>
 				</View>
 				<Text style = {{fontSize: 17, fontWeight: "600", marginVertical:10}}>Correct Answer: A</Text>
-				<Text style = {styles.optionContainerOptions}>
+				<Text style = {styles.explanationContentText}>
 					A mixture of iodine and sulphur can be separated by adding Carbon disulphide that is (CS₂) then stir the solution and filter it . As sulphur dissolved in CS₂, so it come into filter and got separated from the mixture.
 				</Text>
 				
@@ -157,7 +159,7 @@ function QuestionInterfaceContainer({ind}){
 		 					onPress={()=>{navigation.navigate("CommentSection")}} 		
 	     					underlayColor="white"
 			 				activeOpacity={0.9}
-							style = {{borderWidth:2, padding: 3, marginTop: 20, marginBottom: 10, justifyContent: "center", flex:1, alignItems: "center", borderRadius: 10, backgroundColor: "white"}}
+							style = {{borderWidth:2, padding: 4, marginTop: 20, marginBottom: 10, justifyContent: "center", flex:1, alignItems: "center", borderRadius: 18, backgroundColor: "white"}}
 	      			>
               			<Text style= {{fontSize: 17, fontWeight: "600", padding: 2}}>   
 								Post or View public answers (5)    
@@ -171,7 +173,7 @@ function QuestionInterfaceContainer({ind}){
 		 				onPress={()=>navigation.navigate("Analysis")}
 	     				underlayColor="lightgray"
 			 			activeOpacity={0.9}
-						style ={{height: 40, borderRadius: 4, justifyContent: "center", alignItems: "center"}}
+						style ={{height: 40, borderRadius: 20, justifyContent: "center", alignItems: "center", borderWidth: 2, paddingHorizontal: 10, backgroundColor: "white", marginVertical: 6}}
 	      			>
               			<Text style= {styles.screenBottomBtnText}>
               					Analysis 
@@ -291,8 +293,8 @@ const styles = StyleSheet.create({
 	},
 	questionAndExplanationScreen: {
 		borderWidth:2, 
-	    padding: 8, 
-		//borderColor: "red", 
+	    padding: 8, borderColor: "#666",
+		//borderColor: "red",
 		flexDirection: "column", 
 		borderRadius: 18,  
 		marginBottom: 6
@@ -307,7 +309,7 @@ const styles = StyleSheet.create({
 	questionScreenNumber: {
 		fontSize: 17, 
 		fontWeight: "bold", 
-		borderWidth: 2, 
+		borderWidth: 2, borderColor: "#666",
 		paddingHorizontal: 10,
 		paddingVertical: 2,
 		borderRadius: 5
@@ -321,27 +323,39 @@ const styles = StyleSheet.create({
 		paddingTop: 5
 	},
 	optionContainer: {
-		paddingHorizontal: 8 ,
+		justifyContent: "space-between", 
+		alignItems: "center", 
+		flexDirection: "row",
+		paddingHorizontal: 12 ,
 		paddingVertical:4,
 		borderWidth: 2, 
-		borderRadius: 9, 
-		marginTop: 5, 
+		borderColor: "#777",
+		borderRadius: 9.5, 
+		marginTop: 7, 
 		backgroundColor: "white" ,
-		minHeight: 46
+		minHeight: 46,
 	},
 	optionContainerOptions: {
 		fontSize: 16.7, 
 		fontWeight: "500",
+		marginTop: - 4,
+		flex: 1,
 		
 	},
+	
+	explanationContentText: {
+		fontSize: 16.7, 
+		fontWeight: "500",
+	},
+	
   screenContBottomBtn: {
-  	  borderWidth: 2, 
+  	  borderWidth: 2, borderColor: "#666",
 		marginTop: 40, 
 		marginBottom: 15,
 		paddingHorizontal:10, 
 		flexDirection: "row", 
 		justifyContent: "space-between", 
-		borderRadius: 4,
+		borderRadius: 10,
 		alignItems: "center",
 		backgroundColor: "lightgray"
 	},

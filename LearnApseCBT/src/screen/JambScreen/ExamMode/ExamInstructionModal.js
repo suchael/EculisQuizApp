@@ -22,7 +22,7 @@ import UnderLineTextBtn from "./UnderLineTextBtn.js";
 const ExamInstructionModal = ({ visible, onClose }) => {
   const navigation = useNavigation();
   const windowHeight = Dimensions.get('window').height;
-  const modalHeight = windowHeight * 0.70; // Make the modal 70% of the screen height
+  const modalHeight = "70%"; // Make the modal 70% of the screen height
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
@@ -48,9 +48,8 @@ const ExamInstructionModal = ({ visible, onClose }) => {
               <Entypo name="cross" size={30} color="gray" />
             </TouchableHighlight>
           </View>
-          <ScrollView>
+          <ScrollView contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, }}>
           <View style={{ flex: 1, paddingBottom: 10}}>
-            <Text style={styles.headerText}>Note:</Text>
             <Text style={styles.modalText}>
               To give you an exam feeling and seriousness, we ensured that you cannot use multiple tabs like internet browsers and so on. Attempting to do so would  submit your scores immediately.{"\n\n"}
 			  Be reminded that your total score in this section is publicly visible via the <UnderLineTextBtn text="Hall of Fame" goTo="HallOfFame" closeModal={onClose}/> section.
@@ -89,7 +88,7 @@ const ExamInstructionModal = ({ visible, onClose }) => {
 const styles = StyleSheet.create({
   exitButton: {
     height: 34,
-    marginTop: -12,
+    marginTop: -8, paddingRight: 12,
     flexDirection: "row",
     justifyContent: "flex-end",
   },
@@ -103,18 +102,17 @@ const styles = StyleSheet.create({
     left: 20,
     right: 20,
     flex: 1,
-    borderTopLeftRadius: 35,
-    borderTopRightRadius: 35,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
     backgroundColor: 'white',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
     paddingTop: 20,
     
   },
   content: {
     flex: 1,
     marginBottom: 0,
-    backgroundColor: "transparent",
+    backgroundColor: "transparent", 
   },
   headerText: {
     fontSize:  17, // Adjust as needed for responsive font size
