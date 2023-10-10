@@ -34,7 +34,8 @@ function Home() {
   return (
     <View style={styles.homeContainer}>
       <HomeHeader />
-      <TabBar />
+      <SelectByTopic />
+      <BottomBtn/>
     </View>
   );
 }
@@ -51,6 +52,10 @@ function HomeHeader() {
           paddingRight: insets.right + 10,
           paddingTop: insets.top + 12,
           paddingBottom: insets.bottom + 4,
+          borderBottomWidth: 2,
+          borderColor: "#777",
+          paddingBottom: 10
+          
         },
       ]}
     >
@@ -67,71 +72,6 @@ function HomeHeader() {
   );
 }
 
-function TabBar() {
-  return (
-    <Tab.Navigator
-      initialRouteName="General"
-      screenOptions={{
-        tabBarActiveTintColor: '#000000',
-        tabBarInactiveTintColor: '#777',
-        tabBarLabelStyle: {
-          fontSize: 16,
-          textTransform: 'none',
-          fontWeight: 'bold',
-        },
-        tabBarStyle: {
-          height: 40, // Adjust the height of the tab bar
-          borderBottomWidth: 0, // Remove top border
-          backgroundColor: 'lightgray',
-        },
-        tabBarIndicatorStyle: {
-          bottom: 0, // Adjust the position of the indicator
-          backgroundColor: 'black',
-          height: 3,
-        },
-        animation: 'none',
-      }}
-    >
-      <Tab.Screen name="Subject" component={SelectBySubject} />
-      <Tab.Screen name="Topic" component={SelectByTopic} />
-    </Tab.Navigator>
-  );
-}
-
-function SelectBySubject() {
-  const insets = useSafeAreaInsets();
-  const instruction = 'Internet connection is not required. Customise this Test to your preference';
-  return (
-    <View>
-      <ScrollView>
-        <View
-          style={{
-            backgroundColor: 'lightgray',
-            borderWidth: 2,
-            borderColor: '#777',
-            paddingVertical: 8,
-            paddingHorizontal: 4,
-            marginTop: 30,
-            marginBottom: 10,
-            marginHorizontal: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 2,
-          }}
-        >
-          <Text style={{ fontSize: 16.5, fontWeight: '500', paddingHorizontal: 10 }}>{instruction}</Text>
-        </View>
-        <TopBtn />
-        <View style={{ paddingBottom: 140 }}>
-          {Subject.map((eachSubject, index) => (
-            <QuestButton key={index} subject={eachSubject} pickerType="Year" />
-          ))}
-        </View>
-      </ScrollView>
-      <BottomBtn />
-    </View>
-  );
-}
 
 function TopBtn() {
   return (
@@ -157,7 +97,8 @@ function TopBtn() {
 function SelectByTopic() {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
-  const instruction = 'Test your knowledge on any topic you have studied.';
+  
+  const instruction = '• Internet connection is not required. \n• Customise this Test to your preference \n• Test your knowledge on a topic';
   return (
     <View>
       <ScrollView>
@@ -181,11 +122,10 @@ function SelectByTopic() {
         <TopBtn />
         <View style={{ paddingBottom: 140 }}>
           {Subject.map((eachSubject, index) => (
-            <QuestButton key={index} subject={eachSubject} pickerType="Topic" pickerMode="Number" />
+            <QuestButton key={index} subject={eachSubject}/>
           ))}
         </View>
       </ScrollView>
-      <BottomBtn />
     </View>
   );
 }

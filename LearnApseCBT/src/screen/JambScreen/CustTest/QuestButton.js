@@ -19,13 +19,13 @@ import { Fontisto } from '@expo/vector-icons';
 
 // my import 
 import TruncatedText from "./TruncatedText.js";
-import YearPickerModal from "./YearPickerModal.js";
+
 import SubjectPickerModal from "./SubjectPickerModal.js";
 import NumberPickerModal from "./NumberPickerModal.js"; 
 
 
 
-export default function QuestButton({subject, pickerType}){
+export default function QuestButton({subject}){
 	const insets = useSafeAreaInsets();
 	// Switch and TouchableHighlight state
 	const [isToggleOn, setIsToggleOn] = useState(false);
@@ -71,13 +71,11 @@ export default function QuestButton({subject, pickerType}){
 			{isToggleOn && (
   					<View style={styles.attachedToButton}>
     						<View style={[styles.attachedToButtonLeft, {borderRadius: 10}]}>
-      								{pickerType.toLowerCase() === "year" ? <NumberPickerModal /> : <SubjectPickerModal />}
+      								<SubjectPickerModal />
     						</View>
-    						{pickerType.toLowerCase() !== "year" && (
-     							 <View style={[styles.attachedToButtonRight, {borderRadius: 10}]}>
-        								<NumberPickerModal/>
-      							</View>
-    						)}
+         				   <View style={[styles.attachedToButtonRight, {borderRadius: 10}]}>
+        							  <NumberPickerModal/>
+      					  </View>
   					</View>
 			)}
 		</View>

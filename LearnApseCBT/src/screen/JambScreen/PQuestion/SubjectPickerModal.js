@@ -56,7 +56,7 @@ export default function SubjectPickerModal(){
         onPress={openModal}
         underlayColor="lightgray"
       >
-        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 4, borderWidth: 1, gap: 50 }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 6, borderWidth: 2, gap: 30, borderRadius: 3, width: 110, backgroundColor: selectedTopic=== null?  "lightgray": "white"}}>
           <Text style={{ fontWeight: "700", fontSize: 18 }}>Topic</Text>
           <Fontisto name="angle-down" size={16} color="black" />
         </View>
@@ -74,7 +74,6 @@ export default function SubjectPickerModal(){
           <View style={styles.modalBackdrop}>
             <View style={styles.modal}>
               <ScrollView>
-              	<Text style= {{marginTop: 10, padding: 4}}> Topic </Text>
                 {TOPIC.map(renderTopic)}
               </ScrollView>
             </View>
@@ -115,8 +114,7 @@ const styles = StyleSheet.create({
   },
   option: {
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: 'lightgray',
+    
   },
   selectedSubject: {
     marginTop: 20,

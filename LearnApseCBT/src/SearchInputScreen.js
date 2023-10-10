@@ -37,6 +37,11 @@ export default function ShowQuestionList() {
 function HomeHeader(){
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
+  
+  const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => {
+    	setIsEnabled(previousState => !previousState);
+    };
   return(
     <View style = {[styles.homeHeader, 
                     {
@@ -44,8 +49,8 @@ function HomeHeader(){
                       paddingRight: insets.right + 10,
                       paddingTop: insets.top + 12,
                       paddingBottom: insets.bottom + 6,
-                      
-                  
+                      justifyContent: "space-between",
+                  	
                   }]}>
       <TouchableHighlight
         onPress={() => navigation.goBack() }
@@ -55,7 +60,21 @@ function HomeHeader(){
       >
        	 <AntDesign name="arrowleft" size={27} color="#333"  style={{marginLeft: -4}}/>
       </TouchableHighlight>
-      <Text style = {{fontSize: 18, fontWeight: "600"}}>Search Question </Text>
+      <Text style = {{fontSize: 18, fontWeight: "600"}} numberOfLines={1}>Search Question </Text>
+      
+      {/*Toggle Switch*/}
+					<View style = {[styles.topBtnTouchables, {paddingHorizontal: 10, paddingVertical: 3, borderRadius: 5, flex: 1, maxWidth: 80}]}>
+      						<View style = {{height: 34, width: 80, justifyContent: "center", alignItems: "center", }}>
+      							<Switch  style={{borderWidth: 2, borderColor: "red", transform: [{ scaleX: 1.4}, { scaleY: 1.4}]}}
+        								trackColor={{ false: "#767577", true: "white" }}
+        								thumbColor={isEnabled ? "black" : "gray"}
+        								ios_backgroundColor="#3e3e3e"
+        								onValueChange={toggleSwitch}
+        								value={isEnabled}
+      							/>
+						</View>
+      			  </View>
+     {/*Closing: Toggle Switch*/}
       
     </View>
   );
@@ -64,8 +83,6 @@ function HomeHeader(){
 
 function MainContainer(){
 	const insets = useSafeAreaInsets();
-	
-	
 	return(
 		<View style = {styles.mainContainer}>
 			<ScrollView >
@@ -75,8 +92,7 @@ function MainContainer(){
                   	paddingTop: insets.top + 10,
                   	paddingBottom: insets.bottom + 100,             	
                 }}
-				>
-					
+				>	
 					<QuestionInterface/>
 				</View>
 			</ScrollView>
@@ -104,6 +120,45 @@ function QuestionInterface() {
 }
 
 
+function SearchInputScreen() {
+  const [textInputValue, setTextInputValue] = useState(""); 
+  const handleSendButtonPress = () => {
+    console.log("User Typed Message:", textInputValue); // Log the user-typed message to the console
+  };
+  
+  return (
+  <View style = {{marginBottom: 30, marginTop: 5}}>
+    <KeyboardAvoidingView
+      style={styles.keyboardContainer}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      keyboardVerticalOffset={0}
+    >
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter a keyword or sentence"
+          autoFocus={false}
+          multiline
+          scrollEnabled
+          value={textInputValue}
+          onChangeText={setTextInputValue}
+        />
+        <TouchableHighlight 
+          style={styles.sendButton}
+          onPress={handleSendButtonPress} // Call the function to log user-typed message
+          activeOpacity={0.9}
+          underlayColor="#777" 
+        >
+          <Ionicons name="send" size={24} color="black" />
+        </TouchableHighlight>
+      </View>
+      {/* You can add other UI elements below the input field */}
+    </KeyboardAvoidingView>
+  </View>
+  );
+}
+
+
 function QuestionInterfaceContainer({ind}){
 	const navigation = useNavigation()
 	return(
@@ -121,7 +176,7 @@ function QuestionInterfaceContainer({ind}){
 					</TouchableOpacity>
 				</View>
 				<View style ={{marginTop: 8, marginBottom: 3, justifyContent: "center", alignItems: "center"}}>
-					<Text style ={{fontSize: 15, fontWeight: "600"}}>WAEC: 2005</Text>
+					<Text style ={{fontSize: 15, fontWeight: "900", color: "blue"}}>WAEC: 2005</Text>
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
 					Which of the following statements does not show Rutherford's account of Nuclear Theory? An atom contains a region
@@ -188,43 +243,6 @@ function QuestionInterfaceContainer({ind}){
 }
 
 
-function SearchInputScreen() {
-  const [textInputValue, setTextInputValue] = useState(""); 
-  const handleSendButtonPress = () => {
-    console.log("User Typed Message:", textInputValue); // Log the user-typed message to the console
-  };
-  
-  return (
-  <View style = {{marginBottom: 30, marginTop: 5}}>
-    <KeyboardAvoidingView
-      style={styles.keyboardContainer}
-      behavior={Platform.OS === "ios" ? "padding" : null}
-      keyboardVerticalOffset={0}
-    >
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Enter a keyword or sentence"
-          autoFocus={false}
-          multiline
-          scrollEnabled
-          value={textInputValue}
-          onChangeText={setTextInputValue}
-        />
-        <TouchableHighlight 
-          style={styles.sendButton}
-          onPress={handleSendButtonPress} // Call the function to log user-typed message
-          activeOpacity={0.9}
-          underlayColor="#777" 
-        >
-          <Ionicons name="send" size={24} color="black" />
-        </TouchableHighlight>
-      </View>
-      {/* You can add other UI elements below the input field */}
-    </KeyboardAvoidingView>
-  </View>
-  );
-}
 
 function BottomBtn(){
 	return (
@@ -259,10 +277,10 @@ const styles = StyleSheet.create({
   },
   homeHeader: {
     flexDirection: "row",
-    gap: 10,
     alignItems: "center",
     borderColor: "#999",
     borderBottomWidth:2,
+    
   },
   homeHeaderText: {
     fontSize: 20,

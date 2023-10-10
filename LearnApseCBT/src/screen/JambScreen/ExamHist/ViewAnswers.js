@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableHighlight,
-  TouchableOpacity,
+  TouchableOpacity, Switch,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -24,36 +24,53 @@ export default function ViewAnswers() {
   );
 }
 
-function HomeHeader() {
+function HomeHeader(){
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
-  return (
-    <View
-      style={[
-        styles.homeHeader,
-        {
-          paddingLeft: insets.left + 10,
-          paddingRight: insets.right + 10,
-          paddingTop: insets.top + 12,
-          paddingBottom: insets.bottom + 4,
-        },
-      ]}
-    >
+  
+  const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => {
+    	setIsEnabled(previousState => !previousState);
+    };
+  return(
+    <View style = {[styles.homeHeader, 
+                    {
+                      paddingLeft: insets.left + 10,
+                      paddingRight: insets.right + 10,
+                      paddingTop: insets.top + 12,
+                      paddingBottom: insets.bottom + 6,
+                      justifyContent: "space-between",
+                  	
+                  }]}>
       <TouchableHighlight
-        onPress={() => navigation.goBack()}
+        onPress={() => navigation.goBack() }
         activeOpacity={0.9}
         underlayColor="lightgray"
-        style={{ width: 60, height: 40, justifyContent: 'center' }}
+        style = {{width: 60, height: 40, justifyContent: "center"}}
       >
-        <AntDesign name="arrowleft" size={27} color="#333" style={{ marginLeft: -4 }} />
+       	 <AntDesign name="arrowleft" size={27} color="#333"  style={{marginLeft: -4}}/>
       </TouchableHighlight>
-
-      <View style={{ flexDirection: 'row', gap: 15 }}>
-        <Text style={styles.homeHeaderText}>View Answer</Text>
-      </View>
+      <Text style = {{fontSize: 18, fontWeight: "600"}} numberOfLines={1}>View Answer</Text>
+      
+      {/*Toggle Switch*/}
+					<View style = {[styles.topBtnTouchables, {paddingHorizontal: 10, paddingVertical: 3, borderRadius: 5, flex: 1, maxWidth: 130}]}>
+      						<View style = {{justifyContent: "center", alignItems: "center", flexDirection: "row"}}>
+      							<Text style = {{fontSize: 17, fontWeight: "500"}}>Analysis</Text>
+      							<Switch  style={{borderWidth: 2, borderColor: "red", transform: [{ scaleX: 1.2}, { scaleY: 1.2}]}}
+        								trackColor={{ false: "#767577", true: "white" }}
+        								thumbColor={isEnabled ? "black" : "gray"}
+        								ios_backgroundColor="#3e3e3e"
+        								onValueChange={toggleSwitch}
+        								value={isEnabled}
+      							/>
+							</View>		 
+      			  </View>
+     {/*Closing: Toggle Switch*/}
+      
     </View>
   );
 }
+
 
 function TabBar() {
   return (
@@ -110,7 +127,7 @@ function MainContainer() {
       	<View style = {{flexDirection: "row", alignItems: "center", justifyContent: "space-between", }}>
       		<Text style={{ fontSize: 16, fontWeight: '500', color: "black", }}>Questions you skipped</Text>
       		<View style ={{height: 30, width: 50, marginLeft: 20, backgroundColor: "lightgray", borderRadius: 4, justifyContent: 'center', alignItems: 'center',  }}>
-      			<Text style = {{fontSize: 16, fontWeight: "900"}}>6</Text>
+      			<Text style = {{fontSize: 17, fontWeight: "900"}}>6</Text>
 			</View>
       	</View>
         <Text style = {{fontSize: 16, fontWeight: "900"}}>
@@ -171,6 +188,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'lightgray',
+    justifyContent: "space-between",
   },
   homeHeaderText: {
     fontSize: 22,
@@ -192,4 +210,21 @@ const styles = StyleSheet.create({
     //left: 10,
     //right: 10,
   },
+  
+  
+  
+  topBtnTouchables: {
+  	backgroundColor: "#999",
+	  padding: 3, 
+	  alignItems: "center", 
+	maxHeight: 45,
+	justifyContent: "center"
+  },
+  topBtnTouchablesView: {
+  	flexDirection: "row", 
+	  justifyContent: "space-between", 
+	  alignItems: "center", 
+	  paddingHorizontal: 6,
+  },
+  
 });

@@ -62,7 +62,7 @@ const MinAndHourModal = () => {
     		
         <TouchableOpacity
           onPress={openModal}
-          style={{ width: 100, borderWidth: 2, borderRadius: 4, backgroundColor: "lightgray" }}
+          style={{ width: 100, borderWidth: 2, borderRadius: 4, backgroundColor: "white" }}
         >
           <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingVertical: 4, paddingHorizontal: 15 }}>
             <Text style={{ fontWeight: "700", fontSize: 18 }}>{selectedNumber}</Text>

@@ -12,7 +12,7 @@ const YEAR = [
 ];
 
 export default function YearPickerModal(){
-  const [selectedYear, setSelectedYear] = useState(null);
+  const [selectedYear, setSelectedYear] = useState("Year");
   const [modalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
@@ -52,14 +52,11 @@ export default function YearPickerModal(){
         onPress={openModal}
         underlayColor="lightgray"
       >
-        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 4, borderWidth: 1, gap: 50 }}>
-          <Text style={{ fontWeight: "700", fontSize: 18 }}>Year</Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 6, borderWidth: 2, gap: 30, borderRadius: 3, width: 110, backgroundColor: selectedYear=== "Year"?  "lightgray": "white"}}>
+          <Text style={{ fontWeight: "700", fontSize: 18 }}>{selectedYear}</Text>
           <Fontisto name="angle-down" size={16} color="black" />
         </View>
       </TouchableHighlight>
-      {selectedYear && (
-        <Text style={{ fontWeight: "500", fontSize: 15 }}>{selectedYear}</Text>
-      )}
 
       <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={closeAndResetModal}>
         <TouchableHighlight
@@ -70,7 +67,6 @@ export default function YearPickerModal(){
           <View style={styles.modalBackdrop}>
             <View style={styles.modal}>
               <ScrollView>
-              	<Text style= {{marginTop: 10, padding: 4}}> Year </Text>
                 {YEAR.map(renderYear)}
               </ScrollView>
             </View>
@@ -111,8 +107,8 @@ const styles = StyleSheet.create({
   },
   option: {
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: 'lightgray',
+    justifyContent: "center",
+    alignItems: "center"
   },
   selectedSubject: {
     marginTop: 20,

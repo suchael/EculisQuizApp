@@ -50,10 +50,20 @@ export default function PastQuest() {
 
 function Home(){
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation ()
   return(
     <View style={styles.homeContainer}>
       <HomeHeader/>
-      <TabBar/>
+      <SelectBySubject/>
+      <TouchableHighlight 
+		 		onPress={()=> navigation.navigate("Show question list")}
+	     		underlayColor="lightgray"
+		 		style={styles.studyButton}
+	  >
+         		<Text style={ styles.studyButtonText }>
+              		Study Now
+         	 	</Text>
+      </TouchableHighlight>
     </View>
   );
 }
@@ -67,7 +77,9 @@ function HomeHeader(){
                       paddingLeft: insets.left + 10,
                       paddingRight: insets.right + 10,
                       paddingTop: insets.top + 12,
-                      paddingBottom: insets.bottom + 4,
+                      paddingBottom: insets.bottom + 8,
+                      borderBottomWidth:2,
+                      borderColor: "#666",
                   }]}>
       <TouchableHighlight
         onPress={() => navigation.goBack() }
@@ -82,41 +94,11 @@ function HomeHeader(){
   );
 }
 
-// Top Tab Bar
-function TabBar(){
-  return(
-    <Tab.Navigator initialRouteName="General"
-      screenOptions={{
-        tabBarActiveTintColor: "#000000",
-        tabBarInactiveTintColor: "#777",
-        tabBarLabelStyle: {
-          fontSize: 16,
-          textTransform: "none",
-          fontWeight: "bold",
-        },
-        tabBarStyle: {
-          height: 40, // Adjust the height of the tab bar
-          borderBottomWidth: 0, // Remove top border
-          backgroundColor: "lightgray",
-        },
-        tabBarIndicatorStyle: {
-          bottom: 0, // Adjust the position of the indicator
-          backgroundColor: "black",
-          height: 3,
-        },
-        animation: "none",
-    }}>
-      <Tab.Screen name ="Subject" component={SelectBySubject}/>
-      <Tab.Screen name ="Topic" component={SelectByTopic}/>
-    </Tab.Navigator>
-  );
-}
-
 
 function SelectBySubject(){
   const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
-  const instruction = "The length of questions from 2015 and beyond may vary. JAMB CBT era began in 2015, leading to JAMB discontinuing the issuance of past questions from that year onward. Teachers have collaborated to compile questions from 2015 and beyond while keeping in mind the structure of the exam syllabus.\n"
+  const instruction = "The length of questions from 2015 and beyond may vary. JAMB CBT era began in 2015, leading to JAMB discontinuing the issuance of past questions from that year onward. Teachers all over Nigeria have collaborated to compile questions from 2015 and beyond while keeping in mind the structure of the exam syllabus.\n"
   const greetings  = "\nGreetings to all the Nigerian teachers out there. You all are second to none."
   return(
     <View>
@@ -131,7 +113,7 @@ function SelectBySubject(){
 		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select a subject: </Text>
 			<View style = {{paddingBottom: 110}}>
 				{Subject.map((eachSubject, index)=>(
-					<QuestButton key={index} subject= {eachSubject} pickerType= "Year"/>
+					<QuestButton key={index} subject= {eachSubject} pickerType= "Year" index={index}/>
 				))}
 			</View>
 	 </ScrollView>  
@@ -140,15 +122,7 @@ function SelectBySubject(){
       	  paddingRight: insets.right + 10,
       	  borderWidth: 2
 		}}>
-			 <TouchableHighlight 
-		 		onPress={()=> navigation.navigate("Show question list")}
-	     		underlayColor="lightgray"
-		 		style={styles.studyButton}
-	  	   >
-         		<Text style={ styles.studyButtonText }>
-              		Study Now
-         	 	</Text>
-      	  </TouchableHighlight>
+			 
 		</View>
     </View>
   );
@@ -156,42 +130,6 @@ function SelectBySubject(){
 
 
 
-function SelectByTopic(){
-  const navigation = useNavigation(); // Use the useNavigation hook
-  const insets = useSafeAreaInsets();
-  return(
-    <View>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}> 
-        <View style ={{borderWidth: 2, borderColor: "#888", borderRadius: 5, backgroundColor: "lightgray", paddingHorizontal: 8, paddingVertical: 6, marginVertical: 20, marginHorizontal: 10}}>
-				<Text style = {{fontSize: 17, fontWeight:"500", }}>
-					Study past questions by topic.
-				</Text>
-		</View>
-		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select a subject: </Text>
-			<View style = {{paddingBottom: 110}}>
-				{Subject.map((eachSubject, index)=>(
-					<QuestButton key={index} subject= {eachSubject} pickerType="Topic"/>
-				))}
-			</View>
-	 </ScrollView>  
-		<View style = {{
-			paddingLeft: insets.left + 10,
-      	  paddingRight: insets.right + 10,
-      	  borderWidth: 2
-		}}>
-			 <TouchableHighlight 
-		 		onPress={()=> navigation.navigate("Show question list")}
-	     		underlayColor="lightgray"
-		 		style={styles.studyButton}
-	  	   >
-         		<Text style={ styles.studyButtonText }>
-              		Study Now
-         	 	</Text>
-      	  </TouchableHighlight>
-		</View>
-    </View>
-  );
-}
 
 
 

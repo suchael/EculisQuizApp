@@ -16,7 +16,7 @@ const TOPIC = [
 
 
 export default function SubjectPickerModal(){
-  const [selectedTopic, setSelectedTopic] = useState(TOPIC[15]);
+  const [selectedTopic, setSelectedTopic] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
@@ -57,13 +57,13 @@ export default function SubjectPickerModal(){
         underlayColor="lightgray"
         style ={{borderWidth: 2, borderRadius: 4, backgroundColor: "lightgray"}}
       >
-        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 4, gap: 50 }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 10, paddingVertical: 4, gap: 25, backgroundColor: selectedTopic === null? "lightgray": "white" }}>
           <Text style={{ fontWeight: "700", fontSize: 18 }}>Topic</Text>
           <Fontisto name="angle-down" size={16} color="black" />
         </View>
       </TouchableHighlight>
       
-        <Text style={{ fontWeight: "500", fontSize: 16 }}>{selectedTopic}</Text>
+      <Text style={{ fontWeight: "500", fontSize: 17 }}>{selectedTopic}</Text>
       
 
       <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={closeAndResetModal}>
@@ -75,7 +75,6 @@ export default function SubjectPickerModal(){
           <View style={styles.modalBackdrop}>
             <View style={styles.modal}>
               <ScrollView>
-              	<Text style= {{marginTop: 10, padding: 4}}> Topic </Text>
                 {TOPIC.map(renderTopic)}
               </ScrollView>
             </View>

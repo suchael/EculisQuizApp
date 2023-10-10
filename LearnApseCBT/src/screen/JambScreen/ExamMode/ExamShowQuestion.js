@@ -63,8 +63,7 @@ function HomeHeader(){
                       paddingBottom: insets.bottom + 4,
                   }]}>
       <View style= {{flexDirection: "row", gap:15}}>
-      	<View style = {{backgroundColor: "gray", width: 120, padding: 4, borderRadius: 4, flexDirection: "row", gap: 5, justifyContent: "center", alingitems: "center"}}>
-      		<Ionicons name="md-alarm-outline" size={26} color="black" style = {{marginLeft: -4}}/>
+      	<View style = {{backgroundColor: "gray", width: 100, padding: 4, borderRadius: 4, flexDirection: "row", gap: 5, justifyContent: "center", alingitems: "center"}}>
       		<Text style = {{fontSize:20, fontWeight: "bold"}}>00:00:00</Text>
       	</View>
       	<Text style = {styles.homeHeaderText}>LearnApse</Text>
@@ -336,8 +335,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: "lightgray",
-  },
-  homeHeaderIcon: {
   },
   homeHeaderText: {
     fontSize: 22,

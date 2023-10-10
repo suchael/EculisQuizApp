@@ -17,11 +17,13 @@ import TruncatedText from "./TruncatedText.js";
 import YearPickerModal from "./YearPickerModal.js";
 import SubjectPickerModal from "./SubjectPickerModal.js";
 
-export default function QuestButton({subject, pickerType}){
+export default function QuestButton({subject, pickerType, index}){
 	const insets = useSafeAreaInsets();
 	// Switch and TouchableHighlight state
 	const [isToggleOn, setIsToggleOn] = useState(false);
-	const handleToggle = ()=> setIsToggleOn(!isToggleOn);
+	const handleToggle = ()=> {
+		console.log("index: ", index)
+setIsToggleOn(!isToggleOn)};
 	
 	// PickerModal Visibility 
 	const [modalVisible, setModalVisible] = useState(false);
@@ -56,7 +58,8 @@ export default function QuestButton({subject, pickerType}){
 			{isToggleOn && (
 				<View style = {styles.attachedToButton}>
 					<View style = {styles.attachedToButtonLeft}>
-						{ pickerType.toLowerCase() === "year" ? <YearPickerModal/> : <SubjectPickerModal/> }
+						 <YearPickerModal/> 
+						<SubjectPickerModal/>
 					</View>
 					<View style = {styles.attachedToButtonRight}>
 						<Text style = {{fontWeight: "700", fontSize: 18}}>Total</Text>
@@ -68,8 +71,6 @@ export default function QuestButton({subject, pickerType}){
 	);
 }
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 
 const styles= StyleSheet.create({
@@ -135,8 +136,8 @@ const styles= StyleSheet.create({
 		borderBottomLeftRadius: 10,
 		borderBottomRightRadius: 10,
 		minHeight:  150,
-		marginLeft: windowWidth * 0.0639,
-		marginRight: windowWidth * 0.0722,
+		marginLeft: "6%",
+		marginRight: "7%",
 		flexDirection: "row",
 		padding: 8,
 		marginBottom: 4,
@@ -144,9 +145,10 @@ const styles= StyleSheet.create({
 	attachedToButtonLeft: {
 		flex:1,
 		borderWidth: 2,
-		padding: 6,
-		gap: 4,
-		justifyContent: "center",
+		paddingHorizontal: 6,
+		paddingVertical: 15,
+		gap: 18,
+		justifyContent: "space-between",
 		alignItems: "center",
 		borderBottomLeftRadius: 8,
 		borderTopLeftRadius: 8,
