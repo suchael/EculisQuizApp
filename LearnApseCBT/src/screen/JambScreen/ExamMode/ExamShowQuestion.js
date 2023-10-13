@@ -149,11 +149,12 @@ function QuestionInterface() {
 function QuestionInterfaceContainer({ind}){
 	const navigation = useNavigation()
 	return(
+		<View style ={{justifyContent: "center", alignItems: "center"}}>
 		<View style = {styles.questionInterfaceContainer}>
 			<View style = {styles.questionScreen}>
 				<View style = {styles.questionScreenNumberView}>
 					<Text style = {styles.questionScreenNumber}>
-						Question {ind}/40
+						Question {ind}/10
 					</Text>
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
@@ -189,12 +190,13 @@ function QuestionInterfaceContainer({ind}){
 					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
 						D{". "}
 						<Text style = {styles.optionContainerOptions}>
-              				which is very large and in which close to 98% of projectiles pass undeflected
+              				which is very large and in which close to 98% of projectiles pass undefle Ted which is very large and in which close to 98% of projectiles pass undeflectedwhich is very large and in which close to 98% of projectiles pass undeflectedwhich is very large and in which close to 98% of projectiles pass undeflected
          				</Text>
 					</Text>			
          	   </TouchableOpacity>
 			</View>
 		</View>
+	</View>
 	);
 }
 
@@ -222,11 +224,6 @@ function GoToBtnList() {
     </View>
   );
 }
-
-
-
-
-
 
 
 function BottomButtons(){
@@ -267,7 +264,7 @@ function BottomButtons(){
     }
   };
 	return (
-		<View style ={{paddingVertical: 0, height: 60, backgroundColor: "transparent", position: "absolute", bottom:0, left: 15, right: 15, zIndex: 1, paddingHorizontal: 10, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+		<View style ={{paddingVertical: 0, height: 60, backgroundColor: "transparent", position: "absolute", bottom:0, left: 15, right: 15, zIndex: 1, paddingHorizontal: 10, paddingBottom: 18, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
 			<TouchableHighlight
         			onPress={() => console.log("Prev Btn") }
         			activeOpacity={0.9}
@@ -356,18 +353,20 @@ const styles = StyleSheet.create({
    questionInterfaceContainer: {
    	backgroundColor: "transparent",
    	borderWidth: 2, 
-	   padding:4, 
+	   paddingHorizontal: 6, 
+		paddingTop: 6,
 	   //borderColor: "blue", 
-	   borderRadius: 15, 
+	   borderRadius: 25, 
 	   marginBottom: 50,
 	   paddingBottom: 10,
+		maxWidth: 420,
 	},
 	questionScreen: {
 		borderWidth:2, 
 	    padding: 8, 
 		//borderColor: "red", 
 		flexDirection: "column", 
-		borderRadius: 15,  
+		borderRadius: 20,  
 		backgroundColor: "white", 
 		marginBottom: 12,
 	},
@@ -396,13 +395,14 @@ const styles = StyleSheet.create({
 		paddingTop: 5
 	},
 	optionContainer: {
+		justifyContent: "center",
 		paddingHorizontal: 8 ,
 		paddingVertical: 4,
 		borderWidth: 2, 
-		borderRadius: 10, 
+		borderRadius: 12, 
 		marginBottom: 6, 
 		backgroundColor: "white" ,
-		minHeight: 50
+		minHeight: 30
 	},
 	optionContainerOptions: {
 		fontSize: 16.7, 

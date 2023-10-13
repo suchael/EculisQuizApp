@@ -40,6 +40,7 @@ function Main(){
                       paddingRight: insets.right + 10,
                       paddingTop: insets.top + 8,
                       paddingBottom: insets.bottom + 8,
+                      flex:1,
                       
                   }}
 		>
@@ -53,35 +54,33 @@ function ScoreBoard(){
   const navigation = useNavigation();
   
   return(
-    <View style ={{borderWidth: 2, marginTop: 4, padding: 4, borderRadius: 10}}>
-      <View style = {{flexDirection: "row", alignItems: "center", justifyContent: "space-between",}}>
+    <View style ={{flex:1, borderWidth: 2, marginTop: 4, padding: 4, borderRadius: 10}}>
+      <View style = {{flex: 1, flexDirection: "row", alignItems: "center", justifyContent: "space-between",}}>
       	{/*Left Score board*/}
-      	<View style ={{borderWidth: 2, borderRadius: 10, paddingVertical: 4, paddingHorizontal: 6,justifyContent: "center", flexDirection: "column", backgroundColor: "white"}}>
-      		<Text style ={{fontSize:18, fontWeight: "bold"}}>You</Text>
+      	<View style ={{flex: 1, maxWidth: "46%", borderWidth: 2, borderRadius: 10, paddingVertical: 4, paddingHorizontal: 15, justifyContent: "center", alignItems: "center", flexDirection: "column", backgroundColor: "white"}}>
+      		<Text style ={{fontSize: 19, fontWeight: "bold"}} numberOfLines={1}>You</Text>
       
       		{/*Progress Bar*/}
-      		<View style ={{marginVertical: 5}}>
+      		<View style ={{marginVertical: 5, flex: 1, width: "100%"}}>
       			<ProgressBarIndicator/>
       		</View>
-      
-      		<Text style ={{fontSize: 17, fontWeight: "500"}}>
-					<Text style ={{fontWeight: "600"}}>Score: </Text> 
-					5/100
+     
+      		<Text style ={{fontSize: 18, fontWeight: "600"}}>
+					Score: 15/100
 			</Text>
       	</View>
       
       	{/*Right Score board*/}
-      	<View style ={{borderWidth: 2, borderRadius: 10, paddingVertical: 4, paddingHorizontal: 6,justifyContent: "center", flexDirection: "column", backgroundColor: "white"}}>
-      		<Text style ={{fontSize:18, fontWeight: "bold"}}>Michael419</Text>
+      	<View style ={{flex: 1, maxWidth: "46%", borderWidth: 2, borderRadius: 10, paddingVertical: 4, paddingHorizontal: 15, justifyContent: "center", alignItems: "center", flexDirection: "column", backgroundColor: "white"}}>
+      		<Text style ={{fontSize: 19, fontWeight: "bold"}} numberOfLines={1}>Michael419Michael419</Text>
       
       		{/*Progress Bar*/}
-      		<View style ={{marginVertical: 5}}>
+      		<View style ={{marginVertical: 5, flex: 1, width: "100%"}}>
       			<ProgressBarIndicator/>
       		</View>
      
-      		<Text style ={{fontSize: 17, fontWeight: "500"}}>
-					<Text style ={{fontWeight: "600"}}>Score: </Text> 
-					15/100
+      		<Text style ={{fontSize: 18, fontWeight: "600"}}>
+					Score: 15/100
 			</Text>
       	</View>
       
@@ -93,7 +92,7 @@ function ScoreBoard(){
 
 function ProgressBarIndicator(){
 	return(
-		<View style ={{borderWidth: 2, height: 12, width: 120}}>
+		<View style ={{borderWidth: 2, height: 14, flex: 1, }}>
 			{/*Designing the Progress bar in Progress*/}
 		</View>
 	);
@@ -103,7 +102,7 @@ function ProgressBarIndicator(){
 
 function OnlineBatQuestion(){
 	return(
-		<View style ={{padding: 4,  marginTop: 20 }}>
+		<View style ={{padding: 4,  marginTop: 15, paddingBottom: 30 }}>
 			<Timer/>
 			<QuestionInterfaceContainer ind= "1"/>
 		</View>
@@ -114,10 +113,10 @@ function OnlineBatQuestion(){
 
 function Timer(){
 	return(
-	<View style = {{justifyContent: "center", alignItems: "center"}}>
-		<View style = {{backgroundColor: "gray", width: 100, padding: 4, borderRadius: 4, flexDirection: "row", gap: 5, justifyContent: "center", alingitems: "center"}}>
-      		<Ionicons name="md-alarm-outline" size={26} color="black" style = {{marginLeft: -4}}/>
-      		<Text style = {{fontSize:20, fontWeight: "bold"}}>01:00</Text>
+	<View style = {{justifyContent: "center", alignItems: "center", marginBottom: 15}}>
+		<View style = {{backgroundColor: "gray", width: 140, paddingHorizontal: 20, paddingVertical: 5,  borderRadius: 4, flexDirection: "row", justifyContent: "space-between", alingitems: "center"}}>
+      		<Ionicons name="md-alarm-outline" size={30} color="black" style = {{marginLeft: -4}}/>
+      		<Text style = {{fontSize: 25, fontWeight: "bold"}}>01:00</Text>
         </View>
      </View>
 	);
@@ -126,10 +125,10 @@ function Timer(){
 
 
 
-
 function QuestionInterfaceContainer({ind}){
 	const navigation = useNavigation()
 	return(
+	<View style ={{justifyContent: "center", alignItems: "center"}}>
 		<View style = {styles.questionInterfaceContainer}>
 			<View style = {styles.questionScreen}>
 				<View style = {styles.questionScreenNumberView}>
@@ -170,12 +169,13 @@ function QuestionInterfaceContainer({ind}){
 					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
 						D{". "}
 						<Text style = {styles.optionContainerOptions}>
-              				which is very large and in which close to 98% of projectiles pass undeflected
+              				which is very large and in which close to 98% of projectiles pass undefle Ted which is very large and in which close to 98% of projectiles pass undeflectedwhich is very large and in which close to 98% of projectiles pass undeflectedwhich is very large and in which close to 98% of projectiles pass undeflected
          				</Text>
 					</Text>			
          	   </TouchableOpacity>
 			</View>
 		</View>
+	</View>
 	);
 }
 
@@ -233,20 +233,23 @@ const styles = StyleSheet.create({
    questionInterfaceContainer: {
    	backgroundColor: "transparent",
    	borderWidth: 2, 
-	   padding:4, 
+	   paddingHorizontal: 6, 
+		paddingTop: 6,
 	   //borderColor: "blue", 
-	   borderRadius: 15, 
-	   marginBottom: 50,
+	   borderRadius: 25, 
+	   marginBottom: 80,
 	   paddingBottom: 10,
+		maxWidth: 420,
 	},
 	questionScreen: {
 		borderWidth:2, 
 	    padding: 8, 
 		//borderColor: "red", 
 		flexDirection: "column", 
-		borderRadius: 15,  
+		borderRadius: 20,  
 		backgroundColor: "white", 
 		marginBottom: 12,
+		//minHeight: "21%", 
 	},
 	questionScreenNumberView: {
 		marginTop: -2, 

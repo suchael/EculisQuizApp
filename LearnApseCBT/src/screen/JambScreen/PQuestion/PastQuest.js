@@ -2,7 +2,7 @@ import {View,
         Text, 
         StyleSheet,
         ScrollView,
-        Dimensions,
+        Dimensions,TouchableOpacity,
         TouchableHighlight } from 'react-native';
 
 import React , {useState}from 'react';
@@ -102,7 +102,7 @@ function SelectBySubject(){
   const greetings  = "\nGreetings to all the Nigerian teachers out there. You all are second to none."
   return(
     <View>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}> 
+      <ScrollView contentContainerStyle={{ flexGrow: 1 , paddingBottom: 30}}> 
 		
 		<View style ={{borderWidth: 2, borderColor: "#888", borderRadius: 5, backgroundColor: "lightgray", paddingHorizontal: 8, paddingVertical: 12, marginVertical: 20, marginHorizontal: 10}}>
 				<Text style = {{fontSize: 17, fontWeight:"500", marginBottom: 5}}>
@@ -127,9 +127,6 @@ function SelectBySubject(){
     </View>
   );
 }
-
-
-
 
 
 

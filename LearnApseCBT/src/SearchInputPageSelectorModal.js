@@ -43,7 +43,7 @@ export default function PageSelectorModal(){
 
   return (
     <View style={[styles.container, {backgroundColor: "transparent"}]}>
-    	<View style ={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 2}}>
+    	<View style ={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 2,  width: 95}}>
       	<TouchableHighlight
         			onPress={openModal}
         			activeOpacity={0.9}

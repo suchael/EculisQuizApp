@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import {
   View,
   Text,
@@ -20,10 +20,13 @@ import { AntDesign } from '@expo/vector-icons';
 import Subject from '../PQuestion/SubjectListDb.js';
 import TruncatedText from '../PQuestion/TruncatedText.js';
 import QuizQuestionScreen from './QuizQuestionScreen.js';
+import {QuizContext} from "./QuizUseContext/Context.js";
+
 
 const Stack = createNativeStackNavigator();
 
 export default function Quiz() {
+	
   return (
     <Stack.Navigator screenOptions={{ headerShown: false, animation: 'none' }}>
       <Stack.Screen name="QuizHome" component={QuizHome} />
@@ -32,13 +35,19 @@ export default function Quiz() {
   );
 }
 
+
 function QuizHome() {
+  const [gameState, setGameState] = useState("SelectQuestion")
+	
   const insets = useSafeAreaInsets();
   return (
     <View style={styles.homeContainer}>
-      <HomeHeader />
-      <Main />
-      <BottomBtn />
+    	<QuizContext.Provider value ={{gameState, setGameState}}>
+    		<HomeHeader />
+      	  <Main />
+      	  <BottomBtn />
+    	</QuizContext.Provider>
+      
     </View>
   );
 }

@@ -7,7 +7,7 @@ import {View,
         BackHandler,
         TouchableHighlight } from 'react-native';
         
-import React, {useState} from 'react';
+import React, {useState, useContext, createContext} from 'react';
 
 import {
   useSafeAreaInsets,
@@ -22,13 +22,63 @@ import { AntDesign,
 
 //My import
 import QuizScoreModal from "./QuizScoreModal.js";
+import {QuizContext} from "./QuizUseContext/Context.js";
+
+
+const quizQuestions = [
+  {
+    question: "A noun is a name of any person, place, or thing.",
+    options: ["A Noun", "B Pronoun", "C Adjective", "D Verb"],
+    answer: "A Noun",
+  },
+  {
+    question: "Which part of speech is used to describe a noun or pronoun?",
+    options: ["A Adjective", "B Verb", "C Preposition", "D Interjection"],
+    answer: "A Adjective",
+  },
+  {
+    question: "What is the word that takes the place of a noun in a sentence?",
+    options: ["A Adjective", "B Verb", "C Pronoun", "D Conjunction"],
+    answer: "C Pronoun",
+  },
+  {
+    question: "What type of word shows an action or a state of being?",
+    options: ["A Noun", "B Pronoun", "C Adjective", "D Verb"],
+    answer: "D Verb",
+  },
+  {
+    question: "Which part of speech connects words, phrases, or clauses in a sentence?",
+    options: ["A Adjective", "B Verb", "C Preposition", "D Conjunction"],
+    answer: "D Conjunction",
+  },
+  {
+    question: "What is a word or group of words that shows the relationship between a noun and another word in the sentence?",
+    options: ["A Noun", "B Pronoun", "C Adjective", "D Preposition"],
+    answer: "D Preposition",
+  },
+];
+
+
+const ScoreContext = createContext(null);
 
 export default function QuizQuestionScreen(){
+	const [score, setScore] = useState(0);
+	const [selectedQuestion, setSelectedQuestion] = useState(0); 
 	return(
-		<View style ={styles.homeContainer}>
-			<Main/>
-			<ContinueButton/>
-		</View>
+		<ScoreContext.Provider value={{ score, setScore, selectedQuestion, setSelectedQuestion }}>
+			{
+				selectedQuestion <= quizQuestions.length? (
+					<View style ={styles.homeContainer}>
+						<Main/>
+						<ContinueButton/>
+					</View>
+				) : (
+					<Text style ={{fontSize:18, fontWeight: "bold"}}>Done</Text>
+				)
+			}
+      	  
+    	</ScoreContext.Provider>
+		
 	);
 }
 
@@ -36,12 +86,13 @@ export default function QuizQuestionScreen(){
 function Main(){
 	const insets = useSafeAreaInsets();
 	return(
-		<ScrollView style = {{
+		<ScrollView contentContainerStyle = {{
+					  flexGrow: 1, 
                       paddingLeft: insets.left + 10,
                       paddingRight: insets.right + 10,
                       paddingTop: insets.top + 8,
                       paddingBottom: insets.bottom + 8,
-                      
+                      justifyContent: "center", alignItems: "center",  
                   }}
 		>
 			<ScoreBoard/>
@@ -52,31 +103,27 @@ function Main(){
 
 function ScoreBoard(){
   const navigation = useNavigation();
+  const { score } = useContext(ScoreContext); // Access score from context
+	
   return(
-    <View style ={{borderWidth: 2, marginTop: 4, padding: 4, borderRadius: 10}}>
-      <View style = {{flexDirection: "row", alignItems: "center", justifyContent: "space-between",}}>
-      	{/*Left Score board*/}
-      	<View style ={{borderWidth: 2, width: "100%", borderRadius: 10, paddingVertical: 4, paddingHorizontal: 6,justifyContent: "center", alignItems: "center", flexDirection: "column", backgroundColor: "white"}}>
-      		<Text style ={{fontSize:18, fontWeight: "bold"}}>You</Text>
+    <View style ={{borderWidth: 2, marginTop: 4, padding: 4, borderRadius: 10, width: "100%"}}>
+      	<View style ={{borderWidth: 2,  borderRadius: 10, paddingVertical: 10, paddingHorizontal: 6,justifyContent: "center", alignItems: "center", flexDirection: "column", backgroundColor: "white"}}>
+      		<Timer/>
       
       		{/*Progress Bar*/}
-      		<View style ={{marginVertical: 5}}>
-      			<ProgressBarIndicator/>
-      		</View>
+      		<ProgressBarIndicator/>
       
-      		<Text style ={{fontSize: 17, fontWeight: "500"}}>
-					<Text style ={{fontWeight: "600"}}>Score: </Text> 
-					5/100
-			</Text>
+      		<Text style ={{fontSize: 18, fontWeight: "600"}}>
+					Score:{"   "}{score}/{quizQuestions.length *5}
+		  	</Text>
       	</View>
-      </View>
     </View>
   );
 }
 
 function ProgressBarIndicator(){
 	return(
-		<View style ={{borderWidth: 2, borderRadius: 3, height: 15, width:  180}}>
+		<View style ={{borderWidth: 2, borderRadius: 3, height: 15, width:  180, marginVertical: 5}}>
 			{/*Designing the Progress bar in Progress*/}
 		</View>
 	);
@@ -86,9 +133,9 @@ function ProgressBarIndicator(){
 
 function QuizQuestion(){
 	return(
-		<View style ={{padding: 4,  marginTop: 20 }}>
-			<Timer/>
-			<QuizQuestionInterface ind= "1"/>
+		<View style ={{padding: 4,  marginTop: 20, justifyContent: "center", alignItems: "center", maxWidth: 420, flex: 1,}}>
+			
+			<QuizQuestionInterface/>
 		</View>
 	);
 }
@@ -97,70 +144,67 @@ function QuizQuestion(){
 
 function Timer(){
 	return(
-	<View style = {{justifyContent: "center", alignItems: "center"}}>
-		<View style = {{backgroundColor: "gray", width: 100, padding: 4, borderRadius: 4, flexDirection: "row", gap: 5, justifyContent: "center", alingitems: "center"}}>
-      		<Ionicons name="md-alarm-outline" size={26} color="black" style = {{marginLeft: -4}}/>
-      		<Text style = {{fontSize:20, fontWeight: "bold"}}>01:00</Text>
+	<View style = {{justifyContent: "center", alignItems: "center", marginBottom: 4}}>
+		<View style = {{backgroundColor: "gray", width: 140, paddingHorizontal: 20, paddingVertical: 5,  borderRadius: 4, flexDirection: "row", justifyContent: "space-between", alingitems: "center"}}>
+      		<Ionicons name="md-alarm-outline" size={30} color="black" style = {{marginLeft: -4}}/>
+      		<Text style = {{fontSize: 25, fontWeight: "bold"}}>01:00</Text>
         </View>
      </View>
 	);
 }
 
 
-
-
-
-function QuizQuestionInterface({ind}){
+function QuizQuestionInterface(){
 	const navigation = useNavigation()
+	const [selectedOption, setSelectedOption] = useState(null); // Change to single selected button
+	const { score, setScore, selectedQuestion, setSelectedQuestion } = useContext(ScoreContext); // Access score from context
+
+
+	const handlepress = (index)=>{
+		setSelectedOption(index)
+		if (quizQuestions[selectedQuestion].answer === quizQuestions[selectedQuestion].options[index]){
+			setScore ((newscore)=>newscore+5)
+			setSelectedQuestion(num => num+1)
+			setSelectedOption(null)
+		}
+	}
+
 	return(
 		<View style = {styles.questionInterfaceContainer}>
 			<View style = {styles.questionScreen}>
+			
 				<View style = {styles.questionScreenNumberView}>
 					<Text style = {styles.questionScreenNumber}>
-						Question {ind}/10
+						Question {selectedQuestion + 1}/{quizQuestions.length}
 					</Text>
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
-					Which of the following statements does not show Rutherford's account of Nuclear Theory? An atom contains a region
+					{quizQuestions[selectedQuestion]?.question}
 				</Text>
 			</View>
 			<View style = {styles.optionMain}>
-				<TouchableOpacity style= {styles.optionContainer}>
+				{quizQuestions[selectedQuestion]?.options.map((option, index)=>(
+					<TouchableHighlight style= {[styles.optionContainer, {backgroundColor: selectedOption === index? "lightblue": "white"}]} 
+							key={index} index={index} 
+							onPress ={()=> handlepress(index)}
+							activeOpacity={0.85} 
+							underlayColor="lightblue"
+					>
 					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						A{". "}
+						{option[0].toUpperCase()}{". "}
 						<Text style = {styles.optionContainerOptions}>
-              				which contains protons and neutrons 				
+              				{option.slice(1).trim().charAt(0).toUpperCase() + option.slice(3).trim().replace(/\s+/g, ' ')}	
 						</Text>
 					</Text>			
-         	   </TouchableOpacity>
-         	<TouchableOpacity style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						B{". "}
-						<Text style = {styles.optionContainerOptions}>
-              				which is positively charged
-         				</Text>
-					</Text>			
-         	   </TouchableOpacity>
-				<TouchableOpacity style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						C{". "}
-						<Text style = {styles.optionContainerOptions}>
-              				which is massive and can cause deflection of a few projectiles
-         				</Text>
-					</Text>			
-         	   </TouchableOpacity>
-         	<TouchableOpacity style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						D{". "}
-						<Text style = {styles.optionContainerOptions}>
-              				which is very large and in which close to 98% of projectiles pass undeflected
-         				</Text>
-					</Text>			
-         	   </TouchableOpacity>
+         	   </TouchableHighlight>
+         		
+				))}
+				
 			</View>
 		</View>
 	);
 }
+
 
 
 function ContinueButton() {
@@ -205,6 +249,7 @@ const styles = StyleSheet.create({
 	homeContainer:{
     flex:1,
     backgroundColor: "lightgray",
+    paddingBottom: 60,
   },
   
     // Question Interface
@@ -232,19 +277,21 @@ const styles = StyleSheet.create({
 		marginBottom: 12,
 	},
 	questionScreenNumberView: {
-		marginTop: -2, 
+		//backgroundColor: "red",
 		marginBottom: 4,
 		justifyContent: "center", 
 		alignItems: "center",
+		padding: 2,
 	},
 	questionScreenNumber: {
-		fontSize: 15, 
+		marginTop: -4,
+		fontSize: 18, 
 		fontWeight: "bold", 
-		borderWidth: 2, 
-		paddingLeft: 6, 
-		paddingRight: 2, 
-		paddingTop: 1, 
-		borderRadius: 5
+		borderWidth: 2,
+		paddingHorizontal: 12,
+		paddingVertical: 4,
+		borderRadius: 5,
+		
 	},
    questionScreenQuestionContent: {
    	fontSize: 16.7, 
@@ -259,10 +306,14 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 8 ,
 		paddingVertical: 4,
 		borderWidth: 2, 
+		borderColor: "#666",
 		borderRadius: 10, 
 		marginBottom: 6, 
 		backgroundColor: "white" ,
-		minHeight: 50
+		minHeight: 50,
+		//justifyContent: "center",
+		//alignItems: "center",
+		
 	},
 	optionContainerOptions: {
 		fontSize: 16.7, 

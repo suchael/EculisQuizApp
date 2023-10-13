@@ -412,7 +412,7 @@ function JobsNearbyBtn(){
       onPress={() => navigation.navigate("JobsAndTeacherNearby")}
       style={styles.jobsNearbyBtn}
     >
-      <Text style={[styles.studentBtnText, {fontSize: 15, color: "black", fontWeight: "bold"}]}>Nearby Jobs and Teacher</Text>
+      <Text style={[styles.studentBtnText, {fontSize: 15, color: "black", fontWeight: "bold"}]}>Nearby{"\n"}Jobs</Text>
     </TouchableOpacity>
   );
 }
@@ -487,12 +487,11 @@ const styles = StyleSheet.create({
   // Bottom Botton section
   jobsNearbyBtn: {
   	  borderRadius: 20,
-        padding: 8,
+        padding: 11,
         backgroundColor: "white",
         position: "absolute",
-        right: 110, 
-		left: 10, 
-		bottom: 2,
+		left: 10.6, 
+		bottom: 12,
         justifyContent: "center",
 		alignItems: "center",
 		color: "black",

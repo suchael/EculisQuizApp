@@ -121,10 +121,10 @@ function Main() {
       			<View style ={{ width: "90%", justifyContent: "center", alignItems: "center",  paddingHorizontal: 10, paddingVertical: 6, borderBottomLeftRadius: 7, borderBottomRightRadius: 7, backgroundColor: "lightgray", borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, borderColor: "gray", marginBottom: 30 }}>
       				  <View style ={{flex: 1, }}>
       								<Text style ={{fontSize: 15, fontWeight: "600"}}>This package includes the LearnApse Global UTME mock.  </Text>
-							  		<TouchableOpacity style ={{paddingVertical: 4}} onPress = {openModal}>
+							  		<TouchableOpacity style ={{paddingVertical: 4,}} onPress = {openModal}>
 											<View style ={{flexDirection: "row",}}>
 												<Text style ={{fontSize: 15, fontWeight: "600",}}>To know more{"  "}</Text>
-												<Text style ={{fontSize: 16, fontWeight: "600", textDecorationLine: "underline"}}>Click me</Text>
+												<Text style ={{fontSize: 16, fontWeight: "600", textDecorationLine: "underline" , borderWidth: 2, backgroundColor: "white", paddingHorizontal: 10, paddingTop: 2}}>Click me</Text>
 											</View>
 							 		</TouchableOpacity>
 									<LearnApseMockModal visible={modalVisible} onClose={closeModal}/>

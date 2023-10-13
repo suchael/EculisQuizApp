@@ -59,6 +59,7 @@ const Calculator = () => {
             <TouchableOpacity
                 style={styles.clearButton}
                 onPress={clearInput}
+                activeOpacity={0.85}
             >
                 <Text style={styles.clearButtonText}>Clear</Text>
             </TouchableOpacity>

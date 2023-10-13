@@ -48,9 +48,9 @@ export default function PageSelectorModal(){
         			onPress={openModal}
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style = {[styles.topBtnTouchables, {alignItems: "center", justifyContent: "center",flex:1, borderRadius: 4, paddingVertical: 8 }]}
+        			style = {[styles.topBtnTouchables, {alignItems: "center", justifyContent: "center",flex:1, borderRadius: 4, paddingVertical: 8, }]}
       	>
-      			  <View style = {[styles.topBtnTouchablesView, {alignItems: "center", justifyContent: "center", gap: 1}]}>
+      			  <View style = {[styles.topBtnTouchablesView, {alignItems: "center", justifyContent: "center", gap: 1, }]}>
       					<Text style ={styles.topBtnText}>Page{"  "}{selectedNumber}/10</Text>
 					</View>
            </TouchableHighlight>
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   topBtnTouchables: {
   	backgroundColor: "#999",
-	  padding: 3, 
+	  
 	  alignItems: "center", 
   },
   topBtnTouchablesView: {

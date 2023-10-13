@@ -168,7 +168,7 @@ function SearchInputScreen() {
 
 const screenWidth = Dimensions.get('window').width;
 const GAP = 0.7905// This is the best gap between the input box anf the send button
-const inputGap = screenWidth * GAP;
+//const inputGap = screenWidth * GAP;
 
 
 const styles = StyleSheet.create({
@@ -197,6 +197,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   inputContainer: {
+    paddingBottom: 3,
     flexDirection: "row",
     alignItems: "center",
     marginBottom: -4, // Add margin at the bottom to separate from other content

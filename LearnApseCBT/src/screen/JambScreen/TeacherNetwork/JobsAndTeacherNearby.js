@@ -115,6 +115,9 @@ function Main() {
           backgroundColor: "lightgray",
       }}
     >
+    	  <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'black', textAlign: 'center' }}>
+            	Jobs and Teachers around you
+          </Text>
     	{/*Location Icon*/}
 		<View style = {{justifyContent: "center", alignItems: "center", width: "100%", marginTop: 20, marginBottom: 30}}>
 			<View style ={{borderWidth: 2, width: 80, height: 80, borderRadius: 40, justifyContent: "center", alignItems: "center"}}>
@@ -169,9 +172,8 @@ function MainContent() {
 	// Closing - Change the Background and border of JobFinder or Teacher Btn when clicked 
 	
   return (
-    <ScrollView>
       <View>
-       
+       	
         {/* School Job and Teachers Button Navigation*/}
         <View style={styles.schoolJobTeachersBtnWrapper}>
           <TouchableOpacity
@@ -202,7 +204,6 @@ function MainContent() {
         {isSchoolJobClicked && <SchoolJobView/>}
         {isTeacherClicked && <TeacherJobView/>}
       </View>
-    </ScrollView>
   );
 }
 

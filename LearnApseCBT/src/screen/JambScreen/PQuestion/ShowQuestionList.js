@@ -40,8 +40,10 @@ function HomeHeader(){
                   paddingRight: insets.right + 10,
                   paddingTop: insets.top + 12,
                   paddingBottom: insets.bottom + 10,
+                  
              }]}
 	>
+	
       <TouchableHighlight
         onPress={() => navigation.goBack() }
         activeOpacity={0.9}
@@ -76,15 +78,15 @@ function MainContainer(){
                   	paddingLeft: insets.left + 10,
                   	paddingRight: insets.right + 10,
                   	paddingTop: insets.top + 10,
-                  	paddingBottom: insets.bottom + 100,             	
+                  	paddingBottom: insets.bottom + 100, flex:1,            	
                 }}
 				>
 					{/*Toggle Switch*/}
-					<View style = {[styles.topBtnTouchables, {paddingHorizontal: 10, paddingVertical: 3, borderRadius: 5, marginBottom: 14}]}>
-      			  	<View style = {styles.topBtnTouchablesView}>
+					<View style = {[styles.topBtnTouchables, { marginBottom: 14, justifyContent: "center", alignItems: "center",  }]}>
+      			  	<View style = {[styles.topBtnTouchablesView, {borderWidth:2, borderColor: "#777", maxWidth: 420, flex: 1}]}>
       					<Text style ={styles.topBtnText}>Show All Answers</Text>
       						<View style = {{height: 34, width: 80, justifyContent: "center", alignItems: "center", }}>
-      							<Switch  style={{borderWidth: 2, borderColor: "red", transform: [{ scaleX: 1.4}, { scaleY: 1.4}]}}
+      							<Switch  style={{transform: [{ scaleX: 1.4}, { scaleY: 1.4}]}}
         								trackColor={{ false: "#767577", true: "white" }}
         								thumbColor={isEnabled ? "black" : "gray"}
         								ios_backgroundColor="#3e3e3e"
@@ -120,16 +122,17 @@ function QuestionInterface() {
 function QuestionInterfaceContainer({ind}){
 	const navigation = useNavigation()
 	return(
+	<View style ={{justifyContent: "center", alignItems: "center"}}>
 		<View style = {styles.questionInterfaceContainer}>
 			<View style = {styles.questionScreen}>
 				<View style = {styles.questionScreenNumberView}>
-					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center", padding: 3}}>
+					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center", padding: 3, borderRadius: 5}}>
 						<Feather name="bookmark" size={24} color="black" />
 					</TouchableOpacity>
 					<Text style = {styles.questionScreenNumber}>
-						Question {ind}
+						Question {ind}/50
 					</Text>
-					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center",  padding: 3}}>
+					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center", padding: 3, borderRadius: 5}}>
 						<MaterialIcons name="content-copy" size={24} color="black" />
 					</TouchableOpacity>
 				</View>
@@ -139,7 +142,7 @@ function QuestionInterfaceContainer({ind}){
 			</View>
 			<View style = {styles.optionMain}>
 				<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+					<Text style = {{fontSize: 18, fontWeight: "bold", marginTop: -4}}>
 						A{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which contains protons and neutrons 				
@@ -147,7 +150,7 @@ function QuestionInterfaceContainer({ind}){
 					</Text>			
          	   </View>
          	<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+					<Text style = {{fontSize: 18, fontWeight: "bold", marginTop: -4}}>
 						B{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which is positively charged
@@ -155,7 +158,7 @@ function QuestionInterfaceContainer({ind}){
 					</Text>			
          	   </View>
 				<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+					<Text style = {{fontSize: 18, fontWeight: "bold", marginTop: -4}}>
 						C{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which is massive and can cause deflection of a few projectiles
@@ -163,7 +166,7 @@ function QuestionInterfaceContainer({ind}){
 					</Text>			
          	   </View>
          	<View style= {styles.optionContainer}>
-					<Text style = {{fontSize: 18, fontWeight: "bold"}}>
+					<Text style = {{fontSize: 18, fontWeight: "bold", marginTop: -4}}>
 						D{".  "}
 						<Text style = {styles.optionContainerOptions}>
               				which is very large and in which close to 98% of projectiles pass undeflected
@@ -194,6 +197,7 @@ function QuestionInterfaceContainer({ind}){
           			</TouchableHighlight>              
 			</View>
 		</View>
+	</View>
 	);
 }
 
@@ -202,7 +206,7 @@ function QuestionInterfaceContainer({ind}){
 
 function BottomBtn(){
 	return (
-		<View style = {{ position: "absolute", bottom: 0, left: 22, right: 22, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+		<View style = {{ position: "absolute", bottom: 0, left: 22, right: 22, flexDirection: "row", justifyContent: "space-between", alignItems: "center",  paddingBottom: 18}}>
 			<TouchableHighlight
         			onPress={() => console.log("Prev Btn") }
         			activeOpacity={0.9}
@@ -244,7 +248,7 @@ const styles = StyleSheet.create({
   // main container
   mainContainer:{
   	flex:1,
-  	backgroundColor: "lightgray",
+  	backgroundColor: "white",
   },
   
   
@@ -259,7 +263,7 @@ const styles = StyleSheet.create({
       backgroundColor: "gray",
   },
   topBtnTouchables: {
-  	backgroundColor: "#999",
+  	backgroundColor: "white",
 	  padding: 3, 
 	  alignItems: "center", 
   },
@@ -267,8 +271,8 @@ const styles = StyleSheet.create({
   	flexDirection: "row", 
 	  justifyContent: "space-between", 
 	  alignItems: "center", 
-	  gap: 14, 
-	  paddingHorizontal: 6,
+	  borderRadius: 4,
+	  paddingHorizontal: 20,
   },
   topBtnText: {
   	fontSize: 17, 
@@ -287,7 +291,8 @@ const styles = StyleSheet.create({
 	   padding:4, 
 	   borderColor: "#999", 
 	   borderRadius: 15, 
-	   marginBottom: 35
+	   marginBottom: 35,
+	   maxWidth: 420,
 	},
 	questionScreen: {
 		borderWidth:2, 
@@ -331,7 +336,7 @@ const styles = StyleSheet.create({
 	},
 	optionContainer: {
 		paddingHorizontal: 8 ,
-		paddingVertical: 4,
+		paddingVertical: 6,
 		borderWidth: 2, 
 		borderColor: "#777", 
 		borderRadius: 7, 
@@ -342,7 +347,7 @@ const styles = StyleSheet.create({
 		fontSize: 16.7, 
 		fontWeight: "500",
 		paddingVertical: 20,
-		borderWidth: 2,
+		
 	},
   screenContBottomBtn: {
   	  borderWidth:2, 

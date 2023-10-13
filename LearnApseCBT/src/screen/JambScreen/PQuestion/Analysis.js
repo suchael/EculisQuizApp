@@ -20,45 +20,30 @@ import subjects from  "../../../SubjectDb.js";
 import ReadMore from "./ReadMore.js";
 
 
-export default function Explanation() {
-   const [isHeaderShown, setIsHeaderShown] = useState(true);
-  return (
-    <View style={styles.container}>
-			<MainContainer/>
-    </View>
-  );
-}
 
-
-function MainContainer(){
+export default function Analysis (){
 	const insets = useSafeAreaInsets();
 	return(
 		<View style = {styles.mainContainer}>
-			<ScrollView >
+			<Header/>
+			<ScrollView contentContainerStyle={{ flexGrow: 1,}} >
 				<View style = {{
                   	paddingLeft: insets.left + 10,
                   	paddingRight: insets.right + 10,
                   	paddingTop: insets.top + 14,
-                  	paddingBottom: insets.bottom + 100,             	
+                  	paddingBottom: insets.bottom + 100,    
+					     
                 }}
 				>
-					<QuestionInterface/>
+					<QuestionInterfaceContainer ind = "1"/>
 				</View>
 			</ScrollView>
-			<Header/>
 			<BottomBtn/>
 		</View>
 	);
 }
 
 
-function QuestionInterface() {
-  return (
-    <View style={styles.questionInterfaceMain}>
-        <QuestionInterfaceContainer ind = "1"/>
-    </View>
-  );
-}
 
 
 function QuestionInterfaceContainer({ind}){
@@ -68,7 +53,7 @@ function QuestionInterfaceContainer({ind}){
 			<View style = {styles.questionAndExplanationScreen}>
 				<View style = {styles.questionScreenNumberView}>
 					<Text style = {styles.questionScreenNumber}>
-						Question{"\t\t"}{ind}
+						Question{"\t\t"}{ind}/50
 					</Text>
 					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center",  padding: 3, position: "absolute", top: 0, right: 2}}>
 						<MaterialIcons name="content-copy" size={24} color="black" />
@@ -185,6 +170,7 @@ function QuestionInterfaceContainer({ind}){
 }
 
 
+
 function Header(){
 	// This is an Empty Header... From the screen to question 
 	const insets = useSafeAreaInsets();
@@ -193,7 +179,7 @@ function Header(){
 				  justifyContent: "space-between",
                   paddingLeft: insets.left + 10,
                   paddingRight: insets.right + 10,
-                  paddingBottom: insets.bottom,
+                  paddingBottom: insets.bottom+2,
                   height:  12,
                   width: "100%",
                   position: "absolute",
@@ -208,7 +194,7 @@ function Header(){
 function BottomBtn(){
 	const navigation= useNavigation ();
 	return (
-		<View style = {{ position: "absolute", bottom: 0, left: 22, right: 22, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+		<View style = {{ position: "absolute", bottom: 0, left: 22, right: 22, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingBottom: 18}}>
 			<TouchableHighlight
         			onPress={() => console.log("Prev Btn") }
         			activeOpacity={0.9}
@@ -243,39 +229,23 @@ function BottomBtn(){
 
 
 const styles = StyleSheet.create({
-  container:{
-    flex: 1,
-  },
-  homeHeader: {
-    flexDirection: "row",
-    gap: 10,
-    alignItems: "center",
-    borderColor: "#999",
-    borderBottomWidth:2,
-  },
-  homeHeaderText: {
-    fontSize: 20,
-    fontWeight: "500",
-  },
-  
   // main container
   mainContainer:{
   	flex:1,
-  	backgroundColor: "white",
+  	justifyContent: "center", alignItems: "center", 
   },
  
+ 
   // Question Interface
-  questionInterfaceMain: {
-  	//borderWidth : 2, 
-	  marginBottom: 20,
-   },
    questionInterfaceContainer: {
    	backgroundColor: "white",
-   	//borderWidth: 2, 
+   	borderWidth: 2, 
 	   //padding:4, 
-	   //borderColor: "blue", 
+	   borderColor: "blue", 
 	   borderRadius: 15, 
-	   marginBottom: 35
+	   marginBottom: 35,
+		maxWidth: 420,
+		flex: 1, 
 	},
 	questionAndExplanationScreen: {
 		borderWidth:2, 
@@ -284,13 +254,15 @@ const styles = StyleSheet.create({
 		//borderColor: "red", 
 		flexDirection: "column", 
 		borderRadius: 18,  
-		marginBottom: 12
+		marginBottom: 12,
+		flex: 1, 
 	},
 	questionScreenNumberView: {
 		marginTop: -2, 
 		justifyContent: "center", 
 		alignItems: "center",
 		paddingBottom: 6,
+		
 	},
 	questionScreenNumber: {
 		fontSize: 17, 

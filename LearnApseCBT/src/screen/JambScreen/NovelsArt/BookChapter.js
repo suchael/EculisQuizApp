@@ -154,7 +154,7 @@ function QuizBtn(){
         			onPress={() => console.log("Quiz Btn")}
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {right: 10, bottom: 60, width: 60, height: 60, borderRadius: 20}]}
+        			style= {[styles.nextAndPrevBtn, {right: 10, bottom: 70, width: 60, height: 60, borderRadius: 20}]}
       	>
         		<Text style = {{fontSize: 17, fontWeight: "bold"}}>Quiz</Text>
       </TouchableHighlight>  
@@ -195,14 +195,14 @@ const styles = StyleSheet.create({
   
   // Bottom Buttons
 	nextAndPrevBtn: {
-		borderWidth: 2,
+		//borderWidth: 2,
 		width: 90,
 		height: 46,
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "gray",
-		borderRadius: 10,
+		borderRadius: 18,
 		position: "absolute",
-		bottom: 0,
+		bottom: 10,
    },
 });

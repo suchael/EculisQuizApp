@@ -20,10 +20,13 @@ import SubjectPickerModal from "./SubjectPickerModal.js";
 export default function QuestButton({subject, pickerType, index}){
 	const insets = useSafeAreaInsets();
 	// Switch and TouchableHighlight state
-	const [isToggleOn, setIsToggleOn] = useState(false);
+	const [isToggleOn, setIsToggleOn] = useState(null);
+	const [selectedButton, setSelectedButton] = useState(null); // Change to single selected button
+
 	const handleToggle = ()=> {
-		console.log("index: ", index)
-setIsToggleOn(!isToggleOn)};
+		setSelectedButton(index+1)
+		setIsToggleOn(!isToggleOn)
+	};
 	
 	// PickerModal Visibility 
 	const [modalVisible, setModalVisible] = useState(false);
@@ -36,7 +39,7 @@ setIsToggleOn(!isToggleOn)};
       							  paddingRight: insets.right + 10,
       							  flex:1,
 		}}>
-			<View style = {[styles.container, {backgroundColor: isToggleOn? "white": "#999"}]}>
+			<View style = {[styles.container, {backgroundColor: (isToggleOn && selectedButton  )? "white": "#999"}]}>
 		  	<View style = {styles.containerCircle}>
              	<Text style = {styles.containerCircleText}>{subject.name[0]}</Text>
           	</View>
@@ -55,7 +58,7 @@ setIsToggleOn(!isToggleOn)};
               	</View>
           	</TouchableOpacity>                     
 			</View>
-			{isToggleOn && (
+			{(isToggleOn && selectedButton ) && (
 				<View style = {styles.attachedToButton}>
 					<View style = {styles.attachedToButtonLeft}>
 						 <YearPickerModal/> 
@@ -67,6 +70,8 @@ setIsToggleOn(!isToggleOn)};
 					</View>
 				</View>
 			)}
+			
+			
 		</View>
 	);
 }

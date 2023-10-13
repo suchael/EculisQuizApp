@@ -246,7 +246,7 @@ function QuestionInterfaceContainer({ind}){
 
 function BottomBtn(){
 	return (
-		<View style = {{ position: "absolute", bottom: 0, left: 15, right: 15, flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 4}}>
+		<View style = {{ position: "absolute", bottom: 0, left: 15, right: 15, flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 4, paddingBottom: 8}}>
 			<TouchableHighlight
         			onPress={() => console.log("Prev Btn") }
         			activeOpacity={0.9}
@@ -448,7 +448,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "gray",
-		borderRadius: 10,
+		borderRadius: 18,
    },
 });
 

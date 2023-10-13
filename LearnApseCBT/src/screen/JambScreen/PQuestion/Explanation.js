@@ -19,26 +19,19 @@ import { AntDesign , FontAwesome, Ionicons, MaterialIcons, Feather} from '@expo/
 import subjects from  "../../../SubjectDb.js";
 import ErrorQuestion from "./ErrorQuestion.js";
 
-export default function Explanation() {
-   const [isHeaderShown, setIsHeaderShown] = useState(true);
-  return (
-    <View style={styles.container}>
-			<MainContainer/>
-    </View>
-  );
-}
 
 
-function MainContainer(){
+export default function Explanation(){
 	const insets = useSafeAreaInsets();
 	return(
-		<View style = {styles.mainContainer}>
-			<ScrollView >
+		<>
+			<ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: "center", alignItems: "center", backgroundColor: "white"}} >
 				<View style = {{
                   	paddingLeft: insets.left + 10,
                   	paddingRight: insets.right + 10,
                   	paddingTop: insets.top + 14,
-                  	paddingBottom: insets.bottom + 130,             	
+                  	paddingBottom: insets.bottom + 130,  
+				  	flex:1, 
                 }}
 				>
 					<QuestionInterface/>
@@ -46,7 +39,7 @@ function MainContainer(){
 			</ScrollView>
 			<Header/>
 			<BottomBtn/>
-		</View>
+		</>
 	);
 }
 
@@ -94,7 +87,7 @@ function QuestionInterfaceContainer({ind}){
 						<Feather name="bookmark" size={24} color="black" />
 					</TouchableOpacity>
 					<Text style = {styles.questionScreenNumber}>
-						Question {ind}
+						Question {ind}/50
 					</Text>
 					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center",  padding: 3}}>
 						<MaterialIcons name="content-copy" size={24} color="black" />
@@ -204,7 +197,7 @@ function Header(){
 				  justifyContent: "space-between",
                   paddingLeft: insets.left + 10,
                   paddingRight: insets.right + 10,
-                  paddingBottom: insets.bottom,
+                  paddingBottom: insets.bottom + 2,
                   height:  12,
                   width: "100%",
                   position: "absolute",
@@ -223,7 +216,7 @@ function Header(){
 function BottomBtn(){
 	const navigation= useNavigation ();
 	return (
-		<View style = {{ position: "absolute", bottom: 0, left: 22, right: 22, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+		<View style = {{ position: "absolute", bottom: 0, left: 22, right: 22, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingBottom: 18}}>
 			<TouchableHighlight
         			onPress={() => console.log("Prev Btn") }
         			activeOpacity={0.9}
@@ -259,6 +252,7 @@ function BottomBtn(){
 const styles = StyleSheet.create({
   container:{
     flex: 1,
+    
   },
   homeHeader: {
     flexDirection: "row",
@@ -276,20 +270,19 @@ const styles = StyleSheet.create({
   mainContainer:{
   	flex:1,
   	backgroundColor: "white",
+  	
   },
  
   // Question Interface
-  questionInterfaceMain: {
-  	//borderWidth : 2, 
-	  marginBottom: 20,
-   },
+  
    questionInterfaceContainer: {
    	backgroundColor: "white",
    	borderWidth: 2, 
 	   padding:  6, 
 	   //borderColor: "blue", 
 	   borderRadius: 18, 
-	   marginBottom: 35
+	   marginBottom: 35,
+	   maxWidth: 420,
 	},
 	questionAndExplanationScreen: {
 		borderWidth:2, 
@@ -300,7 +293,7 @@ const styles = StyleSheet.create({
 		marginBottom: 6
 	},
 	questionScreenNumberView: {
-		marginTop: -2, 
+		//marginTop: -2, 
 		justifyContent: "space-between", 
 		alignItems: "center",
 		flexDirection: "row",
@@ -312,7 +305,8 @@ const styles = StyleSheet.create({
 		borderWidth: 2, borderColor: "#666",
 		paddingHorizontal: 10,
 		paddingVertical: 2,
-		borderRadius: 5
+		borderRadius: 5,
+		
 	},
    questionScreenQuestionContent: {
    	fontSize: 16.7, 
