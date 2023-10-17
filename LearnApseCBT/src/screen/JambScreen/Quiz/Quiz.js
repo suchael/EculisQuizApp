@@ -17,10 +17,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 
 // My imports
-import Subject from '../PQuestion/SubjectListDb.js';
+import {Subjects} from '../PQuestion/SubjectListDb.js';
 import TruncatedText from '../PQuestion/TruncatedText.js';
 import QuizQuestionScreen from './QuizQuestionScreen.js';
-import {QuizContext} from "./QuizUseContext/Context.js";
 
 
 const Stack = createNativeStackNavigator();
@@ -42,11 +41,11 @@ function QuizHome() {
   const insets = useSafeAreaInsets();
   return (
     <View style={styles.homeContainer}>
-    	<QuizContext.Provider value ={{gameState, setGameState}}>
+   
     		<HomeHeader />
       	  <Main />
       	  <BottomBtn />
-    	</QuizContext.Provider>
+    	
       
     </View>
   );
@@ -94,7 +93,7 @@ const Main = React.memo(() => {
   }, []);
   return (
     <FlatList
-      data={Subject}
+      data={Subjects}
       keyExtractor={(item, index) => index.toString()}
       renderItem= {renderItemCallback}
       ListHeaderComponent={() => (
@@ -179,7 +178,7 @@ const BottomBtn = React.memo(() => {
 const styles = StyleSheet.create({
   homeContainer:{
     flex:1,
-    backgroundColor: "lightgray",
+    backgroundColor: "white",
   },
   homeHeader: {
     flexDirection: "row",

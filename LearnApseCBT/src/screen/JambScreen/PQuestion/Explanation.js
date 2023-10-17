@@ -10,7 +10,7 @@ import {View,
 import React , {useState} from 'react';
 
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 // Icons
 import { AntDesign , FontAwesome, Ionicons, MaterialIcons, Feather} from '@expo/vector-icons';
@@ -55,9 +55,12 @@ function QuestionInterface() {
 
 function QuestionInterfaceContainer({ind}){
 	const navigation = useNavigation();
+	const route = useRoute ();
 	
+	const { questions, currentQuestionIndex } = route.params; //get the questions passed from the Prev screen
+	console.log("route", currentQuestionIndex+1)
 	const [modalVisible, setModalVisible] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+    const [selectedOptions, setSelectedOptions] = useState([]);
 
   const showModal = () => {
     setModalVisible(true);

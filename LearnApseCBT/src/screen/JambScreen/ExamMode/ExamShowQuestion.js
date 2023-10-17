@@ -5,7 +5,7 @@ import {View,
         ScrollView,
         Dimensions,
         TouchableOpacity,
-        BackHandler, FlatList,
+        BackHandler, FlatList,ActivityIndicator,
         TouchableHighlight } from 'react-native';
         
 import React , {useState, useEffect} from 'react';
@@ -99,7 +99,15 @@ function TabBar(){
           backgroundColor: "black",
           height: 3,
         },
-        animation: "none",
+        //animation: "default",
+        
+    	lazy: true, // Enable lazy rendering
+    	//lazyPreloadDistance: 10, // Set the preload distance to 500 pixels
+    	lazyPlaceholder: () => (
+    		<View style ={{flex:1, justifyContent: "center", alignItems: "center"}}>
+      			<ActivityIndicator size="large" color="blue" /> 
+			</View>
+   	 ),
     }}>
       <Tab.Screen name ="Maths" component={MainContainer}/>
       <Tab.Screen name ="Phys" component={MainContainer}/>
@@ -190,7 +198,7 @@ function QuestionInterfaceContainer({ind}){
 					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
 						D{". "}
 						<Text style = {styles.optionContainerOptions}>
-              				which is very large and in which close to 98% of projectiles pass undefle Ted which is very large and in which close to 98% of projectiles pass undeflectedwhich is very large and in which close to 98% of projectiles pass undeflectedwhich is very large and in which close to 98% of projectiles pass undeflected
+              				which is very large and in which close to 98% of projectiles pass undefle Ted which is very large and in which close to 98% of pass undeflected
          				</Text>
 					</Text>			
          	   </TouchableOpacity>
@@ -325,7 +333,7 @@ const styles = StyleSheet.create({
   },
   homeContainer:{
     flex:1,
-    backgroundColor: "lightgray",
+    backgroundColor: "white",
   },
   homeHeader: {
     flexDirection: "row",
@@ -341,7 +349,7 @@ const styles = StyleSheet.create({
   // main container
   mainContainer:{
   	flex:1,
-  	backgroundColor: "lightgray",
+  	backgroundColor: "white",
   },
   
   // Question Interface
@@ -395,14 +403,14 @@ const styles = StyleSheet.create({
 		paddingTop: 5
 	},
 	optionContainer: {
-		justifyContent: "center",
+		//justifyContent: "center",
 		paddingHorizontal: 8 ,
 		paddingVertical: 4,
 		borderWidth: 2, 
 		borderRadius: 12, 
 		marginBottom: 6, 
 		backgroundColor: "white" ,
-		minHeight: 30
+		minHeight: 50
 	},
 	optionContainerOptions: {
 		fontSize: 16.7, 

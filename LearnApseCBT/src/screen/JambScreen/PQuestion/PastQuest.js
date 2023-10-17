@@ -19,7 +19,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 
 // my import
-import Subject from "./SubjectListDb.js";
+import {Subjects} from "./SubjectListDb.js";
 import QuestButton from "./QuestButton.js";
 import ShowQuestionList from "./ShowQuestionList.js";
 import Explanation from  "./Explanation.js";
@@ -38,7 +38,7 @@ export default function PastQuest() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}}>
       <Stack.Screen name='Home' component = {Home}/>
-      <Stack.Screen name='Show question list' component = {ShowQuestionList}/>
+      <Stack.Screen name='Show question list' component = {ShowQuestionList} initialParams={{ currentPage: 1 }} />
   	<Stack.Screen name='Explanation' component = {Explanation}/>
   	<Stack.Screen name='Analysis' component = {Analysis}/>
   	<Stack.Screen name='ErrorQuestion' component = {ErrorQuestion}/>
@@ -112,7 +112,7 @@ function SelectBySubject(){
 		</View>
 		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select a subject: </Text>
 			<View style = {{paddingBottom: 110}}>
-				{Subject.map((eachSubject, index)=>(
+				{Subjects.map((eachSubject, index)=>(
 					<QuestButton key={index} subject= {eachSubject} pickerType= "Year" index={index}/>
 				))}
 			</View>

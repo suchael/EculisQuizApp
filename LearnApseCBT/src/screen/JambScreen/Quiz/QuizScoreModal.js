@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useContext} from 'react';
+
 import { Modal, Text, View, TouchableOpacity, ScrollView, StyleSheet, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
+
+//My import
+import {ScoreContext} from "./QuizUseContext/Context.js";
+
+
 export default function ScoreModal({ visible, onClose }) {
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
-  const isUserCorrect = true; // Turn this to True or false to see the changes
+  
+  const { isAnswerCorrect} = useContext(ScoreContext); // return true or false if user is correct from QuizQuestionScreen.js
+
+  const isUserCorrect = isAnswerCorrect; // Turn this to True or false to see the changes wrong or right answer on the modal
 
   return (
     <Modal
@@ -16,14 +25,12 @@ export default function ScoreModal({ visible, onClose }) {
       onRequestClose={onClose}
     >
       <View style={{ backgroundColor: 'rgba(0,0,0,0.6)', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <TouchableOpacity style={{ flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center' }} onPress={onClose}>
-          <View style={{ borderRadius: 15, backgroundColor: 'white', padding: 2, height: '45%', width: '60%', justifyContent: 'space-between', alignItems: 'center' }}>
-            <ScrollView>
-              <View style={{ marginVertical: 5, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ fontSize: 20, fontWeight: '600', marginTop: 12, marginBottom: 8 }}>Correct Answer: B</Text>
-              </View>
-              <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 15 }}>
-                <View style={{ borderWidth: 3, borderColor: isUserCorrect? "green" : "red", borderRadius: 10, alignItems: 'center', justifyContent: 'center', minHeight: windowHeight * 0.3170, width: '100%' }}>
+        <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' , }} onPress={onClose}>
+          <View style={{ borderRadius: 15, backgroundColor: 'white', padding: 10, height: '45%', width: '80%', justifyContent: 'space-between', alignItems: 'center' }}>
+            
+              <Text style={{ marginVertical: 5, fontSize: 20, fontWeight: '600', marginTop: 12,  textAlign: "center"}}>Correct Answer: B</Text>
+              
+                <View style={{ borderWidth: 3, backgroundColor: isUserCorrect? "lightgreen" : "pink", borderColor: isUserCorrect? "green" : "red", borderRadius: 10, alignItems: 'center', justifyContent: 'center', padding: 10, height: "80%", marginBottom: 7}}>
                   {isUserCorrect ? (
                     <>
                       <Text style={{ fontSize: 18, fontWeight: '600', marginBottom: 20 }}>You are correct</Text>
@@ -36,8 +43,7 @@ export default function ScoreModal({ visible, onClose }) {
                     </>
                   )}
                 </View>
-              </View>
-            </ScrollView>
+            
           </View>
         </TouchableOpacity>
       </View>

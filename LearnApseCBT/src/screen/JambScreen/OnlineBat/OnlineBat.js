@@ -22,7 +22,7 @@ import { AntDesign,
 
 
 // My import
-import Subject from "../PQuestion/SubjectListDb.js";
+import {Subjects} from "../PQuestion/SubjectListDb.js";
 import QuestButton from "../ExamMode/QuestButton.js";
 import OnlineBatGameScreen from "./OnlineBatGameScreen.js";
 import UnderLineTextBtn from "../ExamMode/UnderLineTextBtn.js";
@@ -63,16 +63,16 @@ function HomeHeader(){
                       paddingLeft: insets.left + 10,
                       paddingRight: insets.right + 10,
                       paddingTop: insets.top + 12,
-                      paddingBottom: insets.bottom + 4,
-                      borderTopRightRadius: 22,
-                      borderTopLeftRadius: 22
+                      paddingBottom: insets.bottom + 6,
+                      borderTopRightRadius: 12,
+                      borderTopLeftRadius: 12
                   }]}>
       <Text style = {styles.homeHeaderText}>Online{"  "}Battle</Text>
       <TouchableHighlight
         onPress={() => navigation.goBack() }
         activeOpacity={0.9}
         underlayColor="lightgray"
-        style = {{marginRight: -65,width: 60, height: 40, justifyContent: "center", alignItems: "center", }}
+        style = {{position: "absolute", bottom: 2, right: 10, width: 60, height: 40, justifyContent: "center", alignItems: "center", }}
       >
       		<Entypo name="circle-with-cross" size={28} color="black" />
       </TouchableHighlight>
@@ -84,15 +84,15 @@ function HomeHeader(){
 function Main(){
 	const insets = useSafeAreaInsets();
 	return(
-		<ScrollView style ={{height: "100%", backgroundColor: "white"}}>
+		<ScrollView contentContainerStyle ={{flexGrow: 1, backgroundColor: "white"}}>
 			<View style = {{backgroundColor: "white", flex: 1, 
-										paddingLeft: insets.left + 10,
-                      				  paddingRight: insets.right + 10,
+										paddingHorizontal: insets.left + 10,
+                      				  
                       				  paddingTop: insets.top + 12,
                       				  paddingBottom: insets.bottom + 160,
 										}}
 			>
-				<Text style = {{fontSize: 15, fontWeight: "500", color: "black"}}>
+				<Text style = {{fontSize: 15, fontWeight: "500", color: "black", textAlign: "center"}}>
 					Compete randomly with people in an Online Battle within your country. 
 				</Text>
 				<Text style = {{fontSize: 17, fontWeight: "600", color: "black", marginTop: 15, }}>
@@ -101,7 +101,7 @@ function Main(){
 				
 				{/*Subject List*/}
 				<View style  ={{marginHorizontal: -10}}>
-					{Subject.map((eachSubject, index)=>(
+					{Subjects.map((eachSubject, index)=>(
 						<QuestButton key={index} subject= {eachSubject}/>
 					))}
 				</View>
@@ -127,16 +127,16 @@ function BottomBtn() {
   }
   
   return (
-    <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 0, paddingHorizontal: 8, width: "100%" , backgroundColor: "lightgray", paddingTop: 8}}>
+    <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 0, paddingHorizontal: 8, paddingBottom: 8, width: "100%" , backgroundColor: "white", paddingTop: 8}}>
     	{/*Underline Text button*/}
-      <TouchableOpacity onPress={openModal} style={{ backgroundColor: "white", justifyContent: "center", alignItems: "center", paddingHorizontal: 26, paddingVertical: 10, borderRadius: 15, backgroundColor: "black" }}>
+      <TouchableOpacity onPress={openModal} style={{ backgroundColor: "white", justifyContent: "center", alignItems: "center", paddingHorizontal: 26, paddingVertical: 10, borderRadius: 18, backgroundColor: "black" }}>
         	<Text style={{ fontSize: 17, fontWeight: "bold", color: "white" }}>Friendly Match ?</Text>
       </TouchableOpacity>
       {/*Request usernameModa*/}
       <FindFrndByUsernameModal visible ={modalVisible} onClose={closeModal}/>
       
       {/*Play Button*/}
-      <TouchableOpacity onPress={()=>navigation.navigate("OnlineBatGameScreen")} style={{ borderWidth: 2, backgroundColor: "gray", justifyContent: "center", alignItems: "center", paddingHorizontal: 26, paddingVertical: 10, borderRadius: 15 }}>
+      <TouchableOpacity onPress={()=>navigation.navigate("OnlineBatGameScreen")} style={{  backgroundColor: "gray", justifyContent: "center", alignItems: "center", paddingHorizontal: 26, paddingVertical: 10, borderRadius: 18 }}>
         	<Text style={{ fontSize: 17, fontWeight: "bold" }}>Play</Text>
       </TouchableOpacity>
     </View>

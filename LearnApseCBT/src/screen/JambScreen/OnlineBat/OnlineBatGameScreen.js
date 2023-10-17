@@ -169,9 +169,8 @@ function QuestionInterfaceContainer({ind}){
 					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
 						D{". "}
 						<Text style = {styles.optionContainerOptions}>
-              				which is very large and in which close to 98% of projectiles pass undefle Ted which is very large and in which close to 98% of projectiles pass undeflectedwhich is very large and in which close to 98% of projectiles pass undeflectedwhich is very large and in which close to 98% of projectiles pass undeflected
-         				</Text>
-					</Text>			
+              				which is very large and in which close to 98% of projectiles pass undefle Ted          				</Text>
+				    	</Text>			
          	   </TouchableOpacity>
 			</View>
 		</View>
@@ -221,7 +220,7 @@ function ContinueButton() {
 const styles = StyleSheet.create({
 	homeContainer:{
     flex:1,
-    backgroundColor: "lightgray",
+    backgroundColor: "white",
   },
   
     // Question Interface

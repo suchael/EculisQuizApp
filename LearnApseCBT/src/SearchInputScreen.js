@@ -162,6 +162,7 @@ function SearchInputScreen() {
 function QuestionInterfaceContainer({ind}){
 	const navigation = useNavigation()
 	return(
+	<View style ={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
 		<View style = {styles.questionInterfaceContainer}>
 			<View style = {styles.questionScreen}>
 				<View style = {styles.questionScreenNumberView}>
@@ -239,6 +240,7 @@ function QuestionInterfaceContainer({ind}){
           			</TouchableHighlight>              
 			</View>
 		</View>
+	</View>
 	);
 }
 
@@ -334,7 +336,8 @@ const styles = StyleSheet.create({
 	   padding:4, 
 	   borderColor: "#999", 
 	   borderRadius: 15, 
-	   marginBottom: 35
+	   marginBottom: 35,
+	   maxWidth: 420,
 	},
 	questionScreen: {
 		borderWidth:2, 

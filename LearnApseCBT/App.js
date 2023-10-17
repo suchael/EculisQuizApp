@@ -63,7 +63,20 @@ export default function App() {
   	<SafeAreaProvider>
   		  <Status_bar/>
   		  <NavigationContainer>
-					<Stack.Navigator initialRouteName='HomeScreen' screenOptions={{animation:"none",headerShown: false}}>
+					<Stack.Navigator initialRouteName='HomeScreen' 
+						screenOptions={{
+							
+							//animation:"slide",
+							headerShown: false, 
+							lazy: true, // Enable lazy rendering
+    						//lazyPreloadDistance: 1000, // Set the preload distance to 500 pixels
+    						lazyPlaceholder: () => (
+    							<View style ={{flex:1, justifyContent: "center", alignItems: "center"}}>
+      								<ActivityIndicator size="large" color="blue" /> 
+								</View>
+   						 ),
+						}}
+					>
 						<Stack.Screen 
 							name="HomeScreen" 
 							options={{headerShown: false}}

@@ -22,8 +22,7 @@ import { AntDesign,
 
 //My import
 import QuizScoreModal from "./QuizScoreModal.js";
-import {QuizContext} from "./QuizUseContext/Context.js";
-
+import {ScoreContext} from "./QuizUseContext/Context.js";
 
 const quizQuestions = [
   {
@@ -59,21 +58,35 @@ const quizQuestions = [
 ];
 
 
-const ScoreContext = createContext(null);
+//export const ScoreContext = createContext(null);
 
 export default function QuizQuestionScreen(){
 	const [score, setScore] = useState(0);
 	const [selectedQuestion, setSelectedQuestion] = useState(0); 
+	const [selectedOption, setSelectedOption] = useState(null); // Used to know the current user Option
+	const [isAnswerCorrect, setIsAnswerCorrect] = useState(null); 
+	 
+	
+	const contextValue = {
+		score, 
+		setScore, 
+		selectedQuestion, 
+		setSelectedQuestion, 
+		isAnswerCorrect, 
+		setIsAnswerCorrect,
+		selectedOption,
+		setSelectedOption,
+	}
 	return(
-		<ScoreContext.Provider value={{ score, setScore, selectedQuestion, setSelectedQuestion }}>
+		<ScoreContext.Provider value={contextValue}>
 			{
-				selectedQuestion <= quizQuestions.length? (
+				selectedQuestion <= quizQuestions.length -1? (
 					<View style ={styles.homeContainer}>
 						<Main/>
 						<ContinueButton/>
 					</View>
 				) : (
-					<Text style ={{fontSize:18, fontWeight: "bold"}}>Done</Text>
+					<EndQuizScreen/>
 				)
 			}
       	  
@@ -156,17 +169,21 @@ function Timer(){
 
 function QuizQuestionInterface(){
 	const navigation = useNavigation()
-	const [selectedOption, setSelectedOption] = useState(null); // Change to single selected button
-	const { score, setScore, selectedQuestion, setSelectedQuestion } = useContext(ScoreContext); // Access score from context
+	
+	const { score, 
+				  setScore, 
+				  selectedQuestion, 
+				  setSelectedQuestion,
+				  isAnswerCorrect,
+				  setIsAnswerCorrect,
+				  selectedOption,
+				  setSelectedOption,
+				} = useContext(ScoreContext); // Access score from context
 
 
 	const handlepress = (index)=>{
 		setSelectedOption(index)
-		if (quizQuestions[selectedQuestion].answer === quizQuestions[selectedQuestion].options[index]){
-			setScore ((newscore)=>newscore+5)
-			setSelectedQuestion(num => num+1)
-			setSelectedOption(null)
-		}
+		console.log("option:", quizQuestions[selectedQuestion].options[selectedOption])
 	}
 
 	return(
@@ -184,11 +201,11 @@ function QuizQuestionInterface(){
 			</View>
 			<View style = {styles.optionMain}>
 				{quizQuestions[selectedQuestion]?.options.map((option, index)=>(
-					<TouchableHighlight style= {[styles.optionContainer, {backgroundColor: selectedOption === index? "lightblue": "white"}]} 
+					<TouchableHighlight style= {[styles.optionContainer, {backgroundColor: selectedOption === index? "#4B9CD3": "white"}]} 
 							key={index} index={index} 
 							onPress ={()=> handlepress(index)}
-							activeOpacity={0.85} 
-							underlayColor="lightblue"
+							activeOpacity={1} 
+							underlayColor="#7393B3"
 					>
 					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
 						{option[0].toUpperCase()}{". "}
@@ -209,21 +226,44 @@ function QuizQuestionInterface(){
 
 function ContinueButton() {
   const [modalVisible, setModalVisible] = useState(false);
-  
+  const { selectedOption, 
+				setSelectedOption,
+  			  setScore, 
+				setIsAnswerCorrect,
+				selectedQuestion, 
+				setSelectedQuestion } = useContext(ScoreContext); //returns 1 -->True if user clicks an option else null --> false
+
   const openModal = ()=>{
   	setModalVisible(true);
+  	
+  	if (quizQuestions[selectedQuestion].answer === quizQuestions[selectedQuestion].options[selectedOption]){
+			//setScore ((newscore)=>newscore+5)
+			setIsAnswerCorrect(true)
+		}
+		else{
+			
+			setIsAnswerCorrect(false)
+		}
   }
   
   const closeModal = ()=>{
   	setModalVisible(false);
+  	if (quizQuestions[selectedQuestion].answer === quizQuestions[selectedQuestion].options[selectedOption]){
+			setScore ((newscore)=>newscore+5)
+		}
+  	setSelectedQuestion(num => num+1);
+  	setSelectedOption(null);
   }
+  
   
   return (
   <>
     <TouchableOpacity
 	  onPress = {openModal}
+	   disabled = {selectedOption == null? true: false} // enable button if user selects an option, else disable btn
+	   opacity = {selectedOption == null? 1:0 }
       style={{
-        backgroundColor: "gray",
+        backgroundColor: selectedOption == null? "lightgray": "gray",
         paddingVertical: 10,
         borderRadius: 20,
         justifyContent: "center",
@@ -235,7 +275,7 @@ function ContinueButton() {
         right: 15, // Adjust the right distance as needed
       }}
     >
-      <Text style={{ fontSize: 17, fontWeight: "bold" }}>Continue</Text>
+      <Text style={{ fontSize: 17, fontWeight: "bold", color: selectedOption == null? "#777": "black", }}>Continue</Text>
     </TouchableOpacity>
     <QuizScoreModal visible = {modalVisible} onClose ={closeModal}/>
   </>
@@ -244,11 +284,39 @@ function ContinueButton() {
 
 
 
+function EndQuizScreen(){
+	const { score } = useContext(ScoreContext);
+	const exceptionalScore = 10; // if students score above 10/50 
+	const navigation= useNavigation();
+	return(
+		<View style={{flex: 3, padding: 10, backgroundColor: "white"}}>
+			<View style={{flex: 2, justifyContent: "center", alignItems: "center", borderWidth: 2, borderColor: "#777", borderRadius:3, padding: 15}}>
+				<Text style ={{fontSize:18, fontWeight: "bold", marginBottom: 10}}>Total Quiz Score</Text>
+				<Text style ={{fontSize: 40, fontWeight: "bold"}}>{score}/30</Text>
+				{
+					score >= exceptionalScore && (<Text style ={{fontSize: 18, fontWeight: "500", marginTop: 40, textAlign: "center"}}>Ah... Your Literature skills are truly impressive. You remind me of someone</Text>)
+				}
+				
+			</View>
+			
+			<View style={{flex: 1, flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end", paddingHorizontal: 2, paddingBottom: 8}}>
+			 	<TouchableOpacity onPress= {()=> navigation.navigate("HomeScreen")} style={{ backgroundColor: '#999', borderRadius: 50, padding: 10 , width: "40%" }}>
+       			 	<Text style={{ color: 'white', textAlign: 'center', fontSize: 17, fontWeight: "500" }}>Home</Text>
+      			</TouchableOpacity>
+      
+      			<TouchableOpacity onPress= {()=> navigation.navigate("QuizHome")} style={{ backgroundColor: 'blue', borderRadius: 50, padding: 10 , width: "40%" }}>
+       			 	<Text style={{ color: 'white', textAlign: 'center', fontSize: 17, fontWeight: "500" }}>Replay</Text>
+      			</TouchableOpacity>
+			</View>
+		</View>
+		
+	);
+}
 
 const styles = StyleSheet.create({
 	homeContainer:{
     flex:1,
-    backgroundColor: "lightgray",
+    backgroundColor: "white",
     paddingBottom: 60,
   },
   
