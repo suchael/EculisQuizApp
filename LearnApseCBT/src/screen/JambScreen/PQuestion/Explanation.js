@@ -7,10 +7,11 @@ import {View,
         Dimensions, TouchableOpacity,
         TouchableHighlight } from 'react-native';
         
-import React , {useState} from 'react';
+import React , {useState, useContext, useMemo, useCallback} from 'react';
 
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import { useNavigation, useRoute } from '@react-navigation/native';
+import * as Clipboard from 'expo-clipboard';
 
 // Icons
 import { AntDesign , FontAwesome, Ionicons, MaterialIcons, Feather} from '@expo/vector-icons';
@@ -18,6 +19,7 @@ import { AntDesign , FontAwesome, Ionicons, MaterialIcons, Feather} from '@expo/
 // My import
 import subjects from  "../../../SubjectDb.js";
 import ErrorQuestion from "./ErrorQuestion.js";
+import {ShowQuestionContext} from "./ShowQuestionContext/Context.js";
 
 
 
@@ -44,118 +46,158 @@ export default function Explanation(){
 }
 
 
-function QuestionInterface() {
-  return (
-    <View style={styles.questionInterfaceMain}>
-        <QuestionInterfaceContainer ind = "1"/>
-    </View>
-  );
-}
+const QuestionInterface = React.memo(() => {
+	return (
+    	<View style={styles.questionInterfaceMain}>
+        	<QuestionInterfaceContainer ind = "1"/>
+    	</View>
+    );
+});
 
 
-function QuestionInterfaceContainer({ind}){
+
+function QuestionInterfaceContainer(){
 	const navigation = useNavigation();
-	const route = useRoute ();
 	
-	const { questions, currentQuestionIndex } = route.params; //get the questions passed from the Prev screen
-	console.log("route", currentQuestionIndex+1)
+	const route = useRoute ();
+	const { questions, 
+				  currentQuestionIndex, 
+				  startQuestionIndexPerPage,
+			  	totalQuestions,
+				 } = useMemo(() => route.params, [route.params]);//get the questions passed from the Prev screen
+	
 	const [modalVisible, setModalVisible] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]);
 
-  const showModal = () => {
-    setModalVisible(true);
-  };
+	const showModal = useCallback(() => {
+  		setModalVisible(true);
+	}, []);
 
-  const hideModal = () => {
-    setModalVisible(false);
-  };
+	const hideModal = useCallback(() => {
+  		setModalVisible(false);
+	}, []);
 
-  const toggleOption = (option) => {
+  
+  const toggleOption = useCallback((option) => {
     const updatedOptions = [...selectedOptions];
-
     if (updatedOptions.includes(option)) {
       updatedOptions.splice(updatedOptions.indexOf(option), 1);
     } else {
       updatedOptions.push(option);
     }
-
     setSelectedOptions(updatedOptions);
-  };
+  }, []);
+  
+  
+  const copyToClipboard = async (eachQuestion) => {
+  		const { question, options, answer, explanation } = eachQuestion;
+  		
+		 // Combine all options into a single string
+  		const allQuestionOptions = options.map((option) => {
+    		return Object.keys(option)[0] + ". " +option[Object.keys(option)[0]];
+  		}).join('\n');
+
+  		// Combine the question and options
+  		const textToCopy = `${question} \n${allQuestionOptions} \n\n*Correct Answer:* ${answer} \n\n*Explanation* \n${explanation}`;
+
+  		// Attempt to copy the text to the clipboard
+  		try {
+    		await Clipboard.setString(textToCopy);
+    		alert("Question, Answer and Explanation copied successfully");
+  		} catch (error) {
+    		alert("Copy failed. Please try again.");
+  		}
+	};
+	
+	const copyExplanationToClipboard = async (eachQuestion) => {
+  		const { explanation } = eachQuestion;
+  		const textToCopy = `*Explanation* \n${explanation}`;
+
+  		// Attempt to copy the text to the clipboard
+  		try {
+    		await Clipboard.setString(textToCopy);
+    		alert("Explanation copied successfully");
+  		} catch (error) {
+    		alert("Copy failed. Please try again.");
+  		}
+	};
+  
 	return(
 		<View style = {styles.questionInterfaceContainer}>
 			<View style = {styles.questionAndExplanationScreen}>
 				<View style = {styles.questionScreenNumberView}>
 					
-					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center", padding: 3}}>
+					<TouchableHighlight style = {{justifyContent: "center", alignItems: "center", padding: 3}}>
 						<Feather name="bookmark" size={24} color="black" />
-					</TouchableOpacity>
+					</TouchableHighlight>
+					
 					<Text style = {styles.questionScreenNumber}>
-						Question {ind}/50
+						Question { startQuestionIndexPerPage + currentQuestionIndex + 1} of { totalQuestions }
 					</Text>
-					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center",  padding: 3}}>
-						<MaterialIcons name="content-copy" size={24} color="black" />
-					</TouchableOpacity>
+					
+					<TouchableHighlight 
+						onPress ={ ()=>copyToClipboard(questions[ currentQuestionIndex ]) } 
+						activeOpacity={0.9}
+        				underlayColor="#00A86B"
+						style={{backgroundColor: "white", justifyContent: "center", alignItems: "center", padding: 5, borderRadius: 5 }}
+					>
+              			<MaterialIcons name="content-copy" size={24} color="black" />
+            		</TouchableHighlight>
 
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
-					Which of the following statements does not show Rutherford's account of Nuclear Theory? An atom contains a region
+					{questions[ currentQuestionIndex ].question}
 				</Text>
 			</View>
+			
+			
 			<View style = {styles.optionMain}>
-				<View style= {[styles.optionContainer, {borderWidth: 3.5, borderColor: "#00A86B", }]}>
-					<Text style = {[styles.optionContainerOptions, {fontSize: 18, fontWeight: "bold",}]}>
-						A{".  "}
-						<Text style = {styles.optionContainerOptions}>
-              				which contains protons and neutrons 				
-						</Text>
-					</Text>	
-					<AntDesign name="checkcircle" size={26} color="#00A86B" />
-         	   </View>
-         	<View style= {styles.optionContainer}>
-					<Text style = {[styles.optionContainerOptions, {fontSize: 18, fontWeight: "bold",}]}>
-						B{".  "}
-						<Text style = {styles.optionContainerOptions}>
-              				which is positively charged
-         				</Text>
-					</Text>			
-         	   </View>
-				<View style= {styles.optionContainer}>
-					<Text style = {[styles.optionContainerOptions, {fontSize: 18, fontWeight: "bold",}]}>
-						C{".  "}
-						<Text style = {styles.optionContainerOptions}>
-              				which is massive and can cause deflection of a few projectiles
-         				</Text>
-					</Text>			
-         	   </View>
-         	<View style= {[styles.optionContainer, {borderWidth: 3, borderColor: "red"}]}>
-					<Text style = {[styles.optionContainerOptions, {fontSize: 18, fontWeight: "bold",}]}>
-						D{".  "}
-						<Text style = {styles.optionContainerOptions}>
-              				which is very large and in which close to 98% of projectiles pass undeflected
-         				</Text>
-					</Text>
-					<MaterialIcons name="cancel" size={32} color="red" />			
-         	   </View>
+				{  
+					questions[ currentQuestionIndex ].options.map((eachOption, index)=> (
+							<View key = {index} style= {[styles.optionContainer, {borderWidth: Object.keys(eachOption)[0] === questions[ currentQuestionIndex ].answer.slice(-1)? 3.5: 2 , borderColor: Object.keys(eachOption)[0] === questions[ currentQuestionIndex ].answer.slice(-1)? "#00A86B": "#777", }]}>
+								<Text style = {[styles.optionContainerOptions, {fontSize: 18, fontWeight: "bold",}]}>
+									{ Object.keys(eachOption)[0]}{".  "}
+									<Text style = {styles.optionContainerOptions}>
+              							{ eachOption[Object.keys(eachOption)[0]] }
+									</Text>
+								</Text>	
+								
+								{
+									Object.keys(eachOption)[0] === questions[ currentQuestionIndex ].answer.slice(-1) && //add a green icon to the correct option 
+									<AntDesign name="checkcircle" size={26} color="#00A86B" />
+								}
+         	   			</View>
+					))
+				}
 			</View>
-			<View style = {[styles.questionAndExplanationScreen, {marginTop:18, backgroundColor: "lightgray"}]}>
+			
+			
+			<View style = {[styles.questionAndExplanationScreen, {marginTop:18, backgroundColor: "lightgray", borderWidth: 4, borderColor: "#00A86B"}]}>
 				<View style = {[styles.questionScreenNumberView, {flexDirection: "column", alignItems: "center"}]}>
 					<Text style = {[styles.questionScreenNumber, {fontSize:22, backgroundColor: "white"}]}>
 						Explanation 
 					</Text>
-					<TouchableOpacity style = {{justifyContent: "center", alignItems: "center",  padding: 3, position: "absolute", top: 0, right: 2}}>
+					<TouchableHighlight 
+						onPress ={ ()=>copyExplanationToClipboard (questions[ currentQuestionIndex ]) } 
+						activeOpacity={0.9}
+        				underlayColor="#00A86B"
+						style = {{justifyContent: "center", alignItems: "center",  padding: 3, position: "absolute", top: 0, right: 2, borderRadius: 5 }}
+					>
 						<MaterialIcons name="content-copy" size={24} color="black" />
-					</TouchableOpacity>
+					</TouchableHighlight>
 				</View>
-				<Text style = {{fontSize: 17, fontWeight: "600", marginVertical:10}}>Correct Answer: A</Text>
+				<Text style = {{fontSize: 20, fontWeight: "600", marginVertical:10}}>
+						Correct Answer: { questions[ currentQuestionIndex ].answer.slice(-1)}
+				</Text>
 				<Text style = {styles.explanationContentText}>
-					A mixture of iodine and sulphur can be separated by adding Carbon disulphide that is (CS₂) then stir the solution and filter it . As sulphur dissolved in CS₂, so it come into filter and got separated from the mixture.
+					{questions[ currentQuestionIndex ].explanation} 
 				</Text>
 				
 				<TouchableHighlight 
 		 					onPress={()=>{navigation.navigate("CommentSection")}} 		
 	     					underlayColor="white"
 			 				activeOpacity={0.9}
-							style = {{borderWidth:2, padding: 4, marginTop: 20, marginBottom: 10, justifyContent: "center", flex:1, alignItems: "center", borderRadius: 18, backgroundColor: "white"}}
+							style = {{borderWidth:2, padding: 4, marginTop: 30, marginBottom: 10, justifyContent: "center", flex:1, alignItems: "center", borderRadius: 18, backgroundColor: "white" , }}
 	      			>
               			<Text style= {{fontSize: 17, fontWeight: "600", padding: 2}}>   
 								Post or View public answers (5)    
@@ -166,7 +208,12 @@ function QuestionInterfaceContainer({ind}){
 			</View>
 			<View style = {styles.screenContBottomBtn}>
             		  <TouchableHighlight 
-		 				onPress={()=>navigation.navigate("Analysis")}
+		 				onPress={()=>navigation.navigate("Analysis", {
+								questions: questions,
+								currentQuestionIndex: currentQuestionIndex,
+								startQuestionIndexPerPage: startQuestionIndexPerPage,
+			  				  totalQuestions: totalQuestions,
+						  })}
 	     				underlayColor="lightgray"
 			 			activeOpacity={0.9}
 						style ={{height: 40, borderRadius: 20, justifyContent: "center", alignItems: "center", borderWidth: 2, paddingHorizontal: 10, backgroundColor: "white", marginVertical: 6}}
@@ -195,6 +242,7 @@ function QuestionInterfaceContainer({ind}){
 
 function Header(){
 	const insets = useSafeAreaInsets();
+	
 	return(
 			<View style={{flexDirection: "row", 
 				  justifyContent: "space-between",
@@ -218,15 +266,46 @@ function Header(){
 
 function BottomBtn(){
 	const navigation= useNavigation ();
+	const route = useRoute ();
+	const {currentQuestionIndex, 
+				  questions, 
+				  totalQuestions,
+				  startQuestionIndexPerPage} = route.params
+	//console.log(currentQuestionIndex)
+	
+	const goToNextExplanation = () => {
+		console.log(questions.length, startQuestionIndexPerPage)
+    	if (currentQuestionIndex < questions.length - 1) {
+      		navigation.replace('Explanation', {
+        	  	questions,
+        	  	currentQuestionIndex: currentQuestionIndex + 1,
+        		  startQuestionIndexPerPage: startQuestionIndexPerPage,
+        		  totalQuestions: totalQuestions,
+        	  });
+    	}
+  	};
+  
+  	const goToPrevExplanation = () => {
+    	if (currentQuestionIndex > 0) {
+      		navigation.replace('Explanation', {
+        			questions,
+        			currentQuestionIndex: currentQuestionIndex - 1,
+        			startQuestionIndexPerPage: startQuestionIndexPerPage,
+        			totalQuestions: totalQuestions,
+      		});
+    	}
+  	};
+  
 	return (
-		<View style = {{ position: "absolute", bottom: 0, left: 22, right: 22, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingBottom: 18}}>
+		<View style = {{ position: "absolute", bottom: 0, left: 22, right: 22, flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingBottom: 18, backgroundColor: "transparent"}}>
 			<TouchableHighlight
-        			onPress={() => console.log("Prev Btn") }
+        			onPress={goToPrevExplanation}
+        			disabled= { currentQuestionIndex == startQuestionIndexPerPage }
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {styles.nextAndPrevBtn}
+        			style= {[styles.nextAndPrevBtn, {backgroundColor: currentQuestionIndex ==0 ? "lightgray": "gray"}]}
       	>
-        		<AntDesign name="arrowleft" size={30} color="black" />
+        		<AntDesign name="arrowleft" size={30} color={currentQuestionIndex ==0 ? "#777":"black"} />
       	</TouchableHighlight>
       
       	<TouchableHighlight
@@ -239,12 +318,13 @@ function BottomBtn(){
       	</TouchableHighlight>  
       
       	<TouchableHighlight
-        			onPress={() => console.log("Next Btn")}
+        			onPress={goToNextExplanation}
+        			disabled= { currentQuestionIndex + 1 == questions.length }
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {styles.nextAndPrevBtn}
+        			style= {[styles.nextAndPrevBtn, {backgroundColor: currentQuestionIndex + 1 == questions.length? "lightgray" : "gray"}]}
       	>
-        		<AntDesign name="arrowright" size={30} color="black" />
+        		<AntDesign name="arrowright" size={30} color= { currentQuestionIndex + 1 == questions.length? "#777" :"black"}/>
       	</TouchableHighlight>  
 		</View>
 	);
@@ -286,14 +366,17 @@ const styles = StyleSheet.create({
 	   borderRadius: 18, 
 	   marginBottom: 35,
 	   maxWidth: 420,
+		flex: 1,
 	},
 	questionAndExplanationScreen: {
 		borderWidth:2, 
-	    padding: 8, borderColor: "#666",
-		//borderColor: "red",
+	    padding: 8, 
+		borderColor: "#666",
+		//borderColor: "green",
 		flexDirection: "column", 
 		borderRadius: 18,  
-		marginBottom: 6
+		marginBottom: 6,
+		flex: 1,
 	},
 	questionScreenNumberView: {
 		//marginTop: -2, 
@@ -371,6 +454,6 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "gray",
-		borderRadius: 18,
+		borderRadius: 5,
    },
 });

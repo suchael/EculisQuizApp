@@ -147,7 +147,6 @@ function HomeHeader(){
 }
 
 
-
 function MainContainer(){
 	const insets = useSafeAreaInsets();
 	const { currentPage, 
@@ -225,7 +224,8 @@ function QuestionInterfaceContainer(){
 	const [copiedText, setCopiedText] = useState('');
 
 	const { currentPage,
-				  questionsPerPage, showAllAnswer,
+				  questionsPerPage, 
+				  showAllAnswer,
 				  totalQuestions,
 				  isLoadingQuestion,
 				  setIsLoadingQuestion,
@@ -303,7 +303,14 @@ function QuestionInterfaceContainer(){
         
         <View style={styles.screenContBottomBtn}>
           <TouchableHighlight
-            onPress={() => { navigation.navigate("Analysis") }}
+            onPress={() => { 
+				navigation.navigate("Analysis", {
+					questions: questionsToDisplay, //pass questionToDisplay to the Explanation screen 
+					currentQuestionIndex: index,
+					startQuestionIndexPerPage: startQuestionIndex,
+					totalQuestions: totalQuestions,
+				})
+			}}
             underlayColor="lightgray"
             activeOpacity={0.9}
             style={{ height: 35, justifyContent: "center", alignItems: "center", borderRadius: 5 }}
@@ -317,8 +324,9 @@ function QuestionInterfaceContainer(){
 				navigation.navigate("Explanation", {
 					questions: questionsToDisplay, //pass questionToDisplay to the Explanation screen 
 					currentQuestionIndex: index,
+					startQuestionIndexPerPage: startQuestionIndex,
+					totalQuestions: totalQuestions,
 				})
-				console.log(questionsToDisplay, index)
 			}}
             underlayColor="lightgray"
             activeOpacity={0.9}
