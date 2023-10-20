@@ -8,7 +8,12 @@ import {View,
         BackHandler, FlatList,ActivityIndicator,
         TouchableHighlight } from 'react-native';
         
-import React , {useState, useEffect} from 'react';
+import React , {useState, 
+							  useEffect,
+							  useMemo, 
+							  useCallback, 
+							  useContext, 
+							  useRef} from 'react';
 
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native';
@@ -22,7 +27,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 // My import
 import QuitExamNotif from "./QuitExamNotif.js";
-//import subjects from  "../../../SubjectDb.js";
+import { Subjects, Questions } from  "../PQuestion/SubjectListDb.js";
+import {ShowQuestionContext} from "./ShowQuestionContext/Context.js";
 
 
 const Stack = createNativeStackNavigator();
@@ -30,23 +36,91 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function ShowQuestionList() {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}}>
-      <Stack.Screen name='Home' component = {Home}/>
+    <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName = "Home">
+      <Stack.Screen name='Home' component = {Home} initialParams={{ currentPage: 1 }} />
     </Stack.Navigator>
   )
 }
 
 
 
-function Home() {
-  
+function Home({navigation, route}) {
+	const { currentPage } = route.params;
+    const [ isLoadingQuestion, setIsLoadingQuestion ] = useState(true);
+    const [ showAllAnswer, setShowAllAnswer ] = useState(false);
+    
+    const totalQuestions = Questions.length ; // Replace with the actual total number of questions
+	const questionsPerPage = 1;  // Adjust the number of questions per page as needed
+    const totalPages = Math.ceil(totalQuestions / questionsPerPage);
+	
+	const scrollViewRef = useRef();
+
+    //Memoize the navigation handlers using useCallback
+	const handleNextPage = useCallback(() => {
+    	if (currentPage < totalPages) {
+      		setIsLoadingQuestion(true);
+      		const newPage = currentPage + 1;
+      		navigation.setParams({ currentPage: newPage }); //Go to next page if currentPage changes
+      		setIsLoadingQuestion(false);
+      		console.log("Page nxt: ", currentPage)
+      
+      		// Scroll to the top when user click next btn
+    		  if (scrollViewRef.current) {
+      			scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    		  }
+    	}
+  	}, [currentPage, totalPages, navigation]);
+
+  const handlePrevPage = useCallback(() => {
+    if (currentPage > 1) {
+      	setIsLoadingQuestion(true);
+      	const newPage = currentPage - 1;
+      	navigation.setParams({ currentPage: newPage  });
+      	setIsLoadingQuestion(false);
+      	
+      	// Scroll to the top when user click on Prev Btn
+    	  if (scrollViewRef.current) {
+      			scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    	  }
+    }
+  }, [currentPage, navigation]);
+	
+  const goToPage = useCallback((pageNumber) => {
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setIsLoadingQuestion(true);
+      navigation.setParams({ currentPage: pageNumber });
+      setIsLoadingQuestion(false);
+      
+      // Scroll to the top when user click on Prev Btn
+      if (scrollViewRef.current) {
+      	scrollViewRef.current.scrollTo({ y: 0, animated: true });
+       }
+    }
+  }, [totalPages, navigation]);
+
+
+   const contextValue ={
+   	currentPage,
+   	showAllAnswer,
+   	setShowAllAnswer,
+   	isLoadingQuestion,
+   	setIsLoadingQuestion,
+   	handleNextPage,
+   	handlePrevPage,
+   	goToPage,
+   	totalPages,
+   	totalQuestions,
+   	questionsPerPage,
+   	scrollViewRef,
+	}
   return (
-    <View style={styles.container}>
-    		<HomeHeader/>
-    		<TabBar/>
-    		<BottomButtons/>
-    	
-    </View>
+  	  <ShowQuestionContext.Provider value={contextValue}>
+    		<View style={styles.container}>
+    			<HomeHeader/>
+    			<TabBar/>
+    			<BottomButtons/>
+    		</View>
+    	</ShowQuestionContext.Provider>
   );
 }
 
@@ -76,9 +150,20 @@ function HomeHeader(){
   );
 }
 
-
 // Top Tab Bar
 function TabBar(){
+	const examSubject = ["Maths", "Phy", "Chem", "Biol", "Yor", "Lit"]
+	const [scrollTopTab, setScrollTopTab] = useState(false);
+	
+	const deviceWidth = Dimensions.get('window').width;
+	const maxTopTabSubject = 6; 
+	const minDeviceWidth = 360; 
+	const enableTopTabScroll = ()=>(
+		// if total subject > maxTopTabSubject and device width is lesser than 360
+		// then enable scrolling horizontally 
+		examSubject.length > maxTopTabSubject && deviceWidth <= minDeviceWidth ?	true: false
+	)
+	
   return(
     <Tab.Navigator initialRouteName="General"
       screenOptions={{
@@ -108,11 +193,13 @@ function TabBar(){
       			<ActivityIndicator size="large" color="blue" /> 
 			</View>
    	 ),
+   	tabBarScrollEnabled: enableTopTabScroll(),
     }}>
-      <Tab.Screen name ="Maths" component={MainContainer}/>
-      <Tab.Screen name ="Phys" component={MainContainer}/>
-      <Tab.Screen name ="Chem" component={MainContainer}/>
-	  <Tab.Screen name ="Biol" component={MainContainer}/>
+    
+    
+		{examSubject.map((subject, ind)=>( // map and create each tab 
+				<Tab.Screen name ={subject} component={MainContainer} key={ind}/>
+		))}
     </Tab.Navigator>
   );
 }
@@ -121,9 +208,9 @@ function TabBar(){
 function MainContainer({navigation}){
 	const [modalVisible, setModalVisible] = useState(false);
 
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
-  };
+    const toggleModal = () => {
+    	setModalVisible(!modalVisible);
+     };
 
 	const insets = useSafeAreaInsets();
 	return(
@@ -144,66 +231,65 @@ function MainContainer({navigation}){
 }
 
 
-function QuestionInterface() {
-  return (
-    <View style={styles.questionInterfaceMain}>
-        <QuestionInterfaceContainer ind = {1}/>
-        <GoToBtnList/>
-    </View>
-  );
-}
+const QuestionInterface = React.memo(() => {
+	return (
+    	<View style={styles.questionInterfaceMain}>
+      		<QuestionInterfaceContainer  />
+      		<GoToBtnList/>
+    	</View>
+  	);
+});
+
 
 
 function QuestionInterfaceContainer({ind}){
 	const navigation = useNavigation()
+	
+	const { currentPage,
+				  questionsPerPage, 
+				  showAllAnswer,
+				  totalQuestions,
+				  isLoadingQuestion,
+				  setIsLoadingQuestion,
+				 } = useContext(ShowQuestionContext);
+	
+    const startQuestionIndex = (currentPage - 1) * questionsPerPage;
+	const endQuestionIndex = startQuestionIndex + questionsPerPage;
+	
+	// Memoize the questions to display for the current page
+	const questionsToDisplay = useMemo(() => Questions.slice(startQuestionIndex, endQuestionIndex), [currentPage]);
+	
+	
 	return(
-		<View style ={{justifyContent: "center", alignItems: "center"}}>
-		<View style = {styles.questionInterfaceContainer}>
-			<View style = {styles.questionScreen}>
-				<View style = {styles.questionScreenNumberView}>
-					<Text style = {styles.questionScreenNumber}>
-						Question {ind}/10
-					</Text>
+	<View style ={{justifyContent: "center", alignItems: "center"}}>
+		{	questionsToDisplay.map((eachQuestion, index) => (
+			  <View key ={index} style = {styles.questionInterfaceContainer}>
+					<View style = {styles.questionScreen}>
+							<View style = {styles.questionScreenNumberView}>
+								<Text style = {styles.questionScreenNumber}>
+									Question {`${startQuestionIndex + index + 1} of ${totalQuestions}`}
+								</Text>
+							</View>
+							<Text style = {styles.questionScreenQuestionContent}>
+								{eachQuestion.question}
+							</Text>
+					</View>
+			
+					<View style = {styles.optionMain}>
+						{eachQuestion.options.map((eachOption, index)=>(
+							<TouchableOpacity key = {index} style= {styles.optionContainer}>
+								<Text style = {{fontSize: 20, fontWeight: "bold"}}>
+									{ Object.keys(eachOption)[0]}{".  "}
+									<Text style = {styles.optionContainerOptions}>
+              				  		{ eachOption[Object.keys(eachOption)[0]] }
+									</Text>
+								</Text>			
+         	   			</TouchableOpacity>
+						 ))}
+					</View>
 				</View>
-				<Text style = {styles.questionScreenQuestionContent}>
-					Which of the following statements does not show Rutherford's account of Nuclear Theory? An atom contains a region
-				</Text>
-			</View>
-			<View style = {styles.optionMain}>
-				<TouchableOpacity style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						A{". "}
-						<Text style = {styles.optionContainerOptions}>
-              				which contains protons and neutrons 				
-						</Text>
-					</Text>			
-         	   </TouchableOpacity>
-         	<TouchableOpacity style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						B{". "}
-						<Text style = {styles.optionContainerOptions}>
-              				which is positively charged
-         				</Text>
-					</Text>			
-         	   </TouchableOpacity>
-				<TouchableOpacity style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						C{". "}
-						<Text style = {styles.optionContainerOptions}>
-              				which is massive and can cause deflection of a few projectiles
-         				</Text>
-					</Text>			
-         	   </TouchableOpacity>
-         	<TouchableOpacity style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
-						D{". "}
-						<Text style = {styles.optionContainerOptions}>
-              				which is very large and in which close to 98% of projectiles pass undefle Ted which is very large and in which close to 98% of pass undeflected
-         				</Text>
-					</Text>			
-         	   </TouchableOpacity>
-			</View>
-		</View>
+			  ))
+		}		
 	</View>
 	);
 }
@@ -213,7 +299,7 @@ function QuestionInterfaceContainer({ind}){
 
 // Display List of nswered numbers
 
-function GoToBtnList() {
+const GoToBtnList = React.memo(()=>{
   // Create an array of numbers representing the question buttons (1 to 20)
   const questionNumbers = Array.from({ length: 44 }, (_, index) => index + 1);
   const navigation = useNavigation ();
@@ -231,12 +317,18 @@ function GoToBtnList() {
       ))}
     </View>
   );
-}
+})
 
 
-function BottomButtons(){
-	const navigation = useNavigation ();
-	const [modalVisible, setModalVisible] = useState(false);
+const BottomButtons = React.memo(()=>{
+  const navigation = useNavigation ();
+  
+  const { handlePrevPage, 
+				  handleNextPage, 
+			  	totalPages,
+				  currentPage } = useContext(ShowQuestionContext);
+			
+  const [modalVisible, setModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
   const handleBackPress = () => {
@@ -249,51 +341,52 @@ function BottomButtons(){
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
-    };
+    	return () => {
+      	BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    	};
   }, [modalVisible]);
 
 	const openModal = () => {
-    setModalVisible(true);
-    
-  };
+    	setModalVisible(true);
+     };
 
   const closeModal = () => {
-    setModalVisible(false);
-    setInputValue('');
+    	setModalVisible(false);
+    	setInputValue('');
   };
 
   const PASSWORD = '555';
   const handleSubmit = () => {
-    if (inputValue === PASSWORD) {
-      closeModal();
-      navigation.navigate("Exam history", {screen: "ExamHistResult"}); // Navigate to the previous screen
-    }
-  };
+    	if (inputValue === PASSWORD) {
+      		closeModal();
+      		navigation.navigate("Exam history", {screen: "ExamHistResult"}); // Navigate to the previous screen
+    	}
+    };
 	return (
 		<View style ={{paddingVertical: 0, height: 60, backgroundColor: "transparent", position: "absolute", bottom:0, left: 15, right: 15, zIndex: 1, paddingHorizontal: 10, paddingBottom: 18, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
 			<TouchableHighlight
-        			onPress={() => console.log("Prev Btn") }
+        			onPress = {handlePrevPage}
+        			disabled = {currentPage == 1}
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {styles.nextAndPrevBtn}
+        			style= {[styles.nextAndPrevBtn, {backgroundColor: currentPage == 1?  "lightgray": "gray"}]}
       	>
-        		<AntDesign name="arrowleft" size={30} color="black" />
+        		<AntDesign name="arrowleft" size={30} color={currentPage == 1? "#777": "black"}  />
       	</TouchableHighlight>
 			<EndExamBtn toggleModal={openModal} />
 			<TouchableHighlight
-        			onPress={() => console.log("Next Btn")}
+        			onPress={handleNextPage}
+        			disabled = {currentPage == totalPages}
         			activeOpacity={0.9}
         			underlayColor="white"
-        			style= {styles.nextAndPrevBtn}
+        			style= {[styles.nextAndPrevBtn, {backgroundColor: currentPage == totalPages ?  "lightgray": "gray"}]}
       	>
-        		<AntDesign name="arrowright" size={30} color="black" />
+        		<AntDesign name="arrowright" size={30} color={currentPage == totalPages? "#777": "black"} />
       	</TouchableHighlight>  
 			<QuitExamNotif navigation={navigation} visible={modalVisible} PASSWORD= {PASSWORD} inputValue={inputValue} setInputValue={setInputValue} handleSubmit={handleSubmit} closeModal={closeModal}/>
 		</View>
 	);
-}
+})
 
 
 function EndExamBtn({toggleModal}){
@@ -362,12 +455,13 @@ const styles = StyleSheet.create({
    	backgroundColor: "transparent",
    	borderWidth: 2, 
 	   paddingHorizontal: 6, 
-		paddingTop: 6,
+	   paddingTop: 6,
+	   paddingBottom: 10,
 	   //borderColor: "blue", 
 	   borderRadius: 25, 
 	   marginBottom: 50,
-	   paddingBottom: 10,
-		maxWidth: 420,
+   	maxWidth: 420,
+	   width: "100%",
 	},
 	questionScreen: {
 		borderWidth:2, 
@@ -385,17 +479,19 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	questionScreenNumber: {
-		fontSize: 15, 
+		fontSize: 18, 
 		fontWeight: "bold", 
 		borderWidth: 2, 
-		paddingLeft: 6, 
-		paddingRight: 2, 
+		paddingLeft: 10, 
+		paddingRight: 8, 
 		paddingTop: 1, 
 		borderRadius: 5
 	},
    questionScreenQuestionContent: {
    	fontSize: 16.7, 
 	   fontWeight: "500", 
+		marginTop: 15,
+		marginBottom: 7,
 		//color: "black",
 	},
 	optionMain: {
@@ -407,10 +503,11 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 8 ,
 		paddingVertical: 4,
 		borderWidth: 2, 
-		borderRadius: 12, 
-		marginBottom: 6, 
+		borderRadius: 10, 
+		//marginBottom: 6, 
+		marginTop: 6,
 		backgroundColor: "white" ,
-		minHeight: 50
+		minHeight: 45
 	},
 	optionContainerOptions: {
 		fontSize: 16.7, 
@@ -426,8 +523,6 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		backgroundColor: "gray",
-		borderRadius: 18,
-		marginBottom: -13
+		borderRadius: 5,
    },
 });
-

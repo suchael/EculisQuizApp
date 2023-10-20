@@ -21,7 +21,6 @@ import UnderLineTextBtn from "./UnderLineTextBtn.js";
 
 const ExamInstructionModal = ({ visible, onClose }) => {
   const navigation = useNavigation();
-  const windowHeight = Dimensions.get('window').height;
   const modalHeight = "70%"; // Make the modal 70% of the screen height
 
   return (
@@ -125,6 +124,7 @@ const styles = StyleSheet.create({
   },
   startButton: {
     backgroundColor: 'blue',
+    marginHorizontal: 20,
     marginBottom: 10, 
     paddingVertical: 10, // Adjust as needed for responsive padding
     borderRadius: 25,

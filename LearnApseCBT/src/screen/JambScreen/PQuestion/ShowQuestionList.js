@@ -1,4 +1,3 @@
-
 import {View, 
         Text, 
         StyleSheet,
@@ -20,13 +19,15 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import * as Clipboard from 'expo-clipboard';
 
 // Icons
-import { AntDesign , FontAwesome, MaterialIcons, Feather} from '@expo/vector-icons';
+import { AntDesign , 
+				FontAwesome, 
+				MaterialIcons, 
+				Feather} from '@expo/vector-icons';
 
 // My import
 import { Subjects, Questions } from  "./SubjectListDb.js";
 import PageSelectorModal from "./PageSelectorModal.js";
 import {ShowQuestionContext} from "./ShowQuestionContext/Context.js";
-
 
 
 function ShowQuestionList() {
@@ -190,7 +191,7 @@ function MainContainer(){
 					
 					{/*Toggle Switch*/}
 					{currentPage == 1 &&  isLoadingQuestion == false && (
-						<TouchableOpacity onPress={toggleSwitch} style={{backgroundColor: isEnabled? "white": "gray", borderWidth: 4,  borderColor: isEnabled? "#00A86B": "gray" , justifyContent: "center", alignItems: "center", padding: 3, borderRadius: 5, marginVertical:20}}>
+						<TouchableOpacity onPress={toggleSwitch} style={{backgroundColor: isEnabled? "white": "gray", borderWidth: 4,  borderColor: isEnabled? "#00A86B": "gray" , justifyContent: "center", alignItems: "center", padding: 4, borderRadius: 25, marginVertical:20}}>
               					<Text style={{fontSize: 17, fontWeight: "600"}}>
               							Show all answers
             					  </Text>
@@ -248,8 +249,7 @@ function QuestionInterfaceContainer(){
   		// Combine the question and options
   		const textToCopy = `${question} \n${allQuestionOptions}`;
 
-  		// Attempt to copy the text to the clipboard
-  		try {
+  		try { // Attempt to copy the text to the clipboard
     		await Clipboard.setString(textToCopy);
     		alert("Question copied successfully");
   		} catch (error) {
@@ -352,6 +352,7 @@ const BottomBtn = React.memo(() => {
 				  handleNextPage, 
 			  	totalPages,
 				  currentPage } = useContext(ShowQuestionContext);
+				
 	return (
 		<View style = {{ position: "absolute", bottom: 0, left: 22, right: 22, flexDirection: "row", justifyContent: "space-between", alignItems: "center",  paddingBottom: 18, backgroundColor: "transparent"}}>
 			<TouchableHighlight

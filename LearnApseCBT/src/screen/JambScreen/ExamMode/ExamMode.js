@@ -21,21 +21,18 @@ import { AntDesign } from '@expo/vector-icons';
 
 
 // my import
-// my import
 import QuestButton from "./QuestButton.js";
 import ExamInstructionModal from "./ExamInstructionModal.js";
 import ExamShowQuestion from "./ExamShowQuestion";
-import Subject from "../PQuestion/SubjectListDb.js";
+import {Subjects} from "../PQuestion/SubjectListDb.js";
 import ReadMoreModal from "./ReadMoreModal.js";
-import subjects from  "../../../SubjectDb.js";
-
 
 
 const Stack = createNativeStackNavigator();
 
 export default function ExamMode() {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}} initialRouteName = "Home">
+    <Stack.Navigator screenOptions={{headerShown: false, }} initialRouteName = "Home">
       	<Stack.Screen name ='Home' component = {Home}/>
       	<Stack.Screen name ='ExamShowQuestion' component = {ExamShowQuestion} options={{
           	gestureEnabled: false, // Disable swipe-back gesture
@@ -94,7 +91,7 @@ const SelectByGeneral = () => {
   return (
     <View>
       <FlatList
-        data={Subject}
+        data={Subjects}
         renderItem={renderSubject}
         keyExtractor={(item, index) => index.toString()}
         ListHeaderComponent= {()=>(
