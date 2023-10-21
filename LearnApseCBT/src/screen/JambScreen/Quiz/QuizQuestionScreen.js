@@ -181,7 +181,7 @@ function QuizQuestionInterface(){
 				} = useContext(ScoreContext); // Access score from context
 
 
-	const handlepress = (index)=>{
+	const handlePress = (index)=>{
 		setSelectedOption(index)
 		console.log("option:", quizQuestions[selectedQuestion].options[selectedOption])
 	}
@@ -203,7 +203,7 @@ function QuizQuestionInterface(){
 				{quizQuestions[selectedQuestion]?.options.map((option, index)=>(
 					<TouchableHighlight style= {[styles.optionContainer, {backgroundColor: selectedOption === index? "#4B9CD3": "white"}]} 
 							key={index} index={index} 
-							onPress ={()=> handlepress(index)}
+							onPress ={()=> handlePress(index)}
 							activeOpacity={1} 
 							underlayColor="#7393B3"
 					>

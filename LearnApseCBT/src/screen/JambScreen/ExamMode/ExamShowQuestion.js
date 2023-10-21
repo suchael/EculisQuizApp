@@ -29,7 +29,7 @@ import { Ionicons } from '@expo/vector-icons';
 import QuitExamNotif from "./QuitExamNotif.js";
 import { Subjects, Questions } from  "../PQuestion/SubjectListDb.js";
 import {ShowQuestionContext} from "./ShowQuestionContext/Context.js";
-
+import BackgroundTimer from "./BackgroundTimer.js";
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -86,17 +86,14 @@ function Home({navigation, route}) {
   }, [currentPage, navigation]);
 	
   const goToPage = useCallback((pageNumber) => {
+  	console.log("\t\t goTo")
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       setIsLoadingQuestion(true);
-      navigation.setParams({ currentPage: pageNumber });
+      navigation.setParams({ currentPage: pageNumber  });
       setIsLoadingQuestion(false);
-      
-      // Scroll to the top when user click on Prev Btn
-      if (scrollViewRef.current) {
-      	scrollViewRef.current.scrollTo({ y: 0, animated: true });
-       }
+      console.log("Goto Btn: ", currentPage)
     }
-  }, [totalPages, navigation]);
+  }, [currentPage]);
 
 
    const contextValue ={
@@ -138,7 +135,7 @@ function HomeHeader(){
                   }]}>
       <View style= {{flexDirection: "row", gap:15}}>
       	<View style = {{backgroundColor: "gray", width: 100, padding: 4, borderRadius: 4, flexDirection: "row", gap: 5, justifyContent: "center", alingitems: "center"}}>
-      		<Text style = {{fontSize:20, fontWeight: "bold"}}>00:00:00</Text>
+      		<BackgroundTimer/>
       	</View>
       	<Text style = {styles.homeHeaderText}>LearnApse</Text>
       </View>
@@ -207,7 +204,8 @@ function TabBar(){
 
 function MainContainer({navigation}){
 	const [modalVisible, setModalVisible] = useState(false);
-
+	const { scrollViewRef } = useContext(ShowQuestionContext);
+	
     const toggleModal = () => {
     	setModalVisible(!modalVisible);
      };
@@ -215,7 +213,7 @@ function MainContainer({navigation}){
 	const insets = useSafeAreaInsets();
 	return(
 		<View style = {styles.mainContainer}>
-			<ScrollView contentContainerStyle={{ flexGrow: 1 }} >
+			<ScrollView contentContainerStyle={{ flexGrow: 1 }} ref={scrollViewRef} scrollEventThrottle={900}>
 				<View style = {{
                   	paddingLeft: insets.left + 10,
                   	paddingRight: insets.right + 10,
@@ -300,19 +298,31 @@ function QuestionInterfaceContainer({ind}){
 // Display List of nswered numbers
 
 const GoToBtnList = React.memo(()=>{
-  // Create an array of numbers representing the question buttons (1 to 20)
-  const questionNumbers = Array.from({ length: 44 }, (_, index) => index + 1);
   const navigation = useNavigation ();
+  const { totalPages, goToPage, currentPage } = useContext(ShowQuestionContext);
+  const [selectedNumber, setSelectedNumber] = useState(currentPage);
+  
+	
+  const questionNumbers = Array.from({ length: totalPages - 560 }, (_, index) => index + 1);
+  
+  
+  
   return (
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingHorizontal: 2 ,  paddingLeft: 10, borderWidth: 2, paddingVertical: 5, borderRadius: 10}}>
 
-      {questionNumbers.map((number) => (
+      {questionNumbers.map((number, index) => (
         <TouchableOpacity
-          key={number}
-          style={{ width: '15%',  height: 40, borderWidth: 2, borderRadius: 8, justifyContent: 'center', alignItems: 'center', backgroundColor: "white", margin: 2 }}
-          onPress={() => navigation.navigate("Logout")}
+          key={index}
+          style={{ backgroundColor: selectedNumber === index?  "red" : "white", width: 48,  height: 52, borderWidth: 2, borderRadius: 3, justifyContent: 'center', alignItems: 'center', margin: 2 }}
+          onPress={ ()=>{
+				goToPage(index)
+				navigation.setParams({ currentPage: index }); //Go to next page if currentPage changes
+				console.log("Cur page: ", currentPage)
+				setSelectedNumber(index)
+				console.log("Num", selectedNumber, "\n")
+		  }}
         >
-          <Text style={{ fontSize: 16, fontWeight: '900', color: "black" }}>{number}</Text>
+          <Text style={{ fontSize: 17, fontWeight: '900', color: "black" }}>{number}</Text>
         </TouchableOpacity>
       ))}
     </View>
@@ -370,11 +380,11 @@ const BottomButtons = React.memo(()=>{
         			activeOpacity={0.9}
         			underlayColor="white"
         			style= {[styles.nextAndPrevBtn, {backgroundColor: currentPage == 1?  "lightgray": "gray"}]}
-      	>
+      	 >
         		<AntDesign name="arrowleft" size={30} color={currentPage == 1? "#777": "black"}  />
       	</TouchableHighlight>
-			<EndExamBtn toggleModal={openModal} />
-			<TouchableHighlight
+		  <EndExamBtn toggleModal={openModal} />
+		  <TouchableHighlight
         			onPress={handleNextPage}
         			disabled = {currentPage == totalPages}
         			activeOpacity={0.9}
@@ -383,7 +393,7 @@ const BottomButtons = React.memo(()=>{
       	>
         		<AntDesign name="arrowright" size={30} color={currentPage == totalPages? "#777": "black"} />
       	</TouchableHighlight>  
-			<QuitExamNotif navigation={navigation} visible={modalVisible} PASSWORD= {PASSWORD} inputValue={inputValue} setInputValue={setInputValue} handleSubmit={handleSubmit} closeModal={closeModal}/>
+	  	<QuitExamNotif navigation={navigation} visible={modalVisible} PASSWORD= {PASSWORD} inputValue={inputValue} setInputValue={setInputValue} handleSubmit={handleSubmit} closeModal={closeModal}/>
 		</View>
 	);
 })
@@ -454,11 +464,11 @@ const styles = StyleSheet.create({
    questionInterfaceContainer: {
    	backgroundColor: "transparent",
    	borderWidth: 2, 
-	   paddingHorizontal: 6, 
-	   paddingTop: 6,
-	   paddingBottom: 10,
-	   //borderColor: "blue", 
-	   borderRadius: 25, 
+	   paddingHorizontal: 4, 
+	   paddingTop: 4,
+	   paddingBottom: 8,
+	   borderColor: "#777", 
+	   borderRadius: 15, 
 	   marginBottom: 50,
    	maxWidth: 420,
 	   width: "100%",
@@ -466,15 +476,14 @@ const styles = StyleSheet.create({
 	questionScreen: {
 		borderWidth:2, 
 	    padding: 8, 
-		//borderColor: "red", 
+		borderColor: "#777", 
 		flexDirection: "column", 
-		borderRadius: 20,  
+		borderRadius: 12,  
 		backgroundColor: "white", 
 		marginBottom: 12,
 	},
 	questionScreenNumberView: {
-		marginTop: -2, 
-		marginBottom: 4,
+		marginVertical: 4,
 		justifyContent: "center", 
 		alignItems: "center",
 	},
@@ -503,7 +512,8 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 8 ,
 		paddingVertical: 4,
 		borderWidth: 2, 
-		borderRadius: 10, 
+		borderColor: "#777", 
+		borderRadius: 7, 
 		//marginBottom: 6, 
 		marginTop: 6,
 		backgroundColor: "white" ,

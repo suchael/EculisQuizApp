@@ -59,15 +59,15 @@ export const Questions = [
     explanation: "Coercive Paris is the capital of France."
   },
 {
-    question: "The standing committee of a legislature is one",
+    question: "Which of the following statements does not show Rutherford's account of Nuclear Theory? An atom contains a region",
     options: [
-      { A: "whose member stand while delibrating", exp: "Paris is the capital of France." },
-      { B: "that has statutory responsibities", exp: "Berlin is the capital of Germany." },
-      { C: "that perform adhoc functions", exp: "Madrid is the capital of Spain." },
-      { D: "that has legislators as members", exp: "London is the capital of the United Kingdom." },
+      { A: "which contains protons and neutrons", exp: "Paris is the capital of France." },
+      { B: "which is positively charged", exp: "Berlin is the capital of Germany." },
+      { C: "which is massive and can cause deflection of a few projectiles", exp: "Madrid is the capital of Spain." },
+      { D: "which is very large and in which close to 98% of projectiles pass undeflected", exp: "London is the capital of the United Kingdom." },
     ],
-    answer: "option C",
-    explanation: "Paris is the capital of France."
+    answer: "option D",
+    explanation: "Rutherford's account of Nuclear theory does not include the fact that atoms contain a massive region and cause deflection of from projectiles."
   },
   {
     question: "What is the capital of France?",
