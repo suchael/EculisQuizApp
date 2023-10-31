@@ -4,7 +4,7 @@ import {View,
         ScrollView,
         Dimensions,
         TouchableOpacity,
-        BackHandler,
+        BackHandler,StatusBar,
         TouchableHighlight } from 'react-native';
         
 import React from 'react';
@@ -18,6 +18,7 @@ import { AntDesign } from '@expo/vector-icons';
 export default function Result(){
 	return(
 		<View style={styles.homeContainer}>
+			<StatusBar hidden={false} />
 			<HomeHeader/>
 			<Main/>
 			<HomeBtn/>
@@ -84,10 +85,10 @@ function Main(){
 									<Text style = {{fontSize:16, fontWeight: "600"}}>Subjects</Text>
 								</View>
 								<View style ={{borderTopWidth:2, borderRightWidth: 2,width: "22.5%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "600"}}>Score</Text>
+									<Text style = {{fontSize:16, fontWeight: "600", textAlign: "center"}}>Score</Text>
 								</View>
 								<View style ={{borderTopWidth:2, width: "22.5%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "600"}}>Grade</Text>
+									<Text style = {{fontSize:16, fontWeight: "600", textAlign: "center"}}>Skipped</Text>
 								</View>
 							</View>
 							
@@ -97,10 +98,10 @@ function Main(){
 									<Text style = {{fontSize:16, fontWeight: "500"}}>Math</Text>
 								</View>
 								<View style ={{borderTopWidth:2, borderRightWidth: 2, width: "22.5%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "500"}}>32/40</Text>
+									<Text style = {{fontSize:16, fontWeight: "500", textAlign: "center"}}>32/40</Text>
 								</View>
 								<View style ={{borderTopWidth:2, width: "22.5%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "500"}}>A</Text>
+									<Text style = {{fontSize:16, fontWeight: "500", textAlign: "center"}}>0</Text>
 								</View>
 							</View>
 							
@@ -110,10 +111,10 @@ function Main(){
 									<Text style = {{fontSize:16, fontWeight: "500"}}>Engl</Text>
 								</View>
 								<View style ={{borderTopWidth:2, borderRightWidth: 2, width: "22.5%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "500"}}>22/60</Text>
+									<Text style = {{fontSize:16, fontWeight: "500", textAlign: "center"}}>22/60</Text>
 								</View>
 								<View style ={{borderTopWidth:2, width: "22.5%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "500"}}>C</Text>
+									<Text style = {{fontSize:16, fontWeight: "500", textAlign: "center"}}>3</Text>
 								</View>
 							</View>
 							
@@ -123,10 +124,10 @@ function Main(){
 									<Text style = {{fontSize:16, fontWeight: "500"}}>Phys</Text>
 								</View>
 								<View style ={{borderTopWidth:2, borderRightWidth: 2, width: "22.5%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "500"}}>32/40</Text>
+									<Text style = {{fontSize:16, fontWeight: "500", textAlign: "center"}}>19/40</Text>
 								</View>
 								<View style ={{borderTopWidth:2, width: "22.5%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "500"}}>A</Text>
+									<Text style = {{fontSize:16, fontWeight: "500", textAlign: "center"}}>1</Text>
 								</View>
 							</View>
 							
@@ -136,10 +137,10 @@ function Main(){
 									<Text style = {{fontSize:16, fontWeight: "500"}}>Biol</Text>
 								</View>
 								<View style ={{borderTopWidth:2, borderRightWidth: 2, width: "22.5%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "500"}}>32/40</Text>
+									<Text style = {{fontSize:16, fontWeight: "500", textAlign: "center"}}>27/40</Text>
 								</View>
 								<View style ={{borderTopWidth:2, width: "22.5%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "500"}}>A</Text>
+									<Text style = {{fontSize:16, fontWeight: "500", textAlign: "center"}}>0</Text>
 								</View>
 							</View>
 							
@@ -148,10 +149,10 @@ function Main(){
 								<View style ={{borderTopWidth:2, borderRightWidth: 2, borderBottomWidth: 2,  width: "55%", padding: 4, justifyContent: "center"}}>
 								</View>
 								<View style ={{borderTopWidth:2, borderRightWidth: 2, borderBottomWidth: 2, width: "22.5%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "600"}}>260/400</Text>
+									<Text style = {{fontSize:16, fontWeight: "600", textAlign: "center"}}>260/400</Text>
 								</View>
 								<View style ={{borderTopWidth:2, width: "22.5%", padding: 4, justifyContent: "center", borderBottomWidth: 2}}>
-									<Text style = {{fontSize:16, fontWeight: "600"}}>C</Text>
+									<Text style = {{fontSize:16, fontWeight: "600", textAlign: "center"}}>{/* */}</Text>
 								</View>
 							</View>
 							{/*Subject table closing*/}
@@ -169,7 +170,7 @@ function Main(){
 									<Text style = {{fontSize:16, fontWeight: "500"}}>Total Exam Time</Text>
 								</View>
 								<View style ={{borderTopWidth:2, borderRightWidth: 2, width: "40%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "600"}}>02:00:00</Text>
+									<Text style = {{fontSize:16, fontWeight: "600", textAlign: "center"}}>02:00:00</Text>
 								</View>
 						</View>
 						<View style ={{flexDirection: "row",}}>
@@ -177,7 +178,7 @@ function Main(){
 									<Text style = {{fontSize:16, fontWeight: "500"}}>Total Time Spent</Text>
 								</View>
 								<View style ={{borderBottomWidth: 2, borderRightWidth: 2, width: "40%", padding: 4, justifyContent: "center"}}>
-									<Text style = {{fontSize:16, fontWeight: "600"}}>01:30:20</Text>
+									<Text style = {{fontSize:16, fontWeight: "600", textAlign: "center"}}>01:30:20</Text>
 								</View>
 						</View>
 					</View>

@@ -10,6 +10,18 @@ import { View, Text, Modal,
 export default function QuitExamNotif({ navigation, visible, PASSWORD, inputValue, setInputValue, handleSubmit, closeModal }){
 	const keyboardType = Platform.OS === 'ios' ? 'number-pad' : 'numeric';
 
+	useEffect(() => {
+  const backHandlerListener = BackHandler.addEventListener('hardwareBackPress', () => {
+    closeModal(); // Call the closeModal function to hide the modal
+    return true; // Prevent default back behavior
+  });
+
+  return () => {
+    backHandlerListener.remove(); // Remove the event listener when the component unmounts
+  };
+}, []);
+
+
   return (
       <Modal
         animationType="slide"

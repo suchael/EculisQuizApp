@@ -141,6 +141,15 @@ function Main() {
       		</View>
       		{/*Closing - Email and Password*/}
       
+      		{/*Check if username or password is valid*/}
+         			<View style ={{justifyContent: "center", alignItems: "center"}}>
+         				
+							<Text style ={{fontSize: 15, fontWeight: "600"}}>Invalid or expired code</Text>
+						 
+         			</View>
+         	{/*Closing - Check if username or password is valid*/}
+         
+      
       		<View style ={{flexDirection: "row", gap: 10, marginBottom: 3, justifyContent: "center", alignItems: "center"}}>
       			<Text style ={{fontSize: 16, fontWeight: "500"}}>
 						Didn't receive it?
@@ -151,12 +160,7 @@ function Main() {
 			</View>
       
       
-      		{/*Check if username or password is valid*/}
-         			<View style ={{justifyContent: "center", alignItems: "center"}}>
-         				{ loginSuccess=== true?  (<Text style ={{fontSize: 15, fontWeight: "600"}}>Login Successful </Text>) : (<Text style ={{fontSize: 15, fontWeight: "600"}}>Invalid Username or Password</Text>)}
-         			</View>
-         	{/*Closing - Check if username or password is valid*/}
-         
+      		
       		<TouchableOpacity onPress={handleLogin} style ={{height: 46, borderRadius: 35, backgroundColor: "blue", justifyContent:"center", alignItems:"center", marginTop: 30}}>
       			<Text style ={{fontSize: 17, fontWeight: "bold", color: "white", }}>Continue</Text>
       		</TouchableOpacity>

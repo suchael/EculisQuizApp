@@ -52,7 +52,7 @@ function HomeHeader(){
       >
         <AntDesign name="arrowleft" size={27} color="#333"  style={{marginLeft: -4}}/>
       </TouchableHighlight>
-      <Text style = {styles.homeHeaderText}>Jamb{"  "}Subject{" "}Combination</Text>
+      <Text style = {styles.homeHeaderText}>JAMB{"  "}Subject{" "}Combination</Text>
     </View>
   );
 }

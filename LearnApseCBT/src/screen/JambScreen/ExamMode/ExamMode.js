@@ -122,10 +122,10 @@ const ReadMoreBtn = () => {
   };
 
   return (
-    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', justifyContent: 'center', marginVertical: 25, paddingLeft: 10, borderTopWidth: 2, borderBottomWidth: 2, borderColor: "#888", padding: 5, backgroundColor: "white" }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 25, marginHorizontal: 10, borderWidth: 2, borderColor: "#888", padding: 7, backgroundColor: "white" }}>
       <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Attention: </Text>
       <Text style={{ fontSize: 16 }}>Welcome to strict</Text>
-      <TouchableOpacity onPress={openModal}>
+      <TouchableOpacity onPress={openModal} style ={{ paddingVertical: 7}}>
         <Text style={{ color: 'blue' }}> ...Read More</Text>
       </TouchableOpacity>
       <ReadMoreModal visible={modalVisible} onClose={closeModal} />

@@ -106,7 +106,7 @@ function About(){
         		<View style ={{borderWidth: 0.5, borderColor: "#999",  flexDirection: "row", padding: 10, justifyContent: "space-between", gap: 10, flex: 1, marginBottom: 10}}>
         			<FontAwesome5 name="user-alt" size={18} color="black" />
         			<View style ={{justifyContent: "center", flex:1}}>
-        				<Text style = {{fontSize: 17, fontWeight: "600"}}>
+        				<Text style = {{fontSize: 17, fontWeight: "600", color: "blue"}}>
 								Username:{"  "}
 								<Text style = {{fontWeight: "500", fontSize: 16}}>Galadima</Text>
 						</Text>

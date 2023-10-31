@@ -57,6 +57,15 @@ export default function YearPickerModal(){
           <Fontisto name="angle-down" size={16} color="black" />
         </View>
       </TouchableHighlight>
+      { typeof selectedYear == "number" && (
+      	<View style ={{ backgroundColor: "white", paddingHorizontal: 5, marginTop: 5, borderWidth: 2, borderRadius: 3}}>
+				<Text style = {{fontWeight: "700", fontSize: 18, }}>
+					Total:{"  "}
+					<Text style = {{fontWeight: "500", }}>80</Text>
+			    </Text>
+      	</View>
+        
+      )}
 
       <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={closeAndResetModal}>
         <TouchableHighlight
@@ -66,6 +75,7 @@ export default function YearPickerModal(){
         >
           <View style={styles.modalBackdrop}>
             <View style={styles.modal}>
+              <Text style={{ fontSize: 20, fontWeight: "500", textAlign: "center", borderBottomWidth: 2, borderColor: "#999", paddingVertical: 10 }}>Year</Text>
               <ScrollView>
                 {YEAR.map(renderYear)}
               </ScrollView>

@@ -85,17 +85,40 @@ const HomeHeader = React.memo(() => {
 
 
 
+
 const Main = React.memo(() => {
   const insets = useSafeAreaInsets();
+  const [selectedSubject, setSelectedSubject] = useState(null);
+
+  const handleToggle = (index) => {
+    if (selectedSubject === index) {
+      setSelectedSubject(null); // Deselect if it's already selected
+    } else {
+      setSelectedSubject(index); // Select the subject
+    }
+  };
+  
   
   const renderItemCallback = useCallback(({ item, index }) => {
-    return <QuestButton key={index} subject={item} />;
-  }, []);
-  return (
+    return (
+      <QuestButton
+        key={index}
+        subject={item}
+        index={index}
+        isSelected={selectedSubject === index}
+        handleToggle={() => handleToggle(index)}
+      />
+    );
+  }, [selectedSubject]);
+  
+  return (  
     <FlatList
       data={Subjects}
       keyExtractor={(item, index) => index.toString()}
       renderItem= {renderItemCallback}
+      initialNumToRender={10}
+  	windowSize={5}
+  	removeClippedSubviews={true}
       ListHeaderComponent={() => (
       	<View style ={{paddingBottom: 1}}>
       		<View style={{ paddingLeft: insets.left + 10, }}>
@@ -121,35 +144,30 @@ const Main = React.memo(() => {
 });
 
 
-const QuestButton = React.memo(({ subject }) => {
+const QuestButton = React.memo(({ subject, index, isSelected, handleToggle }) => {
   const insets = useSafeAreaInsets();
-  const [isToggleOn, setIsToggleOn] = useState(false);
-
-  const handleToggle = useCallback(() => setIsToggleOn(prevState => !prevState), []);
-  const [modalVisible, setModalVisible] = useState(false);
-  const handlePickerToggle = useCallback(() => setModalVisible(prevState => !prevState), []);
-
+  
   return (
     <View style={{ paddingLeft: insets.left + 10, paddingRight: insets.right + 10, flex: 1 }}>
-      <View style={[styles.container, { backgroundColor: isToggleOn ? 'white' : '#999' }]}>
+      <View style={[styles.container, { backgroundColor: isSelected ? 'white' : '#999' }]}>
         <View style={styles.containerCircle}>
           <Text style={styles.containerCircleText}>{subject.name[0]}</Text>
         </View>
         <TouchableOpacity
-          onPress={handleToggle}
+          onPress={ () => handleToggle(index)}
           underlayColor="lightgray"
           activeOpacity={0.9}
           style={styles.buttonContainer}
         >
           <View style={styles.buttonContainerRect}>
-            <TruncatedText text = {subject.name} color = {isToggleOn? "black": "white"}/>
+            <TruncatedText text = {subject.name} color = {isSelected? "black": "white"}/>
             <View style={styles.switchContainer}>
               <View
                 style={{
                   width: 16,
                   height: 16,
                   borderRadius: 8,
-                  backgroundColor: isToggleOn ? 'green' : 'white',
+                  backgroundColor: isSelected? 'green' : 'white',
                 }}
               ></View>
             </View>
@@ -159,6 +177,8 @@ const QuestButton = React.memo(({ subject }) => {
     </View>
   );
 });
+
+
 
 
 const BottomBtn = React.memo(() => {

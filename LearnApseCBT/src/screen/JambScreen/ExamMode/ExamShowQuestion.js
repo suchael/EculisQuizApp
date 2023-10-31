@@ -2,10 +2,12 @@ import {View,
         Text, 
         StyleSheet,
         Switch,
-        ScrollView,
         Dimensions,
         TouchableOpacity,
-        BackHandler, FlatList,ActivityIndicator,
+        Modal,
+        AppState,
+        BackHandler,
+		ActivityIndicator,StatusBar,
         TouchableHighlight } from 'react-native';
         
 import React , {useState, 
@@ -14,9 +16,14 @@ import React , {useState,
 							  useCallback, 
 							  useContext, 
 							  useRef} from 'react';
+				
 
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import { useNavigation } from '@react-navigation/native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useKeepAwake } from 'expo-keep-awake';
+
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -26,408 +33,129 @@ import { AntDesign , FontAwesome} from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
 // My import
-import QuitExamNotif from "./QuitExamNotif.js";
-import { Subjects, Questions } from  "../PQuestion/SubjectListDb.js";
-import {ShowQuestionContext} from "./ShowQuestionContext/Context.js";
 import BackgroundTimer from "./BackgroundTimer.js";
+import QuestionInterface from "./QuestionInterface.js";
+import HomeMain from "./HomeMain.js";
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
 export default function ShowQuestionList() {
+  useKeepAwake(); //Keep Screen awake during exam
+
   return (
     <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName = "Home">
-      <Stack.Screen name='Home' component = {Home} initialParams={{ currentPage: 1 }} />
+      	<Stack.Screen name='Home' component = {BackgroundedAppModal} initialParams={{ currentPage: 1 }} />
     </Stack.Navigator>
   )
 }
 
 
-
-function Home({navigation, route}) {
-	const { currentPage } = route.params;
-    const [ isLoadingQuestion, setIsLoadingQuestion ] = useState(true);
-    const [ showAllAnswer, setShowAllAnswer ] = useState(false);
-    
-    const totalQuestions = Questions.length ; // Replace with the actual total number of questions
-	const questionsPerPage = 1;  // Adjust the number of questions per page as needed
-    const totalPages = Math.ceil(totalQuestions / questionsPerPage);
-	
-	const scrollViewRef = useRef();
-
-    //Memoize the navigation handlers using useCallback
-	const handleNextPage = useCallback(() => {
-    	if (currentPage < totalPages) {
-      		setIsLoadingQuestion(true);
-      		const newPage = currentPage + 1;
-      		navigation.setParams({ currentPage: newPage }); //Go to next page if currentPage changes
-      		setIsLoadingQuestion(false);
-      		console.log("Page nxt: ", currentPage)
-      
-      		// Scroll to the top when user click next btn
-    		  if (scrollViewRef.current) {
-      			scrollViewRef.current.scrollTo({ y: 0, animated: true });
-    		  }
-    	}
-  	}, [currentPage, totalPages, navigation]);
-
-  const handlePrevPage = useCallback(() => {
-    if (currentPage > 1) {
-      	setIsLoadingQuestion(true);
-      	const newPage = currentPage - 1;
-      	navigation.setParams({ currentPage: newPage  });
-      	setIsLoadingQuestion(false);
-      	
-      	// Scroll to the top when user click on Prev Btn
-    	  if (scrollViewRef.current) {
-      			scrollViewRef.current.scrollTo({ y: 0, animated: true });
-    	  }
-    }
-  }, [currentPage, navigation]);
-	
-  const goToPage = useCallback((pageNumber) => {
-  	console.log("\t\t goTo")
-    if (pageNumber >= 1 && pageNumber <= totalPages) {
-      setIsLoadingQuestion(true);
-      navigation.setParams({ currentPage: pageNumber  });
-      setIsLoadingQuestion(false);
-      console.log("Goto Btn: ", currentPage)
-    }
-  }, [currentPage]);
-
-
-   const contextValue ={
-   	currentPage,
-   	showAllAnswer,
-   	setShowAllAnswer,
-   	isLoadingQuestion,
-   	setIsLoadingQuestion,
-   	handleNextPage,
-   	handlePrevPage,
-   	goToPage,
-   	totalPages,
-   	totalQuestions,
-   	questionsPerPage,
-   	scrollViewRef,
-	}
-  return (
-  	  <ShowQuestionContext.Provider value={contextValue}>
-    		<View style={styles.container}>
-    			<HomeHeader/>
-    			<TabBar/>
-    			<BottomButtons/>
-    		</View>
-    	</ShowQuestionContext.Provider>
-  );
-}
-
-
-function HomeHeader(){
-  const navigation = useNavigation();
-  const insets = useSafeAreaInsets();
-  return(
-    <View style = {[styles.homeHeader, 
-                    {
-                      paddingLeft: insets.left + 10,
-                      paddingRight: insets.right + 10,
-                      paddingTop: insets.top + 12,
-                      paddingBottom: insets.bottom + 4,
-                  }]}>
-      <View style= {{flexDirection: "row", gap:15}}>
-      	<View style = {{backgroundColor: "gray", width: 100, padding: 4, borderRadius: 4, flexDirection: "row", gap: 5, justifyContent: "center", alingitems: "center"}}>
-      		<BackgroundTimer/>
-      	</View>
-      	<Text style = {styles.homeHeaderText}>LearnApse</Text>
-      </View>
-      
-      <TouchableOpacity>
-      	   <Ionicons name="ios-calculator-sharp" size={40} color="black" />
-      </TouchableOpacity>
-    </View>
-  );
-}
-
-// Top Tab Bar
-function TabBar(){
-	const examSubject = ["Maths", "Phy", "Chem", "Biol", "Yor", "Lit"]
-	const [scrollTopTab, setScrollTopTab] = useState(false);
-	
-	const deviceWidth = Dimensions.get('window').width;
-	const maxTopTabSubject = 6; 
-	const minDeviceWidth = 360; 
-	const enableTopTabScroll = ()=>(
-		// if total subject > maxTopTabSubject and device width is lesser than 360
-		// then enable scrolling horizontally 
-		examSubject.length > maxTopTabSubject && deviceWidth <= minDeviceWidth ?	true: false
-	)
-	
-  return(
-    <Tab.Navigator initialRouteName="General"
-      screenOptions={{
-        tabBarActiveTintColor: "#000000",
-        tabBarInactiveTintColor: "#777",
-        tabBarLabelStyle: {
-          fontSize: 16,
-          textTransform: "none",
-          fontWeight: "bold",
-        },
-        tabBarStyle: {
-          height: 40, // Adjust the height of the tab bar
-          borderBottomWidth: 0, // Remove top border
-          backgroundColor: "lightgray",
-        },
-        tabBarIndicatorStyle: {
-          bottom: 0, // Adjust the position of the indicator
-          backgroundColor: "black",
-          height: 3,
-        },
-        //animation: "default",
-        
-    	lazy: true, // Enable lazy rendering
-    	//lazyPreloadDistance: 10, // Set the preload distance to 500 pixels
-    	lazyPlaceholder: () => (
-    		<View style ={{flex:1, justifyContent: "center", alignItems: "center"}}>
-      			<ActivityIndicator size="large" color="blue" /> 
-			</View>
-   	 ),
-   	tabBarScrollEnabled: enableTopTabScroll(),
-    }}>
-    
-    
-		{examSubject.map((subject, ind)=>( // map and create each tab 
-				<Tab.Screen name ={subject} component={MainContainer} key={ind}/>
-		))}
-    </Tab.Navigator>
-  );
-}
-
-
-function MainContainer({navigation}){
-	const [modalVisible, setModalVisible] = useState(false);
-	const { scrollViewRef } = useContext(ShowQuestionContext);
-	
-    const toggleModal = () => {
-    	setModalVisible(!modalVisible);
-     };
-
-	const insets = useSafeAreaInsets();
-	return(
-		<View style = {styles.mainContainer}>
-			<ScrollView contentContainerStyle={{ flexGrow: 1 }} ref={scrollViewRef} scrollEventThrottle={900}>
-				<View style = {{
-                  	paddingLeft: insets.left + 10,
-                  	paddingRight: insets.right + 10,
-                  	paddingTop: insets.top + 10,
-                  	paddingBottom: insets.bottom + 80,      	
-                }}
-				>
-					<QuestionInterface/>
-				</View>
-			</ScrollView>
-		</View>
-	);
-}
-
-
-const QuestionInterface = React.memo(() => {
-	return (
-    	<View style={styles.questionInterfaceMain}>
-      		<QuestionInterfaceContainer  />
-      		<GoToBtnList/>
-    	</View>
-  	);
-});
-
-
-
-function QuestionInterfaceContainer({ind}){
-	const navigation = useNavigation()
-	
-	const { currentPage,
-				  questionsPerPage, 
-				  showAllAnswer,
-				  totalQuestions,
-				  isLoadingQuestion,
-				  setIsLoadingQuestion,
-				 } = useContext(ShowQuestionContext);
-	
-    const startQuestionIndex = (currentPage - 1) * questionsPerPage;
-	const endQuestionIndex = startQuestionIndex + questionsPerPage;
-	
-	// Memoize the questions to display for the current page
-	const questionsToDisplay = useMemo(() => Questions.slice(startQuestionIndex, endQuestionIndex), [currentPage]);
-	
-	
-	return(
-	<View style ={{justifyContent: "center", alignItems: "center"}}>
-		{	questionsToDisplay.map((eachQuestion, index) => (
-			  <View key ={index} style = {styles.questionInterfaceContainer}>
-					<View style = {styles.questionScreen}>
-							<View style = {styles.questionScreenNumberView}>
-								<Text style = {styles.questionScreenNumber}>
-									Question {`${startQuestionIndex + index + 1} of ${totalQuestions}`}
-								</Text>
-							</View>
-							<Text style = {styles.questionScreenQuestionContent}>
-								{eachQuestion.question}
-							</Text>
-					</View>
-			
-					<View style = {styles.optionMain}>
-						{eachQuestion.options.map((eachOption, index)=>(
-							<TouchableOpacity key = {index} style= {styles.optionContainer}>
-								<Text style = {{fontSize: 20, fontWeight: "bold"}}>
-									{ Object.keys(eachOption)[0]}{".  "}
-									<Text style = {styles.optionContainerOptions}>
-              				  		{ eachOption[Object.keys(eachOption)[0]] }
-									</Text>
-								</Text>			
-         	   			</TouchableOpacity>
-						 ))}
-					</View>
-				</View>
-			  ))
-		}		
-	</View>
-	);
-}
-
-
-
-
-// Display List of nswered numbers
-
-const GoToBtnList = React.memo(()=>{
-  const navigation = useNavigation ();
-  const { totalPages, goToPage, currentPage } = useContext(ShowQuestionContext);
-  const [selectedNumber, setSelectedNumber] = useState(currentPage);
+function BackgroundedAppModal() {
+  const windowWidth = Dimensions.get('window').width;
   
-	
-  const questionNumbers = Array.from({ length: totalPages - 560 }, (_, index) => index + 1);
-  
-  
-  
-  return (
-    <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingHorizontal: 2 ,  paddingLeft: 10, borderWidth: 2, paddingVertical: 5, borderRadius: 10}}>
-
-      {questionNumbers.map((number, index) => (
-        <TouchableOpacity
-          key={index}
-          style={{ backgroundColor: selectedNumber === index?  "red" : "white", width: 48,  height: 52, borderWidth: 2, borderRadius: 3, justifyContent: 'center', alignItems: 'center', margin: 2 }}
-          onPress={ ()=>{
-				goToPage(index)
-				navigation.setParams({ currentPage: index }); //Go to next page if currentPage changes
-				console.log("Cur page: ", currentPage)
-				setSelectedNumber(index)
-				console.log("Num", selectedNumber, "\n")
-		  }}
-        >
-          <Text style={{ fontSize: 17, fontWeight: '900', color: "black" }}>{number}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
-  );
-})
-
-
-const BottomButtons = React.memo(()=>{
-  const navigation = useNavigation ();
-  
-  const { handlePrevPage, 
-				  handleNextPage, 
-			  	totalPages,
-				  currentPage } = useContext(ShowQuestionContext);
-			
   const [modalVisible, setModalVisible] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [warningCount, setWarningCount] = useState(0);
+  let appStateListener = null;
 
-  const handleBackPress = () => {
-    if (!modalVisible) {
-      setModalVisible(true); // Open the modal
-      return true; // Prevent default back behavior
-    }
-    return false; // Allow default back behavior
+  const openModal = () => {
+    setModalVisible(true);
   };
-
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-    	return () => {
-      	BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
-    	};
-  }, [modalVisible]);
-
-	const openModal = () => {
-    	setModalVisible(true);
-     };
 
   const closeModal = () => {
-    	setModalVisible(false);
-    	setInputValue('');
+    setModalVisible(false);
   };
 
-  const PASSWORD = '555';
-  const handleSubmit = () => {
-    	if (inputValue === PASSWORD) {
-      		closeModal();
-      		navigation.navigate("Exam history", {screen: "ExamHistResult"}); // Navigate to the previous screen
-    	}
-    };
-	return (
-		<View style ={{paddingVertical: 0, height: 60, backgroundColor: "transparent", position: "absolute", bottom:0, left: 15, right: 15, zIndex: 1, paddingHorizontal: 10, paddingBottom: 18, flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-			<TouchableHighlight
-        			onPress = {handlePrevPage}
-        			disabled = {currentPage == 1}
-        			activeOpacity={0.9}
-        			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {backgroundColor: currentPage == 1?  "lightgray": "gray"}]}
-      	 >
-        		<AntDesign name="arrowleft" size={30} color={currentPage == 1? "#777": "black"}  />
-      	</TouchableHighlight>
-		  <EndExamBtn toggleModal={openModal} />
-		  <TouchableHighlight
-        			onPress={handleNextPage}
-        			disabled = {currentPage == totalPages}
-        			activeOpacity={0.9}
-        			underlayColor="white"
-        			style= {[styles.nextAndPrevBtn, {backgroundColor: currentPage == totalPages ?  "lightgray": "gray"}]}
-      	>
-        		<AntDesign name="arrowright" size={30} color={currentPage == totalPages? "#777": "black"} />
-      	</TouchableHighlight>  
-	  	<QuitExamNotif navigation={navigation} visible={modalVisible} PASSWORD= {PASSWORD} inputValue={inputValue} setInputValue={setInputValue} handleSubmit={handleSubmit} closeModal={closeModal}/>
-		</View>
-	);
-})
+  const navigation = useNavigation();
+  const isFocused = useIsFocused();
 
+  const handleAppStateChange = async (nextAppState) => {
+    if (nextAppState === 'background' && isFocused) {
+      // App is transitioning to the background, and the component is focused
+      // Increment the warning count
+      setWarningCount((prevCount) => prevCount + 1);
+      // You can also implement logic to auto-submit the exam after warnings or handle other actions as needed
+      openModal();
 
-function EndExamBtn({toggleModal}){
-	//const windowWidth = Dimensions.get('window').width;
-	const handleBackPress = () => {
-    toggleModal(); // Toggle the modal visibility
-    return true; // Prevent default back behavior
+      // Save the warning count to AsyncStorage
+      try {
+        await AsyncStorage.setItem('warningCount', JSON.stringify(warningCount));
+      } catch (error) {
+        alert("Error saving count", error);
+      }
+    }
   };
 
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    if (isFocused) {
+      appStateListener = AppState.addEventListener('change', handleAppStateChange);
+    } else {
+      if (appStateListener) {
+        appStateListener.remove();
+      }
+    }
+
+    // Retrieve the warning count from AsyncStorage when the component mounts
+    const retrieveWarningCount = async () => {
+      try {
+        const savedCount = await AsyncStorage.getItem('warningCount');
+        if (savedCount !== null) {
+          setWarningCount(parseInt(savedCount, 10));
+        }
+      } catch (error) {
+        alert("Error retrieving count", error);
+      }
     };
-  }, []);
-	return(
-	  <>
-		<TouchableHighlight
-        			onPress={handleBackPress}
-        			activeOpacity={0.9}
-        			underlayColor="white"
-        			style= {styles.nextAndPrevBtn}
-      	>
-        	<Text style = {{fontSize: 16, fontWeight: "bold"}}>End Exam</Text>
-      	</TouchableHighlight>  
-      	
-      </>
-	);
+
+    retrieveWarningCount();
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      if (appStateListener) {
+        appStateListener.remove();
+      }
+    };
+  }, [isFocused]);
+
+  return (
+    <View style={{ flex: 1 }}>
+    	<StatusBar hidden={true} />
+      <HomeMain/>
+      
+      <Modal transparent={true} animationType="slide" visible={modalVisible} onRequestClose={closeModal}>
+        <TouchableOpacity onPress={closeModal} style={{ backgroundColor: 'rgba(0,0,0,0.6)', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ borderRadius: 15, backgroundColor: 'white', padding: 10, height: '45%', width: '80%', justifyContent: 'center', alignItems: 'center' }}>
+            <CountNumOfAppBackground warningCount={warningCount} />
+          </View>
+        </TouchableOpacity>
+      </Modal>
+      
+    </View>
+  );
 }
 
 
+const CountNumOfAppBackground = ({ warningCount }) => {
+  return (
+    <View style={{ width: "100%" , borderWidth: 4, borderColor: '#FFD700', borderRadius: 10, flex: 1, justifyContent: 'space-between', alignItems: 'center', padding: 20 }}>
+    	
+      <Text style={{ fontSize: 35, color: 'red', fontWeight: '600', textAlign: 'center' }}>Warning</Text>
+      <Text style={{ fontSize: 20, color: 'black', fontWeight: '500', textAlign: 'center' }}>
+        	Focus on the exam {'\n'}
+        	<Text style={{ fontWeight: '600' }}> {warningCount} chances left</Text> 
+      </Text>
+      <Text style={{ fontSize: 50, fontWeight: '600', textAlign: 'center' }}>🙄</Text>
+      
+      <View style ={{flexDirection: "row", gap: 5}}>
+      	<Text style={{ fontSize: 13, fontWeight: '600', textAlign: 'center' }}>
+        		Monitoring mode activated...
+      	</Text>
+    	  <ActivityIndicator size="small" color="black" />
+    	</View>
+      
+    </View>
+  );
+};
 
 
 const styles = StyleSheet.create({
@@ -455,84 +183,4 @@ const styles = StyleSheet.create({
   	backgroundColor: "white",
   },
   
-  // Question Interface
-  questionInterfaceMain: {
-  	//borderWidth : 2, 
-	marginBottom: 60,
-	marginTop: 10
-   },
-   questionInterfaceContainer: {
-   	backgroundColor: "transparent",
-   	borderWidth: 2, 
-	   paddingHorizontal: 4, 
-	   paddingTop: 4,
-	   paddingBottom: 8,
-	   borderColor: "#777", 
-	   borderRadius: 15, 
-	   marginBottom: 50,
-   	maxWidth: 420,
-	   width: "100%",
-	},
-	questionScreen: {
-		borderWidth:2, 
-	    padding: 8, 
-		borderColor: "#777", 
-		flexDirection: "column", 
-		borderRadius: 12,  
-		backgroundColor: "white", 
-		marginBottom: 12,
-	},
-	questionScreenNumberView: {
-		marginVertical: 4,
-		justifyContent: "center", 
-		alignItems: "center",
-	},
-	questionScreenNumber: {
-		fontSize: 18, 
-		fontWeight: "bold", 
-		borderWidth: 2, 
-		paddingLeft: 10, 
-		paddingRight: 8, 
-		paddingTop: 1, 
-		borderRadius: 5
-	},
-   questionScreenQuestionContent: {
-   	fontSize: 16.7, 
-	   fontWeight: "500", 
-		marginTop: 15,
-		marginBottom: 7,
-		//color: "black",
-	},
-	optionMain: {
-		//borderWidth:2, 
-		paddingTop: 5
-	},
-	optionContainer: {
-		//justifyContent: "center",
-		paddingHorizontal: 8 ,
-		paddingVertical: 4,
-		borderWidth: 2, 
-		borderColor: "#777", 
-		borderRadius: 7, 
-		//marginBottom: 6, 
-		marginTop: 6,
-		backgroundColor: "white" ,
-		minHeight: 45
-	},
-	optionContainerOptions: {
-		fontSize: 16.7, 
-		fontWeight: "500",
-		paddingVertical: 20,
-		borderWidth: 2,
-	},
-  
-  // Bottom Buttons
-	nextAndPrevBtn: {
-		width: 90,
-		height: 46,
-		justifyContent: "center",
-		alignItems: "center",
-		backgroundColor: "gray",
-		borderRadius: 5,
-   },
 });

@@ -59,6 +59,7 @@ export default function PageSelectorModal() {
         >
           <View style={styles.modalBackdrop}>
             <View style={styles.modal}>
+              <Text style={{ fontSize: 20, fontWeight: "500", textAlign: "center", borderBottomWidth: 2, borderColor: "#999", paddingVertical: 10 }}>All pages</Text>
               <FlatList
                 data={pageNumbers}
                 keyExtractor={(item) => item.toString()}

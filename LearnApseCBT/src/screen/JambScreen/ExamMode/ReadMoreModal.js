@@ -80,13 +80,13 @@ function MessageBox(){
           <Text style={styles.messageHeaderText}>
             Attention:{' '}
             <Text style={styles.messageNormalText}>
-  Welcome to strict Exam Mode. Here, your achievements are on live display for friends and international sponsors to see. {'\n'}
-  But that is not all. The best of the best could also be sponsored and offered scholarships. {"\n\n"}Note that your score is available globally via the
-  <UnderLineTextBtn text="Hall of Fame" goTo="HallOfFame"/> section.{"\n\n"}
-</Text>
+  				Welcome to strict Exam Mode. Here, your Exam scores are on live display for friends and international sponsors to see. {'\n'}
+  				But that is not all. The best of the best could also be sponsored and offered scholarships. {"\n\n"}Note that in this Exam Mode, your score is available globally via the
+  				<UnderLineTextBtn text="Hall of Fame" goTo="HallOfFame"/> section.{"\n\n"}
+			</Text>
 
             <Text style={styles.messageNormalText}>
-          		If you wish to override this setting and you do not want your score to be visible globally, consider choosing the <UnderLineTextBtn text="Customised  Test" goTo = "Custom test" /> option.
+          		If you wish to override this setting and you do not want your score to be visible globally, consider choosing the{" "} <UnderLineTextBtn text="Customised  Test" goTo = "Custom test" /> option.
         	</Text>
           </Text>
         </View>
@@ -114,7 +114,7 @@ function MessageBox(){
           	</View>
           
           </View>
-          <Text style ={{fontSize: 16.5, fontWeight: "500"}}>
+          <Text style ={{fontSize: 16.5, fontWeight: "500", textAlign: "justify"}}>
           	You are expected to select three additional subjects of
               your choice to make a total of four.
           </Text>
@@ -140,11 +140,13 @@ const styles = StyleSheet.create({
   messageHeaderText: {
     fontSize: 16,
     fontWeight: 'bold',
+    textAlign: "justify"
   },
   messageNormalText: {
     fontSize: 16.5,
     fontWeight: '500',
-    marginTop: 12
+    marginTop: 12,
+    textAlign: "justify",
   },
 });
 

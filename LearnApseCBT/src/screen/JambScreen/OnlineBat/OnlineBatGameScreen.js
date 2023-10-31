@@ -8,6 +8,7 @@ import {View,
         TouchableHighlight } from 'react-native';
         
 import React, {useState} from 'react';
+import { useKeepAwake } from 'expo-keep-awake';
 
 import {
   useSafeAreaInsets,
@@ -22,8 +23,12 @@ import { AntDesign,
 
 //My import
 import ScoreModal from "./ScoreModal.js";
+import Calculator from "../ExamMode/Calculator.js";
+
 
 export default function OnlineBatGameScreen(){
+	useKeepAwake(); //Keep Screen awake during exam
+
 	return(
 		<View style ={styles.homeContainer}>
 			<Main/>
@@ -112,6 +117,7 @@ function OnlineBatQuestion(){
 
 
 function Timer(){
+	
 	return(
 	<View style = {{justifyContent: "center", alignItems: "center", marginBottom: 15}}>
 		<View style = {{backgroundColor: "gray", width: 140, paddingHorizontal: 20, paddingVertical: 5,  borderRadius: 4, flexDirection: "row", justifyContent: "space-between", alingitems: "center"}}>
@@ -133,8 +139,9 @@ function QuestionInterfaceContainer({ind}){
 			<View style = {styles.questionScreen}>
 				<View style = {styles.questionScreenNumberView}>
 					<Text style = {styles.questionScreenNumber}>
-						Question {ind}/10
+						Question {ind} of 10
 					</Text>
+					<CalculatorBtn/>
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
 					Which of the following statements does not show Rutherford's account of Nuclear Theory? An atom contains a region
@@ -166,7 +173,7 @@ function QuestionInterfaceContainer({ind}){
 					</Text>			
          	   </TouchableOpacity>
          	<TouchableOpacity style= {styles.optionContainer}>
-					<Text style = {{fontSize: 17, fontWeight: "bold"}}>
+					<Text style = {{fontSize: 17, fontWeight: "bold", }}>
 						D{". "}
 						<Text style = {styles.optionContainerOptions}>
               				which is very large and in which close to 98% of projectiles pass undefle Ted          				</Text>
@@ -175,6 +182,26 @@ function QuestionInterfaceContainer({ind}){
 			</View>
 		</View>
 	</View>
+	);
+}
+
+
+function CalculatorBtn (){
+	const [modalVisible, setModalVisible] = useState(false);
+  
+  const openModal = ()=>{
+  	setModalVisible(true);
+  }
+  
+  const closeModal = ()=>{
+  	setModalVisible(false);
+  }
+	
+	return(
+		<TouchableOpacity onPress = {openModal} style ={{position: "absolute", right: 10}}>
+      	   <Ionicons name="ios-calculator-sharp" size={28} color="black" />
+      		<Calculator visible = {modalVisible} onClose ={closeModal}/>
+      </TouchableOpacity>
 	);
 }
 
@@ -268,6 +295,7 @@ const styles = StyleSheet.create({
    questionScreenQuestionContent: {
    	fontSize: 16.7, 
 	   fontWeight: "500", 
+		textAlign: "justify",
 		//color: "black",
 	},
 	optionMain: {

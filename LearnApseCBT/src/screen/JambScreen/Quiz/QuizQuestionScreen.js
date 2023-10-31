@@ -23,6 +23,9 @@ import { AntDesign,
 //My import
 import QuizScoreModal from "./QuizScoreModal.js";
 import {ScoreContext} from "./QuizUseContext/Context.js";
+import Calculator from "../ExamMode/Calculator.js";
+
+
 
 const quizQuestions = [
   {
@@ -183,7 +186,7 @@ function QuizQuestionInterface(){
 
 	const handlePress = (index)=>{
 		setSelectedOption(index)
-		console.log("option:", quizQuestions[selectedQuestion].options[selectedOption])
+		//console.log("option:", quizQuestions[selectedQuestion].options[selectedOption])
 	}
 
 	return(
@@ -194,6 +197,7 @@ function QuizQuestionInterface(){
 					<Text style = {styles.questionScreenNumber}>
 						Question {selectedQuestion + 1}/{quizQuestions.length}
 					</Text>
+					<CalculatorBtn/>
 				</View>
 				<Text style = {styles.questionScreenQuestionContent}>
 					{quizQuestions[selectedQuestion]?.question}
@@ -222,6 +226,24 @@ function QuizQuestionInterface(){
 	);
 }
 
+function CalculatorBtn (){
+	const [modalVisible, setModalVisible] = useState(false);
+  
+  const openModal = ()=>{
+  	setModalVisible(true);
+  }
+  
+  const closeModal = ()=>{
+  	setModalVisible(false);
+  }
+	
+	return(
+		<TouchableOpacity onPress = {openModal} style ={{position: "absolute", right: 0}}>
+      	   <Ionicons name="ios-calculator-sharp" size={38} color="black" />
+      		<Calculator visible = {modalVisible} onClose ={closeModal}/>
+      </TouchableOpacity>
+	);
+}
 
 
 function ContinueButton() {
@@ -312,6 +334,7 @@ function EndQuizScreen(){
 		
 	);
 }
+
 
 const styles = StyleSheet.create({
 	homeContainer:{

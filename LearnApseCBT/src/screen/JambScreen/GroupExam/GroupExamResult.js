@@ -186,14 +186,14 @@ const styles = {
   },
   releaseButton: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 15,
     left: 10,
     right: 10,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'blue',
     padding: 10,
-    borderRadius: 15,
+    borderRadius: 25,
   },
   releaseButtonText: {
     color: 'white',

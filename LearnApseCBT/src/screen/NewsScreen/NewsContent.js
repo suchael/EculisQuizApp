@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
   newsContent: {
     fontSize: 17,
     fontWeight: "500",
+    textAlign: "justify",
   },
   commentButton: {
     backgroundColor: "gray",
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 25,
     position: "absolute",
-    bottom: 0.3,
+    bottom: 12,
     left: 10,
     right: 10,
   },

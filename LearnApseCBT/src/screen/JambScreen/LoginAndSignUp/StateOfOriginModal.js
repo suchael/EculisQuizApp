@@ -88,7 +88,7 @@ export default function StateOfOriginModal({Type}){
         		underlayColor="lightgray"
         		style={{ borderWidth: 2, borderRadius: 4, borderColor: "#888", backgroundColor: "lightgray"}}
       	  >
-        		<View style={{maxWidth: 150, gap: 20,paddingHorizontal: 4, flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 1}}>
+        		<View style={{maxWidth: 170, gap: 30, paddingHorizontal: 4, paddingVertical: 6, flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
           			<Text style={{ fontWeight: "700", fontSize: 18 }}>{selectedNumber}</Text>
           			<Fontisto name="angle-down" size={16} color="black" />
         		</View>

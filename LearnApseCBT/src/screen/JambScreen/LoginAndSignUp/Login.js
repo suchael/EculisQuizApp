@@ -75,6 +75,7 @@ function HomeHeader() {
 
 function Main() {
   const insets = useSafeAreaInsets();
+  const navigation= useNavigation()
   
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -147,9 +148,9 @@ function Main() {
 						  	/>
 							  <TouchableHighlight underlayColor="transparent" onPress={togglePasswordVisibility} style ={{height: 42, width: 30, justifyContent:"center", alignItems:"center", backgroundColor: "transparent", marginRight: 5}}>
             						{isPasswordVisible ? (
-             							 <Feather name="eye-off" size={22} color="black" />
+             							 <AntDesign name="eyeo" size={22} color="black" />
           							    ) : (
-              									<AntDesign name="eyeo" size={22} color="black" />
+              							<Feather name="eye-off" size={22} color="black" />
            						 )}
          					 </TouchableHighlight>
           				</View>
@@ -176,10 +177,10 @@ function Main() {
       	{/*Closing - Login Section*/}
       
       	{/*Signup Section*/}
-      	<View style ={{backgroundColor: "white", minHeight: 60, borderRadius: 10, marginTop: 8, borderWidth: 2, borderColor: "blue", paddingVertical: 15, paddingHorizontal: 10, flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 10}}>
+      	<TouchableOpacity onPress = {()=> navigation.navigate("Signup")} style ={{backgroundColor: "white", minHeight: 60, borderRadius: 10, marginTop: 8, borderWidth: 2, borderColor: "blue", paddingVertical: 15, paddingHorizontal: 10, flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 10}}>
       		<Text style ={{fontSize: 17, fontWeight: "600"}}>Don't have an account?</Text>
-      		<UnderLineTextBtn text = "Signup" goTo="Signup"/>
-      	</View>
+      		<Text style ={{fontSize: 17, fontWeight: "600", color: "blue", textDecorationLine: "underline"}}>SignUp</Text>
+      	</TouchableOpacity>
       	{/*closing - Signup Section*/}
       </View>
     </ScrollView>

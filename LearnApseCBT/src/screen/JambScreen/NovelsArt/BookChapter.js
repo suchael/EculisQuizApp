@@ -85,7 +85,7 @@ function MainContainer(){
 					
 					{/* Content */}
 					<View style ={{marginTop: 20}}>
-						<Text style = {{fontSize: 16.5, fontWeight: "500", }}>
+						<Text style = {{fontSize: 16.5, fontWeight: "500", textAlign: "justify" }}>
 						yes, your app has the potential to compete with myschool. both apps offer a variety of features for students and teachers, but your app has some unique features that could set it apart, such as the online battle mode, the group exam link, and the ability to generate questions by topic.
 
 here are some ideas on how to market your app:

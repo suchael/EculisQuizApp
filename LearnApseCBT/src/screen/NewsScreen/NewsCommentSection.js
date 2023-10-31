@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: -4, // Add margin at the bottom to separate from other content
+    marginBottom: 1, // Add margin at the bottom to separate from other content
   },
   input: {
     maxHeight: 175,

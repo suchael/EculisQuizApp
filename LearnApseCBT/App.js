@@ -50,8 +50,17 @@ import PaymentOption from "./src/screen/JambScreen/ActivateApp/PaymentOption.js"
 {/*Closing JambScreen*/}
 
 
+
+{/*WaecScreen*/}
+import WaecPastQuest from './src/screen/WaecScreen/WaecPQuestion/PastQuest.js';
+
+{/*Closing WaecScreen*/}
+
+
 {/*NewsScreen*/}
 import NewsContent from "./src/screen/NewsScreen/NewsContent.js";
+import NewsCommentSection from "./src/screen/NewsScreen/NewsCommentSection.js";
+
 {/* Closing - NewsScreen*/}
 
 
@@ -196,10 +205,26 @@ export default function App() {
 							{/*Closing - JambScreen*/}
 							
 							
+							
+							{/*WaecScreen*/}
+							<Stack.Screen 
+								name='WaecPastQuest' 
+								component={WaecPastQuest}
+								options={{title: "Past Questions"}}
+							/>
+
+							{/*Closing - WaecScreen*/}
+							
+							
+							
 							{/*NewsScreen*/}
 							<Stack.Screen 
 								name='NewsContent' 
 								component={NewsContent}
+							/>
+							<Stack.Screen 
+								name='NewsCommentSection' 
+								component={NewsCommentSection}
 							/>
 							{/*Closing - NewsScreen*/}
 							

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import {
   View,
   Text,
@@ -7,7 +8,11 @@ import {
   Dimensions,
   TouchableHighlight,
   TouchableOpacity,
+  Animated, 
+  Easing
 } from "react-native";
+
+
 
 import {
   SafeAreaProvider,
@@ -25,6 +30,7 @@ import {
   MaterialCommunityIcons,
   AntDesign,
   Entypo,
+  Foundation,
 } from '@expo/vector-icons';
 
 // My imports
@@ -69,19 +75,17 @@ function JambHome({navigation}) {
             <View style ={{marginTop: 0,}}>
             	<AlertBox />
             </View>
+            
             <View style={styles.midTopContent}>
               <View style={styles.midTopContentRow1}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate("Past questions")}
                   activeOpacity={0.3}
                   underlayColor="lightgray"
-                  style={[styles.midTopContentRow1Btn, {
-                  				  borderTopLeftRadius: 34,
-    								borderBottomRightRadius: 34,
-							  }]}
+                  style={styles.midTopContentRow1Btn}
                 >
                   <>
-                    <MaterialCommunityIcons name="notebook-multiple" size={40} color="black" />
+                    <FontAwesome5 name="scroll" size={34} color="black" />
                     <Text style={styles.midTopContentRowText}>Past</Text>
                     <Text style={styles.midTopContentRowText}>Questions</Text>
                   </>
@@ -90,63 +94,65 @@ function JambHome({navigation}) {
                   onPress={() => navigation.navigate("Custom test")}
                   activeOpacity={0.3}
                   underlayColor="lightgray"
-                  style={[styles.midTopContentRow1Btn, {
-                  				  borderTopRightRadius: 34,
-    								borderBottomLeftRadius: 34,
-							  }]}
+                  style={styles.midTopContentRow1Btn}
                 >
                   <>
-                    <MaterialIcons name="my-library-books" size={45} color="black" />
+                    <FontAwesome5 name="chalkboard-teacher" size={34} color="black" />
                     <Text style={styles.midTopContentRowText}>Customised</Text>
                     <Text style={styles.midTopContentRowText}>Test</Text>
                   </>
                 </TouchableOpacity>
               </View>
+              
+              {/*Exam Mode*/}
               <View style={styles.midTopContentRow2}>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("Exam mode")}
-                  activeOpacity={0.3}
-                  underlayColor="lightgray"
-                  style={styles.midTopContentRow2Exam}
-                >
-                  <>
-                    <Ionicons name="ios-finger-print-sharp" size={50} color="white" />
-                    <Text style={[styles.midTopContentRowText, {color: "white"}]}>Exam{"\n"}Mode</Text>
-                  </>
+              	<View style ={{flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 30, width: 120}}>
+              		<View style ={{height: 4, width: 14, backgroundColor: "black", borderTopLeftRadius: 5, borderTopRightRadius: 5}}>
+              		</View>
+              		<View style ={{height: 4, width: 14, backgroundColor: "black", borderTopLeftRadius: 5, borderTopRightRadius: 5}}>
+              		</View>
+              	</View>
+                  <TouchableOpacity
+                  	onPress={() => navigation.navigate("Exam mode")}
+                  	activeOpacity={0.3}
+                  	underlayColor="lightgray"
+                 	 style={styles.midTopContentRow2Exam}
+                  >
+               	     <Text style={[styles.midTopContentRowText, {color: "black", fontSize: 22}]}>Exam{"\n"}Mode</Text>
                 </TouchableOpacity>
               </View>
+              {/*Closing: Exam Mode*/}
+              
               <View style={styles.midTopContentRow3}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate("Online battle")}
                   activeOpacity={0.3}
                   underlayColor="lightgray"
-                  style={[styles.midTopContentRow3Btn, {
-                  					borderTopRightRadius: 34,
-    								  borderBottomLeftRadius: 34,
-							  }]}
+                  style={styles.midTopContentRow3Btn}
                 >
                   <>
-                    <MaterialIcons name="online-prediction" size={47} color="black" />
+                    <FontAwesome5 name="people-carry" size={34} color="black" />
                     <Text style={styles.midTopContentRowText}>Online{"\n"}Battle</Text>
                   </>
                 </TouchableOpacity>
+                
                 <TouchableOpacity
                   onPress={() => navigation.navigate("Quiz mode")}
                   activeOpacity={0.3}
                   underlayColor="lightgray"
-                  style={[styles.midTopContentRow3Btn, {
-                  					borderTopLeftRadius: 34,
-    								  borderBottomRightRadius: 34,
-							  }]}
+                  style={styles.midTopContentRow3Btn}
                 >
                   <>
-                    <MaterialCommunityIcons name="head-question-outline" size={45} color="black" />
+                    <MaterialCommunityIcons name="head-question-outline" size={37} color="black" />
                     <Text style={styles.midTopContentRowText}>Quiz{"\n"}Mode</Text>
                   </>
                 </TouchableOpacity>
               </View>
+              
             </View>
           </View>
+          
+          {/*Bottom*/}
           <View style={styles.bottom}>
             <TouchableOpacity 
               onPress={() => navigation.navigate("HallOfFame")}
@@ -191,7 +197,7 @@ function JambHome({navigation}) {
             >
               <>
                 <Entypo name="dropbox" size={35} color="black" />
-                <Text style={styles.bottomContentText} >Jamb syllabus </Text>
+                <Text style={styles.bottomContentText} >JAMB syllabus </Text>
               </>
             </TouchableOpacity>
             <TouchableOpacity
@@ -202,7 +208,7 @@ function JambHome({navigation}) {
             >
               <>
                 <AntDesign name="CodeSandbox" size={35} color="black" />
-                <Text style={styles.bottomContentText} >Jamb subject combination </Text>
+                <Text style={styles.bottomContentText} >JAMB subject combination </Text>
               </>
             </TouchableOpacity>
             <TouchableOpacity
@@ -242,9 +248,28 @@ function JambHome({navigation}) {
 
 
 function AlertBox() {
+  const deviceWidth = Dimensions.get("window").width;
+  const [position, setPosition] = useState(new Animated.Value(30));
+
+  useEffect(() => {
+    const moveText = () => {
+      position.setValue(-30); // Reset the position to the initial value
+      Animated.timing(position, {
+        toValue:  30, // Adjust this value for the desired range of movement
+        duration: 5600, // decreasing this value will increase the Text speed
+        easing: Easing.linear, // You can use other easing functions
+        useNativeDriver: true,
+      }).start(moveText); // Recursively call moveText when the animation is done
+    };
+
+    moveText(); // Start the initial animation
+  }, []);
+  
+  
+  
   const userStatus = {
-    loggedIn: false,
-    appActivated: false,
+    loggedIn: false, //initial
+    appActivated: false, //initial 
   };
 
   const setUserStatus = (loggedIn, appActivated) => {
@@ -253,15 +278,15 @@ function AlertBox() {
   };
   
    // Toggle the user Alert message using "true/false"
-  setUserStatus(true, false); 
+  setUserStatus(false, false); //Chang me
   let content;
 
   if (!userStatus.loggedIn) {
     content = (
     	<View style ={{ flexDirection: "column",justifyContent: "center", alignItems: "center" , }}>
-    			   <Text style={styles.alertText}>
+    			   <Animated.Text style={[styles.alertText, { transform: [{ translateX: position }] } ]}>
         				You are not logged in, please{" "}
-        		   </Text>
+        		   </Animated.Text>
         			<TouchableHighlight
           				onPress={() => console.log("Login Now")}
           				activeOpacity={0.9}
@@ -275,9 +300,9 @@ function AlertBox() {
   else if (!userStatus.appActivated) {
     content = (
     	<View style ={{ flexDirection: "column",justifyContent: "center", alignItems: "center"}}>
-    			   <Text style={styles.alertText}>
+    			   <Animated.Text style={[styles.alertText, { transform: [{ translateX: position }] } ]}>
         				You have not activated your App.{" "}
-        		   </Text>
+        		   </Animated.Text>
         			<TouchableHighlight
           				onPress={() => console.log("Activate Now")}
           				activeOpacity={0.9}
@@ -333,7 +358,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   alertText: {
-    fontSize: 14.5,
+    fontSize: 16,
     fontWeight: "600",
     color: "black",
     paddingBottom: 2,
@@ -353,6 +378,7 @@ const styles = StyleSheet.create({
   midTopContentRow1: {
     justifyContent: "space-between",
     flexDirection: "row",
+    //borderWidth: 2,
   },
   midTopContentRow2: {
     flex: 1,
@@ -370,8 +396,9 @@ const styles = StyleSheet.create({
   midTopContentRow1Btn: {
     //borderWidth: 2,
     backgroundColor: "#FAFAFA",
-    width: 110,
-    height: 110,
+    width: 105,
+    height: 105,
+    borderRadius : 20,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -379,8 +406,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#8888",
     backgroundColor: "#6EAAF5",
-    width: 115,
-    height: 115,
+    width: 120,
+    height: 120,
     borderRadius: 34,
     alignItems: "center",
     justifyContent: "center",
@@ -388,8 +415,9 @@ const styles = StyleSheet.create({
   midTopContentRow3Btn: {
     //borderWidth: 2,
     backgroundColor: "#FAFAFA",
-    width: 110,
-    height: 110,
+    width: 105,
+    height: 105,
+    borderRadius: 20,
     alignItems: "center",
     justifyContent: "center",
   },

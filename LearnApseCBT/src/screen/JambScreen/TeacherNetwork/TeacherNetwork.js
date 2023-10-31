@@ -302,7 +302,7 @@ function TeacherJobView(){
 
 function TeacherJobBtn(){
 	const navigation= useNavigation();
-    const screenWidth = Dimensions.get('window').width;
+    
     return(
         <View style={{ backgroundColor: "#999", padding: 12, borderRadius: 10, marginBottom: 10 }}>
             <View style={{ flexDirection: "row", gap: 2, justifyContent: "space-between" , }}>

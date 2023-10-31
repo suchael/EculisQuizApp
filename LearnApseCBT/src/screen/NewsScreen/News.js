@@ -34,8 +34,6 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //My imports
-import NewsContent from "./NewsContent.js";
-import NewsCommentSection from "./NewsCommentSection.js";
 
 
 const NewsScreenStack = createNativeStackNavigator();
@@ -46,8 +44,6 @@ export default function NewsScreen(){
       screenOptions={{animation: "none",}}
     >
       <NewsScreenStack.Screen name="NewsHome" component={NewsHome} options={{headerShown: false}}/>
-      <NewsScreenStack.Screen name="NewsContent" component={NewsContent} options={{headerShown: false}}/>
-      <NewsScreenStack.Screen name="NewsCommentSection" component={NewsCommentSection} options={{headerShown: false}}/>
     </NewsScreenStack.Navigator>
   );
 }
@@ -109,13 +105,7 @@ function NewsHome() {
         			<News/>
         			<News/>
         			<News/>
-        			<News/>
-        			<News/>
-        			<News/>
-        			<News/>
-        			<News/>    
-        			<News/>    
-        			<News/>    
+        			
 
 					<TouchableOpacity style = {{padding: 10, marginTop: 120, marginBottom: 15, borderRadius: 25, backgroundColor: "gray", justifyContent: "center", alignItems: "center"}}>
         				<Text style={{fontSize: 17, fontWeight: "bold"}}>More News</Text>
@@ -138,7 +128,7 @@ function News(){
                 {/*Closing ofPicture*/}
                 
                 <View style={{  flex: 1,}}>
-                    <Text style={{ fontSize: 17, fontWeight: "600" ,marginTop: -4,}}>
+                    <Text style={{ fontSize: 17, fontWeight: "600" ,marginTop: -4,}} numberOfLines={2}>
                         School of nursing Entrance Result is out Now!! check it from
                     </Text>
                     <Text style={{ fontSize: 15, fontWeight: "500" }}>

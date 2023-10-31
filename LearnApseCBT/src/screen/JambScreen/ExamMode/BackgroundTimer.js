@@ -1,12 +1,18 @@
 // This code create a timer that decrements
 // It is capable of running on the background
 
-
 import React, { useState, useEffect } from 'react';
-import { View, Text, AppState } from 'react-native';
+import { View, Text, AppState,Alert  } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+// icons
+import { Ionicons } from '@expo/vector-icons';
+
 
 const BackgroundTimer = () => {
-  const totalTimeInSeconds = 60 // 60 seconds means 1hour .... adjust the seconda
+  const navigation = useNavigation ();
+  
+  const totalTimeInSeconds = 7200; // 60 seconds means 1hour .... adjust the seconda
   const [timeRemaining, setTimeRemaining] = useState(totalTimeInSeconds); 
   const [appState, setAppState] = useState(AppState.currentState);
   
@@ -30,6 +36,7 @@ const BackgroundTimer = () => {
             return adjustedTime;
           } else {
             clearInterval(timer);
+            //alert("Time up!")
             return 0; // Stop the timer when time is up
           }
         });
@@ -41,6 +48,7 @@ const BackgroundTimer = () => {
               return prevTime - 1;
             } else {
               clearInterval(timer);
+              //alert("Time up!")
               return 0; // Stop the timer when time is up
             }
           });
@@ -63,6 +71,18 @@ const BackgroundTimer = () => {
           return prevTime - 1;
         } else {
           clearInterval(timer);
+          
+          // alert users when timer is up
+          Alert.alert("Time is up!", "We've come to the end of this exam!", [
+  			{
+    			text: 'OK',
+    			onPress: () => {
+					console.log('Alert closed')
+					navigation.navigate("Exam history", {screen: "ExamHistResult"}); // Navigate to the previous screen
+				},
+  			},
+		  ]);
+
           return 0; // Stop the timer when time is up
         }
       });
@@ -81,12 +101,14 @@ const BackgroundTimer = () => {
   	const minutes = Math.floor((seconds % 3600) / 60);
   	const remainingSeconds = seconds % 60;
   	return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  	
   };
 
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, flexDirection: "row",  justifyContent: 'space-around', alignItems: 'center' }}>
       	{/* Display the timer in the form :  00:00:00 */}
+      	<Ionicons name="md-alarm-outline" size={30} color="black" style = {{marginLeft: -4}}/>
       	<Text style = {{fontSize: 20, fontWeight: "bold"}}>{formatTime(timeRemaining)}</Text>
     </View>
   );

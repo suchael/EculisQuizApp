@@ -2,8 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, TouchableOpacity, Modal, FlatList, StyleSheet, BackHandler } from 'react-native';
 import { Fontisto } from '@expo/vector-icons';
 
-const NUMBER = Array.from({ length: 60 }, (_, index) => index);
-const firstFiveNUMBER = NUMBER.slice(0, 5);
+const MINUTE = Array.from({ length: 13 }, (_, index) => index * 5);
+const HOUR = Array.from({ length: 5 }, ( _ , index) => index);
+
 
 const MinAndHourModal = ({ Type }) => {
   const [selectedNumber, setSelectedNumber] = useState(Type === "Hour" ? 1 : 30);
@@ -48,7 +49,7 @@ const MinAndHourModal = ({ Type }) => {
 
   const modalContent = (
     <FlatList
-      data={Type === "Hour" ? firstFiveNUMBER : NUMBER}
+      data={Type === "Hour" ? HOUR : MINUTE}
       renderItem={renderNumber}
       keyExtractor={keyExtractor}
       initialNumToRender={15}
@@ -79,7 +80,15 @@ const MinAndHourModal = ({ Type }) => {
           underlayColor="transparent"
         >
           <View style={styles.modalBackdrop}>
-            <View style={[styles.modal, { height: Type === "Hour" ? "32%" : "64%" }]}>
+            <View style={[styles.modal, { height: Type === "Hour" ? "38%" : "64%" }]}>
+            	{
+            		Type === "Hour"? (
+            			<Text style={{ fontSize: 20, fontWeight: "500", textAlign: "center", borderBottomWidth: 2, borderColor: "#999", paddingVertical: 10 }}>Hour</Text>
+					):(
+						<Text style={{ fontSize: 20, fontWeight: "500", textAlign: "center", borderBottomWidth: 2, borderColor: "#999", paddingVertical: 10 }}>Minute</Text>
+					)
+				}
+            	
               {modalContent}
             </View>
           </View>

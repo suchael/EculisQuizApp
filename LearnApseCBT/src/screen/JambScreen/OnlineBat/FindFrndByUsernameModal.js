@@ -10,7 +10,7 @@ import {
   BackHandler,
 } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 
 // My imoort
@@ -21,14 +21,25 @@ import UnderLineTextBtn from '../ExamMode/UnderLineTextBtn.js';
 
 export default function FindFrndByUsernameModal({visible, onClose }) {
   const navigation = useNavigation();
+  const route = useRoute();
+ 
   const [inputValue, setInputValue] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
 
    const handleFindBtnPress=()=>{
    	console.log(inputValue)
    	onClose()
    	setInputValue("")
-   	navigation.navigate("FriendlyMatch")
+   	navigation.setParams({ showTopicBar: true });
 	}
+	
+  const openModal = ()=>{
+  	setModalVisible(true);
+  }
+  const closeModal = ()=>{
+  	setModalVisible(false);
+  }
+  
   return (
     <Modal animationType="slide" transparent={true} visible={visible} onRequestClose={onClose}>
       {/* Modal Wrapper */}
@@ -57,7 +68,7 @@ export default function FindFrndByUsernameModal({visible, onClose }) {
                 </TouchableOpacity>
               </View>
               <Text style={styles.cantFindText}>
-                Don't know your username? <UnderLineTextBtn text="Click Me" goTo="" />
+                Don't know your username? <UnderLineTextBtn text="Click Me" goTo="Profile" closeModal={onClose}/>
               </Text>
               <TouchableOpacity style={styles.cancelButton} onPress={onClose}>
                 <Text style={styles.cancelBtnText}>Cancel</Text>
@@ -81,6 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    
   },
   modalView: {
     margin: 20,
@@ -93,21 +105,23 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     minWidth: 260,
+    //borderWidth: 3,
+    //borderColor: "blue",
   },
 
   modalTitle: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: 'bold',
     marginTop: 4,
     marginBottom: 15,
   },
   modalSubtitle: {
-    fontSize: 18,
+    fontSize: 20,
     marginTop: 9,
     marginBottom: 8,
   },
   boldText: {
-    fontSize: 17,
+    fontSize: 19,
     fontWeight: 'bold',
   },
   row: {
@@ -149,7 +163,7 @@ const styles = StyleSheet.create({
   	fontWeight: "600",
   },
   cantFindText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '500',
     marginTop: 18,
     marginBottom: 2,

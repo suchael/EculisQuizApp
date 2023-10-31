@@ -26,9 +26,9 @@ const ExamInstructionModal = ({ visible, onClose }) => {
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
       <TouchableWithoutFeedback onPress={onClose}>
-        <View style={styles.overlay} />
+        	<View style={[styles.overlay, {borderWidth: 0}]} />
       </TouchableWithoutFeedback>
-      <View style={[styles.modal, { height: modalHeight }]}>
+      <View style={[styles.modal, { height: modalHeight}]}>
         <View style={styles.content}>
           <View style={styles.exitButton}>
             <TouchableHighlight
@@ -49,9 +49,10 @@ const ExamInstructionModal = ({ visible, onClose }) => {
           </View>
           <ScrollView contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, }}>
           <View style={{ flex: 1, paddingBottom: 10}}>
-            <Text style={styles.modalText}>
-              To give you an exam feeling and seriousness, we ensured that you cannot use multiple tabs like internet browsers and so on. Attempting to do so would  submit your scores immediately.{"\n\n"}
-			  Be reminded that your total score in this section is publicly visible via the <UnderLineTextBtn text="Hall of Fame" goTo="HallOfFame" closeModal={onClose}/> section.
+            <Text style={[styles.modalText, {textAlign: "justify"}]}>
+			  Be reminded that your total score in this section is publicly visible to everyone.{"\n\n"}
+			  Check the <UnderLineTextBtn text="Hall of Fame" goTo="HallOfFame" closeModal={onClose}/> section to see your ranking.{"\n\n"}
+			  Attempting to use browsers or multiple tabs or any form of exam malpractice would  submit your scores immediately.
             </Text>
             <Text style={[styles.headerText, {marginTop: 4, marginBottom: 5}]}>Your subject combination:</Text>
             <Text style={[styles.modalText, { marginLeft: '4%', marginBottom: -8, fontSize: 15, fontWeight: "bold" }]}>

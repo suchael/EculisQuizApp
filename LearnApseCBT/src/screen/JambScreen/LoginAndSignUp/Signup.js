@@ -78,8 +78,20 @@ function Main() {
   const insets = useSafeAreaInsets();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
 
+  const handlePasswordChange = (text) => {
+    setPassword(text);
+    // Check if passwords match and update the state accordingly
+    setPasswordsMatch(text === confirmPassword || confirmPassword === '');
+  };
+
+  const handleConfirmPasswordChange = (text) => {
+    setConfirmPassword(text);
+    // Check if passwords match and update the state accordingly
+    setPasswordsMatch(text === password || text === '');
+  };
   
   //For Radio Btn
   const [selectedOption, setSelectedOption] = useState(null);
@@ -93,21 +105,20 @@ function Main() {
         style={{
           paddingLeft: insets.left + 15,
           paddingRight: insets.right + 15,
-          paddingTop: insets.top + 12,
-          paddingBottom: insets.bottom + 10,
+          paddingTop: insets.top + 10,
+          paddingBottom: insets.bottom + 80,
           flex: 1,
           backgroundColor: "lightgray",
           
         }}
       >
       	{/*Login Section*/}
-      	<View style ={{backgroundColor: "white", minHeight: 500, borderRadius: 14, marginTop: -5, borderWidth: 2, borderColor: "#999", padding: 10,}}>
+      	<View style ={{flex:1, backgroundColor: "white", borderRadius: 14, marginTop: -5, borderWidth: 2, borderColor: "#999", padding: 10,}}>
       		<Text style ={{fontSize: 17, fontWeight: "500", marginBottom: 10}}>Fill the details below to get started</Text>
-      			
       
       		{/*Email and Password*/}
-      		<View style = {{}}>
-      			<KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      		<View style = {{flex: 1}}>
+      			
       				{/*First name*/}
       				<View style ={{marginBottom: 12}}>
       					<Text style ={{fontSize: 17, fontWeight: "600", paddingLeft: 20,}}>First name</Text>
@@ -147,10 +158,23 @@ function Main() {
       					<Text style ={{fontSize: 17, fontWeight: "600", paddingLeft: 20,}}>Password</Text>
       					<TextInput 
 								placeholder=" "
-								onChangeText={text => setUsername(text)}
+								onChangeText={text => handlePasswordChange(text)}
           					  style={{paddingLeft: 20, backgroundColor: "lightgray", color: "black", fontSize: 16, marginTop: -2, height: 42, borderRadius: 35, borderWidth: 2, borderColor: "#777",}}
 						  />
       				</View>
+      				<View style ={{marginBottom: 12}}>
+      					<Text style ={{fontSize: 17, fontWeight: "600", paddingLeft: 20,}}>Confirm Password</Text>
+      					<TextInput 
+								placeholder=" "
+								onChangeText={text => handleConfirmPasswordChange(text)}
+          					  style={{paddingLeft: 20, backgroundColor: "lightgray", color: "black", fontSize: 16, marginTop: -2, height: 42, borderRadius: 35, borderWidth: 2, borderColor: passwordsMatch ? '#777' : 'red',}}
+						  />
+      				</View>
+      				{!passwordsMatch && (
+        				<Text style={{ marginTop: -10, marginBottom: 12, fontSize: 15, fontWeight: '500', paddingLeft: 20, color: 'red' }}>
+          					Password does not match
+        				</Text>
+      				)}
       				{/*Closing - Password*/}
       
       				{/*Username*/}
@@ -159,19 +183,20 @@ function Main() {
       					<TextInput 
 								placeholder=" "
 								onChangeText={text => setUsername(text)}
-          					  style={{paddingLeft: 20, backgroundColor: "lightgray", color: "black", fontSize: 16, marginTop: -2, height: 42, borderRadius: 35, borderWidth: 2, borderColor: "black",}}
+          					  style={{paddingLeft: 20, backgroundColor: "lightgray", color: "black", fontSize: 16, marginTop: -2, height: 42, borderRadius: 35, borderWidth: 2, borderColor: "red",}}
 						  />
       				</View>
+      				<Text style ={{marginTop: -10, marginBottom: 12, fontSize: 15, fontWeight: "500", paddingLeft: 20, color: "red"}}>This username is already taken. Use another name</Text>
       				{/*Closing - Username*/}
-      			</KeyboardAvoidingView>
+      			
       		</View>
       		{/*Closing - Email and Password*/}
       
       		{/*Location*/}
-      		<View style ={{flex: 1, marginTop: 10, alignItems: "flex-start"}}>
+      		<View style ={{flex: 1, marginBottom: 5, marginLeft: 20, alignItems: "flex-start"}}>
       			<StateOfOriginModal Type ="State Of Origin"/>
       		</View>
-      		{/*Closing: Location*/}
+      		{/*Closing: Location*/}	
       
       		<View style ={{justifyContent: "center", alignItems: "center", marginTop: 20}}>
       			<Text style ={{fontSize: 15, fontWeight: "bold"}}>Who are you?</Text>

@@ -4,7 +4,7 @@ import {View,
         ScrollView,
         Dimensions,
         TouchableOpacity,
-        BackHandler,
+        BackHandler,StatusBar,
         TouchableHighlight } from 'react-native';
         
 import React, {useState} from 'react';
@@ -40,6 +40,7 @@ export default function ExamHist() {
 function ExamHistHome(){
 	return(
 		<View style={styles.homeContainer}>
+			<StatusBar hidden={false} />
 			<HomeHeader/>
 			<Main/>
 		</View>
@@ -79,10 +80,10 @@ function Main(){
 	return(
 		<ScrollView>
 			<View style = {{ 
-										paddingTop: insets.top + 50,
+										paddingTop: insets.top + 20,
 										paddingLeft: insets.left + 10, 
 										paddingRight: insets.right + 10, 
-										paddingBottom: insets.bottom +40,
+										paddingBottom: insets.bottom,
 										
 						}}
 			>
@@ -116,8 +117,8 @@ function History(){
 						210/400
 					</Text>
 					<Text style = {{fontSize:15}}>
-						<Text style={{fontSize:17, fontWeight: "600"}}>Subjects: </Text>
-						English, Maths, Physics, Chemistry
+						<Text style={{fontSize:17, fontWeight: "600"}} >Subjects: </Text>
+						English, Maths, Physics, Chemistry, Biology, literature 
 					</Text>
 					<Text style = {{fontSize:15}}>
 						<Text style={{fontSize:17, fontWeight: "600"}}>Mode: </Text>

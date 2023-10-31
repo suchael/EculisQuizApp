@@ -146,7 +146,10 @@ function Main() {
       
       		{/*Check if username or password is valid*/}
          			<View style ={{justifyContent: "center", alignItems: "center"}}>
-         				{ loginSuccess=== true?  (<Text style ={{fontSize: 15, fontWeight: "600"}}>Login Successful </Text>) : (<Text style ={{fontSize: 15, fontWeight: "600"}}>Invalid Username or Password</Text>)}
+         				{ loginSuccess=== true?  
+							(<Text style ={{fontSize: 15, fontWeight: "600"}}>Login Successful </Text>
+							) : (<Text style ={{fontSize: 15, fontWeight: "600"}}>Invalid Email</Text>)
+						 }
          			</View>
          	{/*Closing - Check if username or password is valid*/}
          

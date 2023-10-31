@@ -16,9 +16,14 @@ import {
 import { Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-function CreateExamLinkModal({ visible, onClose }){
+// My import 
+//import CopyExamLink from "./CopyExamLink.js";
+
+
+function CreateExamLink({ visible, onClose }){
+  const [examTitle, setExamTitle] = useState(''); // State for exam title
+  const [createdBy, setCreatedBy] = useState(''); // State for created by
   const navigation = useNavigation();
-  const windowHeight = Dimensions.get('window').height;
   
   return (
 
@@ -46,7 +51,7 @@ function CreateExamLinkModal({ visible, onClose }){
       					<Text style ={{fontSize: 17, fontWeight: "600", paddingLeft: 20,}}>Exam Title</Text>
       					<TextInput 
 								placeholder="E.g XYZ Mock "
-								onChangeText={text => setUsername(text)}
+								onChangeText={(text) => setExamTitle(text)} // Update exam title state
           					  style={{paddingLeft: 20, backgroundColor: "lightgray", color: "black", fontSize: 16, marginTop: -2, height: 42, borderRadius: 35, borderWidth: 2, borderColor: "#777",}}
 						  />
       				</View>
@@ -57,7 +62,7 @@ function CreateExamLinkModal({ visible, onClose }){
       					<Text style ={{fontSize: 17, fontWeight: "600", paddingLeft: 20,}}>Created by</Text>
       					<TextInput 
 								placeholder="E.g Mr Samuel"
-								onChangeText={text => setUsername(text)}
+								onChangeText={(text) => setCreatedBy(text)} // Update created by state
           					  style={{paddingLeft: 20, backgroundColor: "lightgray", color: "black", fontSize: 16, marginTop: -2, height: 42, borderRadius: 35, borderWidth: 2, borderColor: "#777",}}
 						  />
       				</View>
@@ -74,9 +79,9 @@ function CreateExamLinkModal({ visible, onClose }){
        	   
        	   <TouchableOpacity
            	 style={styles.continueButton}
-           	 onPress={() => navigation.navigate("AnotherScreen")}
+           	 onPress={() => navigation.navigate("CopyExamLink")}
          	 >
-           	 <Text style={styles.buttonText}>Continue</Text>
+           	 	<Text style={styles.buttonText}>Continue</Text>
           	</TouchableOpacity>
           </View>
         </ScrollView>
@@ -120,6 +125,7 @@ const styles = StyleSheet.create({
   
   instruction: {
     fontSize: 16,
+    //textAlign: "justify",
   },
   continueButton: {
     backgroundColor: 'blue',
@@ -136,4 +142,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateExamLinkModal;
+export default CreateExamLink;

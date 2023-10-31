@@ -26,7 +26,7 @@ export default function ScoreModal({ visible, onClose }) {
     >
       <View style={{ backgroundColor: 'rgba(0,0,0,0.6)', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' , }} onPress={onClose}>
-          <View style={{ borderRadius: 15, backgroundColor: 'white', padding: 10, height: '45%', width: '80%', justifyContent: 'space-between', alignItems: 'center' }}>
+          <View style={{borderWidth: 5,  borderRadius: 15, backgroundColor: 'white', padding: 10, height: '45%', width: '85%', justifyContent: 'space-between', alignItems: 'center' }}>
             
               <Text style={{ marginVertical: 5, fontSize: 20, fontWeight: '600', marginTop: 12,  textAlign: "center"}}>Correct Answer: B</Text>
               

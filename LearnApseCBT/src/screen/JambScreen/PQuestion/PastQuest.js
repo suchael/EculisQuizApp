@@ -5,7 +5,7 @@ import {View,
         Dimensions,TouchableOpacity,
         TouchableHighlight } from 'react-native';
 
-import React , {useState}from 'react';
+import React , {useState, useRef}from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
@@ -36,7 +36,7 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function PastQuest() {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}}>
+    <Stack.Navigator screenOptions={{headerShown: false, animation: "fade"}}>
       <Stack.Screen name='Home' component = {Home}/>
       <Stack.Screen name='Show question list' component = {ShowQuestionList} initialParams={{ currentPage: 1 }} />
   	<Stack.Screen name='Explanation' component = {Explanation}/>
@@ -98,11 +98,26 @@ function HomeHeader(){
 function SelectBySubject(){
   const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
-  const instruction = "The length of questions from 2015 and beyond may vary. JAMB CBT era began in 2015, leading to JAMB discontinuing the issuance of past questions from that year onward. Teachers all over Nigeria have collaborated to compile questions from 2015 and beyond while keeping in mind the structure of the exam syllabus.\n"
+  const instruction = "The length of questions from 2015 and beyond may vary. JAMB CBT era began in 2015, leading to JAMB discontinuing the issuance of past questions from that year onward. Teachers all over Nigeria have collaborated to compile some questions from 2015 and beyond while keeping in mind the structure of the exam syllabus.\n"
   const greetings  = "\nGreetings to all the Nigerian teachers out there. You all are second to none."
+  
+  const { height } = Dimensions.get('window');
+
+  const scrollViewRef = useRef(null);
+  const BUTTON_HEIGHT = height * 0.082;
+  const scrollToButton = (buttonIndex) => {
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo({
+        x: 0,
+        y: buttonIndex * BUTTON_HEIGHT, // Replace BUTTON_HEIGHT with the actual button height
+        animated: true,
+      });
+    }
+  };
+
   return(
     <View>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 , paddingBottom: 30}}> 
+      <ScrollView ref={scrollViewRef} contentContainerStyle={{ flexGrow: 1 , paddingBottom: 30}}> 
 		
 		<View style ={{borderWidth: 2, borderColor: "#888", borderRadius: 5, backgroundColor: "lightgray", paddingHorizontal: 8, paddingVertical: 12, marginVertical: 20, marginHorizontal: 10}}>
 				<Text style = {{fontSize: 17, fontWeight:"500", marginBottom: 5}}>
@@ -111,16 +126,16 @@ function SelectBySubject(){
 				<ReadMore  text = {instruction} msg = {greetings} maxLength={25} />
 		</View>
 		<Text style = {{fontSize: 18, fontWeight: "bold" ,marginBottom: 4, paddingLeft: insets.left + 10}}>Select a subject: </Text>
-			<View style = {{paddingBottom: 110}}>
+			<View style = {{paddingBottom: 180}}>
 				{Subjects.map((eachSubject, index)=>(
-					<QuestButton key={index} subject= {eachSubject} pickerType= "Year" index={index}/>
+					<QuestButton key={index} scrollFunc={ scrollToButton } subject= {eachSubject} pickerType= "Year" index={index}/>
 				))}
 			</View>
 	 </ScrollView>  
 		<View style = {{
 			paddingLeft: insets.left + 10,
       	  paddingRight: insets.right + 10,
-      	  borderWidth: 2
+      	  borderWidth: 10, padding: 5
 		}}>
 			 
 		</View>
@@ -168,8 +183,3 @@ const styles = StyleSheet.create({
   	color: "white",
    },
 });
-
-
-
-
-

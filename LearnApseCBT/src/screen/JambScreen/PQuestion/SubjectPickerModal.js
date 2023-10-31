@@ -15,6 +15,7 @@ const TOPIC = [
 ];
 
 
+
 export default function SubjectPickerModal(){
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -44,9 +45,17 @@ export default function SubjectPickerModal(){
     return () => backHandler.remove();
   }, [modalVisible]);
 
-  const renderTopic = (topic) => (
-    <TouchableOpacity key={topic} style={styles.option} onPress={() => selectTopic(topic)}>
-      <Text style={{ fontSize: 17, fontWeight: "500" }}>{topic}</Text>
+  const renderTopic = (topic, index) => (
+    <TouchableOpacity 
+			key={topic} 
+			style={styles.option} 
+			onPress={() => selectTopic(topic)}
+	>
+      	<Text style={{ fontSize: 17, fontWeight: "500" }}>{index + 1}.</Text>
+      	<View style = {{flex: 1}}>
+      		<Text style={{ fontSize: 17, fontWeight: "500" }} numberOfLines={1}>{topic}</Text>
+      		<Text style={{ fontSize: 13, fontWeight: "500",}}>Subtopic...{topic}</Text>
+      	</View>
     </TouchableOpacity>
   );
 
@@ -56,13 +65,20 @@ export default function SubjectPickerModal(){
         onPress={openModal}
         underlayColor="lightgray"
       >
-        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 6, borderWidth: 2, gap: 30, borderRadius: 3, width: 110, backgroundColor: selectedTopic=== null?  "lightgray": "white"}}>
-          <Text style={{ fontWeight: "700", fontSize: 18 }}>Topic</Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 6, borderWidth: 2, gap: 22, borderRadius: 3, width: 110, backgroundColor: selectedTopic=== null?  "lightgray": "white"}}>
+          <Text style={{ fontWeight: "700", fontSize: 18 }}>Topics</Text>
           <Fontisto name="angle-down" size={16} color="black" />
         </View>
       </TouchableHighlight>
       {selectedTopic && (
-        <Text style={{ fontWeight: "500", fontSize: 16 }}>{selectedTopic}</Text>
+      	<View style ={{ flex: 1, borderWidth: 2, borderRadius: 4, backgroundColor: "white", paddingHorizontal: 5, marginTop: 5}}>
+			<Text style={{ fontWeight: "500", fontSize: 18, textAlign: "center"}}>{selectedTopic}</Text>
+			<Text style = {{fontWeight: "700", fontSize: 17, textAlign: "center" , marginTop: 5}}>
+					Total:{"  "}
+					<Text style = {{fontWeight: "500", }}>80</Text>
+			  </Text>
+      	</View>
+        
       )}
 
       <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={closeAndResetModal}>
@@ -73,6 +89,9 @@ export default function SubjectPickerModal(){
         >
           <View style={styles.modalBackdrop}>
             <View style={styles.modal}>
+              <Text style={{ fontSize: 20, fontWeight: "500", textAlign: "center", borderBottomWidth: 2, borderColor: "#999", paddingVertical: 10 }}>
+				All Topics
+			</Text>
               <ScrollView>
                 {TOPIC.map(renderTopic)}
               </ScrollView>
@@ -90,7 +109,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    //alignItems: 'center',
   },
   button: {
     padding: 10,
@@ -114,7 +133,8 @@ const styles = StyleSheet.create({
   },
   option: {
     padding: 10,
-    
+    flexDirection: "row",
+    gap: 5,
   },
   selectedSubject: {
     marginTop: 20,

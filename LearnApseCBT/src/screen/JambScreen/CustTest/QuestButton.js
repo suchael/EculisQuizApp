@@ -69,6 +69,7 @@ export default function QuestButton({subject}){
           	</TouchableOpacity>                     
 			</View>
 			{isToggleOn && (
+				<View style ={{ justifyContent: "center", paddingHorizontal: 25}}>
   					<View style={styles.attachedToButton}>
     						<View style={[styles.attachedToButtonLeft, {borderRadius: 10}]}>
       								<SubjectPickerModal />
@@ -77,14 +78,11 @@ export default function QuestButton({subject}){
         							  <NumberPickerModal/>
       					  </View>
   					</View>
+  			</View>
 			)}
 		</View>
 	);
 }
-
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 
 const styles= StyleSheet.create({
@@ -147,12 +145,11 @@ const styles= StyleSheet.create({
 	// Attached View to Button on clicked
 	attachedToButton:{
 		borderWidth: 2,
-		borderBottomLeftRadius: 10,
-		borderBottomRightRadius: 10,
+		borderTopWidth: 0,
+		borderBottomLeftRadius: 15,
+		borderBottomRightRadius: 15,
 		//minHeight:  150,
 		minHeight: 80,
-		marginLeft: windowWidth * 0.0639,
-		marginRight: windowWidth * 0.0722,
 		flexDirection: "row",
 		padding: 5,
 		marginBottom: 12,
