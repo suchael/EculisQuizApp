@@ -4,9 +4,11 @@ import {View,
         ScrollView,
         Dimensions,
         TouchableOpacity,
+        Animated,
+        Easing,
         TouchableHighlight } from 'react-native';
 
-import React , {useState}from 'react';
+import React , {useState, useEffect}from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
@@ -22,8 +24,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 // my import
 import CreateJobModal from "./CreateJobModal.js";
-import ProfileModal from "./ProfileModal.js";
 import JobsAndTeacherNearby from "./JobsAndTeacherNearby.js";
+import Profile from "./Profile.js";
+import CreateJob from "./CreateJob.js";
 
 
 const Stack = createNativeStackNavigator();
@@ -34,7 +37,8 @@ export default function TeacherNetwork() {
     <Stack.Navigator screenOptions={{headerShown: false, animation: "none"}} initialRouteName ="TeacherNetworkMain">
       <Stack.Screen name='TeacherNetworkMain' component = {TeacherNetworkMain}/>
       <Stack.Screen name='JobsAndTeacherNearby' component = {JobsAndTeacherNearby}/>
-   
+      <Stack.Screen name='Profile' component = {Profile}/>
+      <Stack.Screen name='CreateJob' component = {CreateJob}/>
     </Stack.Navigator>
   )
 }
@@ -90,29 +94,8 @@ function HomeHeader() {
 function Main() {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation ();
-  
-  //Job Modal//
-  const [jobModalVisible, setJobModalVisible] = useState(false);
-  const openJobModal = ()=>{
-  	setJobModalVisible(true);
-  }
-  
-  const closeJobModal = ()=>{
-  	setJobModalVisible(false);
-  }
-  //Ending of Job Modal//
 
-  // Profile Modal
-  const [profileModalVisible, setProfileModalVisible] = useState(false);
-  const openProfileModal = ()=>{
-  	setProfileModalVisible(true);
-  }
   
-  const closeProfileModal = ()=>{
-  	setProfileModalVisible(false);
-  }
-  // Ending of Profile Modal
-
   // Change the Background and border of JobFinder or Teacher Btn when clicked 
   const [isSchoolJobClicked, setIsSchoolJobClicked] = useState(true);
   const [isTeacherClicked, setIsTeacherClicked] = useState(false);
@@ -130,25 +113,27 @@ function Main() {
         style={{
           paddingLeft: insets.left + 10,
           paddingRight: insets.right + 10,
-          paddingTop: insets.top + 25,
+          paddingTop: insets.top,
           paddingBottom: insets.bottom + 120,
         }}
       >
+      <LoginText/>
       {/*Teachers Network and Create Job wrapper*/}
         <View style={styles.teacherNetworkJobWrapper}>
+        	  
+                    
           	<View style = {styles.teacherNetwork}>
             		<Text style={styles.teacherNetworkText}>Teachers</Text>
             		<Text style={styles.teacherNetworkText}>Network</Text>
           	</View>
-          	<View style={[styles.createJobWrapper, {backgroundColor: "#888", borderRadius: 20}]}> 		  
-          		<TouchableOpacity onPress ={openProfileModal} style={styles.createJobBtn}>
+          	<View style={[styles.createJobWrapper, {backgroundColor: "#888", borderRadius: 20}]}> 
+				   <TouchableOpacity onPress ={ ()=>navigation.navigate("CreateJob") }  style={styles.createJobBtn}>
+            			  <Text style={{ fontSize: 14, fontWeight: '600', color: "white"  }}>Create School Ads</Text>
+          	    </TouchableOpacity>		  
+          		<TouchableOpacity onPress ={ ()=>navigation.navigate("Profile") } style={styles.createJobBtn}>
             			  <Text style={{ fontSize: 14, fontWeight: '600', color: "white" }}>Your profile</Text>
           		  </TouchableOpacity>
-           		 <TouchableOpacity onPress={openJobModal}  style={styles.createJobBtn}>
-            			  <Text style={{ fontSize: 14, fontWeight: '600', color: "white"  }}>Create Job</Text>
-          		  </TouchableOpacity>
-          		  <CreateJobModal visible ={jobModalVisible} onClose={closeJobModal}/>
-          		 <ProfileModal visible ={profileModalVisible} onClose={closeProfileModal}/>
+    
         	  </View>
         </View>
         {/*Closing -*Teachers Network and Create Job wrapper*/}
@@ -168,7 +153,7 @@ function Main() {
             	style={{height: '100%',justifyContent: 'center',alignItems: 'center',width: '45%',borderRadius: 25, ...getButtonStyle(isSchoolJobClicked)}}
           >
             	<Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white' }}>
-              		School Job
+              		School Ads
             	</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -192,19 +177,28 @@ function Main() {
   );
 }
 
-function Profile(){
-	const navigation = useNavigation();
-  return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate("JobsAndTeacherNearby")}
-      style={{padding: 8, borderRadius: 20, justifyContent: "center", alignItems: "center", backgroundColor: "white", borderWidth: 2}}
-    >
-      <Text style={[styles.studentBtnText, {fontSize: 15, color: "black", fontWeight: "bold"}]}>Your Profile</Text>
-    </TouchableOpacity>
-  );
+function LoginText(){
+	const [position, setPosition] = useState(new Animated.Value(30));
+
+  useEffect(() => {
+    const moveText = () => {
+      position.setValue(-30); // Reset the position to the initial value
+      Animated.timing(position, {
+        toValue:  30, // Adjust this value for the desired range of movement
+        duration: 5600, // decreasing this value will increase the Text speed
+        easing: Easing.linear, // You can use other easing functions
+        useNativeDriver: true,
+      }).start(moveText); // Recursively call moveText when the animation is done
+    };
+
+    moveText(); // Start the initial animation
+  }, []);
+	return(
+		<Animated.Text style={{ transform: [{ translateX: position }], fontSize: 14, fontWeight: "500" , marginTop: -4, paddingVertical: 4, textAlign: "center", backgroundColor: "white", marginBottom: 25}} numberOfLines={2}>
+                    You're not logged in, please Login
+      </Animated.Text>
+	);
 }
-
-
 
 function SchoolJobView(){
 	return(
@@ -247,7 +241,7 @@ function SchoolJobBtn(){
                 {/*Closing ofPicture*/}
                 
                 <View style={{ flex:1 , marginLeft: 10,}}>
-                    <Text style={{ fontSize: 18, fontWeight: "600" ,marginTop: -4, marginBottom: 5}}>
+                    <Text style={{ fontSize: 18, fontWeight: "600" ,marginTop: -4, marginBottom: 5}} numberOfLines ={2}>
                         Vonman International School of Nigeria and Abroad 
                     </Text>
                     <Text style={{ fontSize: 16, fontWeight: "600" }}>
@@ -277,7 +271,7 @@ function TeacherJobView(){
 	return(
 		<View style ={{borderWidth: 2, paddingHorizontal: 10, paddingVertical: 12, marginTop: 15, borderRadius: 15}}>
 			<Text style ={{fontSize: 16, fontWeight: "500", marginBottom: 10}}>
-				Teachers that would match your taste
+				Checkout some exotic teachers
 			</Text>
 			<TeacherJobBtn/>
 			<TeacherJobBtn/>
@@ -311,7 +305,7 @@ function TeacherJobBtn(){
                 {/*Closing ofPicture*/}
                 
                 <View style={{ flex: 1, marginLeft: 10,  }}>
-                	<Text style={{ fontSize: 18, fontWeight: "600" , marginTop: -4, marginBottom: 5}}>
+                	<Text style={{ fontSize: 18, fontWeight: "600" , marginTop: -4, marginBottom: 5}} numberOfLines={2}>
                         Nicholas Mayowa 
                     </Text>
                     <Text style={{ fontSize: 16, fontWeight: "600" }}>
@@ -319,9 +313,6 @@ function TeacherJobBtn(){
                     </Text>
                     <Text style={{ fontSize: 16, fontWeight: "600" }}>
                         Have taught: <Text style={{fontWeight: "500"}}>Physics and Chemistry</Text>
-                    </Text>
-                    <Text style={{ fontSize: 14, fontWeight: "600", color: "#333", marginTop: 6}}>
-                        23 mins ago
                     </Text>
                 </View>
             </View>
@@ -463,7 +454,7 @@ const styles = StyleSheet.create({
 	createJobBtn: {
 			paddingVertical: 6,
             paddingHorizontal: 5,
-            width: 120,
+            width: 145,
             borderRadius: 25,
             borderWidth: 2,
             borderColor: "white",

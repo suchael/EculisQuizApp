@@ -105,6 +105,9 @@ export default function StateOfOriginModal({Type}){
         >
           <View style={styles.modalBackdrop}>
             <View style={styles.modal}>
+              <Text style={{ fontSize: 20, fontWeight: "500", textAlign: "center", borderBottomWidth: 2, borderColor: "#999", paddingVertical: 10 }}>
+				State
+			  </Text>
               <ScrollView>
               		{NUMBER.map(renderNumber)}
               </ScrollView>
