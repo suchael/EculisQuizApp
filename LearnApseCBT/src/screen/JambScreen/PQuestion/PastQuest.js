@@ -51,6 +51,7 @@ export default function PastQuest() {
 function Home(){
   const insets = useSafeAreaInsets();
   const navigation = useNavigation ()
+  
   return(
     <View style={styles.homeContainer}>
       <HomeHeader/>
@@ -98,8 +99,8 @@ function HomeHeader(){
 function SelectBySubject(){
   const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
-  const instruction = "The length of questions from 2015 and beyond may vary. JAMB CBT era began in 2015, leading to JAMB discontinuing the issuance of past questions from that year onward. Teachers all over Nigeria have collaborated to compile some questions from 2015 and beyond while keeping in mind the structure of the exam syllabus.\n"
-  const greetings  = "\nGreetings to all the Nigerian teachers out there. You all are second to none."
+  const instruction = "JAMB CBT began in 2015, leading to JAMB discontinuing the issuance of past questions from that year onward. Teachers all over Nigeria have collaborated to compile some questions from 2015 and beyond while keeping in mind the structure of the exam syllabus. So, the length of questions from these years may vary\n"
+  const greetings  = ""
   
   const { height } = Dimensions.get('window');
 

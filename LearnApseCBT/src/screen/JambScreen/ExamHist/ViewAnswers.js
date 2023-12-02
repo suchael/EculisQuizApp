@@ -53,17 +53,21 @@ function HomeHeader(){
       <Text style = {{fontSize: 18, fontWeight: "600"}} numberOfLines={1}>View Answer</Text>
       
       {/*Toggle Switch*/}
-					<View style = {[styles.topBtnTouchables, {paddingHorizontal: 10, paddingVertical: 3, borderRadius: 5, flex: 1, maxWidth: 130}]}>
-      						<View style = {{justifyContent: "center", alignItems: "center", flexDirection: "row"}}>
-      							<Text style = {{fontSize: 17, fontWeight: "500"}}>Analysis</Text>
-      							<Switch  style={{borderWidth: 2, borderColor: "red", transform: [{ scaleX: 1.2}, { scaleY: 1.2}]}}
+					<View style = {[styles.topBtnTouchables, {paddingHorizontal: 10, paddingVertical: 3, borderRadius: 5, flex: 1, maxWidth: 80}]}>
+      						<View style = {{height: 34, width: 80, justifyContent: "center", alignItems: "center", }}>
+      							<Switch  style={{borderWidth: 2, borderColor: "red", transform: [{ scaleX: 1.4}, { scaleY: 1.4}]}}
         								trackColor={{ false: "#767577", true: "white" }}
         								thumbColor={isEnabled ? "black" : "gray"}
         								ios_backgroundColor="#3e3e3e"
-        								onValueChange={toggleSwitch}
+        								onValueChange={()=>{
+											toggleSwitch()
+											if (!isEnabled) {
+                								alert("Analysis mode!\nNow click on any question");
+              							  }
+										}}
         								value={isEnabled}
       							/>
-							</View>		 
+						</View>
       			  </View>
      {/*Closing: Toggle Switch*/}
       

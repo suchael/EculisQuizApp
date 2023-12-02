@@ -100,7 +100,9 @@ export default function BackgroundedAppModal() {
   );
 }
 
+
 const CountNumOfAppBackground = ({ warningCount }) => {
+
   return (
     <View style={{ width: "100%", borderWidth: 4, borderColor: '#FFD700', borderRadius: 10, flex: 1, justifyContent: 'space-between', alignItems: 'center', padding: 20 }}>
 

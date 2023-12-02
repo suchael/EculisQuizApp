@@ -5,9 +5,11 @@ import {View,
         Dimensions,
         TouchableOpacity,
         BackHandler,
+        Animated,
+        Easing,
         TouchableHighlight } from 'react-native';
         
-import React , {useState} from 'react';
+import React , {useState, useEffect} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   useSafeAreaInsets,
@@ -80,14 +82,12 @@ function HomeHeader(){
 
 function Main(){
 	return(
-	  	<View style={{flex: 1}}>
-			<ScrollView style={{flex: 1, backgroundColor: "white",  padding: 5, }}>
-				<View>
+			<ScrollView contentContainerStyle={{ flexGrow: 1}}>
+				<View style ={{justifyContent: "space-between", flex: 1}}>
 					<LearnApseGlobalMock/>
 					<GroupSession/>
 				</View>
 			</ScrollView>
-     	</View>
 	);
 }
 
@@ -110,7 +110,7 @@ function LearnApseGlobalMock(){
     	return true;
     };
     return(
-    <View style ={{flex: 1, marginVertical: 16, marginHorizontal: 10, }}>
+    <View style ={{marginVertical: 16, marginHorizontal: 10, }}>
     	<Text style ={{fontSize: 17, fontWeight: "500", textAlign: "center"}}>What if you could test your JAMB UTME preparation before the actual exam? </Text>
         <TouchableOpacity onPress = {openModal} style={{ backgroundColor: "#999", paddingHorizontal: 15, paddingVertical: 12, marginTop: 15 , borderRadius: 5, }}>
         	<Text style ={{fontSize: 17, fontWeight: "500", textAlign: "center", marginTop: -4}}>Introducing...</Text>
@@ -203,32 +203,25 @@ function LearnApseExamHistory(){
 
 function GroupSession(){
 	const navigation=useNavigation ();
-	const [modalVisible, setModalVisible] = useState(false);
-
-  const openModal = () => {
-    setModalVisible(true);
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
-  };
+	
 	return(
-		<View style ={{borderWidth:2.5, borderColor: "red", marginTop: 40, borderRadius: 25, paddingTop: 30,  paddingHorizontal: 10, marginBottom:50, flex: 1}}>
-			<TouchableOpacity onPress={()=> navigation.navigate("CreateExamLink")} style ={{borderWidth:2, borderColor: "red", backgroundColor: "gray", paddingHorizontal: 12, paddingVertical: 8, flex: 1, flexDirection: "row",  justifyContent: 'space-between', alignItems: "center", borderRadius: 5}}>
+		<View style ={{borderWidth:2.5, borderColor: "red", borderRadius: 25, paddingTop: 30,  marginTop: 40, marginBottom: 5, marginHorizontal: 10, paddingHorizontal: 10 }}>
+			<TouchableOpacity onPress={()=> navigation.navigate("CreateExamLink")} style ={{borderWidth:2, borderColor: "red", backgroundColor: "gray", paddingHorizontal: 12, paddingVertical: 8, flexDirection: "row",  justifyContent: 'space-between', alignItems: "center", borderRadius: 5}}>
 				<MaterialIcons name="link" size={30} color="black" />
 				<View>
-					<Text style ={{fontSize:17, fontWeight:"bold"}}>Create Exam Link</Text>
-					<Text style ={{fontSize:15, fontWeight:"500"}}>You can share a link to your exam</Text>
+					<Text style ={{fontSize:19, fontWeight:"bold"}}>Create Exam Link</Text>
+					<Text style ={{fontSize:16.5, fontWeight:"500"}}>You can share a link to your exam</Text>
 				</View>
 				<FontAwesome name="angle-right" size={30} color="black" />
 			</TouchableOpacity>
 			
-			<View style ={{minHeight: 30, paddingBottom: 20}}>
+			<View style ={{paddingBottom: 5}}>
 				<View style ={{marginTop: 15, justifyContent: "center", alignItems: "center"}}>
-					<Text style ={{fontSize:17, fontWeight:"bold", marginBottom: 10}}>Group Exam History</Text>
+					<Text style ={{fontSize:17, fontWeight:"bold", marginBottom: 0}}>Group Exam History</Text>
 					
 					{/*Performance Issue: Copy and Paste  "ExamGrouping" multiple times*/}
 					{/* and the Buttons starts to lag*/}
+					
 					
 					
 				</View>
@@ -236,6 +229,7 @@ function GroupSession(){
 		</View>
 	);
 }
+
 
 
 function ExamGrouping(){

@@ -52,7 +52,7 @@ function HomeScreen() {
         }}
       >
         <TopTab.Screen 
-          name="WAEC" 
+          name="SSCE" 
           component={Waec} 
         />
         <TopTab.Screen

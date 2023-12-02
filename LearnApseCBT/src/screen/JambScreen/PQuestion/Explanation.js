@@ -26,14 +26,14 @@ import {ShowQuestionContext} from "./ShowQuestionContext/Context.js";
 export default function Explanation(){
 	const insets = useSafeAreaInsets();
 	return(
-		<>
+		<View style ={{flex: 1}}>
 			<ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: "center", alignItems: "center", backgroundColor: "white"}} >
 				<View style = {{
                   	paddingLeft: insets.left + 10,
                   	paddingRight: insets.right + 10,
                   	paddingTop: insets.top + 14,
                   	paddingBottom: insets.bottom + 130,  
-				  	flex:1, 
+					  width: "100%", 
                 }}
 				>
 					<QuestionInterface/>
@@ -41,15 +41,15 @@ export default function Explanation(){
 			</ScrollView>
 			<Header/>
 			<BottomBtn/>
-		</>
+		</View>
 	);
 }
 
 
 const QuestionInterface = React.memo(() => {
 	return (
-    	<View style={styles.questionInterfaceMain}>
-        	<QuestionInterfaceContainer ind = "1"/>
+    	<View style={[styles.questionInterfaceMain, {justifyContent: "center", alignItems: "center"}]}>
+        	<QuestionInterfaceContainer/>
     	</View>
     );
 });
@@ -123,6 +123,8 @@ function QuestionInterfaceContainer(){
 	};
   
 	return(
+	  <View style ={{width: "100%", }}>
+	   <View style ={{flex: 1, }}>
 		<View style = {styles.questionInterfaceContainer}>
 			<View style = {styles.questionAndExplanationScreen}>
 				<View style = {styles.questionScreenNumberView}>
@@ -236,6 +238,8 @@ function QuestionInterfaceContainer(){
 					  <ErrorQuestion showModal={showModal} modalVisible={modalVisible} hideModal={hideModal} toggleOption={toggleOption} selectedOptions={selectedOptions}/>              
 			</View>
 		</View>
+	  </View>
+	</View>
 	);
 }
 
@@ -366,7 +370,7 @@ const styles = StyleSheet.create({
 	   borderRadius: 18, 
 	   marginBottom: 35,
 	   maxWidth: 420,
-		flex: 1,
+		
 	},
 	questionAndExplanationScreen: {
 		borderWidth:2, 

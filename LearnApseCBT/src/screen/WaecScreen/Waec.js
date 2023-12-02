@@ -55,7 +55,7 @@ function WaecHome({navigation}) {
             {
               paddingLeft: insets.left + 10,
               paddingRight: insets.right + 10,
-              paddingTop: insets.top + 30,
+              paddingTop: insets.top + 15,
               paddingBottom: insets.bottom + 75,
             },
           ]}
@@ -65,30 +65,43 @@ function WaecHome({navigation}) {
             <View style={styles.midTopContent}>
               <View style={styles.midTopContentRow1}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("WaecPastQuest")}
+				  onPress={() => navigation.navigate("Custom test")}
                   activeOpacity={0.3}
                   underlayColor="lightgray"
                   style={[styles.midTopContentRow1Btn, { borderRadius: 34}]}
                 >
                   <>
                     <MaterialCommunityIcons name="notebook-multiple" size={40} color="black" />
-                    <Text style={styles.midTopContentRowText}>Past</Text>
-                    <Text style={styles.midTopContentRowText}>Questions</Text>
+                    <Text style={styles.midTopContentRowText}>WAEC{"\n"}Past{"\n"}Questions</Text>
                   </>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("Custom test")}
+                  onPress={() => navigation.navigate("WaecPastQuest")}
                   activeOpacity={0.3}
                   underlayColor="lightgray"
                   style={[styles.midTopContentRow1Btn, { borderRadius: 34}]}
                 >
                   <>
-                    <MaterialIcons name="my-library-books" size={45} color="black" />
-                    <Text style={styles.midTopContentRowText}>Customised</Text>
-                    <Text style={styles.midTopContentRowText}>Test</Text>
+                    <MaterialCommunityIcons name="head-question-outline" size={45} color="black" />
+                    <Text style={styles.midTopContentRowText}>NECO{"\n"}Past{"\n"}Questions</Text>
                   </>
                 </TouchableOpacity>
               </View>
+              
+              <View style={[styles.midTopContentRow2, {marginBottom: 0,}]}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Quiz mode")}
+                  activeOpacity={0.3}
+                  underlayColor="lightgray"
+                  style={[styles.midTopContentRow2Exam, {backgroundColor: "white"}]}
+                >
+                  <>
+                    <MaterialIcons name="my-library-books" size={45} color="black" />
+                    <Text style={styles.midTopContentRowText}>Customised{"\n"}Test</Text>
+                  </>
+                </TouchableOpacity>
+              </View>
+              
               <View style={styles.midTopContentRow2}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate("Quiz mode")}
@@ -184,6 +197,7 @@ const styles = StyleSheet.create({
   midTopContentRow1: {
     justifyContent: "space-between",
     flexDirection: "row",
+    alignItems: "center",
   },
   midTopContentRow2: {
     flex: 1,
@@ -200,18 +214,18 @@ const styles = StyleSheet.create({
   },
   midTopContentRow1Btn: {
     //borderWidth: 2,
-    backgroundColor: "#FAFAFA",
-    width: 118,
-    height: 118,
+    backgroundColor: "white",
+    width: 125,
+    height: 125,
     alignItems: "center",
     justifyContent: "center",
   },
   midTopContentRow2Exam: {
     borderWidth: 2,
     borderColor: "#8888",
-    backgroundColor: "#6EAAF5",
-    width: 120,
-    height: 120,
+    backgroundColor: "white",
+    width: 130,
+    height: 130,
     borderRadius: 34,
     alignItems: "center",
     justifyContent: "center",
@@ -219,14 +233,15 @@ const styles = StyleSheet.create({
   midTopContentRow3Btn: {
     //borderWidth: 2,
     backgroundColor: "#FAFAFA",
-    width: 110,
-    height: 110,
+    width: 120,
+    height: 120,
     alignItems: "center",
     justifyContent: "center",
   },
   midTopContentRowText:{
   	color: "black",
       fontSize: 16,
+      textAlign: "center",
       fontWeight: "bold",
       alignItems: "center",
   },

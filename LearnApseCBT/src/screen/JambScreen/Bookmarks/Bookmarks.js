@@ -1,34 +1,40 @@
-import React, { useState, useCallback } from 'react';
-import { FlatList, View, Text } from 'react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 
-const MyLargeList = () => {
-  const initialData = Array.from({ length: 20 }, (_, i) => ({ id: i, name: `Item ${i}` }));
-  const [data, setData] = useState(initialData);
-
-  const renderItem = useCallback(({ item }) => {
-    return (
-      <View>
-        <Text>{item.name}</Text>
-      </View>
-    );
-  }, []);
-
-  const handleEndReached = () => {
-    // Simulate loading more data
-    const newData = Array.from({ length: 1000000 }, (_, i) => ({ id: data.length + i, name: `Item ${data.length + i}` }));
-
-    setData((prevData) => [...prevData, ...newData]);
-  };
-
+const RectangleWithDiagonalsX = () => {
   return (
-    <FlatList
-      data={data}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={renderItem}
-      onEndReached={handleEndReached}
-      onEndReachedThreshold={0.1} // Trigger onEndReached when 10% from the bottom
-    />
+    <View style={styles.container}>
+      <View style={styles.rectangle}>
+        <View style={styles.diagonal} />
+        <View style={[styles.diagonal, { transform: [{ rotate: '90deg' }], backgroundColor: "red" }]} />
+      </View>
+    </View>
   );
 };
 
-export default MyLargeList;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rectangle: {
+    width: 200,
+    height: 100,
+    borderWidth: 2,
+    borderColor: 'black',
+    position: 'relative',
+  },
+  diagonal: {
+    position: 'absolute',
+    top: 0,
+    left: '50%',
+    width: 2,
+    height: '100%',
+    backgroundColor: 'black',
+    transformOrigin: { x: 0, y: 0 },
+    transform: [{ rotate: '45deg' }, { translateX: -1 }],
+  },
+});
+
+export default RectangleWithDiagonalsX;

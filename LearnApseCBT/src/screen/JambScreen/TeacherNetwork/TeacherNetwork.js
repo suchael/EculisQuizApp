@@ -117,7 +117,7 @@ function Main() {
           paddingBottom: insets.bottom + 120,
         }}
       >
-      <LoginText/>
+      <ScrollLoginText/>
       {/*Teachers Network and Create Job wrapper*/}
         <View style={styles.teacherNetworkJobWrapper}>
         	  
@@ -177,7 +177,7 @@ function Main() {
   );
 }
 
-function LoginText(){
+function ScrollLoginText(){
 	const [position, setPosition] = useState(new Animated.Value(30));
 
   useEffect(() => {

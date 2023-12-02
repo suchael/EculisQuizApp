@@ -191,11 +191,19 @@ function MainContainer(){
 					
 					{/*Toggle Switch*/}
 					{currentPage == 1 &&  isLoadingQuestion == false && (
-						<TouchableOpacity onPress={toggleSwitch} style={{backgroundColor: isEnabled? "white": "gray", borderWidth: 4,  borderColor: isEnabled? "#00A86B": "gray" , justifyContent: "center", alignItems: "center", padding: 4, borderRadius: 25, marginVertical:20}}>
+						<View>
+							<TouchableOpacity onPress={toggleSwitch} style={{backgroundColor: isEnabled? "white": "gray", borderWidth: 4,  borderColor: isEnabled? "#00A86B": "gray" , justifyContent: "center", alignItems: "center", padding: 4, borderRadius: 25, marginVertical:20}}>
               					<Text style={{fontSize: 17, fontWeight: "600"}}>
               							Show all answers
             					  </Text>
-            			</TouchableOpacity>
+            				</TouchableOpacity>
+            				<Text style={{fontSize: 17, fontWeight: "600", textAlign: "center", marginBottom: 20, paddingVertical: 5, borderRadius: 3, backgroundColor: "lightgray", borderWidth: 2, borderColor: "#888"}}>
+              					Topic: 
+              					<Text style={{fontWeight: "500"}}>
+              							{"\t"}Particulate nature of matter
+            					  </Text>
+            				</Text>
+            			</View>
       		   	)}
       		 	{/*Closing: Toggle Switch*/}
       
@@ -258,7 +266,7 @@ function QuestionInterfaceContainer(){
 	};
 	
 	return (
-  <View> 
+  <View style = {{width: "100%"}}> 
     {questionsToDisplay.map((eachQuestion, index) => (
       <View style={styles.questionInterfaceContainer} key={index} >
         <View style={styles.questionScreen}>
@@ -433,7 +441,9 @@ const styles = StyleSheet.create({
   
   // Question Interface
   questionInterfaceMain: {
-  	//borderWidth : 2, 
+  	//borderWidth : 3, 
+  	//borderColor: "red", 
+  	flex : 1,
 	  marginBottom: 20,
 	  justifyContent: "center", 
 	  alignItems: "center", 

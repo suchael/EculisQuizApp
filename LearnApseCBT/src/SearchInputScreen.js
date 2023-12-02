@@ -69,7 +69,12 @@ function HomeHeader(){
         								trackColor={{ false: "#767577", true: "white" }}
         								thumbColor={isEnabled ? "black" : "gray"}
         								ios_backgroundColor="#3e3e3e"
-        								onValueChange={toggleSwitch}
+        								onValueChange={()=>{
+											toggleSwitch()
+											if (!isEnabled) {
+                								alert("Now you can see the answers to search questions");
+              							  }
+										}}
         								value={isEnabled}
       							/>
 						</View>

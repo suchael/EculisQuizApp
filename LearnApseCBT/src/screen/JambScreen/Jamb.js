@@ -8,8 +8,6 @@ import {
   Dimensions,
   TouchableHighlight,
   TouchableOpacity,
-  Animated, 
-  Easing
 } from "react-native";
 
 
@@ -33,12 +31,8 @@ import {
   Foundation,
 } from '@expo/vector-icons';
 
-// My imports
-import UnderLineTextBtn from "./ExamMode/UnderLineTextBtn.js";
-
-
-
-
+// My import
+import AlertBox from "./AlertBox.js";
 
 
 const JambScreenStack = createNativeStackNavigator();
@@ -72,9 +66,7 @@ function JambHome({navigation}) {
           ]}
         >
           <View style={styles.midTop}>
-            <View style ={{marginTop: 0,}}>
-            	<AlertBox />
-            </View>
+            <AlertBox />
             
             <View style={styles.midTopContent}>
               <View style={styles.midTopContentRow1}>
@@ -82,19 +74,18 @@ function JambHome({navigation}) {
                   onPress={() => navigation.navigate("Past questions")}
                   activeOpacity={0.3}
                   underlayColor="lightgray"
-                  style={styles.midTopContentRow1Btn}
+                  style={[styles.midTopContentRow1Btn, {borderTopLeftRadius: 50, borderBottomRightRadius: 30}]}
                 >
                   <>
-                    <FontAwesome5 name="scroll" size={34} color="black" />
-                    <Text style={styles.midTopContentRowText}>Past</Text>
-                    <Text style={styles.midTopContentRowText}>Questions</Text>
+                    <FontAwesome5 name="scroll" size={28} color="black" />
+                    <Text style={styles.midTopContentRowText}>JAMB{"\n"}Past{"\n"}Questions</Text>
                   </>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => navigation.navigate("Custom test")}
                   activeOpacity={0.3}
                   underlayColor="lightgray"
-                  style={styles.midTopContentRow1Btn}
+                  style={[styles.midTopContentRow1Btn, {borderTopRightRadius: 50, borderBottomLeftRadius: 30}]}
                 >
                   <>
                     <FontAwesome5 name="chalkboard-teacher" size={34} color="black" />
@@ -106,12 +97,21 @@ function JambHome({navigation}) {
               
               {/*Exam Mode*/}
               <View style={styles.midTopContentRow2}>
+              	<View style ={{position: "absolute", top: -30, bottom: 0, height: 80, width: "80%"}}>
+              		<View style ={{backgroundColor: "white", height: 60, width: 10, position: 'absolute', transform: [{ rotate: '150deg' }, { translateX: -80,  }], top: 40}}>
+              		</View>
+              		<View style ={{backgroundColor: "white", height: 60, width: 10, position: 'absolute', transform: [{ rotate: '-150deg' }, { translateX: 80,  }], top: 40, right: 0}}>
+              		</View>
+              	</View>
+              
+              	{/*Eyes */}
               	<View style ={{flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 30, width: 120}}>
               		<View style ={{height: 4, width: 14, backgroundColor: "black", borderTopLeftRadius: 5, borderTopRightRadius: 5}}>
               		</View>
               		<View style ={{height: 4, width: 14, backgroundColor: "black", borderTopLeftRadius: 5, borderTopRightRadius: 5}}>
               		</View>
               	</View>
+              	{/*Closing - Eyes */}
                   <TouchableOpacity
                   	onPress={() => navigation.navigate("Exam mode")}
                   	activeOpacity={0.3}
@@ -120,6 +120,13 @@ function JambHome({navigation}) {
                   >
                	     <Text style={[styles.midTopContentRowText, {color: "black", fontSize: 22}]}>Exam{"\n"}Mode</Text>
                 </TouchableOpacity>
+                
+                <View style ={{position: "absolute", bottom: -30, height: 80, width: "80%"}}>
+              		<View style ={{backgroundColor: "white", height: 70, width: 10, position: 'absolute', transform: [{ rotate: '-140deg' }, { translateX: -5,  }], left: 60 }}>
+              		</View>
+              		<View style ={{backgroundColor: "white", height: 70, width: 10, position: 'absolute', transform: [{ rotate: '140deg' }, { translateX: 5,  }], right: 60 }}>
+              		</View>
+              	</View>
               </View>
               {/*Closing: Exam Mode*/}
               
@@ -128,7 +135,7 @@ function JambHome({navigation}) {
                   onPress={() => navigation.navigate("Online battle")}
                   activeOpacity={0.3}
                   underlayColor="lightgray"
-                  style={styles.midTopContentRow3Btn}
+                  style={[styles.midTopContentRow3Btn, {borderTopRightRadius: 50, borderBottomLeftRadius: 30}]}
                 >
                   <>
                     <FontAwesome5 name="people-carry" size={34} color="black" />
@@ -140,7 +147,7 @@ function JambHome({navigation}) {
                   onPress={() => navigation.navigate("Quiz mode")}
                   activeOpacity={0.3}
                   underlayColor="lightgray"
-                  style={styles.midTopContentRow3Btn}
+                  style={[styles.midTopContentRow1Btn, {borderTopLeftRadius: 50, borderBottomRightRadius: 30}]}
                 >
                   <>
                     <MaterialCommunityIcons name="head-question-outline" size={37} color="black" />
@@ -247,90 +254,6 @@ function JambHome({navigation}) {
 }
 
 
-function AlertBox() {
-  const deviceWidth = Dimensions.get("window").width;
-  const [position, setPosition] = useState(new Animated.Value(30));
-
-  useEffect(() => {
-    const moveText = () => {
-      position.setValue(-30); // Reset the position to the initial value
-      Animated.timing(position, {
-        toValue:  30, // Adjust this value for the desired range of movement
-        duration: 5600, // decreasing this value will increase the Text speed
-        easing: Easing.linear, // You can use other easing functions
-        useNativeDriver: true,
-      }).start(moveText); // Recursively call moveText when the animation is done
-    };
-
-    moveText(); // Start the initial animation
-  }, []);
-  
-  
-  
-  const userStatus = {
-    loggedIn: false, //initial
-    appActivated: false, //initial 
-  };
-
-  const setUserStatus = (loggedIn, appActivated) => {
-    userStatus.loggedIn = loggedIn;
-    userStatus.appActivated = appActivated;
-  };
-  
-   // Toggle the user Alert message using "true/false"
-  setUserStatus(false, false); //Chang me
-  let content;
-
-  if (!userStatus.loggedIn) {
-    content = (
-    	<View style ={{ flexDirection: "column",justifyContent: "center", alignItems: "center" , }}>
-    			   <Animated.Text style={[styles.alertText, { transform: [{ translateX: position }] } ]}>
-        				You are not logged in, please{" "}
-        		   </Animated.Text>
-        			<TouchableHighlight
-          				onPress={() => console.log("Login Now")}
-          				activeOpacity={0.9}
-          				underlayColor="lightgray"
-        			>
-          				<Text style={[styles.clickableText, {marginBottom: 1}]}><UnderLineTextBtn text = "Login" goTo="Login"/></Text>       
-        			</TouchableHighlight>
-    	</View>
-    );
-  } 
-  else if (!userStatus.appActivated) {
-    content = (
-    	<View style ={{ flexDirection: "column",justifyContent: "center", alignItems: "center"}}>
-    			   <Animated.Text style={[styles.alertText, { transform: [{ translateX: position }] } ]}>
-        				You have not activated your App.{" "}
-        		   </Animated.Text>
-        			<TouchableHighlight
-          				onPress={() => console.log("Activate Now")}
-          				activeOpacity={0.9}
-          				underlayColor="lightgray"
-        			>
-          				<Text style={[styles.clickableText, {marginBottom: 1}]}><UnderLineTextBtn text = "Activate Now" goTo="ActivateApp"/></Text>       
-        			</TouchableHighlight>
-    	</View>
-    );
-  } 
-  else {
-    content = <Text style={styles.alertText}>Welcome Ahmed Success!</Text>;
-  }
-  if (userStatus.loggedIn && userStatus.appActivated) {
-    content = (
-    	<View style ={{justifyContent: "center", alignItems: "center", paddingTop: 5}}>
-			<Text style={[styles.alertText, {paddingHorizontal: 4,}]}>
-				Bored? Join students in the ongoing
-			</Text>
-			<UnderLineTextBtn text = "Online Battle" goTo="Online battle"/>
-		</View>
-	)
-  }
-  return <View style={styles.alert}>{content}</View>;
-}
-
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -341,43 +264,19 @@ const styles = StyleSheet.create({
   },
   midTop: {
     //borderWidth: 2,
-  },
-  alert: {
-    paddingTop: 4,
-    paddingBottom: 7,
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginTop: 2,
-    marginBottom: 28,
-    borderWidth: 2,
-    borderColor: "#999",
-    backgroundColor: "#FAFAFA",
-    borderTopRightRadius: 60,
-    borderTopLeftRadius: 60,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  alertText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "black",
-    paddingBottom: 2,
-  },
-  clickableText: {
-    textDecorationLine: "underline",
-    fontWeight:  "900",
-    fontSize: 15,
+    flex: 1,
   },
 
   //MidTopContent
   midTopContent: {
     //borderWidth: 2,
     flex: 1,
-    marginBottom: 14,
+    //marginBottom: 14,
   },
   midTopContentRow1: {
     justifyContent: "space-between",
     flexDirection: "row",
+    zIndex: 1,
     //borderWidth: 2,
   },
   midTopContentRow2: {
@@ -385,8 +284,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     //borderWidth: 2,
-    marginTop: 20,
-    marginBottom: 20,
+    paddingTop: 20,
+    paddingBottom: 24,
   },
   midTopContentRow3: {
     justifyContent: "space-between",
@@ -396,14 +295,14 @@ const styles = StyleSheet.create({
   midTopContentRow1Btn: {
     //borderWidth: 2,
     backgroundColor: "#FAFAFA",
-    width: 105,
-    height: 105,
-    borderRadius : 20,
+    width: 110,
+    height: 110,
+    borderRadius : 12,
     alignItems: "center",
     justifyContent: "center",
   },
   midTopContentRow2Exam: {
-    borderWidth: 2,
+    //borderWidth: 2,
     borderColor: "#8888",
     backgroundColor: "#6EAAF5",
     width: 120,
@@ -411,21 +310,24 @@ const styles = StyleSheet.create({
     borderRadius: 34,
     alignItems: "center",
     justifyContent: "center",
+    zIndex: 1,
+    
   },
   midTopContentRow3Btn: {
     //borderWidth: 2,
     backgroundColor: "#FAFAFA",
-    width: 105,
-    height: 105,
-    borderRadius: 20,
+    width: 110,
+    height: 110,
+    borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
+    zIndex: 1,
   },
   midTopContentRowText:{
   	color: "black",
       fontSize: 16,
       fontWeight: "bold",
-      alignItems: "center",
+      textAlign: "center",
   },
   
   //BottomBtn 
@@ -435,15 +337,16 @@ const styles = StyleSheet.create({
     marginBottom: 80,
   },
   bottomContent: {
-    height: 64,
+    height: 58,
     //borderWidth: 2,
     marginBottom: 10,
-    paddingLeft: 26,
+    paddingLeft: 35,
     borderRadius: 35,
     backgroundColor: "#FAFAFA",
     flexDirection: "row",
-    gap: 14,
+    gap: 30,
     alignItems: "center",
+    //justifyContent: "flex-start",
   },
   bottomContentText:{
   	fontSize: 16,
@@ -452,36 +355,42 @@ const styles = StyleSheet.create({
   
   groupExam: {
     backgroundColor: "#6EAAF5",
-	width: 60,
+	width: 68,
 	height: 60,
-	borderRadius: 20,
+	borderRadius: 5,
+	borderTopRightRadius: 22,
+	borderBottomLeftRadius: 22,
 	justifyContent: "center",
 	alignItems: "center",
 	position: "absolute",
-	bottom:  86,
-	right: 10.6,	
+	bottom:  12,
+	left: 10.6,	
+	zIndex: 1,
    },
    groupExamText: {
       fontWeight: "bold",
-  	fontSize: 13,
-  	color: "white",
+  	fontSize: 14,
+  	//color: "white",
 	},
   
   teacherNetwork:{
 	backgroundColor: "#6EAAF5",
-	paddingHorizontal: 8,
-	paddingVertical: 14,
-	borderRadius: 20,
+	width: 68,
+	height: 60,
+	borderRadius: 5,
+	borderTopLeftRadius: 22,
+	borderBottomRightRadius: 22,
 	justifyContent: "center",
 	alignItems: "center",
 	position: "absolute",
 	bottom: 12,
 	right: 10.6,	
+	zIndex: 1,
 },
   teacherNetworkText:{
   	fontWeight: "bold",
-  	fontSize: 13,
-  	color: "white",
+  	fontSize: 14,
+  	//color: "white",
   }, 
 });
 
