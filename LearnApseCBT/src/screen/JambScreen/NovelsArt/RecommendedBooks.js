@@ -4,10 +4,9 @@ import {View,
         ScrollView,
         Dimensions,
         TouchableOpacity,
-        BackHandler,
         TouchableHighlight } from 'react-native';
         
-import React, {useState, useRef} from 'react';
+import React, {useRef} from 'react';
 
 import {
   useSafeAreaInsets,
@@ -15,11 +14,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 // Icons
-import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
-
-// My import
-
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 
 export default function RecommendedBooks() {

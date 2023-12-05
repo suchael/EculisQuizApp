@@ -1,22 +1,16 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   Text,
   View,
   TouchableOpacity,
-  ScrollView,
-  BackHandler,
-  StyleSheet,
-  Dimensions,
   TouchableWithoutFeedback,
-  TouchableHighlight,
 } from 'react-native';
 
 import {evaluate, sqrt} from 'mathjs';
 
 
 // icons 
-import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
 export default function Calculator ({visible, onClose}){

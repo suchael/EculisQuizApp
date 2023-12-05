@@ -2,23 +2,17 @@ import {View,
         Text, 
         StyleSheet,
         ScrollView,
-        Dimensions,
         TouchableOpacity,
-        BackHandler,
         TouchableHighlight } from 'react-native';
         
-import React, {useState, useContext, createContext} from 'react';
+import React, {useState, useContext} from 'react';
 
 import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native';
 
-import { AntDesign,
-				FontAwesome,
-				Entypo,
-				Ionicons
-				} from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 //My import
 import QuizScoreModal from "./QuizScoreModal.js";

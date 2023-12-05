@@ -1,6 +1,6 @@
 import React, { useContext} from 'react';
 
-import { Modal, Text, View, TouchableOpacity, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { Modal, Text, View, TouchableOpacity, Dimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
@@ -26,11 +26,11 @@ export default function ScoreModal({ visible, onClose }) {
     >
       <View style={{ backgroundColor: 'rgba(0,0,0,0.6)', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TouchableOpacity style={{ flex: 1, justifyContent: 'center', alignItems: 'center' , }} onPress={onClose}>
-          <View style={{borderWidth: 5,  borderRadius: 15, backgroundColor: 'white', padding: 10, height: '45%', width: '85%', justifyContent: 'space-between', alignItems: 'center' }}>
+          <View style={{borderRadius: 15, backgroundColor: 'white', padding: 10, height: '45%', width: '85%', justifyContent: 'space-between', alignItems: 'center' }}>
             
               <Text style={{ marginVertical: 5, fontSize: 20, fontWeight: '600', marginTop: 12,  textAlign: "center"}}>Correct Answer: B</Text>
               
-                <View style={{ borderWidth: 3, backgroundColor: isUserCorrect? "lightgreen" : "pink", borderColor: isUserCorrect? "green" : "red", borderRadius: 10, alignItems: 'center', justifyContent: 'center', padding: 10, height: "80%", marginBottom: 7}}>
+                <View style={{ backgroundColor: isUserCorrect? "lightgreen" : "pink", borderColor: isUserCorrect? "green" : "red", borderRadius: 10, alignItems: 'center', justifyContent: 'center', padding: 10, height: "80%", marginBottom: 7}}>
                   {isUserCorrect ? (
                     <>
                       <Text style={{ fontSize: 18, fontWeight: '600', marginBottom: 20 }}>You are correct</Text>

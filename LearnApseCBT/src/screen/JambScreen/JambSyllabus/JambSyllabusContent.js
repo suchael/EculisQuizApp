@@ -1,10 +1,6 @@
 import {View, 
         Text, 
         StyleSheet,
-        ScrollView,
-        Dimensions,
-        TouchableOpacity,
-        BackHandler,
         TouchableHighlight } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';

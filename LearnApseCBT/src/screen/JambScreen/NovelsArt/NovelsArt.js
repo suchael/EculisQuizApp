@@ -2,12 +2,10 @@ import {View,
         Text, 
         StyleSheet,
         ScrollView,
-        Dimensions,
         TouchableOpacity,
-        BackHandler,
         TouchableHighlight } from 'react-native';
         
-import React, {useState} from 'react';
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   useSafeAreaInsets,

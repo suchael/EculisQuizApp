@@ -9,7 +9,6 @@ import {View,
         TouchableHighlight } from 'react-native';
 
 import React , {useState, useEffect}from 'react';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 
@@ -23,7 +22,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 // my import
-import CreateJobModal from "./CreateJobModal.js";
 import JobsAndTeacherNearby from "./JobsAndTeacherNearby.js";
 import Profile from "./Profile.js";
 import CreateJob from "./CreateJob.js";

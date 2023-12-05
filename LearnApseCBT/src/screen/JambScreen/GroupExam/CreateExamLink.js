@@ -2,13 +2,9 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  Modal,
-  Button,
   StyleSheet,
-  Dimensions,
   TouchableOpacity,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,
   TouchableHighlight,
   ScrollView,
   TextInput,

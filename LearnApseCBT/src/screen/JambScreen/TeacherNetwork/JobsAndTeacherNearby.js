@@ -5,7 +5,6 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
-  BackHandler,
   TouchableHighlight,
   TextInput,
 } from 'react-native';
@@ -16,12 +15,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
 // Icons
-import { FontAwesome, Feather, AntDesign, Entypo, Ionicons } from '@expo/vector-icons';
-
-// My import
-import CreateJobModal from "./CreateJobModal.js";
-import ProfileModal from "./ProfileModal.js";
-
+import { AntDesign, Entypo, Ionicons } from '@expo/vector-icons';
 
 
 export default function JobsAndTeacherNearby() {

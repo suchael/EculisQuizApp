@@ -2,12 +2,10 @@ import {View,
         Text, 
         StyleSheet,
         ScrollView,
-        Dimensions,
         TouchableOpacity,
-        BackHandler,
         TouchableHighlight } from 'react-native';
         
-import React, {useState} from 'react';
+import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   useSafeAreaInsets,
@@ -15,8 +13,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 // Icons
-import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
 // My import
 import JambSyllabusContent from "./JambSyllabusContent.js";

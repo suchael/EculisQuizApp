@@ -1,44 +1,33 @@
 import {View, 
         Text, 
         StyleSheet,
-        Switch,
         Dimensions,
         TouchableOpacity,
         Modal,
         AppState,
-        BackHandler,
-		ActivityIndicator,StatusBar,
-        TouchableHighlight } from 'react-native';
+		ActivityIndicator,
+        StatusBar,
+         } from 'react-native';
         
 import React , {useState, 
-							  useEffect,
-							  useMemo, 
-							  useCallback, 
-							  useContext, 
-							  useRef} from 'react';
+                useEffect,
+                } from 'react';
 				
 
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useKeepAwake } from 'expo-keep-awake';
 
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
-// Icons
-import { AntDesign , FontAwesome} from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
+
 
 // My import
-import BackgroundTimer from "./BackgroundTimer.js";
-import QuestionInterface from "./QuestionInterface.js";
 import HomeMain from "./HomeMain.js";
 
 const Stack = createNativeStackNavigator();
-const Tab = createMaterialTopTabNavigator();
 
 export default function ShowQuestionList() {
   useKeepAwake(); //Keep Screen awake during exam

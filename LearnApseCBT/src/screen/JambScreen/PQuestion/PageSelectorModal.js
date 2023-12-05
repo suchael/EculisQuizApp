@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, TouchableOpacity, TouchableHighlight, Modal, ScrollView, StyleSheet, FlatList, BackHandler } from 'react-native';
-import { Fontisto } from '@expo/vector-icons';
+import { View, Text, TouchableHighlight, Modal, StyleSheet, FlatList, BackHandler } from 'react-native';
+
 import { ShowQuestionContext } from "./ShowQuestionContext/Context.js";
 
 export default function PageSelectorModal() {
@@ -37,15 +37,15 @@ export default function PageSelectorModal() {
 
   return (
     <View style={[styles.container, { backgroundColor: "transparent" }]}>
-      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 2 }}>
+      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 2 , maxWidth: 120,}}>
         <TouchableHighlight
           onPress={openModal}
           activeOpacity={0.9}
           underlayColor="white"
-          style={[styles.topBtnTouchables, { alignItems: "center", justifyContent: "center", flex: 1, borderRadius: 4, paddingVertical: 8 }]}
+          style={[styles.topBtnTouchables, { alignItems: "center", justifyContent: "center", flex: 1, borderRadius: 4, height: 46, }]}
         >
           <View style={[styles.topBtnTouchablesView, { alignItems: "center", justifyContent: "center", gap: 1 }]}>
-            <Text style={styles.topBtnText}>Page{"  "}{currentPage} of {totalPages}</Text>
+            <Text style={styles.topBtnText}>Page{" "}{currentPage} of {totalPages}</Text>
           </View>
         </TouchableHighlight>
       </View>
@@ -59,7 +59,11 @@ export default function PageSelectorModal() {
         >
           <View style={styles.modalBackdrop}>
             <View style={styles.modal}>
-              <Text style={{ fontSize: 20, fontWeight: "500", textAlign: "center", borderBottomWidth: 2, borderColor: "#999", paddingVertical: 10 }}>All pages</Text>
+              <View style={{borderBottomWidth: 2, borderColor: "#999", paddingVertical: 10 }}>
+                <Text style={{ fontSize: 20, fontWeight: "500", textAlign: "center"}}>
+                  All pages
+                </Text>
+              </View>
               <FlatList
                 data={pageNumbers}
                 keyExtractor={(item) => item.toString()}
@@ -120,8 +124,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
   },
   topBtnText: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#222",
+    fontSize: 17,
+    fontWeight: "900",
+    color: "black",
+    textAlign: "center",
   },
 });

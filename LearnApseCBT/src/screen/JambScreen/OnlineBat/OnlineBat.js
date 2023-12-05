@@ -2,12 +2,11 @@ import {View,
         Text, 
         StyleSheet,
         ScrollView,
-        Dimensions,
         TouchableOpacity,
-        BackHandler, ActivityIndicator,
+        ActivityIndicator,
         TouchableHighlight } from 'react-native';
         
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -17,17 +16,13 @@ import {
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 // Icons
-import { AntDesign,
-				FontAwesome,
-				Entypo
-				} from '@expo/vector-icons';
+import { Entypo} from '@expo/vector-icons';
 
 
 // My import
 import {Subjects} from "../PQuestion/SubjectListDb.js";
 import QuestButton from "./QuestButton.js";
 import OnlineBatGameScreen from "./OnlineBatGameScreen.js";
-import UnderLineTextBtn from "../ExamMode/UnderLineTextBtn.js";
 import FindFrndByUsernameModal from "./FindFrndByUsernameModal.js";
 
 

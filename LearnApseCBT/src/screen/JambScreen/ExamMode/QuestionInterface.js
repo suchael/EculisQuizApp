@@ -1,33 +1,19 @@
 import {View, 
         Text, 
         StyleSheet,
-        Switch,
-        ScrollView,
-        Dimensions,
         TouchableOpacity,
-        BackHandler, FlatList,ActivityIndicator,
-        TouchableHighlight } from 'react-native';
+     } from 'react-native';
         
 import React , {useState,
-							  useMemo, 
-							  useCallback, 
-							  useContext, 
-							  } from 'react';
+				useMemo, 
+				useContext, 
+				} from 'react';
 
-import {useSafeAreaInsets} from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
-// Icons
-import { AntDesign , FontAwesome} from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
 
 // My import
-import { Subjects, Questions } from  "../PQuestion/SubjectListDb.js";
+import { Questions } from  "../PQuestion/SubjectListDb.js";
 import {ShowQuestionContext} from "./ShowQuestionContext/Context.js";
-import NavBottomBtn from "./NavBottomBtn.js";
 import GoToBtnList from "./GoToBtnList.js";
 
 

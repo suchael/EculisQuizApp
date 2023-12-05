@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -18,7 +18,7 @@ import ShowQuestionList from './ShowQuestionList.js';
 import MinAndHourModal from './MinAndHourModal.js';
 
 const Stack = createNativeStackNavigator();
-const Tab = createMaterialTopTabNavigator();
+
 
 export default function PastQuest() {
   return (

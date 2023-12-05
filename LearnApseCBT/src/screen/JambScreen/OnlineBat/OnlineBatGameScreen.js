@@ -2,10 +2,8 @@ import {View,
         Text, 
         StyleSheet,
         ScrollView,
-        Dimensions,
         TouchableOpacity,
-        BackHandler,
-        TouchableHighlight } from 'react-native';
+     } from 'react-native';
         
 import React, {useState} from 'react';
 import { useKeepAwake } from 'expo-keep-awake';
@@ -15,11 +13,7 @@ import {
 } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native';
 
-import { AntDesign,
-				FontAwesome,
-				Entypo,
-				Ionicons
-				} from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 //My import
 import ScoreModal from "./ScoreModal.js";

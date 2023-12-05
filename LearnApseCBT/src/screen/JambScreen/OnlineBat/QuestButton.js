@@ -1,12 +1,9 @@
 import React, {useState} from "react";
-import {Text,
-				View,
-				TouchableHighlight,
-				TouchableOpacity,
-				StyleSheet,
-				Switch,
-				Dimensions,
-				} from "react-native";
+import {
+		View,
+		TouchableOpacity,
+		StyleSheet,
+		} from "react-native";
 
 import {
   useSafeAreaInsets,
@@ -14,7 +11,7 @@ import {
 
 // my import 
 import TruncatedText from "../PQuestion/TruncatedText.js";
-import SubjectPickerModal from "../PQuestion/SubjectPickerModal.js";
+import SubjectPickerModal from "../PQuestion/TopicPickerModal.js";
 
 
 export default function QuestButton({subject, showTopicBar}){

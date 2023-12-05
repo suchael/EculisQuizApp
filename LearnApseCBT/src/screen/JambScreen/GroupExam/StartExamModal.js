@@ -3,9 +3,7 @@ import {
   View,
   Text,
   Modal,
-  Button,
   StyleSheet,
-  Dimensions,
   TouchableWithoutFeedback,
   TouchableOpacity,
   TouchableHighlight,
@@ -17,7 +15,6 @@ import { useNavigation } from '@react-navigation/native';
 import { Entypo } from '@expo/vector-icons';
 
 // my import
-import UnderLineTextBtn from "./UnderLineTextBtn.js";
 
 
 

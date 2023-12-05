@@ -2,24 +2,18 @@ import {View,
         Text, 
         StyleSheet,
         ScrollView,
-        Dimensions,
         TouchableOpacity,
-        BackHandler,
         TouchableHighlight } from 'react-native';
         
 import React, {useState} from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import { useNavigation } from '@react-navigation/native';
 
 // Icons
-import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 
-//<
-//<FontAwesome name="angle-up" size={24} color="black" />
 
 export default function JambSubComb() {
   return (

@@ -3,20 +3,17 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Dimensions,
   TouchableOpacity,
-  BackHandler,
   TouchableHighlight,
 } from 'react-native';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
 // Icons
 import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
 
 // My import
 

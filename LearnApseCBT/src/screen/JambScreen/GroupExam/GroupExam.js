@@ -2,14 +2,11 @@ import {View,
         Text, 
         StyleSheet,
         ScrollView,
-        Dimensions,
         TouchableOpacity,
         BackHandler,
-        Animated,
-        Easing,
         TouchableHighlight } from 'react-native';
         
-import React , {useState, useEffect} from 'react';
+import React , {useState} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   useSafeAreaInsets,
@@ -20,7 +17,6 @@ import { useNavigation } from '@react-navigation/native';
 import { AntDesign, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 
 // My import
-import ReadMoreModal from "./ReadMoreModal.js";
 import GroupExamResult from "./GroupExamResult.js";
 import CreateExamLink from "./CreateExamLink.js";
 import LEGOMOModal from "./LEGOMOModal.js";

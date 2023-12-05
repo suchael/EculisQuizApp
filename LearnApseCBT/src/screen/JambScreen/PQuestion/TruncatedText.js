@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 
 function TruncatedText({ text, color }) {
   //const truncatedText = text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;

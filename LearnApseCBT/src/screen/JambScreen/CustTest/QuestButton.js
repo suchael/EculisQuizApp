@@ -1,12 +1,10 @@
 import React, {useState} from "react";
 import {Text,
-				View,
-				TouchableOpacity,
-				StyleSheet,
-				Switch,
-				Dimensions,
-				} from "react-native";
-				
+		View,
+		TouchableOpacity,
+		StyleSheet,
+		} from "react-native";
+		
 
 import {
   useSafeAreaInsets,
@@ -14,7 +12,6 @@ import {
 
 
 // Icons
-import { Fontisto } from '@expo/vector-icons';
 
 
 // my import 

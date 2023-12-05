@@ -1,12 +1,10 @@
 import React, {useState} from "react";
 import {Text,
-				View,
-				TouchableOpacity,
-				StyleSheet,
-				Switch,
-				Dimensions,
-				} from "react-native";
-				
+		View,
+		TouchableOpacity,
+		StyleSheet,
+		} from "react-native";
+		
 
 import {
   useSafeAreaInsets,
@@ -15,7 +13,7 @@ import {
 // my import 
 import TruncatedText from "./TruncatedText.js";
 import YearPickerModal from "./YearPickerModal.js";
-import SubjectPickerModal from "./SubjectPickerModal.js";
+import SubjectPickerModal from "./TopicPickerModal.js";
 
 export default function QuestButton({subject, pickerType, index, scrollFunc}){
 	const insets = useSafeAreaInsets();

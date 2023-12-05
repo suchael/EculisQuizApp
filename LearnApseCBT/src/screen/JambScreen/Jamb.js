@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
-  Dimensions,
   TouchableHighlight,
   TouchableOpacity,
 } from "react-native";
@@ -16,33 +15,28 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { createNativeStackNavigator ,} from "@react-navigation/native-stack";
-import { TransitionSpecs } from '@react-navigation/stack';
+import { createNativeStackNavigator} from "@react-navigation/native-stack";
 
 
 //icons
 import {
   FontAwesome5,
-  MaterialIcons,
-  Ionicons,
   MaterialCommunityIcons,
   AntDesign,
   Entypo,
-  Foundation,
 } from '@expo/vector-icons';
 
 // My import
 import AlertBox from "./AlertBox.js";
 
 
+
 const JambScreenStack = createNativeStackNavigator();
 
 export default function JambScreen(){
   return(
-    <JambScreenStack.Navigator initialRouteName="JambHome" 
-      screenOptions={{animation: "none",}}
-    >
-      <JambScreenStack.Screen name="JambHome" component={JambHome} options={{headerShown: false}}/>
+    <JambScreenStack.Navigator initialRouteName="JambHome" screenOptions={{animation: "none",}}>
+      <JambScreenStack.Screen name="JambHome" component={JambHome} options={{headerShown: false, }}/>
     </JambScreenStack.Navigator>
   );
 }

@@ -4,10 +4,7 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
   Dimensions,
-  TouchableHighlight,
-  TouchableOpacity,
   Animated, 
   Easing
 } from "react-native";
@@ -16,15 +13,6 @@ import { useNavigation } from '@react-navigation/native';
 
 // My imports
 import UnderLineTextBtn from "./ExamMode/UnderLineTextBtn.js";
-
-
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
-import { createNativeStackNavigator ,} from "@react-navigation/native-stack";
-import { TransitionSpecs } from '@react-navigation/stack';
-
 
 
 export default function AlertBox() {
@@ -60,7 +48,7 @@ export default function AlertBox() {
   };
   
    // Toggle the user Alert message using "true/false"
-  setUserStatus(true, true); //Chang me
+  setUserStatus(true, false); //Chang me
   let content;
 
   if (!userStatus.loggedIn) {

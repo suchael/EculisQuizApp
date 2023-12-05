@@ -1,26 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Modal,
   Text,
   View,
-  TouchableOpacity,
-  ScrollView,
-  BackHandler,
-  StyleSheet,
-  Dimensions,
 } from 'react-native';
 
 
 // icons 
-import { Ionicons } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
+import { Ionicons, Entypo } from '@expo/vector-icons';
+
 
 export default function ScoreModal({visible, onClose}){
 	const myAnswer = true
 	const myFriendAnswer = null // return true or false or null ____  null when user did not pick answer
 	
-  
-
 	return(
 			<Modal
 				transparent= {true}

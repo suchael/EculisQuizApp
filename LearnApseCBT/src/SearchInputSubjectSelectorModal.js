@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, TouchableHighlight, Modal, ScrollView, StyleSheet, BackHandler } from 'react-native';
-import { Fontisto, FontAwesome } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons';
 
 const SUBJECTS = [
   "English Language",

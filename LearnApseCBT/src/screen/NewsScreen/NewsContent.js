@@ -1,17 +1,15 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  TouchableHighlight
-} from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
-import {
-  AntDesign,
-} from '@expo/vector-icons';
+  TouchableHighlight,
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
 
 // My import
 
@@ -22,21 +20,26 @@ export default function NewsContent() {
       <Main />
       <CommentBtn />
     </View>
-  )
+  );
 }
 
 function HomeHeader() {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   return (
-    <View style={[styles.homeHeader, {
-      paddingLeft: insets.left + 10,
-      paddingRight: insets.right + 10,
-      paddingTop: insets.top + 12,
-      paddingBottom: insets.bottom + 4,
-      borderBottomWidth: 2,
-      borderBottomColor: "gray",
-    }]}>
+    <View
+      style={[
+        styles.homeHeader,
+        {
+          paddingLeft: insets.left + 10,
+          paddingRight: insets.right + 10,
+          paddingTop: insets.top + 12,
+          paddingBottom: insets.bottom + 4,
+          borderBottomWidth: 2,
+          borderBottomColor: "gray",
+        },
+      ]}
+    >
       <TouchableHighlight
         onPress={() => navigation.goBack()}
         activeOpacity={0.9}
@@ -54,12 +57,17 @@ function Main() {
   const insets = useSafeAreaInsets();
   return (
     <ScrollView style={styles.mainContainer}>
-      <View style={[styles.contentContainer, {
-        paddingLeft: insets.left + 10,
-        paddingRight: insets.right + 10,
-        paddingTop: insets.top + 14,
-        paddingBottom: insets.bottom + 160,
-      }]}>
+      <View
+        style={[
+          styles.contentContainer,
+          {
+            paddingLeft: insets.left + 10,
+            paddingRight: insets.right + 10,
+            paddingTop: insets.top + 14,
+            paddingBottom: insets.bottom + 160,
+          },
+        ]}
+      >
         {/* Picture */}
         <View style={styles.picture}></View>
         {/* Picture closing */}
@@ -75,13 +83,16 @@ function Main() {
 
         {/* News content */}
         <Text style={styles.newsContent}>
- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In vitae turpis massa sed elementum tempus egestas. Mattis pellentesque id nibh tortor id. Ipsum consequat nisl vel pretium. At imperdiet dui accumsan sit amet nulla. Neque ornare aenean euismod elementum nisi. Arcu odio ut sem nulla pharetra diam sit amet nisl. Sit amet est placerat in egestas. Vitae turpis massa sed elementum tempus egestas. Quis auctor elit sed vulputate mi sit amet mauris. Consequat semper viverra nam libero justo laoreet sit amet. Pretium quam vulputate dignissim suspendisse. Metus aliquam eleifend mi in nulla posuere. At volutpat diam ut venenatis tellus in metus vulputate. Pulvinar mattis nunc sed blandit libero volutpat sed. Vulputate mi sit amet mauris commodo quis. Accumsan tortor posuere ac ut consequat.
-
-At auctor urna nunc id cursus metus aliquam. Urna porttitor rhoncus dolor purus non enim praesent elementum facilisis. Id aliquet lectus proin nibh nisl condimentum id venenatis. Massa tincidunt nunc pulvinar sapien et. Ullamcorper a lacus vestibulum sed arcu non odio euismod. Accumsan lacus vel facilisis volutpat est. Amet est placerat in egestas erat imperdiet sed euismod nisi. Dignissim sodales ut eu sem integer vitae justo. Quis hendrerit dolor magna eget est. Vitae sapien pellentesque habitant morbi tristique senectus. Sociis natoque penatibus et magnis dis parturient. Rhoncus dolor purus non enim praesent. Pretium viverra suspendisse potenti nullam ac tortor vitae purus faucibus.
-
-Diam donec adipiscing tristique risus nec feugiat in fermentum posuere. Tellus id interdum velit laoreet id. Eu ultrices vitae auctor eu. At elementum eu facilisis sed odio. Quis imperdiet massa tincidunt nunc pulvinar. Cras fermentum odio eu feugiat pretium nibh ipsum. In hac habitasse platea dictumst vestibulum. Neque vitae tempus quam pellentesque nec nam aliquam sem et. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Adipiscing vitae proin sagittis nisl. Dictum at tempor commodo ullamcorper a lacus.
-
-	</Text>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting,
+          remaining essentially unchanged. It was popularised in the 1960s with
+          the release of Letraset sheets containing Lorem Ipsum passages, and
+          more recently with desktop publishing software like Aldus PageMaker
+          including versions of Lorem Ipsum.
+        </Text>
         {/* News content closing */}
       </View>
     </ScrollView>
@@ -89,9 +100,12 @@ Diam donec adipiscing tristique risus nec feugiat in fermentum posuere. Tellus i
 }
 
 function CommentBtn() {
-  const navigation= useNavigation ();
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={()=>navigation.navigate("NewsCommentSection")} style={styles.commentButton}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("NewsCommentSection")}
+      style={styles.commentButton}
+    >
       <Text style={styles.commentButtonText}>Post or View comments (5)</Text>
     </TouchableOpacity>
   );
@@ -160,8 +174,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     position: "absolute",
     bottom: 12,
-    left: 10,
-    right: 10,
+    left: 15,
+    right: 15,
   },
   commentButtonText: {
     fontSize: 17,

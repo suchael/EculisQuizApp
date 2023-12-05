@@ -1,7 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, TouchableHighlight, Modal, ScrollView, StyleSheet, BackHandler } from 'react-native';
-import { Fontisto } from '@expo/vector-icons';
+import { View, 
+        Text, 
+        TouchableHighlight, 
+        Modal, 
+        ScrollView, 
+        StyleSheet, 
+        BackHandler } from 'react-native';
 
 const NUMBER = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 

@@ -1,8 +1,5 @@
 import {View, 
         Text, 
-        StyleSheet,
-        ScrollView,
-        Dimensions,
         TouchableHighlight } from 'react-native';
 
 import React , {useState}from 'react';

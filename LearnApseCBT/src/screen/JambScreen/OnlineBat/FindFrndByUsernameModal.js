@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,13 +7,12 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   StyleSheet,
-  BackHandler,
 } from 'react-native';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 
-// My imoort
+// My import
 import UnderLineTextBtn from '../ExamMode/UnderLineTextBtn.js';
 
 

@@ -75,7 +75,11 @@ export default function YearPickerModal(){
         >
           <View style={styles.modalBackdrop}>
             <View style={styles.modal}>
-              <Text style={{ fontSize: 20, fontWeight: "500", textAlign: "center", borderBottomWidth: 2, borderColor: "#999", paddingVertical: 10 }}>Year</Text>
+              <View style={{borderBottomWidth: 2, borderColor: "#999", paddingVertical: 10 }}>
+                <Text style={{ fontSize: 20, fontWeight: "500", textAlign: "center"}}>
+                  Year
+                </Text>
+              </View>
               <ScrollView>
                 {YEAR.map(renderYear)}
               </ScrollView>
@@ -106,7 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modal: {
-    width: "84%",
+    width: "40%",
     height: "64%",
     borderRadius: 6,
     backgroundColor: 'white',

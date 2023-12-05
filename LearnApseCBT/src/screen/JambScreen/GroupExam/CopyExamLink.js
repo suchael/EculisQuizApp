@@ -1,21 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
-  Modal,
-  Button,
   StyleSheet,
-  Dimensions,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  TouchableHighlight,
   ScrollView,
-  TextInput,
 } from 'react-native';
 
 
-import { Entypo, MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as Clipboard from 'expo-clipboard';
 

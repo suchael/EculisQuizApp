@@ -1,18 +1,22 @@
 import React, { useEffect } from "react";
-import { BackHandler, Text } from 'react-native';
+import { BackHandler } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useNavigation } from '@react-navigation/native';
 
+// My import
 import Jamb from "./screen/JambScreen/Jamb.js";
 import News from "./screen/NewsScreen/News.js";
 import Waec from "./screen/WaecScreen/Waec.js";
 import Header from "./Header/Header.js";
+import GetQuestions from "../Backend/GetQuestions.js" 
 
 const TopTab = createMaterialTopTabNavigator();
 
 
 function HomeScreen() {
   const navigation = useNavigation();
+  GetQuestions();
+
   useEffect(() => {
     //  when user clicks on the back botton of their phone 
     //  in the homeScreen

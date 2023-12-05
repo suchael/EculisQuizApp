@@ -1,6 +1,5 @@
 import {
   SafeAreaProvider,
-  useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 
 
@@ -8,7 +7,6 @@ import {
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
 
 //my Components
 import Status_bar from "./src/Status_bar.js";
@@ -62,6 +60,9 @@ import NewsContent from "./src/screen/NewsScreen/NewsContent.js";
 import NewsCommentSection from "./src/screen/NewsScreen/NewsCommentSection.js";
 
 {/* Closing - NewsScreen*/}
+
+
+// My import
 
 
 
