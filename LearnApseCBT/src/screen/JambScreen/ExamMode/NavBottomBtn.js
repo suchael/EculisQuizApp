@@ -24,18 +24,14 @@ import QuitExamNotif from "./QuitExamNotif.js";
 const NavBottomBtn = React.memo(() => {
   const navigation = useNavigation();
 
-  const { handlePrevPage, handleNextPage, totalPages, currentPage } =
+  const { handlePrevPage, handleNextPage, totalPages, currentPage, goToPage } =
     useContext(ShowQuestionContext);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   const handleBackPress = () => {
-    if (!modalVisible) {
-      setModalVisible(true); // Open the modal
-      return true; // Prevent default back behavior
-    }
-    return false; // Allow default back behavior
+    goToPage(currentPage - 1); // Go to previous page
   };
 
   const openModal = () => {
@@ -74,7 +70,7 @@ const NavBottomBtn = React.memo(() => {
       }}
     >
       <TouchableHighlight
-        onPress={handlePrevPage}
+        onPress={handleBackPress}
         disabled={currentPage == 1}
         activeOpacity={0.9}
         underlayColor="white"

@@ -34,7 +34,7 @@ const GoToBtnList = React.memo(() => {
         <TouchableOpacity
           key={index}
           style={{
-            backgroundColor: selectedNumber === index ? "red" : "white",
+            backgroundColor: currentPage - 1 === index ? "red" : "white",
             width: 48,
             height: 52,
             borderWidth: 2,
