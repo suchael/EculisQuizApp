@@ -17,28 +17,34 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { FontAwesome, AntDesign } from "@expo/vector-icons";
 
 export default function CommentSection() {
+  const [commentData, setCommentData] = useState([]);
+
+  const addComment = (comment) => {
+    setCommentData([...commentData, comment]);
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <HomeHeader />
-      <CommentMain />
-      <SearchInputScreen />
+      <CommentMain commentData={commentData} />
+      <SearchInputScreen addComment={addComment} />
     </View>
   );
 }
 
-function CommentMain() {
+function CommentMain({ commentData }) {
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <View
         style={{ paddingTop: 20, paddingBottom: 100, paddingHorizontal: 10 }}
       >
-        <CommentView />
+        <CommentView commentData={commentData} />
       </View>
     </ScrollView>
   );
 }
 
-function CommentView() {
+function CommentView({ commentData }) {
   return (
     <View
       style={{
@@ -49,37 +55,39 @@ function CommentView() {
         borderRadius: 15,
       }}
     >
+      {commentData.map((comment, index) => (
+        <StudentView key={index} comment={comment} />
+      ))}
+      {/* <StudentView />
       <StudentView />
       <StudentView />
       <StudentView />
       <StudentView />
-      <StudentView />
-      <StudentView />
-      <StudentView />
-      <StudentView />
-      <StudentView />
+      <StudentView /> */}
 
       {/*More btn*/}
-      <TouchableOpacity
-        style={{
-          borderWidth: 2,
-          paddingVertical: 6,
-          marginTop: 50,
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: 25,
-          backgroundColor: "white",
-        }}
-      >
-        <Text style={{ fontSize: 16, fontWeight: "bold", color: "black" }}>
-          More
-        </Text>
-      </TouchableOpacity>
+      {commentData.length > 0 ? (
+        <TouchableOpacity
+          style={{
+            borderWidth: 2,
+            paddingVertical: 6,
+            marginTop: 50,
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 25,
+            backgroundColor: "white",
+          }}
+        >
+          <Text style={{ fontSize: 16, fontWeight: "bold", color: "black" }}>
+            More
+          </Text>
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 }
 
-function StudentView() {
+function StudentView({ comment }) {
   const navigation = useNavigation();
   const screenWidth = Dimensions.get("window").width;
   return (
@@ -106,7 +114,7 @@ function StudentView() {
 
         <View style={{ flex: 1, marginLeft: 10, marginBottom: 5 }}>
           <Text style={{ fontSize: 18, fontWeight: "600", marginTop: -4 }}>
-            Nicholas Mayowa
+            john smith
           </Text>
           <Text
             style={{
@@ -116,22 +124,14 @@ function StudentView() {
               marginTop: 0,
             }}
           >
-            23 mins ago
+            13 mins ago
           </Text>
         </View>
       </View>
 
       {/*Student Answer goes here*/}
       <View>
-        <Text style={{ fontSize: 16, fontWeight: "500" }}>
-          Tell me if I should use redux or not and tell me the benefit of either
-          of them I'm creating an app just like the Myschool cbt app Okay, this
-          app has news features (students can read an comment on news), this app
-          has teacher section (teachers can search for school jobs and apply),
-          this app has quiz mode, this app has online battle (students can
-          (students can answer questions by
-          topic)
-        </Text>
+        <Text style={{ fontSize: 16, fontWeight: "500" }}>{comment}</Text>
       </View>
     </View>
   );
@@ -172,12 +172,18 @@ function HomeHeader() {
   );
 }
 
-function SearchInputScreen() {
+function SearchInputScreen({ addComment }) {
   const [textInputValue, setTextInputValue] = useState("");
   const handleSendButtonPress = () => {
-    console.log("User Typed Message:", textInputValue); // Log the user-typed message to the console
-  };
+    // Log the user-typed message to the console
+    console.log("User Typed Message:", textInputValue);
 
+    // Add the comment to the CommentView
+    addComment(textInputValue);
+
+    // Clear the input field
+    setTextInputValue("");
+  };
   return (
     <KeyboardAvoidingView
       style={[styles.container, { backgroundColor: "white" }]}
@@ -260,7 +266,6 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: "center",
     alignItems: "center",
-    
   },
   sendButtonText: {
     color: "white",

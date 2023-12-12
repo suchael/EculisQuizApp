@@ -21,6 +21,10 @@ import { AntDesign, Feather } from "@expo/vector-icons"; // Import your icon lib
 // My import
 import UnderLineTextBtn from "../ExamMode/UnderLineTextBtn.js";
 
+// auth
+import { Auth } from "../../../../Firebase/Firestore.js";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 export default function LoginScreen() {
   return (
     <View style={{ flex: 1 }}>
@@ -101,6 +105,19 @@ function Main() {
     } else {
       setLoginSuccess(false);
     }
+  };
+
+  const handleSignIn = async () => {
+    signInWithEmailAndPassword(Auth, username, password)
+      .then((res) => {
+        console.log("successful");
+        navigation.navigate("HomeScreen");
+      })
+
+      .catch((err) => {
+        console.log(err);
+        alert("Sorry wrong email/password");
+      });
   };
 
   return (
@@ -253,7 +270,7 @@ function Main() {
                 Login Successful{" "}
               </Text>
             ) : (
-              <Text style={{ fontSize: 15, fontWeight: "600", color: "red", }}>
+              <Text style={{ fontSize: 15, fontWeight: "600", color: "red" }}>
                 Invalid Username or Password
               </Text>
             )}
@@ -261,7 +278,7 @@ function Main() {
           {/*Closing - Check if username or password is valid*/}
 
           <TouchableOpacity
-            onPress={handleLogin}
+            onPress={handleSignIn}
             style={{
               height: 46,
               borderRadius: 35,

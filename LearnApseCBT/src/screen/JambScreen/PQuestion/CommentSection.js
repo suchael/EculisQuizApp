@@ -126,8 +126,7 @@ function StudentView() {
       <View>
         <Text style={{ fontSize: 16, fontWeight: "500" }}>
           Tell me if I should use redux or not and tell me the benefit of either
-          e by topic (students can answer questions by
-          topic)
+          e by topic (students can answer questions by topic)
         </Text>
       </View>
     </View>
@@ -258,7 +257,6 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: "center",
     alignItems: "center",
-    
   },
   sendButtonText: {
     color: "white",
