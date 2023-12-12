@@ -34,7 +34,7 @@ const GoToBtnList = React.memo(() => {
         <TouchableOpacity
           key={index}
           style={{
-            backgroundColor: selectedNumber === index ? "red" : "white",
+            backgroundColor: currentPage - 1 === index ? "red" : "white",
             width: 48,
             height: 52,
             borderWidth: 2,
@@ -44,8 +44,8 @@ const GoToBtnList = React.memo(() => {
             margin: 2,
           }}
           onPress={() => {
-            goToPage(index);
-            navigation.setParams({ currentPage: index }); //Go to next page if currentPage changes
+            goToPage(index + 1);
+            navigation.setParams({ currentPage: index + 1 }); //Go to next page if currentPage changes
             console.log("Cur page: ", currentPage);
             setSelectedNumber(index);
             console.log("Num", selectedNumber, "\n");
