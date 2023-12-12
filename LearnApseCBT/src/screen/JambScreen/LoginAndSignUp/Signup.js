@@ -20,6 +20,10 @@ import { AntDesign } from "@expo/vector-icons"; // Import your icon libraries
 import RadioBtn from "./RadioBtn.js";
 import StateOfOriginModal from "./StateOfOriginModal.js";
 
+// auth
+import { Auth } from "../../../../Firebase/Firestore.js";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 export default function Signup() {
   return (
     <View style={{ flex: 1 }}>
@@ -69,6 +73,8 @@ function HomeHeader() {
 }
 
 function Main() {
+  const navigation = useNavigation();
+
   const insets = useSafeAreaInsets();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -91,6 +97,19 @@ function Main() {
   const [selectedOption, setSelectedOption] = useState(null);
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
+  };
+
+  // signup
+  const handleSignUp = () => {
+    createUserWithEmailAndPassword(Auth, username, password)
+      .then((res) => {
+        console.log(res.user);
+        navigation.navigate("HomeScreen");
+      })
+      .catch((re) => {
+        console.log(re);
+        alert("could not sign you up");
+      });
   };
 
   return (
@@ -359,9 +378,10 @@ function Main() {
               alignItems: "center",
               marginTop: 25,
             }}
+            onPress={handleSignUp}
           >
             <Text style={{ fontSize: 17, fontWeight: "bold", color: "white" }}>
-              Signup
+              Signupddd
             </Text>
           </TouchableOpacity>
         </View>

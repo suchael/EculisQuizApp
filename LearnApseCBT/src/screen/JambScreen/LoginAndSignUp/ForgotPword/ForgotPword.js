@@ -8,21 +8,21 @@ import {
   KeyboardAvoidingView,
   Platform,
   TextInput,
-} from 'react-native';
+} from "react-native";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 
 // Icons
-import { AntDesign } from '@expo/vector-icons'; // Import your icon libraries
-
-
+import { AntDesign } from "@expo/vector-icons"; // Import your icon libraries
+import { sendPasswordResetEmail } from "firebase/auth";
+import { Auth } from "../../../../../Firebase/Firestore";
 
 export default function LoginScreen() {
   return (
-    <View style ={{flex: 1,}}>
+    <View style={{ flex: 1 }}>
       <HomeHeader />
       <Main />
     </View>
@@ -42,7 +42,7 @@ function HomeHeader() {
           paddingTop: insets.top + 12,
           paddingBottom: insets.bottom + 4,
           borderBottomWidth: 2,
-          borderBottomColor: 'gray',
+          borderBottomColor: "gray",
         },
       ]}
     >
@@ -53,41 +53,65 @@ function HomeHeader() {
         style={{
           width: 60,
           height: 40,
-          justifyContent: 'center',
+          justifyContent: "center",
         }}
       >
-        <AntDesign name="arrowleft" size={27} color="#333" style={{ marginLeft: -4 }} />
+        <AntDesign
+          name="arrowleft"
+          size={27}
+          color="#333"
+          style={{ marginLeft: -4 }}
+        />
       </TouchableHighlight>
-      <View style ={{flex: 1 ,flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-      	<Text style={[styles.homeHeaderText, {marginLeft: -50, }]}>Forgot{"  "}Password</Text>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text style={[styles.homeHeaderText, { marginLeft: -50 }]}>
+          Forgot{"  "}Password
+        </Text>
       </View>
     </View>
   );
 }
 
-
-
 function Main() {
   const insets = useSafeAreaInsets();
-  const navigation=useNavigation ();
-  
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const navigation = useNavigation();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(null); // Initialize it as true initially
 
   const togglePasswordVisibility = () => {
-  setIsPasswordVisible((prevIsPasswordVisible) => !prevIsPasswordVisible);
-};
+    setIsPasswordVisible((prevIsPasswordVisible) => !prevIsPasswordVisible);
+  };
 
-  const PASSWORD= "Eculis";
-  const NAME= "Success";
+  const handleResetPassword = async () => {
+    if (!username) return alert("Please enter your email address");
+    try {
+      await sendPasswordResetEmail(Auth, username);
+      alert("Password reset email sent. Please check your inbox.");
+      navigation.goBack();
+    } catch (error) {
+      console.error("Failed to send password reset email:", error);
+      alert("Error sending password reset email. Please try again later.");
+    }
+  };
+
+  const PASSWORD = "Eculis";
+  const NAME = "Success";
   const handleLogin = () => {
-    	if (password === PASSWORD) {
-      		setLoginSuccess(true)
-    	} else {
-      		setLoginSuccess(false)
-    	}
+    if (password === PASSWORD) {
+      setLoginSuccess(true);
+    } else {
+      setLoginSuccess(false);
+    }
   };
 
   return (
@@ -104,78 +128,136 @@ function Main() {
           alignItems: "center",
         }}
       >
-      	{/*Login Section*/}
-      	<View style ={{backgroundColor: "white", minHeight: 300, borderRadius: 14, marginTop: -5, borderWidth: 2, borderColor: "#999", paddingVertical: 25, paddingHorizontal: 20}}>
-      		{/*LearnApse Logo*/}
-      		<View style ={{justifyContent: "center", alignItems: "center"}}>
-      			<View style ={{borderWidth: 2, height: 120, width: 120, borderRadius: 5, justifyContent: "center", alignItems: "center"}}>
-      				<Text>Forgot password Logo </Text>
-      			</View>
-      		</View>
-      		{/*Closing - LearnApse Logo*/}
-      
-      		<View style={{marginTop: 20 , marginBottom: 20, backgroundColor: "lightgray", padding: 4, borderRadius: 4}}>
-      			<Text style ={{fontSize: 17, fontWeight: "500"}}>• Enter your Email below</Text>
-      			<Text style ={{fontSize: 17, fontWeight: "500"}}>• A 6 digit code will be sent to you</Text>
-      		</View>
-      
-      		{/*Email and Password*/}
-      		<View style = {{}}>
-      			<KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      				{/*Email*/}
-      				<View style ={{marginBottom: 12}}>
-      					<Text style ={{fontSize: 17, fontWeight: "600", paddingLeft: 20,}}>Email</Text>
-      					<TextInput 
-								placeholder="Enter Email"
-								onChangeText={text => setUsername(text)}
-          					  style={{paddingLeft: 20, backgroundColor: "lightgray", color: "black", fontSize: 16, marginTop: -2, height: 46, borderRadius: 35, borderWidth: 2, borderColor: "#777",}}
-						  />
-      				</View>
-      				{/*Closing- Email*/}
-      
-      				
-      			</KeyboardAvoidingView>
-      		</View>
-      		{/*Closing - Email and Password*/}
-      
-      		{/*Check if username or password is valid*/}
-         			<View style ={{justifyContent: "center", alignItems: "center"}}>
-         				{ loginSuccess=== true?  
-							(<Text style ={{fontSize: 15, fontWeight: "600"}}>Login Successful </Text>
-							) : (<Text style ={{fontSize: 15, fontWeight: "600"}}>Invalid Email</Text>)
-						 }
-         			</View>
-         	{/*Closing - Check if username or password is valid*/}
-         
-      		<TouchableOpacity onPress={()=> navigation.navigate("SixDigitCode")} style ={{height: 46, borderRadius: 35, backgroundColor: "blue", justifyContent:"center", alignItems:"center", marginTop: 30}}>
-      			<Text style ={{fontSize: 17, fontWeight: "bold", color: "white", }}>Continue</Text>
-      		</TouchableOpacity>
-      
-      	</View>
-      	{/*Closing - Login Section*/}
-     
+        {/*Login Section*/}
+        <View
+          style={{
+            backgroundColor: "white",
+            minHeight: 300,
+            borderRadius: 14,
+            marginTop: -5,
+            borderWidth: 2,
+            borderColor: "#999",
+            paddingVertical: 25,
+            paddingHorizontal: 20,
+          }}
+        >
+          {/*LearnApse Logo*/}
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <View
+              style={{
+                borderWidth: 2,
+                height: 120,
+                width: 120,
+                borderRadius: 5,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text>Forgot password Logo </Text>
+            </View>
+          </View>
+          {/*Closing - LearnApse Logo*/}
+
+          <View
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              backgroundColor: "lightgray",
+              padding: 4,
+              borderRadius: 4,
+            }}
+          >
+            <Text style={{ fontSize: 17, fontWeight: "500" }}>
+              • Enter your Email below
+            </Text>
+            <Text style={{ fontSize: 17, fontWeight: "500" }}>
+              • A 6 digit code will be sent to you
+            </Text>
+          </View>
+
+          {/*Email and Password*/}
+          <View style={{}}>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+            >
+              {/*Email*/}
+              <View style={{ marginBottom: 12 }}>
+                <Text
+                  style={{ fontSize: 17, fontWeight: "600", paddingLeft: 20 }}
+                >
+                  Email
+                </Text>
+                <TextInput
+                  placeholder="Enter Email"
+                  onChangeText={(text) => setUsername(text)}
+                  style={{
+                    paddingLeft: 20,
+                    backgroundColor: "lightgray",
+                    color: "black",
+                    fontSize: 16,
+                    marginTop: -2,
+                    height: 46,
+                    borderRadius: 35,
+                    borderWidth: 2,
+                    borderColor: "#777",
+                  }}
+                />
+              </View>
+              {/*Closing- Email*/}
+            </KeyboardAvoidingView>
+          </View>
+          {/*Closing - Email and Password*/}
+
+          {/*Check if username or password is valid*/}
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            {loginSuccess === true ? (
+              <Text style={{ fontSize: 15, fontWeight: "600" }}>
+                Login Successful{" "}
+              </Text>
+            ) : (
+              <Text style={{ fontSize: 15, fontWeight: "600" }}>
+                Invalid Email
+              </Text>
+            )}
+          </View>
+          {/*Closing - Check if username or password is valid*/}
+
+          <TouchableOpacity
+            onPress={() => {
+              handleResetPassword();
+            }}
+            style={{
+              height: 46,
+              borderRadius: 35,
+              backgroundColor: "blue",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: 30,
+            }}
+          >
+            <Text style={{ fontSize: 17, fontWeight: "bold", color: "white" }}>
+              Continue
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {/*Closing - Login Section*/}
       </View>
     </ScrollView>
   );
 }
 
-
-
-
-
 const styles = StyleSheet.create({
   homeContainer: {
     flex: 1,
-    backgroundColor: 'lightgray',
+    backgroundColor: "lightgray",
   },
   homeHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   homeHeaderIcon: {},
   homeHeaderText: {
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: "600",
   },
-
 });
