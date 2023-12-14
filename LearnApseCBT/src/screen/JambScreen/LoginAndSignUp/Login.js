@@ -11,7 +11,7 @@ import {
   Image,
 } from "react-native";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -26,6 +26,7 @@ import UnderLineTextBtn from "../ExamMode/UnderLineTextBtn.js";
 import { Auth } from "../../../../Firebase/Firestore.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import HeaderTop from "../../../components/customComponents/HeaderTop.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginScreen() {
   return (
@@ -132,6 +133,8 @@ function Main() {
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+  //for storing useremail as userName since displayname is not being passed on
+  const [userName, setUserName] = useState();
   const [error, setError] = useState("");
 
   const togglePasswordVisibility = () => {
@@ -139,18 +142,49 @@ function Main() {
   };
 
   const handleSignIn = async () => {
-    signInWithEmailAndPassword(Auth, username, password)
-      .then((res) => {
-        console.log("successful");
-        navigation.navigate("HomeScreen");
-      })
+    try {
+      const res = await signInWithEmailAndPassword(Auth, username, password);
+      console.log("successful");
+      console.log("res", res);
+      const userEmail = res?._tokenResponse?.email;
 
-      .catch((err) => {
-        console.log(err);
-        alert("Sorry wrong email/password");
-        setError("Invalid Username or Password");
-      });
+      if (userEmail) {
+        setUserName(userEmail);
+        console.log("name", userEmail);
+        // Save the user's email to AsyncStorage
+        await AsyncStorage.setItem("userEmail", userEmail);
+      }
+      console.log('user email login', userEmail)
+
+      // Save the login status to AsyncStorage
+      await AsyncStorage.setItem("isLoggedIn", "true");
+
+      navigation.navigate("HomeScreen", {userEmail});
+
+      
+    } catch (err) {
+      console.log(err);
+      alert("Sorry wrong email/password");
+      setError("Invalid Username or Password");
+    }
   };
+
+  useEffect(() => {
+    // Check if the user is already logged in
+    const checkLoginStatus = async () => {
+      try {
+        const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
+        if (isLoggedIn === "true") {
+          // Redirect to HomeScreen if the user is logged in
+          navigation.navigate("HomeScreen");
+        }
+      } catch (error) {
+        console.error("Error checking login status:", error);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>

@@ -13,10 +13,11 @@ import GetQuestions from "../Backend/GetQuestions.js"
 const TopTab = createMaterialTopTabNavigator();
 
 
-function HomeScreen() {
+function HomeScreen({userEmail}) {
   const navigation = useNavigation();
   GetQuestions();
-
+  // const {data} = userEmail?.params
+  console.log('first', userEmail)
   useEffect(() => {
     //  when user clicks on the back botton of their phone 
     //  in the homeScreen

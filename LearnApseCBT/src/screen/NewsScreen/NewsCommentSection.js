@@ -139,7 +139,7 @@ function StudentView({ comment }) {
 
 function HomeHeader() {
   const navigation = useNavigation();
-  const insets = useSafeAreaInsets();
+  const insets = useSafeAreaInsets(); 
   return (
     <View
       style={[
