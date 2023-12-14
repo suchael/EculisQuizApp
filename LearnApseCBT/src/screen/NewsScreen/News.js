@@ -210,6 +210,7 @@ function News() {
       {/*SearchBox closing*/}
       {filteredItems.map((item, index) => (
         <TouchableOpacity
+          key={index}
           onPress={() => navigation.navigate("NewsContent")}
           style={{
             backgroundColor: "#999",

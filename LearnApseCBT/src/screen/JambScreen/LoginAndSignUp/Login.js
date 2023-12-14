@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TextInput,
+  Image,
 } from "react-native";
 
 import React, { useState } from "react";
@@ -24,87 +25,117 @@ import UnderLineTextBtn from "../ExamMode/UnderLineTextBtn.js";
 // auth
 import { Auth } from "../../../../Firebase/Firestore.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import HeaderTop from "../../../components/customComponents/HeaderTop.js";
 
 export default function LoginScreen() {
   return (
     <View style={{ flex: 1 }}>
-      <HomeHeader />
+      <HeaderTop title="Login or Signup" />
       <Main />
     </View>
   );
 }
 
-function HomeHeader() {
-  const navigation = useNavigation();
-  const insets = useSafeAreaInsets();
-  return (
-    <View
-      style={[
-        styles.homeHeader,
-        {
-          paddingLeft: insets.left + 10,
-          paddingRight: insets.right + 10,
-          paddingTop: insets.top + 12,
-          paddingBottom: insets.bottom + 4,
-          borderBottomWidth: 2,
-          borderBottomColor: "gray",
-        },
-      ]}
-    >
-      <TouchableHighlight
-        onPress={() => navigation.goBack()}
-        activeOpacity={0.9}
-        underlayColor="lightgray"
-        style={{
-          width: 60,
-          height: 40,
-          justifyContent: "center",
-        }}
-      >
-        <AntDesign
-          name="arrowleft"
-          size={27}
-          color="#333"
-          style={{ marginLeft: -4 }}
-        />
-      </TouchableHighlight>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Text style={[styles.homeHeaderText, { marginLeft: -50 }]}>
-          Login{"  "}or{"  "}Signup
-        </Text>
-      </View>
-    </View>
-  );
-}
-
 function Main() {
-  const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
+
+  const styles = StyleSheet.create({
+    homeContainer: {
+      paddingLeft: insets.left + 15,
+      paddingRight: insets.right + 15,
+      paddingTop: insets.top + 12,
+      paddingBottom: insets.bottom + 10,
+      flex: 1,
+      backgroundColor: "lightgray",
+    },
+    loginContainer: {
+      backgroundColor: "white",
+      minHeight: 500,
+      borderRadius: 14,
+      marginTop: -5,
+      borderWidth: 2,
+      borderColor: "#999",
+      paddingVertical: 15,
+      paddingHorizontal: 10,
+    },
+    loginHeader: {
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 12,
+      marginBottom: 20,
+      backgroundColor: "lightgray",
+      padding: 6,
+      borderRadius: 4,
+      paddingVertical: 20,
+    },
+
+    inputContainer: {
+      paddingLeft: 20,
+      backgroundColor: "lightgray",
+      color: "black",
+      fontSize: 16,
+      marginTop: -2,
+      height: 46,
+      borderRadius: 35,
+      borderWidth: 2,
+      borderColor: "#777",
+    },
+    passwordContainer: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      height: 46,
+      borderWidth: 2,
+      borderColor: "#777",
+      borderRadius: 35,
+      backgroundColor: "lightgray",
+      marginTop: -2,
+    },
+    passwordTextInput: {
+      paddingLeft: 20,
+      color: "black",
+      fontSize: 16,
+      height: 46,
+      borderRadius: 35,
+      flex: 1,
+    },
+    loginButton: {
+      height: 46,
+      borderRadius: 35,
+      backgroundColor: "blue",
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 30,
+    },
+    signupContainer: {
+      backgroundColor: "white",
+      minHeight: 60,
+      borderRadius: 10,
+      marginTop: 8,
+      borderWidth: 2,
+      borderColor: "blue",
+      paddingVertical: 15,
+      paddingHorizontal: 10,
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: 10,
+    },
+    homeHeaderText: {
+      fontSize: 20,
+      fontWeight: "600",
+    },
+  });
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [loginSuccess, setLoginSuccess] = useState(null); // Initialize it as true initially
+
+  const [error, setError] = useState("");
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prevIsPasswordVisible) => !prevIsPasswordVisible);
-  };
-
-  const PASSWORD = "Eculis";
-  const NAME = "Success";
-  const handleLogin = () => {
-    if (password === PASSWORD) {
-      setLoginSuccess(true);
-    } else {
-      setLoginSuccess(false);
-    }
   };
 
   const handleSignIn = async () => {
@@ -117,58 +148,25 @@ function Main() {
       .catch((err) => {
         console.log(err);
         alert("Sorry wrong email/password");
+        setError("Invalid Username or Password");
       });
   };
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-      <View
-        style={{
-          paddingLeft: insets.left + 15,
-          paddingRight: insets.right + 15,
-          paddingTop: insets.top + 12,
-          paddingBottom: insets.bottom + 10,
-          flex: 1,
-          backgroundColor: "lightgray",
-        }}
-      >
+      <View style={styles.homeContainer}>
         {/*Login Section*/}
-        <View
-          style={{
-            backgroundColor: "white",
-            minHeight: 500,
-            borderRadius: 14,
-            marginTop: -5,
-            borderWidth: 2,
-            borderColor: "#999",
-            paddingVertical: 15,
-            paddingHorizontal: 10,
-          }}
-        >
+        <View style={styles.loginContainer}>
           {/*LearnApse Logo*/}
           <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <View
-              style={{
-                borderWidth: 2,
-                height: 80,
-                width: 80,
-                borderRadius: 40,
-              }}
-            ></View>
+            <Image
+              source={require("../../../assets/images/quiz.png")}
+              style={{ width: 80, height: 80, borderRadius: 40 }}
+            />
           </View>
           {/*Closing - LearnApse Logo*/}
 
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 12,
-              marginBottom: 20,
-              backgroundColor: "lightgray",
-              padding: 6,
-              borderRadius: 4,
-            }}
-          >
+          <View style={styles.loginHeader}>
             <Text style={{ fontSize: 17, fontWeight: "500" }}>
               Welcome to <Text style={{ fontWeight: "600" }}>LearnApse</Text>
             </Text>
@@ -185,59 +183,40 @@ function Main() {
               {/*Email*/}
               <View style={{ marginBottom: 12 }}>
                 <Text
-                  style={{ fontSize: 17, fontWeight: "600", paddingLeft: 20 }}
+                  style={{
+                    fontSize: 17,
+                    fontWeight: "600",
+                    paddingLeft: 20,
+                    paddingBottom: 5,
+                  }}
                 >
                   Email
                 </Text>
                 <TextInput
                   placeholder="Enter Email"
                   onChangeText={(text) => setUsername(text)}
-                  style={{
-                    paddingLeft: 20,
-                    backgroundColor: "lightgray",
-                    color: "black",
-                    fontSize: 16,
-                    marginTop: -2,
-                    height: 46,
-                    borderRadius: 35,
-                    borderWidth: 2,
-                    borderColor: "#777",
-                  }}
+                  style={styles.inputContainer}
                 />
               </View>
 
               {/*Password*/}
               <View style={{ marginBottom: 12 }}>
                 <Text
-                  style={{ fontSize: 17, fontWeight: "600", paddingLeft: 20 }}
+                  style={{
+                    fontSize: 17,
+                    fontWeight: "600",
+                    paddingLeft: 20,
+                    paddingBottom: 5,
+                  }}
                 >
                   Password
                 </Text>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    height: 46,
-                    borderWidth: 2,
-                    borderColor: "#777",
-                    borderRadius: 35,
-                    backgroundColor: "lightgray",
-                    marginTop: -2,
-                  }}
-                >
+                <View style={styles.passwordContainer}>
                   <TextInput
                     placeholder="Enter Password"
                     onChangeText={(text) => setPassword(text)}
                     secureTextEntry={!isPasswordVisible}
-                    style={{
-                      paddingLeft: 20,
-                      color: "black",
-                      fontSize: 16,
-                      height: 46,
-                      borderRadius: 35,
-                      flex: 1,
-                    }}
+                    style={styles.passwordTextInput}
                   />
                   <TouchableHighlight
                     underlayColor="transparent"
@@ -265,29 +244,15 @@ function Main() {
 
           {/*Check if username or password is valid*/}
           <View style={{ justifyContent: "center", alignItems: "center" }}>
-            {loginSuccess === true ? (
-              <Text style={{ fontSize: 15, fontWeight: "600" }}>
-                Login Successful{" "}
-              </Text>
-            ) : (
+            {error && (
               <Text style={{ fontSize: 15, fontWeight: "600", color: "red" }}>
-                Invalid Username or Password
+                {error}
               </Text>
             )}
           </View>
           {/*Closing - Check if username or password is valid*/}
 
-          <TouchableOpacity
-            onPress={handleSignIn}
-            style={{
-              height: 46,
-              borderRadius: 35,
-              backgroundColor: "blue",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 30,
-            }}
-          >
+          <TouchableOpacity onPress={handleSignIn} style={styles.loginButton}>
             <Text style={{ fontSize: 17, fontWeight: "bold", color: "white" }}>
               Login
             </Text>
@@ -309,20 +274,7 @@ function Main() {
         {/*Signup Section*/}
         <TouchableOpacity
           onPress={() => navigation.navigate("Signup")}
-          style={{
-            backgroundColor: "white",
-            minHeight: 60,
-            borderRadius: 10,
-            marginTop: 8,
-            borderWidth: 2,
-            borderColor: "blue",
-            paddingVertical: 15,
-            paddingHorizontal: 10,
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 10,
-          }}
+          style={styles.signupContainer}
         >
           <Text style={{ fontSize: 17, fontWeight: "600" }}>
             Don't have an account?
@@ -343,19 +295,3 @@ function Main() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  homeContainer: {
-    flex: 1,
-    backgroundColor: "lightgray",
-  },
-  homeHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  homeHeaderIcon: {},
-  homeHeaderText: {
-    fontSize: 20,
-    fontWeight: "600",
-  },
-});

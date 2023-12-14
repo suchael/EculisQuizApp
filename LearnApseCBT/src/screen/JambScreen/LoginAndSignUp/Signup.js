@@ -23,51 +23,13 @@ import StateOfOriginModal from "./StateOfOriginModal.js";
 // auth
 import { Auth } from "../../../../Firebase/Firestore.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import HeaderTop from "../../../components/customComponents/HeaderTop.js";
 
 export default function Signup() {
   return (
     <View style={{ flex: 1 }}>
-      <HomeHeader />
+      <HeaderTop title={"Signup"} />
       <Main />
-    </View>
-  );
-}
-
-function HomeHeader() {
-  const navigation = useNavigation();
-  const insets = useSafeAreaInsets();
-  return (
-    <View
-      style={[
-        styles.homeHeader,
-        {
-          paddingLeft: insets.left + 10,
-          paddingRight: insets.right + 10,
-          paddingTop: insets.top + 12,
-          paddingBottom: insets.bottom + 4,
-          borderBottomWidth: 2,
-          borderBottomColor: "gray",
-        },
-      ]}
-    >
-      <TouchableHighlight
-        onPress={() => navigation.goBack()}
-        activeOpacity={0.9}
-        underlayColor="lightgray"
-        style={{
-          width: 60,
-          height: 40,
-          justifyContent: "center",
-        }}
-      >
-        <AntDesign
-          name="arrowleft"
-          size={27}
-          color="#333"
-          style={{ marginLeft: -4 }}
-        />
-      </TouchableHighlight>
-      <Text style={styles.homeHeaderText}>Signup</Text>
     </View>
   );
 }
@@ -94,7 +56,7 @@ function Main() {
   };
 
   //For Radio Btn
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("Abia");
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
   };
@@ -145,7 +107,12 @@ function Main() {
             {/*First name*/}
             <View style={{ marginBottom: 12 }}>
               <Text
-                style={{ fontSize: 17, fontWeight: "600", paddingLeft: 20 }}
+                style={{
+                  fontSize: 17,
+                  fontWeight: "600",
+                  paddingLeft: 20,
+                  paddingBottom: 5,
+                }}
               >
                 First name
               </Text>
@@ -170,7 +137,13 @@ function Main() {
             {/*Last name*/}
             <View style={{ marginBottom: 12 }}>
               <Text
-                style={{ fontSize: 17, fontWeight: "600", paddingLeft: 20 }}
+                style={{
+                  fontSize: 17,
+                  fontWeight: "600",
+                  paddingLeft: 20,
+                  paddingBottom: 5,
+                  paddingBottom: 5,
+                }}
               >
                 Last name
               </Text>
@@ -195,7 +168,13 @@ function Main() {
             {/*Email*/}
             <View style={{ marginBottom: 12 }}>
               <Text
-                style={{ fontSize: 17, fontWeight: "600", paddingLeft: 20 }}
+                style={{
+                  fontSize: 17,
+                  fontWeight: "600",
+                  paddingLeft: 20,
+                  paddingBottom: 5,
+                  paddingBottom: 5,
+                }}
               >
                 Email
               </Text>
@@ -220,7 +199,12 @@ function Main() {
             {/*Password*/}
             <View style={{ marginBottom: 12 }}>
               <Text
-                style={{ fontSize: 17, fontWeight: "600", paddingLeft: 20 }}
+                style={{
+                  fontSize: 17,
+                  fontWeight: "600",
+                  paddingLeft: 20,
+                  paddingBottom: 5,
+                }}
               >
                 Password
               </Text>
@@ -242,7 +226,12 @@ function Main() {
             </View>
             <View style={{ marginBottom: 12 }}>
               <Text
-                style={{ fontSize: 17, fontWeight: "600", paddingLeft: 20 }}
+                style={{
+                  fontSize: 17,
+                  fontWeight: "600",
+                  paddingLeft: 20,
+                  paddingBottom: 5,
+                }}
               >
                 Confirm Password
               </Text>
@@ -281,7 +270,12 @@ function Main() {
             {/*Username*/}
             <View style={{ marginBottom: 12 }}>
               <Text
-                style={{ fontSize: 17, fontWeight: "600", paddingLeft: 20 }}
+                style={{
+                  fontSize: 17,
+                  fontWeight: "600",
+                  paddingLeft: 20,
+                  paddingBottom: 5,
+                }}
               >
                 Username
               </Text>
@@ -301,18 +295,7 @@ function Main() {
                 }}
               />
             </View>
-            <Text
-              style={{
-                marginTop: -10,
-                marginBottom: 12,
-                fontSize: 15,
-                fontWeight: "500",
-                paddingLeft: 20,
-                color: "red",
-              }}
-            >
-              This username is already taken. Use another name
-            </Text>
+
             {/*Closing - Username*/}
           </View>
           {/*Closing - Email and Password*/}
@@ -381,7 +364,7 @@ function Main() {
             onPress={handleSignUp}
           >
             <Text style={{ fontSize: 17, fontWeight: "bold", color: "white" }}>
-              Signupddd
+              Signup
             </Text>
           </TouchableOpacity>
         </View>

@@ -1,9 +1,9 @@
 export const firebaseConfigKey = {
-  apiKey: "AIzaSyCFQrEF2ryKhJ6IJ2Xp1l5ukvJBX1yoWgU",
-  authDomain: "learnapsedb.firebaseapp.com",
-  projectId: "learnapsedb",
-  storageBucket: "learnapsedb.appspot.com",
-  messagingSenderId: "984177983531",
-  appId: "1:984177983531:web:53963dc06cad7b09162a6e",
-  measurementId: "G-RN12PSBM0K",
+  apiKey: "AIzaSyDYRT1GmCTiqBcQTLTiBeBoE7omBc9GxvM",
+  authDomain: "learnapsecbt-d24ea.firebaseapp.com",
+  projectId: "learnapsecbt-d24ea",
+  storageBucket: "learnapsecbt-d24ea.appspot.com",
+  messagingSenderId: "190753208419",
+  appId: "1:190753208419:web:55d7edfd92ce6905bc2056",
+  measurementId: "G-52N57E5DNR",
 };

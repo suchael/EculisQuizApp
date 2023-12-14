@@ -51,7 +51,7 @@ const NUMBER = [
 ];
 
 export default function StateOfOriginModal({ Type }) {
-  const [selectedNumber, setSelectedNumber] = useState("Null");
+  const [selectedNumber, setSelectedNumber] = useState("Abia");
   const [modalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
@@ -148,8 +148,20 @@ export default function StateOfOriginModal({ Type }) {
         >
           <View style={styles.modalBackdrop}>
             <View style={styles.modal}>
-            <View style={{borderBottomWidth: 2, borderColor: "#999", paddingVertical: 10 }}>
-                <Text style={{ fontSize: 20, fontWeight: "500", textAlign: "center"}}>
+              <View
+                style={{
+                  borderBottomWidth: 2,
+                  borderColor: "#999",
+                  paddingVertical: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "500",
+                    textAlign: "center",
+                  }}
+                >
                   State
                 </Text>
               </View>

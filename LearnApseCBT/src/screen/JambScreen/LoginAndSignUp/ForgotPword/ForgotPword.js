@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TextInput,
+  Image,
 } from "react-native";
 
 import React, { useState } from "react";
@@ -19,62 +20,13 @@ import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons"; // Import your icon libraries
 import { sendPasswordResetEmail } from "firebase/auth";
 import { Auth } from "../../../../../Firebase/Firestore";
+import HeaderTop from "../../../../components/customComponents/HeaderTop";
 
 export default function LoginScreen() {
   return (
     <View style={{ flex: 1 }}>
-      <HomeHeader />
+      <HeaderTop title="Forgot Password" />
       <Main />
-    </View>
-  );
-}
-
-function HomeHeader() {
-  const navigation = useNavigation();
-  const insets = useSafeAreaInsets();
-  return (
-    <View
-      style={[
-        styles.homeHeader,
-        {
-          paddingLeft: insets.left + 10,
-          paddingRight: insets.right + 10,
-          paddingTop: insets.top + 12,
-          paddingBottom: insets.bottom + 4,
-          borderBottomWidth: 2,
-          borderBottomColor: "gray",
-        },
-      ]}
-    >
-      <TouchableHighlight
-        onPress={() => navigation.goBack()}
-        activeOpacity={0.9}
-        underlayColor="lightgray"
-        style={{
-          width: 60,
-          height: 40,
-          justifyContent: "center",
-        }}
-      >
-        <AntDesign
-          name="arrowleft"
-          size={27}
-          color="#333"
-          style={{ marginLeft: -4 }}
-        />
-      </TouchableHighlight>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Text style={[styles.homeHeaderText, { marginLeft: -50 }]}>
-          Forgot{"  "}Password
-        </Text>
-      </View>
     </View>
   );
 }
@@ -84,13 +36,7 @@ function Main() {
   const navigation = useNavigation();
 
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [loginSuccess, setLoginSuccess] = useState(null); // Initialize it as true initially
-
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible((prevIsPasswordVisible) => !prevIsPasswordVisible);
-  };
+  const [error, setError] = useState("");
 
   const handleResetPassword = async () => {
     if (!username) return alert("Please enter your email address");
@@ -101,16 +47,7 @@ function Main() {
     } catch (error) {
       console.error("Failed to send password reset email:", error);
       alert("Error sending password reset email. Please try again later.");
-    }
-  };
-
-  const PASSWORD = "Eculis";
-  const NAME = "Success";
-  const handleLogin = () => {
-    if (password === PASSWORD) {
-      setLoginSuccess(true);
-    } else {
-      setLoginSuccess(false);
+      setError("Invalid Email Address");
     }
   };
 
@@ -143,18 +80,10 @@ function Main() {
         >
           {/*LearnApse Logo*/}
           <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <View
-              style={{
-                borderWidth: 2,
-                height: 120,
-                width: 120,
-                borderRadius: 5,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Text>Forgot password Logo </Text>
-            </View>
+            <Image
+              source={require("../../../../assets/images/forgot.webp")}
+              style={{ width: 120, height: 120, objectFit: "fill" }}
+            />
           </View>
           {/*Closing - LearnApse Logo*/}
 
@@ -165,13 +94,14 @@ function Main() {
               backgroundColor: "lightgray",
               padding: 4,
               borderRadius: 4,
+              paddingHorizontal: 10,
             }}
           >
-            <Text style={{ fontSize: 17, fontWeight: "500" }}>
+            <Text style={{ fontSize: 15, fontWeight: "500" }}>
               • Enter your Email below
             </Text>
-            <Text style={{ fontSize: 17, fontWeight: "500" }}>
-              • A 6 digit code will be sent to you
+            <Text style={{ fontSize: 15, fontWeight: "500" }}>
+              • Reset Link will be sent in your email
             </Text>
           </View>
 
@@ -183,7 +113,12 @@ function Main() {
               {/*Email*/}
               <View style={{ marginBottom: 12 }}>
                 <Text
-                  style={{ fontSize: 17, fontWeight: "600", paddingLeft: 20 }}
+                  style={{
+                    fontSize: 17,
+                    fontWeight: "600",
+                    paddingLeft: 20,
+                    paddingBottom: 5,
+                  }}
                 >
                   Email
                 </Text>
@@ -210,14 +145,8 @@ function Main() {
 
           {/*Check if username or password is valid*/}
           <View style={{ justifyContent: "center", alignItems: "center" }}>
-            {loginSuccess === true ? (
-              <Text style={{ fontSize: 15, fontWeight: "600" }}>
-                Login Successful{" "}
-              </Text>
-            ) : (
-              <Text style={{ fontSize: 15, fontWeight: "600" }}>
-                Invalid Email
-              </Text>
+            {error && (
+              <Text style={{ fontSize: 15, fontWeight: "600" }}>{error}</Text>
             )}
           </View>
           {/*Closing - Check if username or password is valid*/}
@@ -245,19 +174,3 @@ function Main() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  homeContainer: {
-    flex: 1,
-    backgroundColor: "lightgray",
-  },
-  homeHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  homeHeaderIcon: {},
-  homeHeaderText: {
-    fontSize: 20,
-    fontWeight: "600",
-  },
-});
