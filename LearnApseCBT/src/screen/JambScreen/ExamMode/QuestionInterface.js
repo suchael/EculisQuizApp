@@ -41,7 +41,10 @@ function QuestionInterfaceContainer() {
 		totalQuestions,
 		isLoadingQuestion,
 		setIsLoadingQuestion,
+		totalScore,
+		setTotalScore,
 	} = useContext(ShowQuestionContext);
+	console.log(totalScore, "totalScore");
 
 	const startQuestionIndex = (currentPage - 1) * questionsPerPage;
 	const endQuestionIndex = startQuestionIndex + questionsPerPage;
@@ -51,7 +54,7 @@ function QuestionInterfaceContainer() {
 
 	const handleOptionClick = (index, eachOption, ANSWER) => {
 		setSelectedOption(index)
-		ANSWER.slice(-1).toLowerCase() == Object.keys(eachOption)[0].toLowerCase() && alert("correct")
+		ANSWER.slice(-1).toLowerCase() == Object.keys(eachOption)[0].toLowerCase() && setTotalScore(totalScore + 1)
 	}
 
 	return (
