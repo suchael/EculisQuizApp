@@ -16,26 +16,12 @@ function HomeScreen() {
   const navigation = useNavigation();
 
   GetQuestions();
-  useEffect(() => {
-    //  when user clicks on the back botton of their phone
-    //  in the homeScreen
-    //  always return them to JAMB
-    const backAction = () => {
-      navigation.navigate("Jamb");
-      return true; // Return true to prevent default behavior
-    };
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-    return () => backHandler.remove(); // Clean up the event listener
-  }, [navigation]);
 
   return (
     <>
       <Header />
       <TopTab.Navigator
-        initialRouteName="Jamb"
+        initialRouteName="SSCE"
         screenOptions={{
           tabBarActiveTintColor: "white",
           tabBarInactiveTintColor: "blue",

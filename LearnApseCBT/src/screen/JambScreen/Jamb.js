@@ -32,9 +32,6 @@ import UnderLineTextBtn from "./ExamMode/UnderLineTextBtn.js";
 const JambScreenStack = createNativeStackNavigator();
 
 export default function JambScreen({ navigation }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userEmail, setUserEmail] = useState();
-
   const [position, setPosition] = useState(new Animated.Value(20));
 
   const [tokenVal, setTokenVal] = useState();
@@ -53,6 +50,18 @@ export default function JambScreen({ navigation }) {
 
   useEffect(() => {
     const moveText = () => {
+      let Token;
+      AsyncStorage.getItem("token")
+        .then((value) => {
+          Token = value;
+          setTokenVal(value);
+          console.log("print token", Token);
+          // Perform actions with the token here
+        })
+        .catch((error) => {
+          console.error("Error retrieving token:", error);
+        });
+
       position.setValue(-25);
       Animated.timing(position, {
         toValue: 22,
@@ -76,7 +85,7 @@ export default function JambScreen({ navigation }) {
     checkAsyncStorage();
 
     moveText();
-  }, [tokenVal]);
+  }, []);
 
   const insets = useSafeAreaInsets();
   return (
