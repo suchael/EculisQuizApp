@@ -12,14 +12,10 @@ import Header from "./components/customComponents/Header.js";
 
 const TopTab = createMaterialTopTabNavigator();
 
-function HomeScreen({ route }) {
+function HomeScreen() {
   const navigation = useNavigation();
 
-  const userEmail = route.params?.userEmail;
-  console.log("HomeScreen bhitra ====>c", userEmail);
-
   GetQuestions();
-  // const {data} = userEmail?.params
   useEffect(() => {
     //  when user clicks on the back botton of their phone
     //  in the homeScreen

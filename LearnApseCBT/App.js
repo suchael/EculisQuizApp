@@ -38,27 +38,6 @@ import NewsCommentSection from "./src/screen/NewsScreen/NewsCommentSection.js";
 import ContactUs from "./src/pages/ContactUs.js";
 import Profile from "./src/pages/Profile.js";
 import Logout from "./src/pages/Logout.js";
-{
-  /*Closing JambScreen*/
-}
-
-{
-  /*WaecScreen*/
-}
-
-{
-  /*Closing WaecScreen*/
-}
-
-{
-  /*NewsScreen*/
-}
-
-{
-  /* Closing - NewsScreen*/
-}
-
-// My import
 
 const Stack = createNativeStackNavigator();
 export default function App() {

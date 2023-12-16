@@ -87,8 +87,7 @@ const Main = () => {
   const handleLogout = async () => {
     try {
       console.log("Logging out...");
-      await AsyncStorage.removeItem("userEmail");
-      await AsyncStorage.removeItem("isLoggedIn");
+      await AsyncStorage.removeItem("token");
       console.log("Logout successful");
       navigation.navigate("Login");
     } catch (error) {

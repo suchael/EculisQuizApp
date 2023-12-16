@@ -30,8 +30,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginScreen() {
   return (
-    <View style={{ flex: 1 }}>
-      <HeaderTop title="Login or Signup" />
+    <View style={{ flex: 1, marginTop: 40 }}>
+      {/* <HeaderTop title="Login or Signup" /> */}
       <Main />
     </View>
   );
@@ -131,37 +131,31 @@ function Main() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  //for storing useremail as userName since displayname is not being passed on
-  const [userName, setUserName] = useState();
-  const [error, setError] = useState("");
-
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prevIsPasswordVisible) => !prevIsPasswordVisible);
   };
 
+  //for storing useremail as userName since displayname is not being passed on
+  const [error, setError] = useState("");
+
   const handleSignIn = async () => {
     try {
       const res = await signInWithEmailAndPassword(Auth, username, password);
-      console.log("successful");
       console.log("res", res);
       const userEmail = res?._tokenResponse?.email;
+      const token = res?._tokenResponse?.idToken;
 
-      if (userEmail) {
-        setUserName(userEmail);
-        console.log("name", userEmail);
-        // Save the user's email to AsyncStorage
-        await AsyncStorage.setItem("userEmail", userEmail);
+      if (token) {
+        await AsyncStorage.setItem("token", token);
       }
-      console.log('user email login', userEmail)
+      console.log("token", token);
 
-      // Save the login status to AsyncStorage
-      await AsyncStorage.setItem("isLoggedIn", "true");
+      const getToken = await AsyncStorage.getItem("token");
+      console.log("check token==>", getToken);
 
-      navigation.navigate("HomeScreen", {userEmail});
-
-      
+      navigation.navigate("HomeScreen");
     } catch (err) {
       console.log(err);
       alert("Sorry wrong email/password");
@@ -173,8 +167,10 @@ function Main() {
     // Check if the user is already logged in
     const checkLoginStatus = async () => {
       try {
-        const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
-        if (isLoggedIn === "true") {
+        const getToken = await AsyncStorage.getItem("token");
+        console.log("check token==>", getToken?.token);
+
+        if (getToken?.token) {
           // Redirect to HomeScreen if the user is logged in
           navigation.navigate("HomeScreen");
         }

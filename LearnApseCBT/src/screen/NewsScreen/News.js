@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Dimensions,
   TouchableHighlight,
   TouchableOpacity,
   TextInput,
@@ -17,21 +16,10 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 
-import { TransitionSpecs } from "@react-navigation/stack";
-
 import { firebase } from "../../../Firebase/Firestore";
 
 //icons
-import {
-  FontAwesome,
-  MaterialIcons,
-  Ionicons,
-  MaterialCommunityIcons,
-  AntDesign,
-  Entypo,
-  EvilIcons,
-  Feather,
-} from "@expo/vector-icons";
+import { FontAwesome, Feather } from "@expo/vector-icons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 //My imports
@@ -54,7 +42,6 @@ export default function NewsScreen() {
 }
 
 function NewsHome() {
-  const navigation = useNavigation();
   const insets = useSafeAreaInsets();
 
   return (
@@ -136,8 +123,6 @@ function News() {
   const navigation = useNavigation();
 
   const [searchText, setSearchText] = useState("");
-
-  console.log("search==>", searchText);
 
   const filteredItems = myData.filter((item) =>
     item.title.toLowerCase().includes(searchText.toLowerCase())

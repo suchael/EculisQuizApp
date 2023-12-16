@@ -7,6 +7,8 @@ import {
   ScrollView,
   TouchableHighlight,
   TouchableOpacity,
+  Animated,
+  Easing,
 } from "react-native";
 
 import {
@@ -24,7 +26,8 @@ import {
 } from "@expo/vector-icons";
 
 // My import
-import AlertBox from "./AlertBox.js";
+
+import UnderLineTextBtn from "./ExamMode/UnderLineTextBtn.js";
 
 const JambScreenStack = createNativeStackNavigator();
 
@@ -47,25 +50,49 @@ function JambHome({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState();
 
+  const [position, setPosition] = useState(new Animated.Value(20));
+
+  const [tokenVal, setTokenVal] = useState();
+
+  let Token;
+  AsyncStorage.getItem("token")
+    .then((value) => {
+      Token = value;
+      setTokenVal(value);
+      console.log("print token", Token);
+      // Perform actions with the token here
+    })
+    .catch((error) => {
+      console.error("Error retrieving token:", error);
+    });
+
   useEffect(() => {
+    const moveText = () => {
+      position.setValue(-25);
+      Animated.timing(position, {
+        toValue: 22,
+        duration: 5600,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }).start(moveText);
+    };
+
     const checkAsyncStorage = async () => {
       try {
-        const userEmail = await AsyncStorage.getItem("userEmail");
-        // const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
-
-        // Check if both userEmail and isLoggedIn exist in AsyncStorage
-          setUserEmail(userEmail); // User is logged in
-          console.log('after setting', userEmail)
+        const getToken = await AsyncStorage.getItem("token");
+        setTokenVal(getToken);
+        console.log("check token inside home screen==>", getToken);
         // User is not logged in
-        } catch(err) {
-          console.log('error', err)
-        }
-      
+      } catch (err) {
+        console.log("error", err);
+      }
     };
 
     checkAsyncStorage();
-  }, [userEmail]);
-  console.log('user email after effce', userEmail)
+
+    moveText();
+  }, [tokenVal]);
+
   const insets = useSafeAreaInsets();
   return (
     <SafeAreaProvider>
@@ -83,7 +110,35 @@ function JambHome({ navigation }) {
             ]}
           >
             <View style={styles.midTop}>
-              <AlertBox userEmail={userEmail} />
+              <View style={styles.alert}>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    paddingVertical: 5,
+                  }}
+                >
+                  <Animated.Text
+                    style={[
+                      styles.alertText,
+                      { transform: [{ translateX: position }] },
+                    ]}
+                  >
+                    {tokenVal
+                      ? "Welcome! Bored? Join students in the ongoing"
+                      : "You are not logged in, please"}
+                  </Animated.Text>
+                  {tokenVal ? (
+                    <UnderLineTextBtn
+                      text="Online Battle"
+                      goTo="Online battle"
+                    />
+                  ) : (
+                    <UnderLineTextBtn text="Login" goTo="Login" />
+                  )}
+                </View>
+              </View>
 
               <View style={styles.midTopContent}>
                 <View style={styles.midTopContentRow1}>
@@ -530,5 +585,31 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 14,
     //color: "white",
+  },
+  alert: {
+    //paddingHorizontal: 20,
+    marginTop: 2,
+    marginBottom: 15,
+    borderWidth: 2,
+    borderColor: "#999",
+    backgroundColor: "#FAFAFA",
+    //borderRadius: 15,
+    borderTopLeftRadius: 60,
+    borderTopRightRadius: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 1,
+  },
+  alertText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "black",
+  },
+  underlineText: {
+    textDecorationLine: "underline",
+    fontWeight: "600",
+    fontSize: 17,
+    color: "blue",
+    backgroundColor: "white",
   },
 });
