@@ -31,7 +31,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function LoginScreen() {
   return (
     <View style={{ flex: 1, marginTop: 40 }}>
-      {/* <HeaderTop title="Login or Signup" /> */}
       <Main />
     </View>
   );

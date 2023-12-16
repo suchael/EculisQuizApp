@@ -31,22 +31,7 @@ import UnderLineTextBtn from "./ExamMode/UnderLineTextBtn.js";
 
 const JambScreenStack = createNativeStackNavigator();
 
-export default function JambScreen() {
-  return (
-    <JambScreenStack.Navigator
-      initialRouteName="JambHome"
-      screenOptions={{ animation: "none" }}
-    >
-      <JambScreenStack.Screen
-        name="JambHome"
-        component={JambHome}
-        options={{ headerShown: false }}
-      />
-    </JambScreenStack.Navigator>
-  );
-}
-
-function JambHome({ navigation }) {
+export default function JambScreen({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState();
 
