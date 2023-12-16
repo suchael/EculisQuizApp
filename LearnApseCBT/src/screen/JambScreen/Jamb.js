@@ -36,18 +36,6 @@ export default function JambScreen({ navigation }) {
 
   const [tokenVal, setTokenVal] = useState();
 
-  let Token;
-  AsyncStorage.getItem("token")
-    .then((value) => {
-      Token = value;
-      setTokenVal(value);
-      console.log("print token", Token);
-      // Perform actions with the token here
-    })
-    .catch((error) => {
-      console.error("Error retrieving token:", error);
-    });
-
   useEffect(() => {
     const moveText = () => {
       let Token;
@@ -55,8 +43,6 @@ export default function JambScreen({ navigation }) {
         .then((value) => {
           Token = value;
           setTokenVal(value);
-          console.log("print token", Token);
-          // Perform actions with the token here
         })
         .catch((error) => {
           console.error("Error retrieving token:", error);
@@ -70,19 +56,6 @@ export default function JambScreen({ navigation }) {
         useNativeDriver: true,
       }).start(moveText);
     };
-
-    const checkAsyncStorage = async () => {
-      try {
-        const getToken = await AsyncStorage.getItem("token");
-        setTokenVal(getToken);
-        console.log("check token inside home screen==>", getToken);
-        // User is not logged in
-      } catch (err) {
-        console.log("error", err);
-      }
-    };
-
-    checkAsyncStorage();
 
     moveText();
   }, []);

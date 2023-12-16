@@ -10,45 +10,16 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
+import HeaderTop from "../../components/customComponents/HeaderTop";
 
 // My import
 
 export default function NewsContent() {
   return (
     <View style={styles.container}>
-      <HomeHeader />
+      <HeaderTop title={"LearnApse"} />
       <Main />
       <CommentBtn />
-    </View>
-  );
-}
-
-function HomeHeader() {
-  const navigation = useNavigation();
-  const insets = useSafeAreaInsets();
-  return (
-    <View
-      style={[
-        styles.homeHeader,
-        {
-          paddingLeft: insets.left + 10,
-          paddingRight: insets.right + 10,
-          paddingTop: insets.top + 12,
-          paddingBottom: insets.bottom + 4,
-          borderBottomWidth: 2,
-          borderBottomColor: "gray",
-        },
-      ]}
-    >
-      <TouchableHighlight
-        onPress={() => navigation.goBack()}
-        activeOpacity={0.9}
-        underlayColor="lightgray"
-        style={styles.backButton}
-      >
-        <AntDesign name="arrowleft" size={27} color="#333" />
-      </TouchableHighlight>
-      <Text style={styles.homeHeaderText}>LearnApse </Text>
     </View>
   );
 }
