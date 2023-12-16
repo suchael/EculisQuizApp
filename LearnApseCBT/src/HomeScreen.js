@@ -7,8 +7,8 @@ import { useNavigation } from "@react-navigation/native";
 import Jamb from "./screen/JambScreen/Jamb.js";
 import News from "./screen/NewsScreen/News.js";
 import Waec from "./screen/WaecScreen/Waec.js";
-import Header from "./Header/Header.js";
 import GetQuestions from "../Backend/GetQuestions.js";
+import Header from "./components/customComponents/Header.js";
 
 const TopTab = createMaterialTopTabNavigator();
 
