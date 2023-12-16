@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   TextInput,
@@ -15,58 +15,134 @@ import { useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 //icon
 import { FontAwesome, AntDesign } from "@expo/vector-icons";
+import HeaderTop from "../../components/customComponents/HeaderTop";
 
-export default function CommentSection() {
+import {firebase} from "../../../Firebase/Firestore"
+import { doc, getDoc } from "firebase/firestore";
+
+export default function CommentSection({route}) {
   const [commentData, setCommentData] = useState([]);
+  const {comments, id} = route.params
 
+
+
+  const [myData, setMyData] = useState([]);
+  const fetchFirebaseDetails = firebase.firestore().collection("News");
+
+  const handleFirebaseFetching = async () => {
+    try {
+      const documentRef = doc(firebase.firestore(), 'News', id);
+      const documentSnapshot = await getDoc(documentRef);
+  
+      if (documentSnapshot.exists()) {
+        const documentData = {
+          ...documentSnapshot.data(),
+          id: documentSnapshot.id,
+        };
+        // Set the document data in the state
+        setMyData([documentData]);
+      } else {
+        console.log('Document does not exist');
+      }
+    } catch (error) {
+      console.error('Error fetching document:', error);
+    }
+  };
+
+
+
+  console.log("myData mug ekha", myData);
+  
+  
+  
+  useEffect(() => {
+    handleFirebaseFetching();
+  }, []);
+  
+  // console.log('newscomment_section',comments)
+  
   const addComment = (comment) => {
     setCommentData([...commentData, comment]);
   };
+  
+  const allComments = [...comments, ...commentData];
+  
+  // console.log("comments aako dkeha mug", allComments);
+
+
+  const [textInputValue, setTextInputValue] = useState("");
+
+
+  const pushToFirestore = async () => {
+    const collectionName = 'News';
+    const documentId = id;
+  
+    try {
+      // Get a reference to the document
+      const docRef = firebase.firestore().collection(collectionName).doc(documentId);
+  
+      console.log("ahdfgj");
+  
+      // Import FieldValue from the firestore module
+      const { FieldValue } = firebase.firestore;
+  
+      // Use update to push a new element into the "comments" array
+      await docRef.update({
+        comments: FieldValue.arrayUnion(textInputValue),
+      });
+  
+      console.log('Data pushed successfully');
+
+      handleFirebaseFetching()
+    } catch (error) {
+      console.error('Error pushing data to Firestore:', error);
+    }
+  };
+
+
+  const handleSendButtonPress = () => {
+    // Log the user-typed message to the console
+    // console.log("User Typed Message:", textInputValue);
+
+    // Add the comment to the CommentView
+console.log("checkkkk", textInputValue)
+
+pushToFirestore()
+
+    // Clear the input field
+    setTextInputValue("");
+  };
+
+
+  console.log("hram mug", myData[0]?.comments)
+
 
   return (
     <View style={{ flex: 1 }}>
-      <HomeHeader />
-      <CommentMain commentData={commentData} />
-      <SearchInputScreen addComment={addComment} />
-    </View>
-  );
-}
-
-function CommentMain({ commentData }) {
-  return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <HeaderTop title={"comment section"} />
       <View
         style={{ paddingTop: 20, paddingBottom: 100, paddingHorizontal: 10 }}
       >
-        <CommentView commentData={commentData} />
-      </View>
-    </ScrollView>
-  );
-}
-
-function CommentView({ commentData }) {
-  return (
-    <View
+        <View
       style={{
         borderWidth: 2,
         paddingHorizontal: 10,
         paddingVertical: 15,
-        marginTop: 15,
-        borderRadius: 15,
+        marginTop: 15,        borderRadius: 15,
       }}
     >
-      {commentData.map((comment, index) => (
+      {myData[0]?.comments?.map((comment, index) => (
         <StudentView key={index} comment={comment} />
       ))}
       {/* <StudentView />
-      <StudentView />
+      // <StudentView />
       <StudentView />
       <StudentView />
       <StudentView />
       <StudentView /> */}
 
       {/*More btn*/}
-      {commentData.length > 0 ? (
+      {myData?.comments?.length > 0 ? (
         <TouchableOpacity
           style={{
             borderWidth: 2,
@@ -84,10 +160,44 @@ function CommentView({ commentData }) {
         </TouchableOpacity>
       ) : null}
     </View>
+      </View>
+
+      <KeyboardAvoidingView
+      style={[styles.container, { backgroundColor: "white" }]}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      keyboardVerticalOffset={0}
+    >
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Post your answer"
+          autoFocus={false}
+          multiline
+          scrollEnabled
+          value={textInputValue}
+          onChangeText={setTextInputValue}
+        />
+        <TouchableHighlight
+          style={styles.sendButton}
+          onPress={handleSendButtonPress} // Call the function to log user-typed message
+          activeOpacity={0.9}
+          underlayColor="lightgray"
+        >
+          <Text style={styles.sendButtonText}>
+            <FontAwesome name="send-o" size={24} color="white" />
+          </Text>
+        </TouchableHighlight>
+      </View>
+      {/* You can add other UI elements below the input field */}
+    </KeyboardAvoidingView>
+      
+    </View>
   );
 }
 
+
 function StudentView({ comment }) {
+  // console.log('0',comment)
   const navigation = useNavigation();
   const screenWidth = Dimensions.get("window").width;
   return (
@@ -137,84 +247,8 @@ function StudentView({ comment }) {
   );
 }
 
-function HomeHeader() {
-  const navigation = useNavigation();
-  const insets = useSafeAreaInsets(); 
-  return (
-    <View
-      style={[
-        styles.homeHeader,
-        {
-          paddingLeft: insets.left + 10,
-          paddingRight: insets.right + 10,
-          paddingTop: insets.top + 12,
-          paddingBottom: insets.bottom + 4,
-          borderBottomWidth: 2,
-          borderBottomColor: "gray",
-        },
-      ]}
-    >
-      <TouchableHighlight
-        onPress={() => navigation.goBack()}
-        activeOpacity={0.9}
-        underlayColor="lightgray"
-        style={{ width: 60, height: 40, justifyContent: "center" }}
-      >
-        <AntDesign
-          name="arrowleft"
-          size={27}
-          color="#333"
-          style={{ marginLeft: -4 }}
-        />
-      </TouchableHighlight>
-      <Text style={styles.homeHeaderText}>Comment{"  "}Section</Text>
-    </View>
-  );
-}
 
-function SearchInputScreen({ addComment }) {
-  const [textInputValue, setTextInputValue] = useState("");
-  const handleSendButtonPress = () => {
-    // Log the user-typed message to the console
-    console.log("User Typed Message:", textInputValue);
 
-    // Add the comment to the CommentView
-    addComment(textInputValue);
-
-    // Clear the input field
-    setTextInputValue("");
-  };
-  return (
-    <KeyboardAvoidingView
-      style={[styles.container, { backgroundColor: "white" }]}
-      behavior={Platform.OS === "ios" ? "padding" : null}
-      keyboardVerticalOffset={0}
-    >
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Post your answer"
-          autoFocus={false}
-          multiline
-          scrollEnabled
-          value={textInputValue}
-          onChangeText={setTextInputValue}
-        />
-        <TouchableHighlight
-          style={styles.sendButton}
-          onPress={handleSendButtonPress} // Call the function to log user-typed message
-          activeOpacity={0.9}
-          underlayColor="lightgray"
-        >
-          <Text style={styles.sendButtonText}>
-            <FontAwesome name="send-o" size={24} color="white" />
-          </Text>
-        </TouchableHighlight>
-      </View>
-      {/* You can add other UI elements below the input field */}
-    </KeyboardAvoidingView>
-  );
-}
 
 const screenWidth = Dimensions.get("window").width;
 const GAP = 0.7905; // This is the best gap between the input box anf the send button

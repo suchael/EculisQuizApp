@@ -116,6 +116,7 @@ function News() {
     });
   };
 
+  console.log("myData", myData);
   useEffect(() => {
     handleFirebaseFetching();
   }, []);
@@ -196,7 +197,7 @@ function News() {
       {filteredItems.map((item, index) => (
         <TouchableOpacity
           key={index}
-          onPress={() => navigation.navigate("NewsContent")}
+          onPress={() => navigation.navigate("NewsContent", {description: item?.description, title: item?.title, comments: item?.comments, id: item?.id})}
           style={{
             backgroundColor: "#999",
             padding: 12,
@@ -224,14 +225,17 @@ function News() {
 
             <View key={index} style={{ flex: 1 }}>
               <Text
+              onPress={()=> {
+                console.log("item log", item)
+              }}
                 style={{ fontSize: 17, fontWeight: "600", marginTop: -4 }}
                 numberOfLines={2}
               >
-                {item.title}
+                {item.title} {item.id}
               </Text>
-              <Text style={{ fontSize: 15, fontWeight: "500" }}>
+              {/* <Text style={{ fontSize: 15, fontWeight: "500" }}>
                 {item.time} mins ago
-              </Text>
+              </Text> */}
             </View>
           </View>
         </TouchableOpacity>
