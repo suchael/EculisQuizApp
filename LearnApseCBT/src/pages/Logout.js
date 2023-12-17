@@ -88,6 +88,7 @@ const Main = () => {
     try {
       console.log("Logging out...");
       await AsyncStorage.removeItem("token");
+      await AsyncStorage.removeItem("userName")
       console.log("Logout successful");
       navigation.navigate("Login");
     } catch (error) {

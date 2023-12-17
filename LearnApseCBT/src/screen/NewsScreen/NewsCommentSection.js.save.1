@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+rlimport React, { useEffect, useState } from "react";
 import {
   View,
   TextInput,
@@ -10,7 +10,6 @@ import {
   Platform,
   Dimensions,
   ScrollView,
-  Keyboard,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -20,39 +19,44 @@ import HeaderTop from "../../components/customComponents/HeaderTop";
 
 import {firebase} from "../../../Firebase/Firestore"
 import { doc, getDoc } from "firebase/firestore";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function CommentSection({route}) {
   const [commentData, setCommentData] = useState([]);
   const {comments, id} = route.params
 
 
+
   const [myData, setMyData] = useState([]);
+  const fetchFirebaseDetails = firebase.firestore().collection("News");
 
   const handleFirebaseFetching = async () => {
-      try {
-          const documentRef = doc(firebase.firestore(), 'News', id);
-          const documentSnapshot = await getDoc(documentRef);
+    try {
+      const documentRef = doc(firebase.firestore(), 'News', id);
+      const documentSnapshot = await getDoc(documentRef);
   
-          if (documentSnapshot.exists()) {
-              const documentData = {
-                  ...documentSnapshot.data(),
-                  id: documentSnapshot.id,
-              };
-              // Assuming "comments" is the array you want to set in the state
-              setMyData(documentData.comments || []);
-          } else {
-              console.log('Document does not exist');
-          }
-      } catch (error) {
-          console.error('Error fetching document:', error);
+      if (documentSnapshot.exists()) {
+        const documentData = {
+          ...documentSnapshot.data(),
+          id: documentSnapshot.id,
+        };
+        // Set the document data in the state
+        setMyData([documentData]);
+      } else {
+        console.log('Document does not exist');
       }
+    } catch (error) {
+      console.error('Error fetching document:', error);
+    }
   };
-  
+
+
+
   console.log("myData mug ekha", myData);
   
+  
+  
   useEffect(() => {
-      handleFirebaseFetching();
+    handleFirebaseFetching();
   }, []);
   
   // console.log('newscomment_section',comments)
@@ -115,14 +119,10 @@ pushToFirestore()
 
     // Clear the input field
     setTextInputValue("");
-    Keyboard.dismiss()
   };
 
 
   console.log("hram mug", myData[0]?.comments)
-
-  const myDataJson = JSON.stringify(myData, null, 2);
-  console.log("jjjjjj", myDataJson)
 
 
   return (
@@ -139,18 +139,9 @@ pushToFirestore()
         marginTop: 15,        borderRadius: 15,
       }}
     >
-    {myData?.map((commentObject, index) => {
-  const key = Object.keys(commentObject)[0];
-  const { username, comment } = commentObject[key];
-
-  return (
-    <StudentView
-      key={index}
-      username={username}
-      comment={comment}
-    />
-  );
-})}
+      {myData[0]?.comments?.map((comment, index) => (
+        <StudentView key={index} comment={comment} />
+      ))}
       {/* <StudentView />
       // <StudentView />
       <StudentView />
@@ -213,10 +204,7 @@ pushToFirestore()
 }
 
 
-function StudentView({username, comment }) {
-
-  const displayName = username.split("@")[0]
-  console.log("first", displayName)
+function StudentView({ comment }) {
   // console.log('0',comment)
   const navigation = useNavigation();
   const screenWidth = Dimensions.get("window").width;
@@ -244,8 +232,7 @@ function StudentView({username, comment }) {
 
         <View style={{ flex: 1, marginLeft: 10, marginBottom: 5 }}>
           <Text style={{ fontSize: 18, fontWeight: "600", marginTop: -4 }}>
-           
-          {displayName}
+            john smith
           </Text>
           <Text
             style={{

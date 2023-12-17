@@ -24,6 +24,7 @@ import StateOfOriginModal from "./StateOfOriginModal.js";
 import { Auth } from "../../../../Firebase/Firestore.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import HeaderTop from "../../../components/customComponents/HeaderTop.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Signup() {
   return (
@@ -62,17 +63,26 @@ function Main() {
   };
 
   // signup
-  const handleSignUp = () => {
-    createUserWithEmailAndPassword(Auth, username, password)
-      .then((res) => {
-        console.log(res.user);
-        navigation.navigate("HomeScreen");
-      })
-      .catch((re) => {
-        console.log(re);
-        alert("could not sign you up");
-      });
+  const handleSignUp = async () => {
+    try {
+      const res = await createUserWithEmailAndPassword(Auth, username, password);
+      console.log(res.user);
+  
+      const userEmail = res?._tokenResponse?.email;
+      const token = res?._tokenResponse?.idToken;
+  
+      if (token) {
+        await AsyncStorage.setItem("token", token);
+        await AsyncStorage.setItem("userName", userEmail);
+      }
+  
+      navigation.navigate("HomeScreen");
+    } catch (error) {
+      console.log(error);
+      alert("Could not sign you up");
+    }
   };
+  
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>

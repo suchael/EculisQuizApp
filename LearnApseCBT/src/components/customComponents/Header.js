@@ -11,9 +11,9 @@ import { useNavigation } from "@react-navigation/native";
 // My import
 import HeaderNav from "./HeaderNav";
 
-function Header() {
+function Header({ userName }) {
+  console.log("username  ===>hhh", userName)
   const insets = useSafeAreaInsets();
-
   const [modalVisible, setModalVisible] = useState(false);
   const openModal = () => {
     setModalVisible(true);
@@ -21,6 +21,7 @@ function Header() {
   const closeModal = () => {
     setModalVisible(false);
   };
+
   return (
     <View
       style={[
@@ -33,7 +34,17 @@ function Header() {
       ]}
     >
       <View style={styles.top}>
-        <Text style={styles.learnApseText}>LearnApse</Text>
+        <View style={{display:"flex",flexDirection:"column"}}>
+          <Text style={styles.learnApseText}>LearnApse</Text>
+
+          <View style={{display:"flex", flexDirection:"row"}}>
+
+          <Text style={styles.greetingText}>Hi,</Text>
+          <Text style={styles.greetingText1}> {userName}</Text>
+
+          </View>
+
+        </View>
         <View
           style={{
             alignItems: "center",
@@ -43,8 +54,6 @@ function Header() {
           }}
         >
           <InputFieldViewBox />
-
-          {/*Header Navigation Icon*/}
           <TouchableHighlight
             onPress={openModal}
             activeOpacity={0.9}
@@ -73,7 +82,6 @@ function Header() {
             </View>
           </TouchableHighlight>
           <HeaderNav visible={modalVisible} onClose={closeModal} />
-          {/*Closing - Header Navigation Icon*/}
         </View>
       </View>
     </View>
@@ -133,6 +141,17 @@ const styles = StyleSheet.create({
   inputContainerTouchable: {
     paddingTop: 3,
   },
+  greetingText: {
+    fontSize: 18,
+    fontWeight: "300",
+    color: "white",
+  },
+  greetingText1: {
+    fontSize: 18,
+    fontWeight: "300",
+    color: "black",
+  },
 });
+
 
 export default Header;

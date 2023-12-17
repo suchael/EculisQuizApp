@@ -148,11 +148,16 @@ function Main() {
 
       if (token) {
         await AsyncStorage.setItem("token", token);
+
+        await AsyncStorage.setItem("userName", userEmail);
       }
       console.log("token", token);
 
       const getToken = await AsyncStorage.getItem("token");
+      const getuserName = await AsyncStorage.getItem("userName");
+
       console.log("check token==>", getToken);
+      console.log("check userEmail==>", getuserName);
 
       navigation.navigate("HomeScreen");
     } catch (err) {
@@ -167,11 +172,13 @@ function Main() {
     const checkLoginStatus = async () => {
       try {
         const getToken = await AsyncStorage.getItem("token");
+        const getUserEmail = await AsyncStorage.getItem("userEmail");
         console.log("check token==>", getToken?.token);
+        console.log("check token==>", getUserEmail);
 
         if (getToken?.token) {
           // Redirect to HomeScreen if the user is logged in
-          navigation.navigate("HomeScreen");
+          navigation.navigate("HomeScreen" );
         }
       } catch (error) {
         console.error("Error checking login status:", error);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BackHandler } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useNavigation } from "@react-navigation/native";
@@ -9,17 +9,34 @@ import News from "./screen/NewsScreen/News.js";
 import Waec from "./screen/WaecScreen/Waec.js";
 import GetQuestions from "../Backend/GetQuestions.js";
 import Header from "./components/customComponents/Header.js";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const TopTab = createMaterialTopTabNavigator();
 
 function HomeScreen() {
   const navigation = useNavigation();
+  const [userEmail, setUserEmail] = useState("");
 
+  useEffect(() => {
+    const fetchUserEmail = async () => {
+      try {
+        const storedUserEmail = await AsyncStorage.getItem("userName");
+        setUserEmail(storedUserEmail || "");
+        
+      } catch (error) {
+        console.error("Error retrieving user email from AsyncStorage:", error);
+      }
+    };
+
+    fetchUserEmail();
+  }, []);
+
+  const newUserName = userEmail?.split('@')[0];
+  console.log('lol', newUserName)
   GetQuestions();
 
   return (
     <>
-      <Header />
+      <Header userName={newUserName} />
       <TopTab.Navigator
         initialRouteName="SSCE"
         screenOptions={{
