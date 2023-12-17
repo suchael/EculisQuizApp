@@ -10,50 +10,25 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
+import HeaderTop from "../../components/customComponents/HeaderTop";
 
 // My import
 
-export default function NewsContent() {
+export default function NewsContent({ route }) {
+  const { description, title, comments, id } = route.params;
+  console.log("comments----->>>>", comments);
+  console.log("desc", description);
+
   return (
     <View style={styles.container}>
-      <HomeHeader />
-      <Main />
-      <CommentBtn />
+      <HeaderTop title={"LearnApse"} />
+      <Main title={title} description={description} />
+      <CommentBtn comments={comments} id={id} />
     </View>
   );
 }
 
-function HomeHeader() {
-  const navigation = useNavigation();
-  const insets = useSafeAreaInsets();
-  return (
-    <View
-      style={[
-        styles.homeHeader,
-        {
-          paddingLeft: insets.left + 10,
-          paddingRight: insets.right + 10,
-          paddingTop: insets.top + 12,
-          paddingBottom: insets.bottom + 4,
-          borderBottomWidth: 2,
-          borderBottomColor: "gray",
-        },
-      ]}
-    >
-      <TouchableHighlight
-        onPress={() => navigation.goBack()}
-        activeOpacity={0.9}
-        underlayColor="lightgray"
-        style={styles.backButton}
-      >
-        <AntDesign name="arrowleft" size={27} color="#333" />
-      </TouchableHighlight>
-      <Text style={styles.homeHeaderText}>LearnApse </Text>
-    </View>
-  );
-}
-
-function Main() {
+function Main({title, description}) {
   const insets = useSafeAreaInsets();
   return (
     <ScrollView style={styles.mainContainer}>
@@ -75,35 +50,35 @@ function Main() {
         {/* News Heading */}
         <View style={styles.newsHeading}>
           <View style={styles.headingLine}></View>
-          <Text style={styles.headingText}>
-            School of nursing form is out now read it below to verify more news
-          </Text>
+          <Text style={styles.headingText}>{title} </Text>
         </View>
         {/* News Heading closing */}
 
         {/* News content */}
-        <Text style={styles.newsContent}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </Text>
+        <Text style={styles.newsContent}>{description}</Text>
         {/* News content closing */}
+
+        {/* Comments Section */}
+        {/* <View style={styles.commentsSection}>
+          <Text style={styles.commentsHeading}>Comments</Text>
+          {comments?.map((value, index) => (
+            <View key={index} style={styles.commentContainer}>
+              <Text style={styles.commentText}>{value}</Text>
+            </View>
+          ))}
+        </View> */}
+        {/* Comments Section closing */}
       </View>
     </ScrollView>
   );
 }
 
-function CommentBtn() {
+function CommentBtn({comments, id}) {
   const navigation = useNavigation();
+  console.log('first___', comments, id)
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("NewsCommentSection")}
+      onPress={() => navigation.navigate("NewsCommentSection", {comments: comments, id: id})}
       style={styles.commentButton}
     >
       <Text style={styles.commentButtonText}>Post or View comments (5)</Text>
@@ -180,5 +155,27 @@ const styles = StyleSheet.create({
   commentButtonText: {
     fontSize: 17,
     fontWeight: "bold",
+  },
+  commentsSection: {
+    marginTop: 20,
+  },
+
+  commentsHeading: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+
+  commentContainer: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 10,
+  },
+
+  commentText: {
+    fontSize: 16,
+    color: 'black',
   },
 });

@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Dimensions,
   TouchableHighlight,
   TouchableOpacity,
   TextInput,
@@ -17,21 +16,10 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 
-import { TransitionSpecs } from "@react-navigation/stack";
-
 import { firebase } from "../../../Firebase/Firestore";
 
 //icons
-import {
-  FontAwesome,
-  MaterialIcons,
-  Ionicons,
-  MaterialCommunityIcons,
-  AntDesign,
-  Entypo,
-  EvilIcons,
-  Feather,
-} from "@expo/vector-icons";
+import { FontAwesome, Feather } from "@expo/vector-icons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 //My imports
@@ -54,7 +42,6 @@ export default function NewsScreen() {
 }
 
 function NewsHome() {
-  const navigation = useNavigation();
   const insets = useSafeAreaInsets();
 
   return (
@@ -129,6 +116,7 @@ function News() {
     });
   };
 
+  console.log("myData", myData);
   useEffect(() => {
     handleFirebaseFetching();
   }, []);
@@ -136,8 +124,6 @@ function News() {
   const navigation = useNavigation();
 
   const [searchText, setSearchText] = useState("");
-
-  console.log("search==>", searchText);
 
   const filteredItems = myData.filter((item) =>
     item.title.toLowerCase().includes(searchText.toLowerCase())
@@ -211,7 +197,7 @@ function News() {
       {filteredItems.map((item, index) => (
         <TouchableOpacity
           key={index}
-          onPress={() => navigation.navigate("NewsContent")}
+          onPress={() => navigation.navigate("NewsContent", {description: item?.description, title: item?.title, comments: item?.comments, id: item?.id})}
           style={{
             backgroundColor: "#999",
             padding: 12,
@@ -239,14 +225,17 @@ function News() {
 
             <View key={index} style={{ flex: 1 }}>
               <Text
+              onPress={()=> {
+                console.log("item log", item)
+              }}
                 style={{ fontSize: 17, fontWeight: "600", marginTop: -4 }}
                 numberOfLines={2}
               >
-                {item.title}
+                {item.title} {item.id}
               </Text>
-              <Text style={{ fontSize: 15, fontWeight: "500" }}>
+              {/* <Text style={{ fontSize: 15, fontWeight: "500" }}>
                 {item.time} mins ago
-              </Text>
+              </Text> */}
             </View>
           </View>
         </TouchableOpacity>

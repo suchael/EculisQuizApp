@@ -1,39 +1,44 @@
-import React, { useEffect } from "react";
-import { BackHandler } from 'react-native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from "react";
+import { BackHandler } from "react-native";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useNavigation } from "@react-navigation/native";
 
 // My import
 import Jamb from "./screen/JambScreen/Jamb.js";
 import News from "./screen/NewsScreen/News.js";
 import Waec from "./screen/WaecScreen/Waec.js";
-import Header from "./Header/Header.js";
-import GetQuestions from "../Backend/GetQuestions.js" 
-
+import GetQuestions from "../Backend/GetQuestions.js";
+import Header from "./components/customComponents/Header.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const TopTab = createMaterialTopTabNavigator();
-
 
 function HomeScreen() {
   const navigation = useNavigation();
-  GetQuestions();
+  const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
-    //  when user clicks on the back botton of their phone 
-    //  in the homeScreen
-    //  always return them to JAMB
-    const backAction = () => {
-      navigation.navigate('Jamb');
-      return true; // Return true to prevent default behavior
+    const fetchUserEmail = async () => {
+      try {
+        const storedUserEmail = await AsyncStorage.getItem("userName");
+        setUserEmail(storedUserEmail || "");
+        
+      } catch (error) {
+        console.error("Error retrieving user email from AsyncStorage:", error);
+      }
     };
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
-    return () => backHandler.remove(); // Clean up the event listener
-  }, [navigation]);
+
+    fetchUserEmail();
+  }, []);
+
+  const newUserName = userEmail?.split('@')[0];
+  console.log('lol', newUserName)
+  GetQuestions();
 
   return (
     <>
-      <Header/>
+      <Header userName={newUserName} />
       <TopTab.Navigator
-        initialRouteName="Jamb"
+        initialRouteName="SSCE"
         screenOptions={{
           tabBarActiveTintColor: "white",
           tabBarInactiveTintColor: "blue",
@@ -55,24 +60,16 @@ function HomeScreen() {
           },
         }}
       >
-        <TopTab.Screen 
-          name="SSCE" 
-          component={Waec} 
-        />
+        <TopTab.Screen name="SSCE" component={Waec} />
         <TopTab.Screen
           name="Jamb"
           component={Jamb}
-          options={{ tabBarLabel: 'JAMB' }}
+          options={{ tabBarLabel: "JAMB" }}
         />
-        <TopTab.Screen 
-          name="News" 
-          component={News} 
-        />
+        <TopTab.Screen name="News" component={News} />
       </TopTab.Navigator>
     </>
-    
   );
 }
-
 
 export default HomeScreen;

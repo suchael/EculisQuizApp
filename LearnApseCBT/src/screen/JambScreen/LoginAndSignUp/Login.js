@@ -11,7 +11,7 @@ import {
   Image,
 } from "react-native";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -26,11 +26,11 @@ import UnderLineTextBtn from "../ExamMode/UnderLineTextBtn.js";
 import { Auth } from "../../../../Firebase/Firestore.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import HeaderTop from "../../../components/customComponents/HeaderTop.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginScreen() {
   return (
-    <View style={{ flex: 1 }}>
-      <HeaderTop title="Login or Signup" />
+    <View style={{ flex: 1, marginTop: 40 }}>
       <Main />
     </View>
   );
@@ -130,27 +130,63 @@ function Main() {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  const [error, setError] = useState("");
-
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prevIsPasswordVisible) => !prevIsPasswordVisible);
   };
 
-  const handleSignIn = async () => {
-    signInWithEmailAndPassword(Auth, username, password)
-      .then((res) => {
-        console.log("successful");
-        navigation.navigate("HomeScreen");
-      })
+  //for storing useremail as userName since displayname is not being passed on
+  const [error, setError] = useState("");
 
-      .catch((err) => {
-        console.log(err);
-        alert("Sorry wrong email/password");
-        setError("Invalid Username or Password");
-      });
+  const handleSignIn = async () => {
+    try {
+      const res = await signInWithEmailAndPassword(Auth, username, password);
+      console.log("res", res);
+      const userEmail = res?._tokenResponse?.email;
+      const token = res?._tokenResponse?.idToken;
+
+      if (token) {
+        await AsyncStorage.setItem("token", token);
+
+        await AsyncStorage.setItem("userName", userEmail);
+      }
+      console.log("token", token);
+
+      const getToken = await AsyncStorage.getItem("token");
+      const getuserName = await AsyncStorage.getItem("userName");
+
+      console.log("check token==>", getToken);
+      console.log("check userEmail==>", getuserName);
+
+      navigation.navigate("HomeScreen");
+    } catch (err) {
+      console.log(err);
+      alert("Sorry wrong email/password");
+      setError("Invalid Username or Password");
+    }
   };
+
+  useEffect(() => {
+    // Check if the user is already logged in
+    const checkLoginStatus = async () => {
+      try {
+        const getToken = await AsyncStorage.getItem("token");
+        const getUserEmail = await AsyncStorage.getItem("userEmail");
+        console.log("check token==>", getToken?.token);
+        console.log("check token==>", getUserEmail);
+
+        if (getToken?.token) {
+          // Redirect to HomeScreen if the user is logged in
+          navigation.navigate("HomeScreen" );
+        }
+      } catch (error) {
+        console.error("Error checking login status:", error);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
