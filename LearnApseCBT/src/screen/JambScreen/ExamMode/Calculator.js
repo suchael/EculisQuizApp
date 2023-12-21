@@ -43,19 +43,27 @@ function Calculator({ visible, onClose }) {
 
 	const handleEvaluate = useCallback(() => {
 		try {
-			let modifiedInput = input.replace(/x/g, '*').replace(/÷/g, '/')
+			let modifiedInput = input.replace(/x/g, '*').replace(/÷/g, '/');
 
-			// Extract numbers after the square root symbol
-			const regex = /√(\d+)/g;
-			modifiedInput = modifiedInput.replace(regex, (_, val) => {
+			// Adjusted regex to match √ followed by digits
+			const regex = /([-+*/(])?√(\d+)/g;
+
+			modifiedInput = modifiedInput.replace(regex, (_, prefix, val) => {
 				console.log('====================================');
-				console.log(val, sqrt(val));
+				console.log('prefix', prefix);
+				console.log('val', val);
 				console.log('====================================');
-				return sqrt(val);
+
+				// Check if there is a symbol before √ or if it's a decimal
+				if (prefix === '*' || prefix === '/' || prefix === '+' || prefix === '-' || /\d*\.\d*/.test(prefix)) {
+					return sqrt(val)
+				} else {
+					return "*" + sqrt(val)
+				}
 			});
 
 			console.log('====================================');
-			console.log(modifiedInput);
+			console.log(modifiedInput, "modifiedInput");
 			console.log('====================================');
 
 			let result = evaluate(modifiedInput);
