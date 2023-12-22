@@ -38,9 +38,16 @@ import NewsCommentSection from "./src/screen/NewsScreen/NewsCommentSection.js";
 import ContactUs from "./src/pages/ContactUs.js";
 import Profile from "./src/pages/Profile.js";
 import Logout from "./src/pages/Logout.js";
+// import { initializeDatabase } from './services/db.js';
+import { useEffect } from "react";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
+
+  // useEffect(()=>{
+  //   initializeDatabase()
+  // },[])
+
   return (
     <>
       <SafeAreaProvider>
