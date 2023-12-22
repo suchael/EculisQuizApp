@@ -25,6 +25,9 @@ import {
   Entypo,
 } from "@expo/vector-icons";
 
+import * as SQLite from "expo-sqlite";
+// import fakeData from "../db.js";
+
 // My import
 
 import UnderLineTextBtn from "./ExamMode/UnderLineTextBtn.js";
@@ -49,10 +52,18 @@ export default function JambScreen() {
 function JambHome({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState();
-
+  const [names, setNames] = useState([]);
   const [position, setPosition] = useState(new Animated.Value(20));
 
   const [tokenVal, setTokenVal] = useState();
+
+  const db = SQLite.openDatabase("example.db");
+
+  const fakeData = [
+    { user_name: "John Doe", user_age: 25, user_email: "john@example.com" },
+    { user_name: "Jane Smith", user_age: 30, user_email: "jane@example.com" },
+    { user_name: "Bob Johnson", user_age: 28, user_email: "bob@example.com" },
+  ];
 
   useEffect(() => {
     const moveText = () => {
@@ -76,6 +87,56 @@ function JambHome({ navigation }) {
 
     moveText();
   }, [tokenVal]);
+
+  useEffect(() => {
+    // Step 1: Drop the existing table if it exists
+    db.transaction((tx) => {
+      tx.executeSql("DROP TABLE IF EXISTS names", [], (txObj, resultSet) => {
+        console.log("Table dropped successfully");
+      });
+    });
+
+    // Step 2: Create a new table with the desired schema
+    db.transaction((tx) => {
+      tx.executeSql(
+        "CREATE TABLE IF NOT EXISTS names (id INTEGER PRIMARY KEY, user_name TEXT, user_age INTEGER, user_email TEXT)",
+        [],
+        (txObj, resultSet) => {
+          console.log("Table created successfully");
+        },
+        (txObj, error) => {
+          console.error("Error creating table:", error);
+        }
+      );
+    });
+
+    // Step 3: Insert data into the names table via SQL
+    db.transaction((tx) => {
+      fakeData.forEach((item) => {
+        tx.executeSql(
+          "INSERT INTO names (user_name, user_age, user_email) VALUES (?, ?, ?)",
+          [item.user_name, item.user_age, item.user_email],
+          (txObj, resultSet) => {
+            console.log("Data inserted successfully");
+          },
+          (txObj, error) => console.log("Error inserting data:", error)
+        );
+      });
+    });
+
+    // Step 4: Retrieve data from the names table and set it to the state
+    db.transaction((tx) => {
+      tx.executeSql(
+        "SELECT * FROM names",
+        [],
+        (txObj, resultSet) => {
+          setNames(resultSet.rows._array);
+          console.log("Data retrieved from the database:", names);
+        },
+        (txObj, error) => console.log("Error retrieving data:", error)
+      );
+    });
+  }, []);
 
   const insets = useSafeAreaInsets();
   return (
@@ -410,6 +471,17 @@ function JambHome({ navigation }) {
                   </Text>
                 </>
               </TouchableOpacity>
+              <View style={styles.containeras}>
+                <ScrollView>
+                  {names.map((item) => (
+                    <View key={item.id}>
+                      <Text>Name: {item.user_name}</Text>
+                      <Text>Age: {item.user_age}</Text>
+                      <Text>Email: {item.user_email}</Text>
+                    </View>
+                  ))}
+                </ScrollView>
+              </View>
             </View>
           </View>
         </ScrollView>
@@ -435,6 +507,12 @@ function JambHome({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  containeras: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   container: {
     backgroundColor: "lightgray",
     flex: 1,
