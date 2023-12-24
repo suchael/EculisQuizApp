@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import {
   View,
   Text,
@@ -56,14 +55,58 @@ function JambHome({ navigation }) {
   const [position, setPosition] = useState(new Animated.Value(20));
 
   const [tokenVal, setTokenVal] = useState();
+  const [apiData, setApiData] = useState([]);
+  const [productsList, setProductsList] = useState([]);
 
   const db = SQLite.openDatabase("example.db");
 
-  const fakeData = [
-    { user_name: "John Doe", user_age: 25, user_email: "john@example.com" },
-    { user_name: "Jane Smith", user_age: 30, user_email: "jane@example.com" },
-    { user_name: "Bob Johnson", user_age: 28, user_email: "bob@example.com" },
-  ];
+  const fetchDataFromApi = async () => {
+    const apiUrl = "https://fakestoreapi.com/products";
+    console.log("APiUrl==>>", apiUrl);
+
+    try {
+      const response = await fetch(apiUrl);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setApiData(data);
+      console.log("Data from API:", data);
+
+      // Step 3: Insert API data into the products table via SQL
+      db.transaction((tx) => {
+        data.forEach((item) => {
+          tx.executeSql(
+            "INSERT OR IGNORE INTO products (id, title, price, description, category, image, rating_rate, rating_count) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            [
+              item.id,
+              item.title,
+              item.price,
+              item.description,
+              item.category,
+              item.image,
+              item.rating.rate,
+              item.rating.count,
+            ],
+            (txObj, resultSet) => {
+              console.log("Data inserted successfully into products table");
+            },
+            (txObj, error) =>
+              console.log("Error inserting data into products table:", error)
+          );
+        });
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
+
+  // Call the function to initiate the API request
+  useEffect(() => {
+    fetchDataFromApi();
+  }, []);
 
   useEffect(() => {
     const moveText = () => {
@@ -88,55 +131,20 @@ function JambHome({ navigation }) {
     moveText();
   }, [tokenVal]);
 
-  useEffect(() => {
-    // Step 1: Drop the existing table if it exists
-    db.transaction((tx) => {
-      tx.executeSql("DROP TABLE IF EXISTS names", [], (txObj, resultSet) => {
-        console.log("Table dropped successfully");
-      });
-    });
-
-    // Step 2: Create a new table with the desired schema
+  useEffect(()=>{
     db.transaction((tx) => {
       tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS names (id INTEGER PRIMARY KEY, user_name TEXT, user_age INTEGER, user_email TEXT)",
+        "SELECT * FROM products",
         [],
         (txObj, resultSet) => {
-          console.log("Table created successfully");
-        },
-        (txObj, error) => {
-          console.error("Error creating table:", error);
-        }
-      );
-    });
-
-    // Step 3: Insert data into the names table via SQL
-    db.transaction((tx) => {
-      fakeData.forEach((item) => {
-        tx.executeSql(
-          "INSERT INTO names (user_name, user_age, user_email) VALUES (?, ?, ?)",
-          [item.user_name, item.user_age, item.user_email],
-          (txObj, resultSet) => {
-            console.log("Data inserted successfully");
-          },
-          (txObj, error) => console.log("Error inserting data:", error)
-        );
-      });
-    });
-
-    // Step 4: Retrieve data from the names table and set it to the state
-    db.transaction((tx) => {
-      tx.executeSql(
-        "SELECT * FROM names",
-        [],
-        (txObj, resultSet) => {
-          setNames(resultSet.rows._array);
-          console.log("Data retrieved from the database:", names);
+          const products = resultSet.rows._array;
+          setProductsList(products);
+          console.log("Data retrieved from the products table:", products);
         },
         (txObj, error) => console.log("Error retrieving data:", error)
       );
     });
-  }, []);
+  },[])
 
   const insets = useSafeAreaInsets();
   return (
@@ -473,11 +481,9 @@ function JambHome({ navigation }) {
               </TouchableOpacity>
               <View style={styles.containeras}>
                 <ScrollView>
-                  {names.map((item) => (
+                  {productsList.map((item) => (
                     <View key={item.id}>
-                      <Text>Name: {item.user_name}</Text>
-                      <Text>Age: {item.user_age}</Text>
-                      <Text>Email: {item.user_email}</Text>
+                      <Text>Name: {item.title}</Text>
                     </View>
                   ))}
                 </ScrollView>
