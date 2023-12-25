@@ -73,8 +73,6 @@ function JambHome({ navigation }) {
 
       const data = await response.json();
       setApiData(data);
-      console.log("Data from API:", data);
-
       // Step 3: Insert API data into the products table via SQL
       db.transaction((tx) => {
         data.forEach((item) => {
@@ -139,12 +137,13 @@ function JambHome({ navigation }) {
         (txObj, resultSet) => {
           const products = resultSet.rows._array;
           setProductsList(products);
-          console.log("Data retrieved from the products table:", products);
         },
         (txObj, error) => console.log("Error retrieving data:", error)
       );
     });
   },[])
+
+// console.log('firstSomething', productsList)
 
   const insets = useSafeAreaInsets();
   return (
@@ -157,7 +156,7 @@ function JambHome({ navigation }) {
               {
                 paddingLeft: insets.left + 10,
                 paddingRight: insets.right + 10,
-                paddingTop: insets.top + 12,
+                  paddingTop: insets.top + 12,
                 paddingBottom: insets.bottom + 75,
               },
             ]}

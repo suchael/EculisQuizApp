@@ -63,25 +63,25 @@ function Main() {
   };
 
   // signup
-  const handleSignUp = async () => {
-    try {
-      const res = await createUserWithEmailAndPassword(Auth, username, password);
-      console.log(res.user);
+  // const handleSignUp = async () => {
+  //   try {
+  //     const res = await createUserWithEmailAndPassword(Auth, username, password);
+  //     console.log(res.user);
   
-      const userEmail = res?._tokenResponse?.email;
-      const token = res?._tokenResponse?.idToken;
+  //     const userEmail = res?._tokenResponse?.email;
+  //     const token = res?._tokenResponse?.idToken;
   
-      if (token) {
-        await AsyncStorage.setItem("token", token);
-        await AsyncStorage.setItem("userName", userEmail);
-      }
+  //     if (token) {
+  //       await AsyncStorage.setItem("token", token);
+  //       await AsyncStorage.setItem("userName", userEmail);
+  //     }
   
-      navigation.navigate("HomeScreen");
-    } catch (error) {
-      console.log(error);
-      alert("Could not sign you up");
-    }
-  };
+  //     navigation.navigate("HomeScreen");
+  //   } catch (error) {
+  //     console.log(error);
+  //     alert("Could not sign you up");
+  //   }
+  // };
   
 
   return (

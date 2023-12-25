@@ -17,7 +17,7 @@ import HeaderTop from "../../components/customComponents/HeaderTop";
 export default function NewsContent({ route }) {
   const { description, title, comments, id } = route.params;
   console.log("comments----->>>>", comments);
-  console.log("desc", description);
+  console.log("iddddd----->>>>", id);
 
   return (
     <View style={styles.container}>
