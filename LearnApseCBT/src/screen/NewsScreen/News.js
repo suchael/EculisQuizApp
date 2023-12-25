@@ -21,6 +21,9 @@ import { firebase } from "../../../Firebase/Firestore";
 //icons
 import { FontAwesome, Feather } from "@expo/vector-icons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as SQLite from "expo-sqlite";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //My imports
 
@@ -104,28 +107,52 @@ function NewsHome() {
 function News() {
   const [myData, setMyData] = useState([]);
   const fetchFirebaseDetails = firebase.firestore().collection("News");
+  const db = SQLite.openDatabase("learnApse.db");
+  const [apiData, setApiData] = useState([])
+ 
+ const fetchDataFromApi = async () => {
+    const apiUrl = "http://192.168.1.94:4000/news/find";
 
-  const handleFirebaseFetching = () => {
-    setMyData([]);
-    fetchFirebaseDetails.onSnapshot((query) => {
-      const _tempData = query.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setMyData(_tempData);
-    });
+    try {
+      const token = await AsyncStorage.getItem("token");
+
+      if (!token) {
+        throw new Error("Token not found in local storage");
+      }
+
+      const response = await axios.get(apiUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status !== 200) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = response.data;
+      const newsData = data.newsData;
+      console.log('first', newsData)
+      setApiData(newsData);
+
+      // Other code...
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
   };
 
   console.log("myData", myData);
   useEffect(() => {
-    handleFirebaseFetching();
+    fetchDataFromApi();
   }, []);
+
+  
 
   const navigation = useNavigation();
 
   const [searchText, setSearchText] = useState("");
 
-  const filteredItems = myData.filter((item) =>
+  const filteredItems = apiData.filter((item) =>
     item.title.toLowerCase().includes(searchText.toLowerCase())
   );
 
@@ -197,7 +224,7 @@ function News() {
       {filteredItems.map((item, index) => (
         <TouchableOpacity
           key={index}
-          onPress={() => navigation.navigate("NewsContent", {description: item?.description, title: item?.title, comments: item?.comments, id: item?.id})}
+          onPress={() => navigation.navigate("NewsContent", {description: item?.description, title: item?.title, comments: item?.comments, id: item?._id})}
           style={{
             backgroundColor: "#999",
             padding: 12,
@@ -231,7 +258,7 @@ function News() {
                 style={{ fontSize: 17, fontWeight: "600", marginTop: -4 }}
                 numberOfLines={2}
               >
-                {item.title} {item.id}
+                {item.title} hhhhhh {item._id}
               </Text>
               {/* <Text style={{ fontSize: 15, fontWeight: "500" }}>
                 {item.time} mins ago

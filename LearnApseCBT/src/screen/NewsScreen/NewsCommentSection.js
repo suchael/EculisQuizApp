@@ -27,103 +27,48 @@ import moment from "moment";
 export default function CommentSection({ route }) {
   const [commentData, setCommentData] = useState([]);
   const { comments, id } = route.params;
-
-  const [myData, setMyData] = useState([]);
-
-  const handleFirebaseFetching = async () => {
-    try {
-      const documentRef = doc(firebase.firestore(), "News", id);
-      const documentSnapshot = await getDoc(documentRef);
-
-      if (documentSnapshot.exists()) {
-        const documentData = {
-          ...documentSnapshot.data(),
-          id: documentSnapshot.id,
-        };
-        // Assuming "comments" is the array you want to set in the state
-        setMyData(documentData.comments || []);
-      } else {
-        console.log("Document does not exist");
-      }
-    } catch (error) {
-      console.error("Error fetching document:", error);
-    }
-  };
-
-  console.log("myData mug ekha", myData);
-
-  useEffect(() => {
-    handleFirebaseFetching();
-  }, []);
-
-  // console.log('newscomment_section',comments)
-
-  const addComment = (comment) => {
-    setCommentData([...commentData, comment]);
-  };
-
-  const allComments = [...comments, ...commentData];
-
-  // console.log("comments aako dkeha mug", allComments);
-
+  console.log("comments", comments, id);
   const [textInputValue, setTextInputValue] = useState("");
 
-  const pushToFirestore = async () => {
-    const collectionName = "News";
-    const documentId = id;
-
+  const handleSendButtonPress = async () => {
     try {
-      // Get a reference to the document
-      const docRef = firebase
-        .firestore()
-        .collection(collectionName)
-        .doc(documentId);
+      const token = await AsyncStorage.getItem("token");
+      const userName = await AsyncStorage.getItem("username");
+      if (!token) {
+        console.error("Bearer token not found");
+        return;
+      }
+      const commentData = {
+        comment: textInputValue,
+        username: userName ?? "suchael",
+        newsId: id,
+      };
 
-
-      // Import FieldValue from the firestore module
-      const { FieldValue } = firebase.firestore;
-
-      const userName = await AsyncStorage.getItem("userName");
-      const timeNow = moment().format(); // Use the default formatting        console.log('kerraaaa ',timeNow)
-
-      // Use update to push a new element into the "comments" array
-      await docRef.update({
-        comments: FieldValue.arrayUnion({
-          [Date.now()]: {
-            // Using a timestamp as a unique key
-            comment: textInputValue,
-            username: userName,
-            time: moment(timeNow).toString()
+      const response = await fetch(
+        "http://192.168.1.94:4000/news/createComment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-        }),
-      });
+          body: JSON.stringify(commentData,null,2),
+        }
+      );
 
-      console.log("Data pushed successfully");
+      if (response.ok) {
+        console.log("Comment added successfully");
+      } else {
+        console.error("Failed to add comment:", response.statusText);
+      }
 
-      handleFirebaseFetching();
+      setTextInputValue("");
+      Keyboard.dismiss();
     } catch (error) {
-      console.error("Error pushing data to Firestore:", error);
+      console.error("Error:", error.message);
+      // Handle the error accordingly
     }
   };
-
-  const handleSendButtonPress = () => {
-    // Log the user-typed message to the console
-    // console.log("User Typed Message:", textInputValue);
-
-    // Add the comment to the CommentView
-
-    pushToFirestore();
-
-    // Clear the input field
-    setTextInputValue("");
-    Keyboard.dismiss();
-  };
-
-  console.log("hram mug", myData[0]?.comments);
-
-  const myDataJson = JSON.stringify(myData, null, 2);
-  console.log("jjjjjj", myDataJson);
-
   return (
     <ScrollView style={{ flex: 1 }}>
       <HeaderTop title={"comment section"} />
@@ -139,12 +84,14 @@ export default function CommentSection({ route }) {
             borderRadius: 15,
           }}
         >
-          {myData?.map((commentObject, index) => {
-            const key = Object.keys(commentObject)[0];
-            const { username, comment, time } = commentObject[key];
-
+          {comments?.map((comment, index) => {
             return (
-              <StudentView key={index} username={username} comment={comment} time={time} />
+              <StudentView
+                key={index}
+                username={comment?.username}
+                comment={comment?.comment}
+                time={comment?.time}
+              />
             );
           })}
           {/* <StudentView />
@@ -155,7 +102,7 @@ export default function CommentSection({ route }) {
       <StudentView /> */}
 
           {/*More btn*/}
-          {myData?.comments?.length > 0 ? (
+          {comments?.length > 0 ? (
             <TouchableOpacity
               style={{
                 borderWidth: 2,
@@ -217,25 +164,25 @@ function StudentView({ username, comment, time }) {
   const screenWidth = Dimensions.get("window").width;
   return (
     <View style={styles.container}>
-    <View style={styles.commentHeader}>
-      {/* Profile Picture */}
-      <View style={styles.profilePictureContainer}>
-        <Image
-          source={{ uri: "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsX29mZmljZV8zNF9mdWxsX2JvZHlfM2RfYXZhdGFyXzNkX3JlbmRlcl9vZl9hX2J1c2luZXNzd19jOWYzODYxYy1lZTYzLTQxOGYtOThmNC02MWJkNGM3OGE1YTZfMS5wbmc.png" }} 
-          style={styles.profilePictureImage}
-        />
-      </View>
-  
-      {/* User Info */}
-      <View style={styles.userInfo}>
-        <Text style={styles.displayName}>{displayName}</Text>
-        <Text style={styles.timestamp}>{moment(time).fromNow()}</Text>
-        <Text style={styles.commentText}>{comment}</Text>
+      <View style={styles.commentHeader}>
+        {/* Profile Picture */}
+        <View style={styles.profilePictureContainer}>
+          <Image
+            source={{
+              uri: "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA4L3Jhd3BpeGVsX29mZmljZV8zNF9mdWxsX2JvZHlfM2RfYXZhdGFyXzNkX3JlbmRlcl9vZl9hX2J1c2luZXNzd19jOWYzODYxYy1lZTYzLTQxOGYtOThmNC02MWJkNGM3OGE1YTZfMS5wbmc.png",
+            }}
+            style={styles.profilePictureImage}
+          />
+        </View>
+
+        {/* User Info */}
+        <View style={styles.userInfo}>
+          <Text style={styles.displayName}>{displayName}</Text>
+          <Text style={styles.timestamp}>{moment(time).fromNow()}</Text>
+          <Text style={styles.commentText}>{comment}</Text>
+        </View>
       </View>
     </View>
-  
-  </View>
-  
   );
 }
 
@@ -336,7 +283,7 @@ const styles = StyleSheet.create({
   commentBody: {},
   commentText: {
     fontSize: 20,
-    marginTop:4,
+    marginTop: 4,
     fontWeight: "500",
     color: "#333",
   },

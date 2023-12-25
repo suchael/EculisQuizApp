@@ -27,6 +27,7 @@ import { Auth } from "../../../../Firebase/Firestore.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import HeaderTop from "../../../components/customComponents/HeaderTop.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 export default function LoginScreen() {
   return (
@@ -141,24 +142,25 @@ function Main() {
 
   const handleSignIn = async () => {
     try {
-      const res = await signInWithEmailAndPassword(Auth, username, password);
-      console.log("res", res);
-      const userEmail = res?._tokenResponse?.email;
-      const token = res?._tokenResponse?.idToken;
-
+      // Make a request to your login endpoint with username and password
+      const apiEndpoint = 'http://192.168.1.94:4000/api/auth/login';
+      const apiResponse = await axios.post(apiEndpoint, {
+        username: username,
+        password: password,
+      });
+  
+      // Assuming the token is in the 'token' property of the response
+      const token = apiResponse?.data?.user.token;
+      const apiUsername = apiResponse?.data?.user.username;
+      
       if (token) {
+        // Store the token in AsyncStorage
         await AsyncStorage.setItem("token", token);
-
-        await AsyncStorage.setItem("userName", userEmail);
+        await AsyncStorage.setItem("username", apiUsername);
       }
-      console.log("token", token);
-
-      const getToken = await AsyncStorage.getItem("token");
-      const getuserName = await AsyncStorage.getItem("userName");
-
-      console.log("check token==>", getToken);
-      console.log("check userEmail==>", getuserName);
-
+  
+      console.log("token=========>>>>>> mugi", token);
+  
       navigation.navigate("HomeScreen");
     } catch (err) {
       console.log(err);
@@ -172,9 +174,9 @@ function Main() {
     const checkLoginStatus = async () => {
       try {
         const getToken = await AsyncStorage.getItem("token");
-        const getUserEmail = await AsyncStorage.getItem("userEmail");
-        console.log("check token==>", getToken?.token);
-        console.log("check token==>", getUserEmail);
+        const getUserEmail = await AsyncStorage.removeItem("userEmail");
+        console.log("check token==>", getToken);
+        console.log("check email==>", getUserEmail);
 
         if (getToken?.token) {
           // Redirect to HomeScreen if the user is logged in
