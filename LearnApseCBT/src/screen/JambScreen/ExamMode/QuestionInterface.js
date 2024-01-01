@@ -17,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Questions } from "../PQuestion/SubjectListDb.js";
 import { ShowQuestionContext } from "./ShowQuestionContext/Context.js";
 import GoToBtnList from "./GoToBtnList.js";
+import {COLORS} from "../../../../Colors.js";
 
 
 
@@ -77,9 +78,9 @@ function QuestionInterfaceContainer() {
 							<TouchableOpacity
 								onPress={() => handleOptionClick(index, eachOption, eachQuestion.answer)}
 								key={index}
-								style={[styles.optionContainer, { backgroundColor: selectedOption == index ? "#9999" : "white" }]}
+								style={[styles.optionContainer, { backgroundColor: selectedOption == index ? COLORS.primary : COLORS.secondary, borderColor: selectedOption == index ? COLORS.primary : "#777"}]}
 							>
-								<Text style={{ fontSize: 20, fontWeight: "bold" }}>
+								<Text style={{ fontSize: 20, fontWeight: "bold", color: selectedOption == index ? COLORS.mainBtnText : "black" }}>
 									{Object.keys(eachOption)[0]}{".  "}
 									<Text style={styles.optionContainerOptions}>
 										{eachOption[Object.keys(eachOption)[0]]}
@@ -102,11 +103,13 @@ const styles = StyleSheet.create({
 	questionInterfaceMain: {
 		//borderWidth : 2, 
 		marginBottom: 60,
-		marginTop: 10
+		marginTop: 10,
+		backgroundColor: COLORS.secondary,
 	},
 	questionInterfaceContainer: {
-		backgroundColor: "transparent",
-		borderWidth: 2,
+		elevation: 10,
+		backgroundColor: COLORS.tertiary,
+		borderWidth: 1,
 		paddingHorizontal: 4,
 		paddingTop: 4,
 		paddingBottom: 8,
@@ -117,12 +120,13 @@ const styles = StyleSheet.create({
 		width: "100%",
 	},
 	questionScreen: {
-		borderWidth: 2,
+		elevation: 10,
+		borderWidth: 1,
 		padding: 8,
 		borderColor: "#777",
 		flexDirection: "column",
 		borderRadius: 12,
-		backgroundColor: "white",
+		backgroundColor: COLORS.secondary,
 		marginBottom: 12,
 	},
 	questionScreenNumberView: {
@@ -134,6 +138,7 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: "bold",
 		borderWidth: 2,
+		borderColor: COLORS.primary,
 		paddingLeft: 10,
 		paddingRight: 8,
 		paddingTop: 1,
@@ -152,15 +157,15 @@ const styles = StyleSheet.create({
 		paddingTop: 5
 	},
 	optionContainer: {
+		elevation: 10,
 		//justifyContent: "center",
 		paddingHorizontal: 8,
 		paddingVertical: 4,
-		borderWidth: 2,
-		borderColor: "#777",
+		borderWidth: 1,
 		borderRadius: 7,
 		//marginBottom: 6, 
 		marginTop: 6,
-		backgroundColor: "white",
+		backgroundColor: COLORS.mainBtnText,
 		minHeight: 45
 	},
 	optionContainerOptions: {

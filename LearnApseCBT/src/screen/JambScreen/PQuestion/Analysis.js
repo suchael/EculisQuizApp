@@ -17,6 +17,8 @@ import * as Clipboard from "expo-clipboard";
 // Icons
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 
+import { COLORS } from "../../../../Colors.js";
+
 export default function Analysis() {
   const insets = useSafeAreaInsets();
   return (
@@ -71,7 +73,7 @@ function QuestionInterfaceContainer({ ind }) {
 
     // Attempt to copy the text to the clipboard
     try {
-      await Clipboard.setString(textToCopy);
+      Clipboard.setString(textToCopy);
       alert("Question and Analysis copied successfully");
     } catch (error) {
       alert("Copy failed. Please try again.");
@@ -81,7 +83,7 @@ function QuestionInterfaceContainer({ ind }) {
   return (
     <View style={styles.questionInterfaceContainer}>
       <View
-        style={[styles.questionAndExplanationScreen, { paddingBottom: 20 }]}
+        style={[styles.questionAndExplanationScreen, { paddingBottom: 20, backgroundColor: COLORS.secondary }]}
       >
         <View style={styles.questionScreenNumberView}>
           <Text style={styles.questionScreenNumber}>
@@ -111,25 +113,11 @@ function QuestionInterfaceContainer({ ind }) {
         style={[
           styles.questionAndExplanationScreen,
           {
-            marginVertical: 30,
             backgroundColor: "lightgray",
             borderRadius: 25,
           },
         ]}
       >
-        <View style={styles.questionScreenNumberView}>
-          <Text
-            style={[
-              styles.questionScreenNumber,
-              {
-                backgroundColor: "white",
-                fontSize: 20,
-              },
-            ]}
-          >
-            Analysis of each option
-          </Text>
-        </View>
         <Text style={styles.correctAnswerText}>
           Correct Answer: {questions[currentQuestionIndex].answer.slice(-1)}
         </Text>
@@ -146,18 +134,29 @@ function QuestionInterfaceContainer({ ind }) {
                     borderColor:
                       Object.keys(eachOption)[0] ===
                       questions[currentQuestionIndex].answer.slice(-1)
-                        ? "#00A86B"
+                        ? COLORS.primary
                         : "red",
                     borderWidth: 2.5,
                     backgroundColor:
                       Object.keys(eachOption)[0] ===
                       questions[currentQuestionIndex].answer.slice(-1)
-                        ? "#98FB98"
+                        ? COLORS.primary
                         : "pink",
                   },
                 ]}
               >
-                <Text style={styles.optionText}>
+                <Text
+                  style={[
+                    styles.optionText,
+                    {
+                      color:
+                        Object.keys(eachOption)[0] ===
+                        questions[currentQuestionIndex].answer.slice(-1)
+                          ? COLORS.mainBtnText
+                          : "black",
+                    },
+                  ]}
+                >
                   {Object.keys(eachOption)[0]}
                   {".  "}
                   <Text
@@ -169,13 +168,6 @@ function QuestionInterfaceContainer({ ind }) {
                     {eachOption[Object.keys(eachOption)[0]]}
                   </Text>
                 </Text>
-
-                {Object.keys(eachOption)[0] ===
-                questions[currentQuestionIndex].answer.slice(-1) ? ( //add a green icon to the correct option
-                  <AntDesign name="checkcircle" size={26} color="#00A86B" />
-                ) : (
-                  <MaterialIcons name="cancel" size={32} color="red" />
-                )}
               </View>
 
               {/*Each Option Analysis*/}
@@ -203,9 +195,7 @@ function QuestionInterfaceContainer({ ind }) {
                     </Text>
                   )}
                 </Text>
-                <Text
-                  style={{ fontSize: 17, fontWeight: "500", marginTop: 5 }}
-                >
+                <Text style={{ fontSize: 17, fontWeight: "500", marginTop: 5 }}>
                   {eachOption[Object.keys(eachOption)[1]]}
                 </Text>
               </View>
@@ -233,7 +223,7 @@ function Header() {
         width: "100%",
         position: "absolute",
         top: 0,
-        backgroundColor: "lightgray",
+        backgroundColor: COLORS.secondary,
       }}
     ></View>
   );
@@ -292,16 +282,9 @@ function BottomBtn() {
         disabled={currentQuestionIndex == startQuestionIndexPerPage}
         activeOpacity={0.9}
         underlayColor="white"
-        style={[
-          styles.nextAndPrevBtn,
-          { backgroundColor: "gray" },
-        ]}
+        style={styles.nextAndPrevBtn}
       >
-        <AntDesign
-          name="arrowleft"
-          size={32}
-          color= "black"
-        />
+        <AntDesign name="arrowleft" size={32} color={COLORS.mainBtnText} />
       </TouchableHighlight>
 
       <TouchableHighlight
@@ -310,7 +293,15 @@ function BottomBtn() {
         underlayColor="white"
         style={styles.nextAndPrevBtn}
       >
-        <Text style={{ fontSize: 16, fontWeight: "bold" }}>Ok</Text>
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: "bold",
+            color: COLORS.mainBtnText,
+          }}
+        >
+          Cancel
+        </Text>
       </TouchableHighlight>
 
       <TouchableHighlight
@@ -324,7 +315,7 @@ function BottomBtn() {
             backgroundColor:
               currentQuestionIndex + 1 == questions.length
                 ? "lightgray"
-                : "gray",
+                : COLORS.primary,
           },
         ]}
       >
@@ -332,7 +323,9 @@ function BottomBtn() {
           name="arrowright"
           size={32}
           color={
-            currentQuestionIndex + 1 == questions.length ? "#777" : "black"
+            currentQuestionIndex + 1 == questions.length
+              ? "#777"
+              : COLORS.mainBtnText
           }
         />
       </TouchableHighlight>
@@ -359,10 +352,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   questionAndExplanationScreen: {
-    borderWidth: 2,
+    elevation: 10,
+    borderWidth: 1,
+    borderColor: COLORS.primary,
     paddingHorizontal: 8,
     paddingVertical: 12,
-    //borderColor: "red",
     flexDirection: "column",
     borderRadius: 18,
     marginBottom: 12,
@@ -396,6 +390,7 @@ const styles = StyleSheet.create({
   },
 
   optionContainer: {
+    elevation: 10,
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
@@ -407,7 +402,7 @@ const styles = StyleSheet.create({
     marginTop: 7,
     backgroundColor: "pink",
     minHeight: 46,
-    width: "100%",
+    width: "100%", 
   },
 
   optionText: {
@@ -420,7 +415,7 @@ const styles = StyleSheet.create({
   correctAnswerText: {
     fontWeight: "bold",
     fontSize: 20,
-    marginVertical: 20,
+    marginBottom: 15,
     flex: 1,
     textAlign: "center",
   },
@@ -445,7 +440,8 @@ const styles = StyleSheet.create({
     height: 46,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "gray",
+    backgroundColor: COLORS.primary,
     borderRadius: 5,
   },
 });
+

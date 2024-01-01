@@ -10,7 +10,12 @@ import Waec from "./screen/WaecScreen/Waec.js";
 import GetQuestions from "../Backend/GetQuestions.js";
 import Header from "./components/customComponents/Header.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { COLORS } from "../Colors.js";
 const TopTab = createMaterialTopTabNavigator();
+
+
+
+
 
 function HomeScreen() {
   const navigation = useNavigation();
@@ -41,7 +46,7 @@ function HomeScreen() {
         initialRouteName="SSCE"
         screenOptions={{
           tabBarActiveTintColor: "white",
-          tabBarInactiveTintColor: "blue",
+          tabBarInactiveTintColor: "lightgray",
           tabBarLabelStyle: {
             fontSize: 16,
             textTransform: "none",
@@ -50,7 +55,7 @@ function HomeScreen() {
           tabBarStyle: {
             height: 40, // Adjust the height of the tab bar
             borderBottomWidth: 0, // Remove top border
-            backgroundColor: "#6EAAF5",
+            backgroundColor: COLORS.primary,
             elevation: 0,
           },
           tabBarIndicatorStyle: {

@@ -27,6 +27,7 @@ import { AntDesign, MaterialIcons, Feather } from "@expo/vector-icons";
 import { Questions } from "./SubjectListDb.js";
 import PageSelectorModal from "./PageSelectorModal.js";
 import { ShowQuestionContext } from "./ShowQuestionContext/Context.js";
+import { COLORS } from "../../../../Colors.js";
 
 function ShowQuestionList() {
   const navigation = useNavigation();
@@ -145,7 +146,7 @@ function HomeHeader() {
         <AntDesign
           name="arrowleft"
           size={27}
-          color="#333"
+          color={COLORS.mainBtnText}
           style={{ marginLeft: -4 }}
         />
       </TouchableHighlight>
@@ -153,7 +154,10 @@ function HomeHeader() {
         <Text style={styles.homeHeaderText} numberOfLines={1}>
           English Language
         </Text>
-        <Text style={{ fontSize: 15, fontWeight: "900" }} numberOfLines={2}>
+        <Text
+          style={{ fontSize: 15, fontWeight: "900", color: COLORS.mainBtnText }}
+          numberOfLines={2}
+        >
           {examInfo}
         </Text>
       </View>
@@ -220,9 +224,11 @@ function MainContainer() {
               <TouchableOpacity
                 onPress={toggleSwitch}
                 style={{
-                  backgroundColor: isEnabled ? "white" : "gray",
+                  backgroundColor: isEnabled
+                    ? COLORS.mainBtnText
+                    : COLORS.primary,
                   borderWidth: 4,
-                  borderColor: isEnabled ? "#00A86B" : "gray",
+                  borderColor: isEnabled ? "#00A86B" : COLORS.primary,
                   justifyContent: "center",
                   alignItems: "center",
                   paddingHorizontal: 4,
@@ -232,7 +238,13 @@ function MainContainer() {
                   marginBottom: 12,
                 }}
               >
-                <Text style={{ fontSize: 17, fontWeight: "600" }}>
+                <Text
+                  style={{
+                    fontSize: 17,
+                    fontWeight: "600",
+                    color: isEnabled ? "black" : COLORS.mainBtnText,
+                  }}
+                >
                   Show all answers
                 </Text>
               </TouchableOpacity>
@@ -286,7 +298,7 @@ function QuestionInterfaceContainer() {
 
     try {
       // Attempt to copy the text to the clipboard
-      await Clipboard.setString(textToCopy);
+      Clipboard.setString(textToCopy);
       alert("Question copied successfully");
     } catch (error) {
       alert("Copy failed. Please try again.");
@@ -346,17 +358,18 @@ function QuestionInterfaceContainer() {
                       Object.keys(eachOption)[0] ===
                         eachQuestion.answer.slice(-1) && showAllAnswer == true
                         ? 3.6
-                        : 2,
+                        : 1,
                     borderColor:
                       Object.keys(eachOption)[0] ===
                         eachQuestion.answer.slice(-1) && showAllAnswer == true
                         ? "#00A86B"
                         : "#777",
-					backgroundColor:
-						Object.keys(eachOption)[0] ===
-							eachQuestion.answer.slice(-1) && showAllAnswer == true
-							? "lightgreen"
-							: "white",                  },
+                    backgroundColor:
+                      Object.keys(eachOption)[0] ===
+                        eachQuestion.answer.slice(-1) && showAllAnswer == true
+                        ? "lightgreen"
+                        : "white",
+                  },
                 ]}
                 key={index}
               >
@@ -444,9 +457,9 @@ const BottomBtn = React.memo(() => {
         disabled={currentPage == 1}
         activeOpacity={0.9}
         underlayColor="white"
-        style={[styles.nextAndPrevBtn, { backgroundColor: "gray" }]}
+        style={styles.nextAndPrevBtn}
       >
-        <AntDesign name="arrowleft" size={32} color="black" />
+        <AntDesign name="arrowleft" size={32} color={COLORS.mainBtnText} />
       </TouchableHighlight>
 
       <PageSelectorModal />
@@ -458,13 +471,16 @@ const BottomBtn = React.memo(() => {
         underlayColor="white"
         style={[
           styles.nextAndPrevBtn,
-          { backgroundColor: currentPage == totalPages ? "lightgray" : "gray" },
+          {
+            backgroundColor:
+              currentPage == totalPages ? "lightgray" : COLORS.primary,
+          },
         ]}
       >
         <AntDesign
           name="arrowright"
           size={32}
-          color={currentPage == totalPages ? "#777" : "black"}
+          color={currentPage == totalPages ? "#777" : COLORS.mainBtnText}
         />
       </TouchableHighlight>
     </View>
@@ -479,12 +495,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     alignItems: "center",
-    borderColor: "#999",
-    borderBottomWidth: 2,
+    backgroundColor: COLORS.primary,
   },
   homeHeaderText: {
     fontSize: 20,
     fontWeight: "600",
+    color: COLORS.mainBtnText,
   },
 
   // main container
@@ -523,24 +539,24 @@ const styles = StyleSheet.create({
 
   // Question Interface
   questionInterfaceMain: {
-    //borderWidth : 3,
-    //borderColor: "red",
     flex: 1,
     marginBottom: 20,
     justifyContent: "center",
     alignItems: "center",
   },
   questionInterfaceContainer: {
-    backgroundColor: "white",
-    borderWidth: 2,
+    elevation: 10,
+    borderWidth: 1,
+    borderColor: "#777",
+    backgroundColor: COLORS.secondary,
     padding: 4,
-    borderColor: "#999",
     borderRadius: 15,
     marginBottom: 35,
     maxWidth: 420,
   },
   questionScreen: {
-    borderWidth: 2,
+    elevation: 10,
+    borderWidth: 1,
     borderColor: "#999",
     paddingHorizontal: 8,
     paddingVertical: 12,
@@ -555,22 +571,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     paddingBottom: 10,
-    //position: "absolute",
-    //top: -15,
-    //left: 0,
-    //right: 0,
-    //zIndex: 2,
-    //backgroundColor: "red"
   },
   questionScreenNumber: {
     fontSize: 15,
     fontWeight: "bold",
-    borderWidth: 2,
     paddingLeft: 6,
     paddingRight: 2,
     paddingTop: 1,
+    borderWidth: 1,
+    borderColor: "#999",
     borderRadius: 5,
-    backgroundColor: "white",
+    backgroundColor: COLORS.mainBtnText,
   },
   questionScreenQuestionContent: {
     fontSize: 16.7,
@@ -582,12 +593,13 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   optionContainer: {
+    elevation: 10,
     paddingHorizontal: 8,
     paddingVertical: 12,
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 7,
     marginTop: 6,
-    backgroundColor: "white",
+    backgroundColor: COLORS.mainBtnText,
   },
   optionContainerOptions: {
     fontSize: 17,
@@ -595,6 +607,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   screenContBottomBtn: {
+    elevation: 2,
     borderWidth: 2,
     borderColor: "#777",
     marginTop: 25,
@@ -606,6 +619,7 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgray",
   },
   screenBottomBtnText: {
+    elevation:5,
     textDecorationLine: "underline",
     fontSize: 17,
     fontWeight: "bold",
@@ -614,12 +628,11 @@ const styles = StyleSheet.create({
 
   // Bottom Buttons
   nextAndPrevBtn: {
-    //borderWidth: 2,
     width: 100,
     height: 46,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "gray",
+    backgroundColor: COLORS.primary,
     borderRadius: 6,
   },
 });

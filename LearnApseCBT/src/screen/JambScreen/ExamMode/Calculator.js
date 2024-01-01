@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import { evaluate, sqrt } from 'mathjs';
+import {COLORS} from "../../../../Colors.js";
 
 
 
@@ -91,10 +92,10 @@ function Calculator({ visible, onClose }) {
 			</TouchableWithoutFeedback>
 			<View style={{ flex: 1, justifyContent: "center", alignItems: "center", }}>
 				<View style={{ flex: 1, justifyContent: "center", alignItems: "center", }}>
-					<View style={{ borderRadius: 15, backgroundColor: "white", paddingHorizontal: 0, paddingVertical: 0, height: "60%", width: 300, }}>
+					<View style={{borderRadius: 15,backgroundColor: COLORS.tertiary, paddingHorizontal: 0, paddingVertical: 0, height: "60%", width: 300, }}>
 
 						{/*Screen*/}
-						<View style={{ flex: 1, backgroundColor: "black", padding: 10, borderTopLeftRadius: 15, borderTopRightRadius: 15 }}>
+						<View style={{ flex: 1, backgroundColor: COLORS.primary, padding: 10, borderTopLeftRadius: 15, borderTopRightRadius: 15 }}>
 							{/*Top Screen*/}
 							<Text style={{ color: "white", fontSize: 20, alignSelf: "flex-end" }}>
 								{input}
@@ -110,63 +111,63 @@ function Calculator({ visible, onClose }) {
 						{/*Closing: Screen*/}
 
 						{/*Open: Body*/}
-						<View style={{ flexDirection: "row", flex: 4, borderBottomRightRadius: 15, borderBottomLeftRadius: 15 }}>
+						<View style={{ flexDirection: "row", flex: 4,borderWidth: 4, borderColor: COLORS.primary, borderBottomRightRadius: 15, borderBottomLeftRadius: 15 }}>
 
 							{/* Left */}
 							<View style={{ flexDirection: "column", flex: 4, }}>
 								<View style={{ flexDirection: "row", flex: 1 }}>
-									<TouchableOpacity onPress={() => handleButtonClick('DEL')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 2 }}>
-										<Text style={{ fontSize: 25, fontWeight: "600" }}>DEL</Text>
+									<TouchableOpacity onPress={() => handleButtonClick('DEL')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 2 }}>
+										<Text style={{ fontSize: 25, fontWeight: "600",  }}>DEL</Text>
 									</TouchableOpacity>
-									<TouchableOpacity onPress={() => handleButtonClick('AC')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+									<TouchableOpacity onPress={() => handleButtonClick('AC')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 										<Text style={{ fontSize: 25, fontWeight: "600" }}>AC</Text>
 									</TouchableOpacity>
 								</View>
 
 								<View style={{ flexDirection: "row", flex: 1 }}>
-									<TouchableOpacity onPress={() => handleButtonClick('7')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+									<TouchableOpacity onPress={() => handleButtonClick('7')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 										<Text style={{ fontSize: 25, fontWeight: "600" }}>7</Text>
 									</TouchableOpacity>
-									<TouchableOpacity onPress={() => handleButtonClick('8')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+									<TouchableOpacity onPress={() => handleButtonClick('8')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 										<Text style={{ fontSize: 25, fontWeight: "600" }}>8</Text>
 									</TouchableOpacity>
-									<TouchableOpacity onPress={() => handleButtonClick('9')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+									<TouchableOpacity onPress={() => handleButtonClick('9')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 										<Text style={{ fontSize: 25, fontWeight: "600" }}>9</Text>
 									</TouchableOpacity>
 								</View>
 
 								<View style={{ flexDirection: "row", flex: 1 }}>
-									<TouchableOpacity onPress={() => handleButtonClick('4')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+									<TouchableOpacity onPress={() => handleButtonClick('4')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 										<Text style={{ fontSize: 25, fontWeight: "600" }}>4</Text>
 									</TouchableOpacity>
-									<TouchableOpacity onPress={() => handleButtonClick('5')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+									<TouchableOpacity onPress={() => handleButtonClick('5')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 										<Text style={{ fontSize: 25, fontWeight: "600" }}>5</Text>
 									</TouchableOpacity>
-									<TouchableOpacity onPress={() => handleButtonClick('6')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+									<TouchableOpacity onPress={() => handleButtonClick('6')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 										<Text style={{ fontSize: 25, fontWeight: "600" }}>6</Text>
 									</TouchableOpacity>
 								</View>
 
 								<View style={{ flexDirection: "row", flex: 1 }}>
-									<TouchableOpacity onPress={() => handleButtonClick('1')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+									<TouchableOpacity onPress={() => handleButtonClick('1')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 										<Text style={{ fontSize: 25, fontWeight: "600" }}>1</Text>
 									</TouchableOpacity>
-									<TouchableOpacity onPress={() => handleButtonClick('2')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+									<TouchableOpacity onPress={() => handleButtonClick('2')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 										<Text style={{ fontSize: 25, fontWeight: "600" }}>2</Text>
 									</TouchableOpacity>
-									<TouchableOpacity onPress={() => handleButtonClick('3')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+									<TouchableOpacity onPress={() => handleButtonClick('3')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 										<Text style={{ fontSize: 25, fontWeight: "600" }}>3</Text>
 									</TouchableOpacity>
 								</View>
 
 								<View style={{ flexDirection: "row", flex: 1 }}>
-									<TouchableOpacity onPress={() => handleButtonClick('.')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1, borderBottomLeftRadius: 15 }}>
+									<TouchableOpacity onPress={() => handleButtonClick('.')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1, borderBottomLeftRadius: 15 }}>
 										<Entypo name="dot-single" size={24} color="black" />
 									</TouchableOpacity>
-									<TouchableOpacity onPress={() => handleButtonClick('0')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+									<TouchableOpacity onPress={() => handleButtonClick('0')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 										<Text style={{ fontSize: 25, fontWeight: "600" }}>0</Text>
 									</TouchableOpacity>
-									<TouchableOpacity onPress={() => handleButtonClick('=')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+									<TouchableOpacity onPress={() => handleButtonClick('=')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 										<Text style={{ fontSize: 25, fontWeight: "600" }}>=</Text>
 									</TouchableOpacity>
 								</View>
@@ -176,19 +177,19 @@ function Calculator({ visible, onClose }) {
 
 							{/* Right */}
 							<View style={{ flex: 1 }}>
-								<TouchableOpacity onPress={() => handleButtonClick('/')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+								<TouchableOpacity onPress={() => handleButtonClick('/')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 									<Text style={{ fontSize: 25, fontWeight: "600" }}>÷</Text>
 								</TouchableOpacity>
-								<TouchableOpacity onPress={() => handleButtonClick('*')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+								<TouchableOpacity onPress={() => handleButtonClick('*')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 									<Entypo name="cross" size={24} color="black" />
 								</TouchableOpacity>
-								<TouchableOpacity onPress={() => handleButtonClick('+')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+								<TouchableOpacity onPress={() => handleButtonClick('+')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 									<Text style={{ fontSize: 25, fontWeight: "600" }}>+</Text>
 								</TouchableOpacity>
-								<TouchableOpacity onPress={() => handleButtonClick('-')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1 }}>
+								<TouchableOpacity onPress={() => handleButtonClick('-')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1 }}>
 									<Entypo name="minus" size={24} color="black" />
 								</TouchableOpacity>
-								<TouchableOpacity onPress={() => handleButtonClick('√')} style={{ backgroundColor: "lightgray", justifyContent: "center", alignItems: "center", flex: 1, borderBottomRightRadius: 15, }}>
+								<TouchableOpacity onPress={() => handleButtonClick('√')} style={{ backgroundColor: COLORS.mainBtnText, justifyContent: "center", alignItems: "center", flex: 1, borderBottomRightRadius: 15, }}>
 									<Text style={{ fontSize: 25, fontWeight: "600" }}>√</Text>
 								</TouchableOpacity>
 							</View>

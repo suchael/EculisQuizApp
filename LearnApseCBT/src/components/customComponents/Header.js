@@ -8,8 +8,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
+
 // My import
 import HeaderNav from "./HeaderNav";
+import {COLORS} from "../../../Colors.js"
+
 
 function Header({ userName }) {
   console.log("username  ===>hhh", userName)
@@ -111,7 +114,7 @@ function InputFieldViewBox() {
 //height:  useWindowDimensions().height * 0.1873,
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#6EAAF5",
+    backgroundColor: COLORS.primary,
     paddingBottom: 8,
   },
   learnApseText: {

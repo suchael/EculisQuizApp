@@ -1,14 +1,6 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableHighlight,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 
-import React, {
-  useState,
-  useContext,
-} from "react";
+import React, { useState, useContext } from "react";
 
 import { deactivateKeepAwake } from "expo-keep-awake";
 
@@ -20,6 +12,7 @@ import { AntDesign } from "@expo/vector-icons";
 // My imports
 import { ShowQuestionContext } from "./ShowQuestionContext/Context.js";
 import QuitExamNotif from "./QuitExamNotif.js";
+import { COLORS } from "../../../../Colors.js";
 
 const NavBottomBtn = React.memo(() => {
   const navigation = useNavigation();
@@ -74,16 +67,9 @@ const NavBottomBtn = React.memo(() => {
         disabled={currentPage == 1}
         activeOpacity={0.9}
         underlayColor="white"
-        style={[
-          styles.nextAndPrevBtn,
-          { backgroundColor: "gray" },
-        ]}
+        style={styles.nextAndPrevBtn}
       >
-        <AntDesign
-          name="arrowleft"
-          size={30}
-          color="black"
-        />
+        <AntDesign name="arrowleft" size={30} color={COLORS.mainBtnText} />
       </TouchableHighlight>
       <EndExamBtn toggleModal={openModal} />
       <TouchableHighlight
@@ -93,13 +79,13 @@ const NavBottomBtn = React.memo(() => {
         underlayColor="white"
         style={[
           styles.nextAndPrevBtn,
-          { backgroundColor: currentPage == totalPages ? "lightgray" : "gray" },
+          { backgroundColor: currentPage == totalPages ? "lightgray" : COLORS.primary },
         ]}
       >
         <AntDesign
           name="arrowright"
           size={30}
-          color={currentPage == totalPages ? "#777" : "black"}
+          color={currentPage == totalPages ? "#777" : COLORS.mainBtnText}
         />
       </TouchableHighlight>
       <QuitExamNotif
@@ -129,7 +115,7 @@ function EndExamBtn({ toggleModal }) {
         underlayColor="white"
         style={styles.nextAndPrevBtn}
       >
-        <Text style={{ fontSize: 16, fontWeight: "bold" }}>End Exam</Text>
+        <Text style={{ fontSize: 18, fontWeight: "900", color: COLORS.mainBtnText }}>End Exam</Text>
       </TouchableHighlight>
     </>
   );
@@ -142,7 +128,7 @@ const styles = StyleSheet.create({
     height: 46,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "gray",
+    backgroundColor: COLORS.primary,
     borderRadius: 5,
   },
 });

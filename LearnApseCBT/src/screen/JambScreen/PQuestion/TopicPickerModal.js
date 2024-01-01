@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, TouchableHighlight, Modal, ScrollView, StyleSheet, BackHandler } from 'react-native';
 import { Fontisto } from '@expo/vector-icons';
 
+import {COLORS} from "../../../../Colors.js";
+
+
 const TOPIC = [
   {
     ss1: [
@@ -151,13 +154,13 @@ const randomQuestions = () => (
         onPress={openModal}
         underlayColor="lightgray"
       >
-        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 6, borderWidth: 2, gap: 22, borderRadius: 3, width: 110, backgroundColor: selectedTopic=== null?  "lightgray": "white"}}>
-          <Text style={{ fontWeight: "700", fontSize: 18 }}>Topics</Text>
-          <Fontisto name="angle-down" size={16} color="black" />
+        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 6, borderWidth: 1, elevation: 10,gap: 22, borderRadius: 3, width: 110, backgroundColor: selectedTopic=== null?  COLORS.tertiary: COLORS.primary}}>
+          <Text style={{ fontWeight: "700", fontSize: 18 , color: selectedTopic? COLORS.mainBtnText: "black"}}>Topics</Text>
+          <Fontisto name="angle-down" size={16} color={selectedTopic? COLORS.mainBtnText: "black"} />
         </View>
       </TouchableHighlight>
       {selectedTopic && (
-      	<View style ={{ flex: 1, borderWidth: 2, borderRadius: 4, backgroundColor: "white", paddingHorizontal: 5, marginTop: 5}}>
+      	<View style ={{ flex: 1, backgroundColor: "white", paddingHorizontal: 5, marginTop: 5}}>
           <Text style={{ fontWeight: "500", fontSize: 18, textAlign: "center"}}>{selectedTopic}</Text>
           <Text style = {{fontWeight: "700", fontSize: 18, textAlign: "center" , marginTop: 5}}>
               Total:{"  "}

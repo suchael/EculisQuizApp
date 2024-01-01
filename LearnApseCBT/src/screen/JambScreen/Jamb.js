@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Animated,
   Easing,
+  Platform,
 } from "react-native";
 
 import {
@@ -16,6 +17,10 @@ import {
 } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LinearGradient } from 'expo-linear-gradient';
+
+
+
 //icons
 import {
   FontAwesome5,
@@ -28,8 +33,9 @@ import * as SQLite from "expo-sqlite";
 // import fakeData from "../db.js";
 
 // My import
-
 import UnderLineTextBtn from "./ExamMode/UnderLineTextBtn.js";
+import {COLORS}  from "../../../Colors.js";
+
 
 const JambScreenStack = createNativeStackNavigator();
 
@@ -49,6 +55,7 @@ export default function JambScreen() {
 }
 
 function JambHome({ navigation }) {
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState();
   const [names, setNames] = useState([]);
@@ -129,7 +136,7 @@ function JambHome({ navigation }) {
     moveText();
   }, [tokenVal]);
 
-  useEffect(()=>{
+  useEffect(() => {
     db.transaction((tx) => {
       tx.executeSql(
         "SELECT * FROM products",
@@ -141,22 +148,22 @@ function JambHome({ navigation }) {
         (txObj, error) => console.log("Error retrieving data:", error)
       );
     });
-  },[])
+  }, []);
 
-// console.log('firstSomething', productsList)
+  // console.log('firstSomething', productsList)
 
   const insets = useSafeAreaInsets();
   return (
     <SafeAreaProvider>
-      <View style={{ backgroundColor: "#6EAAF5" }}>
+      <View style={{ backgroundColor: COLORS.primary }}>
         <ScrollView>
-          <View
+          <View 
             style={[
               styles.container,
               {
                 paddingLeft: insets.left + 10,
                 paddingRight: insets.right + 10,
-                  paddingTop: insets.top + 12,
+                paddingTop: insets.top + 12,
                 paddingBottom: insets.bottom + 75,
               },
             ]}
@@ -201,6 +208,7 @@ function JambHome({ navigation }) {
                     style={[
                       styles.midTopContentRow1Btn,
                       { borderTopLeftRadius: 50, borderBottomRightRadius: 30 },
+                      styles.boxShadow
                     ]}
                   >
                     <>
@@ -217,6 +225,7 @@ function JambHome({ navigation }) {
                     style={[
                       styles.midTopContentRow1Btn,
                       { borderTopRightRadius: 50, borderBottomLeftRadius: 30 },
+                      styles.boxShadow
                     ]}
                   >
                     <>
@@ -248,7 +257,7 @@ function JambHome({ navigation }) {
                       style={{
                         backgroundColor: "white",
                         height: 60,
-                        width: 10,
+                        width: 20,
                         position: "absolute",
                         transform: [{ rotate: "150deg" }, { translateX: -80 }],
                         top: 40,
@@ -258,7 +267,7 @@ function JambHome({ navigation }) {
                       style={{
                         backgroundColor: "white",
                         height: 60,
-                        width: 10,
+                        width: 20,
                         position: "absolute",
                         transform: [{ rotate: "-150deg" }, { translateX: 80 }],
                         top: 40,
@@ -300,12 +309,12 @@ function JambHome({ navigation }) {
                     onPress={() => navigation.navigate("Exam mode")}
                     activeOpacity={0.3}
                     underlayColor="lightgray"
-                    style={styles.midTopContentRow2Exam}
+                    style={[styles.midTopContentRow2Exam, {elevation: 15,}]}
                   >
                     <Text
                       style={[
                         styles.midTopContentRowText,
-                        { color: "black", fontSize: 22 },
+                        { color: COLORS.mainBtnText, fontSize: 22 },
                       ]}
                     >
                       Exam{"\n"}Mode
@@ -324,7 +333,7 @@ function JambHome({ navigation }) {
                       style={{
                         backgroundColor: "white",
                         height: 70,
-                        width: 10,
+                        width: 20,
                         position: "absolute",
                         transform: [{ rotate: "-140deg" }, { translateX: -5 }],
                         left: 60,
@@ -334,7 +343,7 @@ function JambHome({ navigation }) {
                       style={{
                         backgroundColor: "white",
                         height: 70,
-                        width: 10,
+                        width: 20,
                         position: "absolute",
                         transform: [{ rotate: "140deg" }, { translateX: 5 }],
                         right: 60,
@@ -352,6 +361,7 @@ function JambHome({ navigation }) {
                     style={[
                       styles.midTopContentRow3Btn,
                       { borderTopRightRadius: 50, borderBottomLeftRadius: 30 },
+                      styles.boxShadow
                     ]}
                   >
                     <>
@@ -373,6 +383,7 @@ function JambHome({ navigation }) {
                     style={[
                       styles.midTopContentRow1Btn,
                       { borderTopLeftRadius: 50, borderBottomRightRadius: 30 },
+                      styles.boxShadow
                     ]}
                   >
                     <>
@@ -396,7 +407,7 @@ function JambHome({ navigation }) {
                 onPress={() => navigation.navigate("HallOfFame")}
                 activeOpacity={0.3}
                 underlayColor="lightgray"
-                style={styles.bottomContent}
+                style={[styles.bottomContent, styles.boxShadow]}
               >
                 <>
                   <MaterialCommunityIcons
@@ -417,7 +428,7 @@ function JambHome({ navigation }) {
                 onPress={() => navigation.navigate("Novels and Art")}
                 activeOpacity={0.3}
                 underlayColor="lightgray"
-                style={styles.bottomContent}
+                style={[styles.bottomContent, styles.boxShadow]}
               >
                 <>
                   <FontAwesome5 name="diagnoses" size={30} color="black" />
@@ -434,7 +445,7 @@ function JambHome({ navigation }) {
                 onPress={() => navigation.navigate("Bookmarks")}
                 activeOpacity={0.3}
                 underlayColor="lightgray"
-                style={styles.bottomContent}
+                style={[styles.bottomContent, styles.boxShadow]}
               >
                 <>
                   <AntDesign name="book" size={35} color="black" />
@@ -445,7 +456,7 @@ function JambHome({ navigation }) {
                 onPress={() => navigation.navigate("Jamb syllabus")}
                 activeOpacity={0.3}
                 underlayColor="lightgray"
-                style={styles.bottomContent}
+                style={[styles.bottomContent, styles.boxShadow]}
               >
                 <>
                   <Entypo name="dropbox" size={35} color="black" />
@@ -456,7 +467,7 @@ function JambHome({ navigation }) {
                 onPress={() => navigation.navigate("Jamb subject combination")}
                 activeOpacity={0.3}
                 underlayColor="lightgray"
-                style={styles.bottomContent}
+                style={[styles.bottomContent, styles.boxShadow]}
               >
                 <>
                   <AntDesign name="CodeSandbox" size={35} color="black" />
@@ -469,7 +480,7 @@ function JambHome({ navigation }) {
                 onPress={() => navigation.navigate("Exam history")}
                 activeOpacity={0.3}
                 underlayColor="lightgray"
-                style={styles.bottomContent}
+                style={[styles.bottomContent, styles.boxShadow]}
               >
                 <>
                   <FontAwesome5 name="parachute-box" size={34} color="black" />
@@ -504,7 +515,7 @@ function JambHome({ navigation }) {
           underlayColor="lightgray"
           style={styles.teacherNetwork}
         >
-          <Text style={styles.teacherNetworkText}>Teachers{"\n"}Network</Text>
+          <Text style={styles.groupExamText}>Teachers{"\n"}Network</Text>
         </TouchableHighlight>
       </View>
     </SafeAreaProvider>
@@ -519,10 +530,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   container: {
-    backgroundColor: "lightgray",
+    backgroundColor: COLORS.secondary,
     flex: 1,
     borderTopLeftRadius: 60,
     borderTopRightRadius: 60,
+  },
+
+  boxShadow: {
+    ...Platform.select({
+      ios: {
+        shadowColor: COLORS.tertiary,
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        shadowOffset: {
+          height: 5,
+          width: 5,
+        },
+      },
+      android: {
+        elevation: 10,
+      },
+    }),
   },
   midTop: {
     //borderWidth: 2,
@@ -555,8 +583,9 @@ const styles = StyleSheet.create({
     //borderWidth: 2,
   },
   midTopContentRow1Btn: {
-    //borderWidth: 2,
-    backgroundColor: "#FAFAFA",
+    borderWidth: 1,
+    borderColor: "#999",
+    backgroundColor: COLORS.tertiary,
     width: 110,
     height: 110,
     borderRadius: 12,
@@ -564,9 +593,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   midTopContentRow2Exam: {
-    //borderWidth: 2,
-    borderColor: "#8888",
-    backgroundColor: "#6EAAF5",
+    backgroundColor: COLORS.primary,
     width: 120,
     height: 120,
     borderRadius: 34,
@@ -575,8 +602,9 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   midTopContentRow3Btn: {
-    //borderWidth: 2,
-    backgroundColor: "#FAFAFA",
+    borderWidth: 1,
+    borderColor: "#999",
+    backgroundColor: COLORS.tertiary,
     width: 110,
     height: 110,
     borderRadius: 12,
@@ -603,7 +631,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingLeft: 35,
     borderRadius: 35,
-    backgroundColor: "#FAFAFA",
+    backgroundColor: COLORS.tertiary,
     flexDirection: "row",
     gap: 30,
     alignItems: "center",
@@ -615,7 +643,7 @@ const styles = StyleSheet.create({
   },
 
   groupExam: {
-    backgroundColor: "#6EAAF5",
+    backgroundColor: COLORS.primary,
     width: 68,
     height: 60,
     borderRadius: 5,
@@ -631,11 +659,11 @@ const styles = StyleSheet.create({
   groupExamText: {
     fontWeight: "bold",
     fontSize: 14,
-    //color: "white",
+    color: COLORS.mainBtnText,
   },
 
   teacherNetwork: {
-    backgroundColor: "#6EAAF5",
+    backgroundColor: COLORS.primary,
     width: 68,
     height: 60,
     borderRadius: 5,
@@ -648,16 +676,11 @@ const styles = StyleSheet.create({
     right: 10.6,
     zIndex: 1,
   },
-  teacherNetworkText: {
-    fontWeight: "bold",
-    fontSize: 14,
-    //color: "white",
-  },
   alert: {
     //paddingHorizontal: 20,
     marginTop: 2,
     marginBottom: 15,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: "#999",
     backgroundColor: "#FAFAFA",
     //borderRadius: 15,
@@ -666,6 +689,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 1,
+
+    elevation: 10,
   },
   alertText: {
     fontSize: 16,

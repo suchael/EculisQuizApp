@@ -6,6 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 
 // my import
 import { ShowQuestionContext } from "./ShowQuestionContext/Context.js";
+import {COLORS} from "../../../../Colors.js";
+
 
 const GoToBtnList = React.memo(() => {
   const navigation = useNavigation();
@@ -20,12 +22,15 @@ const GoToBtnList = React.memo(() => {
   return (
     <View
       style={{
+        elevation: 10,
+        backgroundColor: COLORS.secondary,
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "flex-start",
         paddingHorizontal: 2,
         paddingLeft: 10,
         borderWidth: 2,
+        borderColor: COLORS.primary,
         paddingVertical: 5,
         borderRadius: 10,
       }}
@@ -34,10 +39,12 @@ const GoToBtnList = React.memo(() => {
         <TouchableOpacity
           key={index}
           style={{
-            backgroundColor: currentPage - 1 === index ? "red" : "white",
+            backgroundColor: currentPage - 1 === index ? COLORS.lightPrimary : "white",
+            elevation: 10,
             width: 48,
             height: 52,
-            borderWidth: 2,
+            borderWidth: 1,
+            borderColor: COLORS.primary,
             borderRadius: 3,
             justifyContent: "center",
             alignItems: "center",

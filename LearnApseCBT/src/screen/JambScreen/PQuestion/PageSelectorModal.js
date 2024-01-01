@@ -3,6 +3,9 @@ import { View, Text, TouchableHighlight, Modal, StyleSheet, FlatList, BackHandle
 
 import { ShowQuestionContext } from "./ShowQuestionContext/Context.js";
 
+import { COLORS } from "../../../../Colors.js";
+
+
 export default function PageSelectorModal() {
   const { totalPages, goToPage, currentPage } = useContext(ShowQuestionContext);
   const [selectedNumber, setSelectedNumber] = useState(currentPage);
@@ -45,7 +48,7 @@ export default function PageSelectorModal() {
           style={[styles.topBtnTouchables, { alignItems: "center", justifyContent: "center", flex: 1, borderRadius: 4, height: 46, }]}
         >
           <View style={[styles.topBtnTouchablesView, { alignItems: "center", justifyContent: "center", gap: 1 }]}>
-            <Text style={styles.topBtnText}>Page{" "}{currentPage} of {totalPages}</Text>
+            <Text style={styles.topBtnText}>Page{" "}{currentPage} {"\n"}of {totalPages}</Text>
           </View>
         </TouchableHighlight>
       </View>
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   topBtnTouchables: {
-    backgroundColor: "#999",
+    backgroundColor: COLORS.primary,
     alignItems: "center",
   },
   topBtnTouchablesView: {
@@ -126,7 +129,7 @@ const styles = StyleSheet.create({
   topBtnText: {
     fontSize: 17,
     fontWeight: "900",
-    color: "black",
+    color: COLORS.mainBtnText,
     textAlign: "center",
   },
 });

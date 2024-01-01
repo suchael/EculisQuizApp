@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, TouchableHighlight, Modal, ScrollView, StyleSheet, BackHandler } from 'react-native';
 import { Fontisto } from '@expo/vector-icons';
 
+import {COLORS} from "../../../../Colors.js";
+
+
 const YEAR = [
   1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989,
   1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
@@ -52,13 +55,13 @@ export default function YearPickerModal(){
         onPress={openModal}
         underlayColor="lightgray"
       >
-        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 6, borderWidth: 2, gap: 30, borderRadius: 3, width: 110, backgroundColor: selectedYear=== "Year"?  "lightgray": "white"}}>
-          <Text style={{ fontWeight: "700", fontSize: 18 }}>{selectedYear}</Text>
-          <Fontisto name="angle-down" size={16} color="black" />
+        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 6, elevation: 10, borderWidth: 1,gap: 30, borderRadius: 3, width: 110, backgroundColor: selectedYear=== "Year"?  COLORS.tertiary: COLORS.primary}}>
+          <Text style={{ fontWeight: "700", fontSize: 18, color: selectedYear=== "Year"?  "black": COLORS.mainBtnText }}>{selectedYear}</Text>
+          <Fontisto name="angle-down" size={16} color= {selectedYear=== "Year"?  "black": COLORS.mainBtnText} />
         </View>
       </TouchableHighlight>
       { typeof selectedYear == "number" && (
-      	<View style ={{ backgroundColor: "white", paddingHorizontal: 5, marginTop: 5, borderWidth: 2, borderRadius: 3}}>
+      	<View style ={{ backgroundColor: "white", paddingHorizontal: 5, marginTop: 5, }}>
 				<Text style = {{fontWeight: "700", fontSize: 18, }}>
 					Total:{"  "}
 					<Text style = {{fontWeight: "500", }}>80</Text>

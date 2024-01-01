@@ -1,13 +1,15 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
-const RectangleWithDiagonalsX = () => {
+const NeumorphicCircle = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.rectangle}>
-        <View style={styles.diagonal} />
-        <View style={[styles.diagonal, { transform: [{ rotate: '90deg' }], backgroundColor: "red" }]} />
-      </View>
+      <LinearGradient
+        colors={['#e0e0e0', '#e0e0e0']}
+        style={styles.circle}
+      />
+      <View style={styles.innerCircle} />
     </View>
   );
 };
@@ -18,23 +20,35 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  rectangle: {
-    width: 200,
-    height: 100,
-    borderWidth: 2,
-    borderColor: 'black',
-    position: 'relative',
+  circle: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: 'transparent',
+    shadowColor: '#bebebe',
+    shadowOffset: {
+      width: 20,
+      height: 20,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 60,
   },
-  diagonal: {
+  innerCircle: {
     position: 'absolute',
-    top: 0,
-    left: '50%',
-    width: 2,
-    height: '100%',
-    backgroundColor: 'black',
-    transformOrigin: { x: 0, y: 0 },
-    transform: [{ rotate: '45deg' }, { translateX: -1 }],
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: '#e0e0e0',
+    top: 5,
+    left: 5,
+    shadowColor: '#ffffff',
+    shadowOffset: {
+      width: -20,
+      height: -20,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 60,
   },
 });
 
-export default RectangleWithDiagonalsX;
+export default NeumorphicCircle;

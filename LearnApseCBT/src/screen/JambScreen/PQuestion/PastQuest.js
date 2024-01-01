@@ -12,6 +12,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import axios from "axios";
+import * as SQLite from "expo-sqlite";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 // Icons
 import { AntDesign } from "@expo/vector-icons";
@@ -25,9 +29,8 @@ import Analysis from "./Analysis.js";
 import ErrorQuestion from "./ErrorQuestion.js";
 import ReadMore from "./ReadMore.js";
 import CommentSection from "./CommentSection.js";
-import axios from "axios";
-import * as SQLite from "expo-sqlite";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {COLORS} from "../../../../Colors.js";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -79,8 +82,7 @@ function HomeHeader() {
           paddingRight: insets.right + 10,
           paddingTop: insets.top + 12,
           paddingBottom: insets.bottom + 8,
-          borderBottomWidth: 2,
-          borderColor: "#666",
+          zIndex: 2,
         },
       ]}
     >
@@ -89,7 +91,6 @@ function HomeHeader() {
         activeOpacity={0.9}
         underlayColor="lightgray"
         style={{
-          borderWidth: 2,
           width: 60,
           height: 40,
           justifyContent: "center",
@@ -98,7 +99,7 @@ function HomeHeader() {
         <AntDesign
           name="arrowleft"
           size={27}
-          color="#333"
+          color= {COLORS.mainBtnText}
           style={{ marginLeft: -4 }}
         />
       </TouchableHighlight>
@@ -303,7 +304,6 @@ function SelectBySubject() {
     });
   },[])
   
-  console.log("okay mugi", questionsDB);
   return (
     <View>
       <ScrollView
@@ -323,18 +323,10 @@ function SelectBySubject() {
           }}
         >
           <Text style={{ fontSize: 17, fontWeight: "500", marginBottom: 5 }}>
-            Internet connection mugi is not required.
+            Internet connection is not required.
           </Text>
           <ReadMore text={instruction} msg={greetings} maxLength={16} />
         </View>
-        <Text>
-          {questionsDB.map((val, idx) => (
-            <View key={idx}>
-              <Text>{JSON.stringify(val)}</Text>
-              <Text style={{ color: "black" }}>LADo</Text>
-            </View>
-          ))}
-        </Text>
         <Text
           style={{
             fontSize: 18,
@@ -374,23 +366,24 @@ function SelectBySubject() {
 const styles = StyleSheet.create({
   homeContainer: {
     flex: 1,
-    backgroundColor: "lightgray",
+    backgroundColor: COLORS.secondary,
   },
   homeHeader: {
+    backgroundColor: COLORS.primary,
     flexDirection: "row",
     gap: 20,
     alignItems: "center",
   },
-  homeHeaderIcon: {},
   homeHeaderText: {
     fontSize: 20,
     fontWeight: "600",
+    color: COLORS.mainBtnText,
   },
 
   // Study Button
   studyButton: {
     height: 46,
-    backgroundColor: "black",
+    backgroundColor: COLORS.primary,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
@@ -402,7 +395,7 @@ const styles = StyleSheet.create({
   },
   studyButtonText: {
     fontSize: 17,
-    fontWeight: "300",
-    color: "white",
+    fontWeight: "600",
+    color: COLORS.mainBtnText,
   },
 });

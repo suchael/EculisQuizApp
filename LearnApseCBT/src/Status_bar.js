@@ -1,13 +1,14 @@
 
 import { StatusBar } from 'react-native';
+import {COLORS} from "../Colors.js"
 
 function Status_bar(){
 	return(
 	<>
 		<StatusBar 
 			animated = {true}
-			backgroundColor="#6EAAF5"
-			barStyle = "dark-content"
+			backgroundColor= {COLORS.primary}
+			barStyle = "light-content"
 		/>
 	</>
 	);
