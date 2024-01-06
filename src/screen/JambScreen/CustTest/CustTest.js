@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  useState,
+useEffect,
+} from "react";
 import {
   View,
   Text,
@@ -11,13 +14,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
-
+import { SQLite } from 'expo-sqlite';
+import { openDatabase } from 'expo-sqlite';
 import Subject from './SubjectListDb.js';
 import QuestButton from './QuestButton.js';
 import ShowQuestionList from './ShowQuestionList.js';
 import MinAndHourModal from './MinAndHourModal.js';
 
 const Stack = createNativeStackNavigator();
+
+const db = openDatabase('myDatabase.db');
 
 
 export default function PastQuest() {
@@ -93,12 +99,32 @@ function TopBtn() {
     </View>
   );
 }
-
 function SelectByTopic() {
+  const [subjects, setSubjects] = useState([]);
+
+  useEffect(() => {
+    // Fetch subjects from SQLite database
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT * FROM subjects',
+        [],
+        (_, { rows }) => {
+          const subjectsData = rows._array;
+          setSubjects(subjectsData);
+        },
+        (error) => {
+          console.error('Error fetching subjects:', error);
+        }
+      );
+    });
+  }, []);
+
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
-  
-  const instruction = '• Internet connection is not required. \n• Customise this Test to your preference \n• Test your knowledge on a topic';
+
+  const instruction =
+    '• Internet connection is not required. \n• Customise this Test to your preference \n• Test your knowledge on a topic';
+
   return (
     <View>
       <ScrollView>
@@ -117,18 +143,21 @@ function SelectByTopic() {
             borderRadius: 2,
           }}
         >
-          <Text style={{ fontSize: 16.5, fontWeight: '500', paddingHorizontal: 10 }}>{instruction}</Text>
+          <Text style={{ fontSize: 16.5, fontWeight: '500', paddingHorizontal: 10 }}>
+            {instruction}
+          </Text>
         </View>
         <TopBtn />
         <View style={{ paddingBottom: 140 }}>
-          {Subject.map((eachSubject, index) => (
-            <QuestButton key={index} subject={eachSubject}/>
+          {subjects.map((eachSubject, index) => (
+            <QuestButton key={index} subject={eachSubject} />
           ))}
         </View>
       </ScrollView>
     </View>
   );
 }
+
 
 function BottomBtn() {
   const navigation = useNavigation();

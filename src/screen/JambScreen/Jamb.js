@@ -39,6 +39,10 @@ import {COLORS}  from "../../../Colors.js";
 
 const JambScreenStack = createNativeStackNavigator();
 
+const navigateToPastQuestions = (selectedWord) => {
+  navigation.navigate('Past questions', { selectedWord });
+};
+
 export default function JambScreen() {
   return (
     <JambScreenStack.Navigator
@@ -114,36 +118,36 @@ function JambHome({ navigation }) {
  //   fetchDataFromApi();
   }, []);
 
-  useEffect(() => {
-    const moveText = () => {
-      let Token;
+  // useEffect(() => {
+  //   const moveText = () => {
+  //     let Token;
   
-      AsyncStorage.getItem("token")
-        .then((value) => {
-          if (!value) {
-            // Handle empty token data
-            console.log("Token is empty");
-            return ""; // or any other default value you want to return
-          }
+  //     AsyncStorage.getItem("token")
+  //       .then((value) => {
+  //         if (!value) {
+  //           // Handle empty token data
+  //           console.log("Token is empty");
+  //           return ""; // or any other default value you want to return
+  //         }
   
-          Token = value;
-          setTokenVal(value);
+  //         Token = value;
+  //         setTokenVal(value);
   
-          position.setValue(-25);
-          Animated.timing(position, {
-            toValue: 22,
-            duration: 5600,
-            easing: Easing.linear,
-            useNativeDriver: true,
-          }).start(moveText);
-        })
-        .catch((error) => {
-          console.error("Error retrieving token:", error);
-        });
-    };
+  //         position.setValue(-25);
+  //         Animated.timing(position, {
+  //           toValue: 22,
+  //           duration: 5600,
+  //           easing: Easing.linear,
+  //           useNativeDriver: true,
+  //         }).start(moveText);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error retrieving token:", error);
+  //       });
+  //   };
 
-    moveText();
-  }, [tokenVal]);
+  //   moveText();
+  // }, [tokenVal]);
 
   useEffect(() => {
     db.transaction((tx) => {
@@ -211,7 +215,7 @@ function JambHome({ navigation }) {
               <View style={styles.midTopContent}>
                 <View style={styles.midTopContentRow1}>
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("Past questions")}
+                    onPress={() =>  navigation.navigate('Past questions', { subject: 'Jamb' })}
                     activeOpacity={0.3}
                     underlayColor="lightgray"
                     style={[

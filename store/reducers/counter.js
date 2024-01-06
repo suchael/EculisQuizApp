@@ -1,30 +1,25 @@
 const initialState = {
-    count: '0',
+ 
     message: 'Hello, Redux!',
-    username: '',
+    username: 'New User',
     email: '',
     phonenumber: '',
-    auth_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IkVsQGdtYWlsLmNvbSIsImlhdCI6MTcwMTY5NjEwNCwiZXhwIjoxNzMzMjUzNzA0fQ.sX9RqJM6hPdyRrYolPOzDa1lddPMhP0HVdwPg5pbKIQ',
+    auth_token: '',
     usertype: '',
-    pronoun: 'He',
     logged: '0',
-    pic_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ12seFJhxPY1fuHI07hnqEUF9ITm9YN5_3MlHU00&s',
-    id_card: '',
-    ssn: '',
+    pic_url: '',
     wallet: '0',
-//    home_address: '',
-    logitude: '',
-    latitude: '',
     user_id: '',
-    home_address: '',
-    work_address: '',
-    address: '',
-    gender: '',
+    state: '',
     dlines: '',
     reflink: '',
-    locale: '',
-    car_per_hr: '',
-    car_per_hr_2: '',
+    usertype:'',
+    firstname: '',
+    lastname: '',
+    role: '',
+    state: '',
+    usertype: "0",
+
 
 
     
@@ -40,17 +35,14 @@ const initialState = {
           message: action.payload
         };
 
-        case 'UPDATE_PHONE':
+
+        case 'UPDATE_LOG':
           return {
             ...state,
-            phonenumber: action.payload
+            logged: action.payload
           };
 
-          case 'UPDATE_SSN':
-            return {
-              ...state,
-              ssn: action.payload
-            };
+
 
             case 'UPDATE_HOME':
               return {
@@ -116,11 +108,39 @@ const initialState = {
             ...state,
             username: action.payload
           };
-          case 'UPDATE_IMG':
+
+
+          case 'UPDATE_FIRST':
+          return {
+            ...state,
+            firstname: action.payload
+          };
+
+          case 'UPDATE_LAST':
+          return {
+            ...state,
+            lastname: action.payload
+          };
+
+          case 'UPDATE_ROLE':
             return {
               ...state,
-              pic_url: action.payload
+              role: action.payload
             };
+
+            case 'UPDATE_STATE':
+            return {
+              ...state,
+              state: action.payload
+            };
+
+            case 'UPDATE_TYPE':
+            return {
+              ...state,
+              usertype: action.payload
+            };
+
+       
 
           case 'UPDATE_ID':
             return {

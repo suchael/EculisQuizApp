@@ -7,12 +7,16 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+
+import { useSelector } from 'react-redux';
 
 export default function HeaderNav({ visible, onClose }) {
   const navigation = useNavigation();
   const [inputValue, setInputValue] = useState("");
+  const usertype = useSelector(state => state.usertype);
+  
 
   return (
     <Modal
@@ -54,6 +58,19 @@ export default function HeaderNav({ visible, onClose }) {
               >
                 <Text style={styles.navBtnText}>Contact Us</Text>
               </TouchableOpacity>
+
+
+                          {usertype === "0" ? (
+              <TouchableOpacity
+                style={styles.LoginButton}
+                onPress={() => {
+                  navigation.navigate("Login");
+                  onClose();
+                }}
+              >
+                <Text style={styles.LoginTxt}>Login </Text>
+              </TouchableOpacity>
+            ) : (
               <TouchableOpacity
                 style={styles.navButton}
                 onPress={() => {
@@ -63,6 +80,8 @@ export default function HeaderNav({ visible, onClose }) {
               >
                 <Text style={styles.navBtnText}>Logout</Text>
               </TouchableOpacity>
+            )}
+
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -107,6 +126,23 @@ const styles = StyleSheet.create({
     borderColor: "#888",
     borderRadius: 5,
   },
+
+  LoginTxt: {
+    color: 'white',
+    fontSize: 17,
+    fontWeight: "500",
+  },
+
+  LoginButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    justifyContent: "center",
+    borderWidth: 0.5,
+    backgroundColor: 'green',
+    borderColor: "#888",
+    borderRadius: 5,
+  },
+
   navBtnText: {
     fontSize: 17,
     fontWeight: "500",

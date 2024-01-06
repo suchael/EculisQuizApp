@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TextInput,
-  Image,
+  Image, ActivityIndicator
 } from "react-native";
 
 import React, { useState, useEffect } from "react";
@@ -22,15 +22,17 @@ import { AntDesign, Feather } from "@expo/vector-icons";
 import UnderLineTextBtn from "../ExamMode/UnderLineTextBtn.js";
 
 // auth
-import { Auth } from "../../../../Firebase/Firestore.js";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import HeaderTop from "../../../components/customComponents/HeaderTop.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
+//Constants
+
+import { API_URL } from '../../../../Constants';
+
 export default function LoginScreen() {
   return (
-    <View style={{ flex: 1, marginTop: 40 }}>
+    <View style={{ flex: 1 }}>
       <Main />
     </View>
   );
@@ -126,10 +128,17 @@ function Main() {
       fontSize: 20,
       fontWeight: "600",
     },
+    loadingContainer: {
+      ...StyleSheet.absoluteFillObject,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "rgba(0, 0, 0, 0.5)", 
+    },
   });
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
@@ -141,8 +150,10 @@ function Main() {
 
   const handleSignIn = async () => {
     try {
-      // Make a request to your login endpoint with username and password
-      const apiEndpoint = 'http://192.168.1.94:4000/api/auth/login';
+
+         const apiEndpoint = `${API_URL}/api/auth/login`;
+         setLoading(true);
+      console.log(apiEndpoint);
       const apiResponse = await axios.post(apiEndpoint, {
         username: username,
         password: password,
@@ -151,6 +162,7 @@ function Main() {
       // Assuming the token is in the 'token' property of the response
       const token = apiResponse?.data?.user.token;
       const apiUsername = apiResponse?.data?.user.username;
+      console.log(apiResponse);
       
       if (token) {
         // Store the token in AsyncStorage
@@ -158,14 +170,23 @@ function Main() {
         await AsyncStorage.setItem("username", apiUsername);
       }
   
-      console.log("token=========>>>>>> mugi", token);
+    
   
       navigation.replace("HomeScreen");
     } catch (err) {
+      
       console.log(err);
+
       alert("Sorry wrong email/password");
       setError("Invalid Username or Password");
+
+      setLoading(false);
     }
+
+    finally {
+      setLoading(false); // Set loading to false whether the request is successful or not
+    }
+
   };
 
   useEffect(() => {
@@ -176,6 +197,7 @@ function Main() {
         const getUserEmail = await AsyncStorage.removeItem("userEmail");
         console.log("check token==>", getToken);
         console.log("check email==>", getUserEmail);
+
 
         if (getToken?.token) {
           // Redirect to HomeScreen if the user is logged in
@@ -191,6 +213,13 @@ function Main() {
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
+{loading && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="blue" />
+          </View>
+        )}
+
       <View style={styles.homeContainer}>
         {/*Login Section*/}
         <View style={styles.loginContainer}>
@@ -292,6 +321,8 @@ function Main() {
           <TouchableOpacity onPress={handleSignIn} style={styles.loginButton}>
             <Text style={{ fontSize: 17, fontWeight: "bold", color: "white" }}>
               Login
+
+              
             </Text>
           </TouchableOpacity>
 
@@ -329,6 +360,15 @@ function Main() {
         </TouchableOpacity>
         {/*closing - Signup Section*/}
       </View>
+
+
+      {loading && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="blue" />
+          </View>
+        )}
+
+
     </ScrollView>
   );
 }

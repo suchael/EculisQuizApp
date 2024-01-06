@@ -87,7 +87,7 @@ const Main = () => {
   const handleLogout = async () => {
     try {
       console.log("Logging out...");
-      await AsyncStorage.removeItem("token");
+      await AsyncStorage.removeItem("auth_token");
       await AsyncStorage.removeItem("userName")
       console.log("Logout successful");
       navigation.navigate("Login");

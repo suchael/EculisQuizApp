@@ -65,7 +65,8 @@ function WaecHome({navigation}) {
             <View style={styles.midTopContent}>
               <View style={styles.midTopContentRow1}>
                 <TouchableOpacity
-				  onPress={() => navigation.navigate("Custom test")}
+	//			  onPress={() => navigation.navigate("Custom test")}
+            onPress={() => navigation.navigate("WaecPastQuestions")}
                   activeOpacity={0.3}
                   underlayColor="lightgray"
                   style={[styles.midTopContentRow1Btn, { borderRadius: 34}]}

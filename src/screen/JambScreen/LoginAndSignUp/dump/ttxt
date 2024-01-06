@@ -1,0 +1,8 @@
+ LOG  Registration successful: {"code": "200", "message":
+  "User successfully created", "token": ", "user": {"__v": 0, "_id": "6594180886f1e854697bbcff",#
+   "email": "elbon@gmail.com", "firstname": "Noble", "lastname":
+    "Noble", "password": "$2b$10$lSsadLWqOIwA3LuKVQ3fAOl1IYY1xwp
+    2GjDSs.Se0JcU1N4ReLRzq", "role": "Basic", "state": "Delta",
+     "username": "Noblesttyttty", "usertype": "Student"}}
+
+

@@ -13,6 +13,10 @@ import React, { useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 
+import { useSelector, useDispatch } from 'react-redux';
+
+
+
 // Icons
 import { AntDesign } from "@expo/vector-icons"; // Import your icon libraries
 
@@ -26,6 +30,14 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import HeaderTop from "../../../components/customComponents/HeaderTop.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+//Constants
+
+import { API_URL } from '../../../../Constants';
+import axios from "axios";
+
+
+
+
 export default function Signup() {
   return (
     <View style={{ flex: 1 }}>
@@ -37,12 +49,20 @@ export default function Signup() {
 
 function Main() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const insets = useSafeAreaInsets();
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [tfirstname, setTfirstName] = useState("");
+  const [tlastname, setTlastname] = useState("");
+  const [tusertype, setUsertype] = useState("");
   const [password, setPassword] = useState("");
+  const [tstate, setTstate] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handlePasswordChange = (text) => {
     setPassword(text);
@@ -62,27 +82,141 @@ function Main() {
     setSelectedOption(option);
   };
 
-  // signup
-  // const handleSignUp = async () => {
-  //   try {
-  //     const res = await createUserWithEmailAndPassword(Auth, username, password);
-  //     console.log(res.user);
+
+
+
+  const signup = async () => {
+   
+      try {
+        setLoading(true);
   
-  //     const userEmail = res?._tokenResponse?.email;
-  //     const token = res?._tokenResponse?.idToken;
+        const apiUrl = `${API_URL}/api/auth/register`;
+        const requestData = {
+          username: username,
+          password: password,
+          email: email,
+          firstname: tfirstname,
+          lastname: tlastname,
+          state: tstate,
+          usertype: tusertype, 
+        };
   
-  //     if (token) {
-  //       await AsyncStorage.setItem("token", token);
-  //       await AsyncStorage.setItem("userName", userEmail);
-  //     }
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestData),
+        });
   
-  //     navigation.navigate("HomeScreen");
-  //   } catch (error) {
-  //     console.log(error);
-  //     alert("Could not sign you up");
-  //   }
-  // };
+        if (response.ok) {
+          const data = await response.json();
+          const token = data.token;
+          const userId = data?.user._id;
+         const userName = data?.user.username;
+         const firstName = data?.user?.firstname;
+         const lastName = data?.user?.lastname;
+         const role = data?.user?.role;
+         const state = data?.user?.state;
+         const usertype = data?.user?.usertype;
+          await AsyncStorage.setItem('authToken', token);
+          dispatch({ type: 'UPDATE_ID', payload: userId });
+          dispatch({ type: 'UPDATE_NAME', payload: userName });
+          dispatch({ type: 'UPDATE_FIRST', payload: firstName });
+          dispatch({ type: 'UPDATE_LAST', payload: lastName });
+          dispatch({ type: 'UPDATE_ROLE', payload: role });
+          dispatch({ type: 'UPDATE_STATE', payload: state });
+          dispatch({ type: 'UPDATE_TYPE', payload: usertype });
+          navigation.replace("HomeScreen");        
+          console.log('Registration successful:', data);
+
+
+          
+     
+          
+        } else {
+          if (response.status === 419) {
+            const errorData = await response.json();
+            const errorMessage = errorData.message;
+          //  setAuthToken(responseData.token);
+
+          alert("This Email has been registered, Please Login!");
+
+          setError("This Email has been registered, Please Login!");
+
+           
+            console.error('Registration failed:', errorData);
+          
+            // Handle conflict error, maybe show an error message to the user
+          }
+          else if (response.status === 502) {
+            // Handle 502 Bad Gateway error
+            setErrorMessage('Email Already Exist!');
+            setModalVisible(true);
+
+          
+          } 
+          
+          else {
+            console.error('Registration failed:', response.status);
+            // Handle other errors or display appropriate messages to the user
+          }
+        }
+      } catch (error) {
+        console.error('Error during registration:', error);
+        // Handle network errors or other exceptions
+      } finally {
+        setLoading(false);
+      }
+    
+  };
+ 
+
+
+
+  const handleSignUp = async () => {
+    try {
+      // Make a request to your login endpoint with username and password
+      const apiEndpoint = `${API_URL}/api/auth/register`;
+      console.log(apiEndpoint);
+      const apiResponse = await axios.post(apiEndpoint, {
+        username: username,
+        password: password,
+        email: email,
+        firstname: tfirstname,
+        lastname: tlastname,
+        state: tstate,
+        usertype: tusertype, 
+      });
   
+      // Assuming the token is in the 'token' property of the response
+      const token = apiResponse?.data?.user.token;
+      const apiUsername = apiResponse?.messsge;
+      console(apiUsername)
+      
+      if (token) {
+        // Store the token in AsyncStorage
+        await AsyncStorage.setItem("token", token);
+        await AsyncStorage.setItem("username", apiUsername);
+      }
+  
+      console.log("token=========>>>>>> mugi", token);
+  
+      navigation.replace("HomeScreen");
+    } catch (err) {
+      
+      console.log(err);
+
+      alert("Sorry wrong email/password");
+      setError("Invalid Username or Password");
+    }
+  };
+
+
+
+
+
 
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -128,7 +262,7 @@ function Main() {
               </Text>
               <TextInput
                 placeholder=" "
-                onChangeText={(text) => setUsername(text)}
+                onChangeText={(text) => setTfirstName(text)}
                 style={{
                   paddingLeft: 20,
                   backgroundColor: "lightgray",
@@ -140,6 +274,7 @@ function Main() {
                   borderWidth: 2,
                   borderColor: "#777",
                 }}
+                value=""
               />
             </View>
             {/*Closing - first name*/}
@@ -159,7 +294,8 @@ function Main() {
               </Text>
               <TextInput
                 placeholder=" "
-                onChangeText={(text) => setUsername(text)}
+                value="Noble"
+                onChangeText={(text) => setTlastname(text)}
                 style={{
                   paddingLeft: 20,
                   backgroundColor: "lightgray",
@@ -190,7 +326,8 @@ function Main() {
               </Text>
               <TextInput
                 placeholder=" "
-                onChangeText={(text) => setUsername(text)}
+                value="Noble@gmail.com"
+                onChangeText={(text) => setEmail(text)}
                 style={{
                   paddingLeft: 20,
                   backgroundColor: "lightgray",
@@ -220,6 +357,7 @@ function Main() {
               </Text>
               <TextInput
                 placeholder=" "
+                value="Noble123"
                 onChangeText={(text) => handlePasswordChange(text)}
                 style={{
                   paddingLeft: 20,
@@ -247,6 +385,7 @@ function Main() {
               </Text>
               <TextInput
                 placeholder=" "
+                value="Noble123"
                 onChangeText={(text) => handleConfirmPasswordChange(text)}
                 style={{
                   paddingLeft: 20,
@@ -291,6 +430,7 @@ function Main() {
               </Text>
               <TextInput
                 placeholder=" "
+                value="Noble"
                 onChangeText={(text) => setUsername(text)}
                 style={{
                   paddingLeft: 20,
@@ -371,7 +511,7 @@ function Main() {
               alignItems: "center",
               marginTop: 25,
             }}
-            onPress={handleSignUp}
+            onPress={signup}
           >
             <Text style={{ fontSize: 17, fontWeight: "bold", color: "white" }}>
               Signup

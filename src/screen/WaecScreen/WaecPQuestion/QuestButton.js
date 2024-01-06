@@ -21,7 +21,8 @@ export default function QuestButton({subject, pickerType, index, scrollFunc}){
 	const insets = useSafeAreaInsets();
 	// Switch and TouchableHighlight state
 	const [isToggleOn, setIsToggleOn] = useState(null);
-	const [selectedButton, setSelectedButton] = useState(null); // Change to single selected button
+	const [selectedButton, setSelectedButton] = useState(null);
+	const subjectName = subject ? subject.name : 'Unknown'; // Change to single selected button
 
 	const handleToggle = ()=> {
 		scrollFunc(index)

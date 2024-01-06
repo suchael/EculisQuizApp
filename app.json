@@ -4,6 +4,7 @@
     "slug": "LearnApseCBT",
     "version": "1.0.0",
     "orientation": "portrait",
+    "jsEngine": "hermes",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -30,6 +31,17 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "38925c3a-3c0b-48ac-8ceb-f1b59c08b825"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/38925c3a-3c0b-48ac-8ceb-f1b59c08b825"
     }
   }
 }

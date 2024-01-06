@@ -8,7 +8,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
@@ -28,11 +28,16 @@ import ErrorQuestion from "./ErrorQuestion.js";
 import ReadMore from "./ReadMore.js";
 import subjects from "../../../SubjectDb.js";
 import CommentSection from "./CommentSection.js";
+import * as SQLite from "expo-sqlite";
+import { openDatabase } from 'expo-sqlite';
+const db = openDatabase('myDatabase.db');
+
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 
-export default function PastQuest() {
+export default function PastQuests() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false, animation: "none" }}>
       <Stack.Screen name="Home" component={Home} />
@@ -52,10 +57,71 @@ export default function PastQuest() {
 function Home() {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const [subjects, setSubjects] = useState([]);
+  const db = openDatabase('myDatabase.db');
+
+  useEffect(() => {
+    console.log('useEffect is running');
+    getSubjectsFromDatabase();
+    initializeDatabase();
+    console.log('useEffect is done running');
+   
+  }, []);
+  
+  const getSubjectsFromDatabase = () => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT * FROM subjects',
+        [],
+        (_, { rows }) => {
+          const subjectsArray = Array.from(rows);
+          setSubjects(subjectsArray);
+          console.log('Fetched subjects:', subjectsArray);
+          setLoading(false);
+        },
+        (_, error) => {
+          console.error("Error executing SQL query: SELECT * FROM subjects", error);
+          setLoading(false);
+          // Handle the error, e.g., display an error message to the user
+        }
+      );
+    });
+  };
+
+
+  const initializeDatabase = () => {
+    // Run the specific SELECT query with LIMIT 5
+    db.transaction((tx) => {
+      tx.executeSql(
+        "SELECT * FROM subjects;",
+        [],
+        (_, result) => {
+          if (result.rows.length > 0) {
+            const names = [];
+            for (let i = 0; i < result.rows.length; i++) {
+              const row = result.rows.item(i);
+              names.push(row.name);
+            }
+            setSubjectNames(names);
+            console.log("Noble")
+          } else {
+            // If subjects table is empty, generate random subjects
+            const randomSubjects = ["Mathematics", "English", "Physics", "Chemistry", "Biology"];
+            setSubjectNames(randomSubjects);
+          }
+        },
+        (_, error) => console.error("Error running SELECT query: ", error)
+      );
+    });
+  };
+  
+  
+  
+  
   return (
     <View style={styles.homeContainer}>
       <HomeHeader />
-      <SelectBySubject />
+      <SelectBySubject subjects={subjects} />
       <TouchableHighlight
         onPress={() => navigation.navigate("Show question list")}
         underlayColor="lightgray"
@@ -109,7 +175,7 @@ function HomeHeader() {
   );
 }
 
-function SelectBySubject() {
+function SelectBySubject({ subjects }) {
   const navigation = useNavigation(); // Use the useNavigation hook
   const insets = useSafeAreaInsets();
 
@@ -166,17 +232,20 @@ function SelectBySubject() {
         >
           Select a subject:{" "}
         </Text>
-        <View style={{ paddingBottom: 180 }}>
-          {Subjects.map((eachSubject, index) => (
-            <QuestButton
-              key={index}
-              scrollFunc={scrollToButton}
-              subject={eachSubject}
-              pickerType="Year"
-              index={index}
-            />
-          ))}
-        </View>
+      
+      {/* ... Existing code ... */}
+      <View style={{ paddingBottom: 180 }}>
+      {subjects.map((eachSubject, index) => (
+  <QuestButton
+    key={index}
+    scrollFunc={scrollToButton}
+    subject={eachSubject}
+    pickerType="Year"
+    index={index}
+  />
+))}
+
+      </View>
       </ScrollView>
       <View
         style={{

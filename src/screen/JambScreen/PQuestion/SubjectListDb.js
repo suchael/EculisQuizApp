@@ -39,8 +39,7 @@ export const Subjects = [
   { name: "Civil Engineering", year: 2022, totalQuestions: 40 },
   { name: "Christian Religious Studies", year: 2022, totalQuestions: 40 },
   { name: "Islamic Religious Studies Engineering", year: 2022, totalQuestions: 40 },
-  // A
-  // Add more subjects here
+  
 ];
 
 

@@ -13,14 +13,12 @@ import React, {
   useMemo,
   useCallback,
   useContext,
-useEffect,
   useRef,
 } from "react";
-import { openDatabase } from 'expo-sqlite';
+
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import * as Clipboard from "expo-clipboard";
-
 
 // Icons
 import { AntDesign, MaterialIcons, Feather } from "@expo/vector-icons";
@@ -30,9 +28,6 @@ import { Questions } from "./SubjectListDb.js";
 import PageSelectorModal from "./PageSelectorModal.js";
 import { ShowQuestionContext } from "./ShowQuestionContext/Context.js";
 import { COLORS } from "../../../../Colors.js";
-const db = openDatabase('myDatabase.db');
-
-
 
 function ShowQuestionList() {
   const navigation = useNavigation();
@@ -47,41 +42,6 @@ function ShowQuestionList() {
   const totalPages = Math.ceil(totalQuestions / questionsPerPage);
 
   const scrollViewRef = useRef();
-
-
-  const [questions, setQuestions] = useState([]);
-
-  const initializeDatabase = () => {
-    // Run the specific SELECT query with LIMIT 5
-    db.transaction(tx => {
-      tx.executeSql(
-        "SELECT * FROM questions LIMIT 5;",
-        [],
-        (_, result) => {
-          for (let i = 0; i < result.rows.length; i++) {
-            const row = result.rows.item(i);
-            console.log("Question ID:", row.id);
-            console.log("Question:", row.question);
-            console.log("Option A:", row.option_A);
-            console.log("Option B:", row.option_B);
-            console.log("Option C:", row.option_C);   
-            console.log("Option D:", row.option_D);
-            console.log("Correct Option:", row.answer);   
-
-            console.log("Answer:", row.answer);
-
-            console.log("------");
-          }
-          setIsLoadingQuestion(false);
-        },
-        (_, error) => console.error("Error running SELECT query: ", error)
-      );
-    });
-  };
-
-  useEffect(() => {
-    initializeDatabase();
-  }, []);
 
   //Memoize the navigation handlers using useCallback
   const handleNextPage = useCallback(() => {

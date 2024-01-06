@@ -12,6 +12,7 @@ import Header from "./components/customComponents/Header.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { COLORS } from "../Colors.js";
 const TopTab = createMaterialTopTabNavigator();
+import { useSelector } from 'react-redux';
 
 
 
@@ -20,22 +21,23 @@ const TopTab = createMaterialTopTabNavigator();
 function HomeScreen() {
   const navigation = useNavigation();
   const [userEmail, setUserEmail] = useState("");
+  const status = useSelector(state => state.usertype);
 
-  useEffect(() => {
-    const fetchUserEmail = async () => {
-      try {
-        const storedUserEmail = await AsyncStorage.getItem("userName");
-        setUserEmail(storedUserEmail || "");
+  // useEffect(() => {
+  //   const fetchUserEmail = async () => {
+  //     try {
+  //       const storedUserEmail = await AsyncStorage.getItem("userName");
+  //       setUserEmail(storedUserEmail || "");
         
-      } catch (error) {
-        console.error("Error retrieving user email from AsyncStorage:", error);
-      }
-    };
+  //     } catch (error) {
+  //       console.error("Error retrieving user email from AsyncStorage:", error);
+  //     }
+  //   };
 
-    fetchUserEmail();
-  }, []);
+  //   fetchUserEmail();
+  // }, []);
 
-  const newUserName = userEmail?.split('@')[0];
+  const newUserName = userEmail?.split('@')[0] || "New User";
   console.log('lol', newUserName)
   GetQuestions();
 

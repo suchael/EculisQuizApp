@@ -1,7 +1,7 @@
 const initialState = {
     username: '',
     email: '',
-    // Add other user details as needed
+  
   };
   
   const userReducer = (state = initialState, action) => {
@@ -11,7 +11,7 @@ const initialState = {
           ...state,
           ...action.payload,
         };
-      // Add more cases for other user-related actions if needed
+    
       default:
         return state;
     }

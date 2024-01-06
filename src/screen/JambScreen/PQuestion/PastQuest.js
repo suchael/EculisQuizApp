@@ -5,15 +5,22 @@ import {
   ScrollView,
   Dimensions,
   TouchableHighlight,
+  TouchableOpacity,
+  Modal,
 } from "react-native";
-
+//import { Picker } from "@react-native-picker/picker";
+import {Picker} from '@react-native-picker/picker';
 import React, { useEffect, useRef, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import axios from "axios";
+import { openDatabase } from 'expo-sqlite';
+import RNPickerSelect from 'react-native-picker-select';
 import * as SQLite from "expo-sqlite";
+
+//import {COLORS} from "../../../../Colors.js";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
@@ -31,84 +38,128 @@ import ReadMore from "./ReadMore.js";
 import CommentSection from "./CommentSection.js";
 import {COLORS} from "../../../../Colors.js";
 
-
 const Stack = createNativeStackNavigator();
 
-export default function PastQuest() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false, animation: "fade" }}>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen
-        name="Show question list"
-        component={ShowQuestionList}
-        initialParams={{ currentPage: 1 }}
-      />
-      <Stack.Screen name="Explanation" component={Explanation} />
-      <Stack.Screen name="Analysis" component={Analysis} />
-      <Stack.Screen name="ErrorQuestion" component={ErrorQuestion} />
-      <Stack.Screen name="CommentSection" component={CommentSection} />
-    </Stack.Navigator>
-  );
-}
+export default function PastQuest(navigation, route) {
+//  const navigation = useNavigation();
+  const db = openDatabase('myDatabase.db');
+  const [subjectNames, setSubjectNames] = useState([]);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [selectedTopic, setSelectedTopic] = useState("");
+  const [selectedSubject, setSelectedSubject] = useState(null);
+  const [selectedYear, setSelectedYear] = useState("");
+  const years = ["2022", "2021", "2020"];
 
-function Home() {
+
+
+
+  const initializeDatabase = () => {
+    // Run the specific SELECT query with LIMIT 5
+    db.transaction((tx) => {
+      tx.executeSql(
+        "SELECT * FROM subjects;",
+        [],
+        (_, result) => {
+          if (result.rows.length > 0) {
+            const names = [];
+            for (let i = 0; i < result.rows.length; i++) {
+              const row = result.rows.item(i);
+              names.push(row.name);
+            }
+            setSubjectNames(names);
+          } else {
+            // If subjects table is empty, generate random subjects
+            const randomSubjects = ["Mathematics", "English", "Physics", "Chemistry", "Biology"];
+            setSubjectNames(randomSubjects);
+          }
+        },
+        (_, error) => console.error("Error running SELECT query: ", error)
+      );
+    });
+  };
+  
+
+  useEffect(() => {
+    initializeDatabase();
+  }, []);
+
+
+  const openSubjectModal = (subject) => {
+    setSelectedSubject(subject);
+    setModalVisible(true);
+  };
+
+  const closeSubjectModal = () => {
+    setModalVisible(false);
+  };
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
+//  const navigation = useNavigation();
 
   return (
     <View style={styles.homeContainer}>
       <HomeHeader />
       <SelectBySubject />
-      <TouchableHighlight
+
+   
+        <View style={{ paddingLeft: 10, paddingRight: 10, flex: 1 }}>
+   <ScrollView>
+       {subjectNames.map((name, index) => (
+        
+ <View key={index} style={[styles.container, { backgroundColor: COLORS.secondary }]}>
+      <TouchableOpacity 
+       style={styles.buttonContainer}
+      onPress={() => openSubjectModal(name)}>
+      <View
+        onPress={() => {}}
+        underlayColor="lightgray"
+        activeOpacity={0.9}
+      //  style={styles.buttonContainer}
+      >
+        <View style={styles.buttonContainerRect}>
+          <Text style={{ fontSize: 17, fontWeight: "500", color: "black" }} numberOfLines={1}>
+            {name}
+          </Text>
+        </View>
+      </View>
+      </TouchableOpacity>
+      
+    </View>
+  
+ 
+))}
+
+
+
+        
+</ScrollView>
+ </View> 
+
+
+      {/* Display subject names */}
+     
+
+      {/* <TouchableHighlight
         onPress={() => navigation.navigate("Show question list")}
         underlayColor="lightgray"
         style={styles.studyButton}
       >
         <Text style={styles.studyButtonText}>Study Now</Text>
-      </TouchableHighlight>
+      </TouchableHighlight> */}
+
+
+      <SubjectModal
+        isVisible={isModalVisible}
+        subject={selectedSubject}
+        onClose={closeSubjectModal}
+        onTopicChange={setSelectedTopic}
+        onYearChange={setSelectedYear}
+      />
     </View>
   );
 }
 
-function HomeHeader() {
-  const navigation = useNavigation();
-  const insets = useSafeAreaInsets();
-  return (
-    <View
-      style={[
-        styles.homeHeader,
-        {
-          paddingLeft: insets.left + 10,
-          paddingRight: insets.right + 10,
-          paddingTop: insets.top + 12,
-          paddingBottom: insets.bottom + 8,
-          zIndex: 2,
-        },
-      ]}
-    >
-      <TouchableHighlight
-        onPress={() => navigation.goBack()}
-        activeOpacity={0.9}
-        underlayColor="lightgray"
-        style={{
-          width: 60,
-          height: 40,
-          justifyContent: "center",
-        }}
-      >
-        <AntDesign
-          name="arrowleft"
-          size={27}
-          color= {COLORS.mainBtnText}
-          style={{ marginLeft: -4 }}
-        />
-      </TouchableHighlight>
-      <Text style={styles.homeHeaderText}>
-        JAMB{"  "}Past{"  "}Questions
-      </Text>
-    </View>
-  );
-}
+
+
 
 function SelectBySubject() {
   const navigation = useNavigation(); // Use the useNavigation hook
@@ -339,7 +390,7 @@ function SelectBySubject() {
           Select a subject:{" "}
         </Text>
         <ScrollView></ScrollView>
-        <View style={{ paddingBottom: 180 }}>
+        {/* <View style={{ paddingBottom: 180 }}>
           {Subjects.map((eachSubject, index) => (
             <QuestButton
               key={index}
@@ -349,17 +400,178 @@ function SelectBySubject() {
               index={index}
             />
           ))}
-        </View>
+        </View> */}
       </ScrollView>
-      <View
-        style={{
+      
+    </View>
+  );
+}
+
+function HomeHeader({ route }) {
+  const navigation = useNavigation();
+  const insets = useSafeAreaInsets();
+  
+  
+  return (
+    <View
+      style={[
+        styles.homeHeader,
+        {
           paddingLeft: insets.left + 10,
           paddingRight: insets.right + 10,
-          borderWidth: 10,
-          padding: 5,
+          paddingTop: insets.top + 12,
+          paddingBottom: insets.bottom + 8,
+          zIndex: 2,
+        },
+      ]}
+    >
+      <TouchableHighlight
+        onPress={() => navigation.goBack()}
+        activeOpacity={0.9}
+        underlayColor="lightgray"
+        style={{
+          width: 60,
+          height: 40,
+          justifyContent: "center",
         }}
-      ></View>
+      >
+        <AntDesign
+          name="arrowleft"
+          size={27}
+          color= {COLORS.mainBtnText}
+          style={{ marginLeft: -4 }}
+        />
+      </TouchableHighlight>
+
+    
+
+      <Text style={styles.homeHeaderText}>
+         {"  "}Past{"  "}Questions
+      </Text>
     </View>
+  );
+}
+
+function SubjectModal({ isVisible, subject, onClose, onTopicChange, onYearChange }) {
+  const [options, setOptions] = useState([
+    { label: "Select Option", value: null },
+    { label: "Year", value: "year" },
+    { label: "Topic", value: "topic" },
+  ]);
+
+  const topicsWithSubTopics = [
+    { label: "Math", value: "math", subTopics: ["Algebra", "Geometry", "Calculus"] },
+    { label: "Physics", value: "physics", subTopics: ["Mechanics", "Thermodynamics", "Optics"] },
+    // Add other topics with their sub-topics here
+  ];
+
+  const years = ["2022", "2021", "2020"];
+
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedTopic, setSelectedTopic] = useState(null);
+  const navigation = useNavigation();
+  const [selectedSubTopic, setSelectedSubTopic] = useState(null);
+
+  const handleOptionChange = (itemValue) => {
+    setSelectedOption(itemValue);
+    onTopicChange(null);
+    onYearChange(null);
+  };
+
+  const handleTopicChange = (itemValue) => {
+    setSelectedTopic(itemValue);
+    setSelectedSubTopic(null);
+    onTopicChange(itemValue);
+  };
+
+  const handleSubTopicChange = (itemValue) => {
+    setSelectedSubTopic(itemValue);
+  };
+
+  return (
+    <Modal
+      visible={isVisible}
+      transparent={true}
+      animationType="slide"
+      onRequestClose={onClose}
+    >
+      <View style={styles.modalContainer}>
+        <View style={styles.modalContent}>
+          <Text style={styles.modalHeaderText}>{subject}</Text>
+
+          <Picker
+            selectedValue={selectedOption}
+            itemStyle={styles.pickerItem}
+            style={styles.pickerItem}
+            onValueChange={handleOptionChange}
+          >
+            {options.map((option, index) => (
+              <Picker.Item key={index} label={option.label} value={option.value} />
+            ))}
+          </Picker>
+
+          {selectedOption === "topic" && (
+            <View>
+              <Picker
+                selectedValue={selectedTopic}
+                onValueChange={handleTopicChange}
+                style={styles.pickerItem}
+              >
+                {topicsWithSubTopics.map((topic, index) => (
+                  <Picker.Item key={index} label={topic.label} value={topic.value} />
+                ))}
+              </Picker>
+
+              {selectedTopic && (
+                <Picker
+                  selectedValue={selectedSubTopic}
+                  onValueChange={handleSubTopicChange}
+                  style={styles.pickerItem}
+                >
+                  {topicsWithSubTopics
+                    .find((topic) => topic.value === selectedTopic)
+                    .subTopics.map((subTopic, index) => (
+                      <Picker.Item key={index} label={`\u2022 ${subTopic}`} value={subTopic} />
+                    ))}
+                </Picker>
+              )}
+            </View>
+          )}
+
+          {selectedOption === "year" && (
+            <Picker
+              selectedValue={null}
+              onValueChange={(itemValue) => onYearChange(itemValue)}
+            >
+              {years.map((year, index) => (
+                <Picker.Item key={index} label={year} value={year} />
+              ))}
+            </Picker>
+          )}
+
+          <TouchableHighlight
+            onPress={() => {
+              console.log("Selected Option:", selectedOption);
+              console.log("Selected Topic:", selectedTopic);
+              console.log("Selected Sub-Topic:", selectedSubTopic);
+              console.log("Selected Year:", onYearChange);
+              onClose();
+              navigation.navigate("Show question list")
+            }}
+            // onPress={() => navigation.navigate("Show question list")}
+            underlayColor="lightgray"
+            style={styles.studyButton}
+          >
+            <Text style={styles.studyButtonText}>Study Now</Text>
+          </TouchableHighlight>
+
+        
+        </View>
+
+     
+
+      </View>
+    </Modal>
   );
 }
 
@@ -382,20 +594,120 @@ const styles = StyleSheet.create({
 
   // Study Button
   studyButton: {
-    height: 46,
+    height: 48,
     backgroundColor: COLORS.primary,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
-    position: "absolute",
-    bottom: 10, // Adjust this value to control the distance from the bottom
-    left: 15,
-    right: 15,
-    alignSelf: "center",
+    position: 'relative',
+    bottom: 0, // Adjust this value to control the distance from the bottom
+    marginHorizontal: 5,
   },
   studyButtonText: {
     fontSize: 17,
     fontWeight: "600",
     color: COLORS.mainBtnText,
+  },
+
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 5,
+	marginBottom: 6,
+    borderWidth: 1,
+	borderColor: "#999",
+	elevation: 10,
+    borderTopRightRadius: 40,
+    borderBottomRightRadius: 40,
+    borderTopLeftRadius: 32,
+    borderBottomLeftRadius: 32,
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: "row",
+    flexDirection: "space-between",
+    paddingTop: 10.8,
+    paddingBottom: 10.8,
+    borderTopRightRadius: 40,
+    borderBottomRightRadius: 40,
+    borderTopLeftRadius: 32,
+    borderBottomLeftRadius: 32,
+  },
+  pickerItem: {
+    color: 'black', 
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+  },
+  modalHeaderText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  closeButton: {
+    marginTop: 15,
+    backgroundColor: '#3498db', // Example button color
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  closeButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  containerCircle: {
+    borderRightWidth: 3,
+    height: 50,
+    width: 38,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  containerCircleText: {
+    fontSize: 19,
+  },
+  buttonContainerRect: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingLeft: 30,
+  },
+  buttonRectText: {
+    fontSize: 18,
+  },
+
+
+  // Attached View to Button on clicked
+  attachedToButton: {
+    minHeight: 100,
+    flexDirection: "row",
+    marginBottom: 10,
+	gap: 10,
+  },
+  attachedToButtonLeft: {
+    flex: 1,
+    borderWidth: 2,
+	borderColor: COLORS.primary,
+	borderRadius: 10, 
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  attachedToButtonRight: {
+	flex: 1,
+	borderWidth: 2,
+	borderColor: COLORS.primary,
+	borderRadius: 10,
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });

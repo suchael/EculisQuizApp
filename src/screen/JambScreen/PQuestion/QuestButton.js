@@ -68,7 +68,7 @@ export default function QuestButton({
           </View>
         </TouchableOpacity>
       </View>
-      {isToggleOn && (
+       {isToggleOn && (
         <View style={{ justifyContent: "center", paddingHorizontal: 25 }}>
           <View style={styles.attachedToButton}>
             <View style={styles.attachedToButtonLeft}>
@@ -79,7 +79,7 @@ export default function QuestButton({
             </View>
           </View>
         </View>
-      )}
+      )} 
     </View>
   );
 }

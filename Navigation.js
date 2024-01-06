@@ -36,6 +36,20 @@ import NewsCommentSection from "./src/screen/NewsScreen/NewsCommentSection.js";
 import ContactUs from "./src/pages/ContactUs.js";
 import Profile from "./src/pages/Profile.js";
 import Logout from "./src/pages/Logout.js";
+
+
+//my imports
+import Sqlite from "./Sqlite.js";
+import SqlDown from "./SqlDown.js";
+import WaecPastQuestions from "./src/screen/WaecScreen/WaecPQuestion/WaecPastQuestions.js";
+
+import ShowQuestionList from "./src/screen/JambScreen/PQuestion/ShowQuestionList.js";
+import Explanation from "./src/screen/JambScreen/PQuestion/Explanation.js";
+import Analysis from "./src/screen/JambScreen/PQuestion/Analysis.js";
+import ErrorQuestion from "./src/screen/JambScreen/PQuestion/ErrorQuestion.js";
+import CommentSection from "./src/screen/JambScreen/PQuestion/CommentSection.js";
+import NecoPastQuestions from "./src/screen/WaecScreen/WaecPQuestion/NecoPastQuestions.js";
+
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => (
@@ -68,6 +82,43 @@ const Navigation = () => (
     options={{ headerShown: false }}
     component={HomeScreen}
   />
+   <Stack.Screen
+    name="Sqlite"
+    options={{ headerShown: false }}
+    component={Sqlite}
+  />
+
+<Stack.Screen
+    name="WaecPastQuestions"
+    options={{ headerShown: false }}
+    component={WaecPastQuestions}
+  />
+
+  
+<Stack.Screen
+    name="NecoPastQuestions"
+    options={{ headerShown: false }}
+    component={NecoPastQuestions}
+  />
+
+
+      <Stack.Screen
+        name="Show question list"
+        component={ShowQuestionList}
+        initialParams={{ currentPage: 1 }}
+      />
+      <Stack.Screen name="Explanation" component={Explanation} />
+      <Stack.Screen name="Analysis" component={Analysis} />
+      <Stack.Screen name="ErrorQuestion" component={ErrorQuestion} />
+      <Stack.Screen name="CommentSection" component={CommentSection} />
+
+
+<Stack.Screen
+    name="SqlDown"
+    options={{ headerShown: false }}
+    component={SqlDown}
+  />
+
 
   {/*Header Navigation*/}
   <Stack.Screen name="UpdateQuestion" component={UpdateQuestion} />
